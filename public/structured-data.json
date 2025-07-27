@@ -1,0 +1,72 @@
+{
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Cleopatra Nile Cruises",
+  "description": "Luxury Nile cruises aboard traditional dahabiya boats between Luxor and Aswan. Experience authentic Egyptian culture and ancient wonders in comfort and style.",
+  "url": "https://cleopatracruises.com",
+  "logo": "https://cleopatracruises.com/logo.png",
+  "image": "https://cleopatracruises.com/images/hero-bg.jpg",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Corniche El Nile",
+    "addressLocality": "Luxor",
+    "addressRegion": "Luxor Governorate",
+    "postalCode": "85951",
+    "addressCountry": "Egypt"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "25.6872",
+    "longitude": "32.6396"
+  },
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "+20-123-456-7890",
+    "contactType": "customer service",
+    "email": "info@cleopatracruises.com",
+    "availableLanguage": ["English", "Arabic", "French", "German", "Spanish"]
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "09:00",
+    "closes": "17:00"
+  },
+  "sameAs": [
+    "https://www.facebook.com/cleopatracruises",
+    "https://www.instagram.com/cleopatracruises",
+    "https://twitter.com/cleopatracruises"
+  ],
+  "priceRange": "$$$",
+  "areaServed": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": "25.6872",
+      "longitude": "32.6396"
+    },
+    "geoRadius": "500000"
+  },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Nile Cruise Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "Luxury Dahabiya Cruise",
+          "description": "Experience the Nile in style aboard our traditional dahabiya boats"
+        }
+      }
+    ]
+  }
+} 

@@ -1,0 +1,33 @@
+# Exclude mobile app directories from Next.js compilation (keep files but don't compile)
+mobile-app/**
+mobile-app-egyptian/**
+
+# Exclude build directories
+dist/
+build/
+.next/
+
+# Exclude documentation and scripts
+docs/
+scripts/
+
+# Exclude test files
+**/*.test.js
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.js
+**/*.spec.ts
+**/*.spec.tsx
+
+# Exclude development files
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Exclude temporary files
+tmp/
+temp/
+.tmp/
+.temp/

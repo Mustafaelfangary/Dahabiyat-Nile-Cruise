@@ -1,0 +1,964 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String?         @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  role          Role            @default(USER)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  phone         String?
+  isEmailVerified Boolean       @default(false)
+  emailVerificationToken String?
+  emailVerificationExpires DateTime?
+  resetToken String?
+  resetTokenExpiry DateTime?
+  loyaltyPoints Int             @default(0)
+  accounts      Account[]
+  bookings      Booking[]
+  notifications Notification[]
+  reviews       Review[]
+  sessions      Session[]
+  preferences   UserPreference?
+  // UserWishlist  UserWishlist[]  // REMOVED: related to deleted UserWishlist model
+  memories      UserMemory[]
+  loyaltyActions LoyaltyAction[]
+  bookingModifications BookingModification[] @relation("BookingModifications")
+  bookingCancellations BookingCancellation[] @relation("BookingCancellations")
+  analyticsEvents AnalyticsEvent[] @relation("AnalyticsEvents")
+  errorReports ErrorReport[] @relation("ErrorReports")
+  conversionStats ConversionStats[] @relation("ConversionStats")
+  searchStats SearchStats[] @relation("SearchStats")
+}
+
+model UserPreference {
+  id                  String   @id @default(cuid())
+  userId              String   @unique
+  preferredLanguage   String   @default("en")
+  currency            String   @default("USD")
+  newsletterOptIn     Boolean  @default(true)
+  dietaryRestrictions String[]
+  travelPreferences   String[]
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+  user                User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+
+
+model Account {
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+// REMOVED: Dahabiya model - deleted as part of clean system rebuild
+// model Dahabiya {
+//   id               String             @id @default(cuid())
+//   name             String
+//   slug             String?            @unique
+//   description      String
+//   shortDescription String?
+//   pricePerDay      Decimal            @db.Decimal(10, 2)
+//   capacity         Int
+//   features         String[]
+//   rating           Float              @default(0)
+//   type             DahabiyaType       @default(STANDARD)
+//   category         DahabiyaCategory   @default(DELUXE)
+//   amenities        String[]
+
+//   // Ship/Vessel specifications (merged from Ship model)
+//   yearBuilt        Int?
+//   length           Float?             // Length in meters
+//   width            Float?             // Width in meters
+//   crew             Int?               // Number of crew members
+//   facilities       String[]           // Ship facilities
+//   specifications   Json?              // Technical specifications
+
+//   // Content and media
+//   advantages       String
+//   meaning          String
+//   mainImageUrl     String?
+//   videoUrl         String?
+//   factSheetUrl     String?
+
+//   // Homepage and ordering
+//   isFeaturedOnHomepage  Boolean  @default(false)
+//   homepageOrder         Int?     // Order on homepage (1 = first)
+
+//   // Timestamps
+//   createdAt        DateTime           @default(now())
+//   updatedAt        DateTime           @updatedAt
+
+//   // Relations
+//   itineraryId      String?            // Made optional
+//   availableDates   AvailabilityDate[]
+//   bookings         Booking[]
+//   cabins           Cabin[]
+//   images           Image[]
+//   reviews          Review[]
+//   UserWishlist     UserWishlist[]
+//   itinerary        Itinerary?         @relation(fields: [itineraryId], references: [id])
+
+//   @@map("dahabiyat")
+// }
+
+// REMOVED: AvailabilityDate model - related to deleted Dahabiya system
+// model AvailabilityDate {
+//   id         String   @id @default(cuid())
+//   date       DateTime
+//   available  Boolean  @default(true)
+//   price      Decimal  @db.Decimal(10, 2)
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime @updatedAt
+//   dahabiyaId String
+//   dahabiya   Dahabiya @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
+
+//   @@unique([dahabiyaId, date])
+// }
+
+// REMOVED: Cabin model - related to deleted Dahabiya system
+// model Cabin {
+//   id          String    @id @default(cuid())
+//   name        String
+//   description String
+//   capacity    Int
+//   price       Decimal   @db.Decimal(10, 2)
+//   features    String[]
+//   bedType     String
+//   deck        Int
+//   size        Int
+//   view        String
+//   dahabiyaId  String
+//   cabinTypeId String
+//   bookings    Booking[]
+//   cabinType   CabinType @relation(fields: [cabinTypeId], references: [id])
+//   dahabiya    Dahabiya  @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
+//   images      Image[]
+// }
+
+model ItineraryDay {
+  id          String      @id @default(cuid())
+  dayNumber   Int
+  title       String
+  description String
+  location    String?
+  itineraryId String
+  portId      String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  activities  String[]
+  meals       MealType[]
+  coordinates Json?
+  images      Image[]
+  itinerary   Itinerary   @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  port        Port?       @relation(fields: [portId], references: [id])
+  excursions  Excursion[] @relation("ItineraryDayExcursions")
+
+  @@map("itinerary_days")
+}
+
+model Image {
+  id             String        @id @default(cuid())
+  url            String
+  alt            String?
+  // cabinId        String?  // REMOVED: related to deleted Cabin model
+  featured       Boolean       @default(false)
+  order          Int           @default(0)
+  // dahabiyaId     String?  // REMOVED: related to deleted Dahabiya model
+  category       ImageCategory
+  itineraryDayId String?
+  // cabin          Cabin?        @relation(fields: [cabinId], references: [id], onDelete: Cascade)  // REMOVED
+  // dahabiya       Dahabiya?     @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)  // REMOVED
+  itineraryDay   ItineraryDay? @relation(fields: [itineraryDayId], references: [id], onDelete: Cascade)
+  itinerary      Itinerary?
+}
+
+model PageContent {
+  id          String   @id @default(cuid())
+  key         String   @unique
+  title       String
+  content     String
+  contentType String   @default("TEXT") // TEXT, TEXTAREA, IMAGE, VIDEO, HTML, JSON
+  page        String   // dahabiyas, home, about, etc.
+  section     String   // hero, content, cta, etc.
+  order       Int      @default(0)
+  isActive    Boolean  @default(true)
+  metadata    Json?    // Additional configuration data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([page, section])
+  @@index([page, order])
+}
+
+model Booking {
+  id               String            @id @default(cuid())
+  userId           String
+  startDate        DateTime
+  endDate          DateTime
+  status           Status            @default(PENDING)
+  totalPrice       Decimal           @db.Decimal(10, 2)
+  guests           Int
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  specialRequests  String?
+  // cabinId          String?  // REMOVED: related to deleted Cabin model
+  // dahabiyaId       String?  // REMOVED: related to deleted Dahabiya model
+  packageId        String?           // Added for package bookings
+  promotionId      String?
+  type             String?           // Added to distinguish booking types (DAHABIYA, PACKAGE)
+  bookingReference String?           // Added for unique booking references
+  bookedExcursions BookedExcursion[]
+  // cabin            Cabin?            @relation(fields: [cabinId], references: [id])  // REMOVED
+  // dahabiya         Dahabiya?         @relation(fields: [dahabiyaId], references: [id])  // REMOVED
+  package          Package?          @relation(fields: [packageId], references: [id])
+  promotion        Promotion?        @relation(fields: [promotionId], references: [id])
+  user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+  guestDetails     GuestDetail[]
+  payment          Payment?
+  modifications    BookingModification[]
+  cancellation     BookingCancellation?
+}
+
+model GuestDetail {
+  id                  String   @id @default(cuid())
+  bookingId           String
+  firstName           String
+  lastName            String
+  dateOfBirth         DateTime
+  passport            String?
+  nationality         String
+  dietaryRequirements String[]
+  booking             Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model Payment {
+  id            String        @id @default(cuid())
+  bookingId     String        @unique
+  amount        Decimal       @db.Decimal(10, 2)
+  currency      String
+  status        PaymentStatus @default(PENDING)
+  provider      String
+  paymentMethod String
+  transactionId String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  booking       Booking       @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  rating     Int
+  comment    String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  userId     String
+  helpful    Int      @default(0)
+  photos     String[]
+  response   String?
+  title      String?
+  verified   Boolean  @default(false)
+  // dahabiyaId String  // REMOVED: related to deleted Dahabiya model
+  // Enhanced fields for approval system
+  status     String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  adminNotes String?  // Admin notes for rejection or approval
+  approvedAt DateTime? // When the review was approved
+  approvedBy String?  // Admin who approved the review
+  location   String?  // Location where the experience happened
+  tripDate   DateTime? // Date of the trip
+  isHomepageFeatured Boolean @default(false) // Featured on homepage
+  homepageOrder Int?   // Order for homepage display
+  // dahabiya   Dahabiya @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)  // REMOVED
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+// Ship model removed - merged into Dahabiya model
+// Each Dahabiya now contains its own vessel specifications
+
+model Destination {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String
+  country     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ports       Port[]
+}
+
+model Port {
+  id            String         @id @default(cuid())
+  name          String         @unique
+  description   String?
+  destinationId String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  destination   Destination    @relation(fields: [destinationId], references: [id])
+  itineraryDays ItineraryDay[]
+}
+
+model Itinerary {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String?        @unique
+  description   String
+  shortDescription String?
+  durationDays  Int
+  mainImageUrl  String?
+  heroImageUrl  String?
+  videoUrl      String?
+  price         Float?
+  maxGuests     Int?
+  highlights    String[]       // Array of highlight points
+  included      String[]       // What's included
+  notIncluded   String[]       // What's not included
+  childrenPolicy String?
+  cancellationPolicy String?
+  observations  String?
+  isActive      Boolean        @default(true)
+  featured      Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  imageId       String?        @unique
+
+  image         Image?         @relation(fields: [imageId], references: [id])
+  // dahabiyat     Dahabiya[]  // REMOVED: related to deleted Dahabiya model
+  days          ItineraryDay[]
+  pricingTiers  ItineraryPricing[]
+}
+
+model ItineraryPricing {
+  id          String    @id @default(cuid())
+  itineraryId String
+  category    String    // e.g., "SILVER", "GOLD", "DIAMOND"
+  paxRange    String    // e.g., "2-3 PAX", "4-8 PAX"
+  price       Float
+  singleSupplement Float?
+  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Blog {
+  id              String   @id @default(cuid())
+  title           String
+  slug            String   @unique
+  excerpt         String?
+  content         String   // Rich text content
+  mainImageUrl    String?
+  heroImageUrl    String?
+  author          String   @default("Cleopatra Dahabiyat")
+  tags            String[] // Array of tags
+  category        String?  // e.g., "Travel Tips", "Destinations", "Culture"
+  isPublished     Boolean  @default(false)
+  featured        Boolean  @default(false)
+  publishedAt     DateTime?
+  readTime        Int?     // Estimated read time in minutes
+  seoTitle        String?
+  seoDescription  String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Excursion {
+  id               String            @id @default(cuid())
+  name             String
+  description      String
+  price            Decimal           @db.Decimal(10, 2)
+  type             ExcursionType
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  bookedExcursions BookedExcursion[]
+  itineraryDays    ItineraryDay[]    @relation("ItineraryDayExcursions")
+}
+
+model BookedExcursion {
+  bookingId   String
+  excursionId String
+  createdAt   DateTime  @default(now())
+  booking     Booking   @relation(fields: [bookingId], references: [id])
+  excursion   Excursion @relation(fields: [excursionId], references: [id])
+
+  @@id([bookingId, excursionId])
+}
+
+// REMOVED: CabinType model - related to deleted Cabin system
+// model CabinType {
+//   id          String   @id @default(cuid())
+//   name        String   @unique
+//   description String?
+//   amenities   String[]
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   cabins      Cabin[]
+// }
+
+model Promotion {
+  id                 String    @id @default(cuid())
+  code               String    @unique
+  description        String?
+  discountPercentage Float
+  startDate          DateTime
+  endDate            DateTime
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  bookings           Booking[]
+}
+
+
+
+
+
+model Contact {
+  id        String        @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  status    ContactStatus @default(PENDING)
+}
+
+model TailorMadeRequest {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  duration        String?  // e.g., "3-5 days", "1 week", "2 weeks"
+  budget          String?  // e.g., "$1000-2000", "$3000-5000"
+  interests       String?  // Special interests and preferences
+  message         String   // Detailed description of dream journey
+  status          String   @default("PENDING") // PENDING, REVIEWED, QUOTED, CONFIRMED, COMPLETED
+  adminNotes      String?  // Internal notes for admin
+  quotedPrice     Decimal? @db.Decimal(10, 2) // Quoted price if provided
+  responseMessage String?  // Admin response message
+  respondedAt     DateTime? // When admin responded
+  respondedBy     String?  // Admin user ID who responded
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("tailor_made_requests")
+}
+
+model GalleryCategory {
+  id          String         @id @default(cuid())
+  name        String         @unique
+  slug        String         @unique
+  description String?
+  hieroglyph  String?        // Egyptian hieroglyph for the category
+  color       String?        // Theme color for the category
+  order       Int            @default(0)
+  isActive    Boolean        @default(true)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  images      GalleryImage[]
+
+  @@map("gallery_categories")
+}
+
+model GalleryImage {
+  id          String          @id @default(cuid())
+  url         String
+  alt         String?
+  title       String?
+  description String?
+  categoryId  String
+  category    GalleryCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  order       Int             @default(0)
+  isActive    Boolean         @default(true)
+  isFeatured  Boolean         @default(false)
+  tags        String[]        // Array of tags for filtering
+  createdAt   DateTime        @default(now())
+  updatedAt   DateTime        @updatedAt
+
+  @@map("gallery_images")
+}
+
+model UserMemory {
+  id          String   @id @default(cuid())
+  userId      String
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title       String
+  description String?
+  imageUrl    String
+  location    String?
+  tripDate    DateTime?
+  status      String   @default("PENDING") // PENDING, APPROVED, REJECTED
+  adminNotes  String?
+  approvedAt  DateTime?
+  approvedBy  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("user_memories")
+}
+
+model faq {
+  id        String   @id @default(cuid())
+  question  String
+  answer    String
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("faqs")
+}
+
+
+
+
+
+model Package {
+  id               String                @id @default(cuid())
+  name             String
+  description      String
+  shortDescription String?
+  price                 Decimal               @db.Decimal(10, 2)
+  durationDays          Int
+  mainImageUrl          String?
+  isFeaturedOnHomepage  Boolean               @default(false)
+  homepageOrder         Int?                  // Order on homepage (1 = first)
+  createdAt             DateTime              @default(now())
+  updatedAt             DateTime              @updatedAt
+  itineraryDays    PackageItineraryDay[]
+  bookings         Booking[]             // Added relation to bookings
+}
+
+model PackageItineraryDay {
+  id          String         @id @default(cuid())
+  dayNumber   Int
+  title       String
+  description String
+  packageId   String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  images      PackageImage[]
+  package     Package        @relation(fields: [packageId], references: [id], onDelete: Cascade)
+}
+
+model PackageImage {
+  id                    String              @id @default(cuid())
+  url                   String
+  alt                   String?
+  packageItineraryDayId String
+  packageItineraryDay   PackageItineraryDay @relation(fields: [packageItineraryDayId], references: [id], onDelete: Cascade)
+}
+
+// REMOVED: UserWishlist model - related to deleted Dahabiya system
+// model UserWishlist {
+//   A         String
+//   B         String
+//   dahabiyat Dahabiya @relation(fields: [A], references: [id], onDelete: Cascade)
+//   User      User     @relation(fields: [B], references: [id], onDelete: Cascade)
+
+//   @@unique([A, B], map: "_UserWishlist_AB_unique")
+//   @@index([B], map: "_UserWishlist_B_index")
+//   @@map("_UserWishlist")
+// }
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+}
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String   @db.Text
+  group     String   // homepage, contact, social, seo, appearance, booking, payment, email
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model WebsiteContent {
+  id          String      @id @default(cuid())
+  key         String      @unique
+  title       String?
+  content     String?     @db.Text
+  mediaUrl    String?
+  mediaType   MediaType?
+  contentType ContentType @default(TEXT)
+  page        String      // homepage, about, contact, footer, etc.
+  section     String      // hero, features, gallery, etc.
+  order       Int         @default(0)
+  isActive    Boolean     @default(true)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  @@map("website_content")
+}
+
+enum ContentType {
+  TEXT
+  TEXTAREA
+  IMAGE
+  VIDEO
+  HTML
+  JSON
+}
+
+
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  type      String   // BOOKING_CREATED, BOOKING_STATUS_CHANGED, PAYMENT_RECEIVED, etc.
+  title     String
+  message   String
+  data      Json?    // Additional data for the notification
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
+}
+
+
+
+
+
+
+
+model MediaAsset {
+  id          String    @id @default(cuid())
+  filename    String
+  originalName String
+  url         String
+  type        MediaType
+  size        Int
+  mimeType    String
+  alt         String?
+  caption     String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("media_assets")
+}
+
+
+
+
+
+
+
+enum ImageCategory {
+  INDOOR
+  OUTDOOR
+  BATHROOM
+  RESTAURANT_BAR
+  DECK
+  GENERAL
+}
+
+enum Role {
+  USER
+  ADMIN
+  MANAGER
+  GUIDE
+}
+
+enum Status {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  REFUNDED
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  REFUNDED
+}
+
+// ENHANCED DAHABIYA SYSTEM - Rich features and specifications
+model Dahabiya {
+  id          String   @id @default(cuid())
+  name        String
+  slug        String   @unique
+  description String   @db.Text
+  shortDescription String?
+
+  // Pricing & Capacity
+  pricePerDay Decimal  @db.Decimal(10, 2)
+  capacity    Int
+  cabins      Int      @default(0)
+  crew        Int      @default(0)
+
+  // Vessel Specifications
+  length      Float?   // Length in meters
+  width       Float?   // Width in meters
+  yearBuilt   Int?
+
+  // Media
+  mainImage   String?
+  gallery     String[] // Array of image URLs
+  videoUrl    String?
+  virtualTourUrl String?
+
+  // Features & Amenities
+  features    String[] // Key features/amenities
+  amenities   String[] // Detailed amenities
+  activities  String[] // Available activities
+
+  // Dining & Services
+  diningOptions String[] // Restaurant, bar, etc.
+  services    String[]   // Spa, laundry, etc.
+
+  // Itinerary & Routes
+  routes      String[] // Available routes
+  highlights  String[] // Key attractions
+
+  // Ratings & Reviews
+  rating      Float    @default(0)
+  reviewCount Int      @default(0)
+
+  // Booking & Availability
+  isActive    Boolean  @default(true)
+  isFeatured  Boolean  @default(false)
+  category    DahabiyaCategory @default(DELUXE)
+
+  // SEO & Marketing
+  metaTitle   String?
+  metaDescription String?
+  tags        String[]
+
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("dahabiyat")
+}
+
+enum DahabiyaCategory {
+  LUXURY
+  DELUXE
+  PREMIUM
+  BOUTIQUE
+}
+
+enum DahabiyaStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+  SNACK
+  AFTERNOON_TEA
+}
+
+enum ExcursionType {
+  ON_BOARD
+  OFF_BOARD
+}
+
+
+
+
+
+enum ContactStatus {
+  PENDING
+  READ
+  REPLIED
+  ARCHIVED
+}
+
+model BookingModification {
+  id               String   @id @default(cuid())
+  bookingId        String
+  modificationType String   // DATES, GUESTS, REQUESTS, etc.
+  oldValues        String   // JSON string of old values
+  newValues        String   // JSON string of new values
+  modifiedBy       String   // User ID who made the modification
+  reason           String?
+  createdAt        DateTime @default(now())
+
+  booking          Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  modifier         User     @relation("BookingModifications", fields: [modifiedBy], references: [id])
+}
+
+model BookingCancellation {
+  id               String   @id @default(cuid())
+  bookingId        String   @unique
+  reason           String
+  cancelledBy      String   // User ID who cancelled
+  cancellationFee  Decimal  @db.Decimal(10, 2) @default(0)
+  refundAmount     Decimal  @db.Decimal(10, 2) @default(0)
+  cancellationDate DateTime @default(now())
+  refundProcessed  Boolean  @default(false)
+  refundDate       DateTime?
+
+  booking          Booking  @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+  canceller        User     @relation("BookingCancellations", fields: [cancelledBy], references: [id])
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  event     String
+  userId    String?
+  sessionId String?
+  data      String   // JSON data
+  ipAddress String?
+  userAgent String?
+  timestamp DateTime @default(now())
+
+  user      User?    @relation("AnalyticsEvents", fields: [userId], references: [id])
+
+  @@index([event, timestamp])
+  @@index([userId, timestamp])
+  @@index([sessionId, timestamp])
+}
+
+model ErrorReport {
+  id        String   @id @default(cuid())
+  message   String
+  stack     String?
+  context   String?
+  url       String?
+  userAgent String?
+  ipAddress String?
+  userId    String?
+  sessionId String?
+  severity  String   @default("MEDIUM") // LOW, MEDIUM, HIGH, CRITICAL
+  resolved  Boolean  @default(false)
+  timestamp DateTime @default(now())
+
+  user      User?    @relation("ErrorReports", fields: [userId], references: [id])
+
+  @@index([severity, resolved])
+  @@index([timestamp])
+}
+
+model PageViewStats {
+  id          String @id @default(cuid())
+  page        String
+  date        String
+  views       Int    @default(0)
+  uniqueViews Int    @default(0)
+
+  @@unique([page, date], name: "page_date")
+  @@index([date])
+}
+
+model ConversionStats {
+  id        String   @id @default(cuid())
+  type      String   // booking, contact, newsletter, etc.
+  source    String?  // direct, google, facebook, etc.
+  value     Decimal  @db.Decimal(10, 2) @default(0)
+  userId    String?
+  metadata  String?  // JSON metadata
+  timestamp DateTime @default(now())
+
+  user      User?    @relation("ConversionStats", fields: [userId], references: [id])
+
+  @@index([type, timestamp])
+}
+
+model FormStats {
+  id          String @id @default(cuid())
+  formId      String
+  date        String
+  submissions Int    @default(0)
+
+  @@unique([formId, date], name: "form_date")
+  @@index([date])
+}
+
+model ButtonStats {
+  id       String @id @default(cuid())
+  buttonId String
+  date     String
+  clicks   Int    @default(0)
+
+  @@unique([buttonId, date], name: "button_date")
+  @@index([date])
+}
+
+model SearchStats {
+  id        String   @id @default(cuid())
+  query     String
+  results   Int      @default(0)
+  userId    String?
+  timestamp DateTime @default(now())
+
+  user      User?    @relation("SearchStats", fields: [userId], references: [id])
+
+  @@index([query])
+  @@index([timestamp])
+}
+
+model LoyaltyAction {
+  id          String   @id @default(cuid())
+  userId      String
+  action      String   // book-package, like-facebook, follow-instagram, etc.
+  points      Int
+  description String?
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+  @@map("loyalty_actions")
+}
+
+model LoyaltyConfig {
+  id            String   @id @default("default")
+  buttonsConfig String   @db.Text // JSON configuration for loyalty buttons
+  socialLinks   String?  @db.Text // JSON configuration for social media links
+  pointsConfig  String?  @db.Text // JSON configuration for points values
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("loyalty_config")
+}

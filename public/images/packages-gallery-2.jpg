@@ -1,0 +1,10 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="600" height="400" fill="url(#gradient0)"/>
+<defs>
+<linearGradient id="gradient0" x1="0" y1="0" x2="600" y2="400" gradientUnits="userSpaceOnUse">
+<stop stop-color="#10b981"/>
+<stop offset="1" stop-color="#059669"/>
+</linearGradient>
+</defs>
+<text x="300" y="200" font-family="Arial" font-size="24" fill="white" text-anchor="middle">Packages Gallery 2</text>
+</svg>

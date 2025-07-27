@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/hero-bg.jpg</image:loc>
+      <image:title>Cleopatra Dahabiyat - Luxury Nile Cruises</image:title>
+      <image:caption>Experience pharaonic luxury aboard authentic Egyptian dahabiyat</image:caption>
+    </image:image>
+  </url>
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/dahabiyat</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/packages</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/gallery</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/reviews</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/blog</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/contact</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/about</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Individual Dahabiyat -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/dahabiyat/princess-cleopatra</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/dahabiyat/princess-cleopatra.jpg</image:loc>
+      <image:title>Princess Cleopatra Dahabiya</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/dahabiyat/queen-cleopatra</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/dahabiyat/queen-cleopatra.jpg</image:loc>
+      <image:title>Queen Cleopatra Dahabiya</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/dahabiyat/royal-cleopatra</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/dahabiyat/royal-cleopatra.jpg</image:loc>
+      <image:title>Royal Cleopatra Dahabiya</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/dahabiyat/azhar-dahabiya</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/dahabiyat/azhar-dahabiya.jpg</image:loc>
+      <image:title>Azhar Dahabiya</image:title>
+    </image:image>
+  </url>
+
+  <!-- Individual Packages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/packages/luxury-nile-experience</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/packages/luxury-nile-experience.jpg</image:loc>
+      <image:title>Luxury Nile Experience Package</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/packages/cultural-discovery</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/packages/cultural-discovery.jpg</image:loc>
+      <image:title>Cultural Discovery Journey</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/packages/adventure-explorer</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/packages/adventure-explorer.jpg</image:loc>
+      <image:title>Adventure Explorer Package</image:title>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/packages/classic-egypt-explorer</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://cleopatradadhabiyat.com/images/packages/classic-egypt-explorer.jpg</image:loc>
+      <image:title>Classic Egypt Explorer Package</image:title>
+    </image:image>
+  </url>
+
+  <!-- Auth Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/auth/signin</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/auth/signup</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Legal Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/privacy</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <url>
+    <loc>https://cleopatradadhabiyat.com/terms</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Booking Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/bookings</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- Profile Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/profile</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- Special Pages -->
+  <url>
+    <loc>https://cleopatradadhabiyat.com/tailor-made</loc>
+    <lastmod>2024-12-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://cleopatracruises.com/about</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://cleopatracruises.com/dahabiyat</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://cleopatracruises.com/contact</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://cleopatracruises.com/faq</loc>
+    <lastmod>2024-03-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset> 

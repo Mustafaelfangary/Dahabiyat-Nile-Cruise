@@ -1,0 +1,32 @@
+{
+  "common": {
+    "bookNow": "Book Now",
+    "explore": "Explore",
+    "learnMore": "Learn More",
+    "contactUs": "Contact Us"
+  },
+  "home": {
+    "hero": {
+      "title": "Experience Luxury on the Nile",
+      "subtitle": "Discover the magic of ancient Egypt aboard our premium Dahabiya cruises"
+    },
+    "cruises": {
+      "title": "Our Cruise Programs",
+      "viewAll": "View All Cruises"
+    }
+  },
+  "booking": {
+    "title": "Book Your Cruise",
+    "selectDates": "Select Dates",
+    "guests": "Number of Guests",
+    "specialRequests": "Special Requests",
+    "proceed": "Proceed to Payment"
+  },
+  "admin": {
+    "dashboard": "Dashboard",
+    "cruises": "Manage Cruises",
+    "bookings": "Manage Bookings",
+    "users": "Manage Users",
+    "content": "Manage Content"
+  }
+} 
