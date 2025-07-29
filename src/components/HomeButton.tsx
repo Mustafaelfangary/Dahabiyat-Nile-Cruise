@@ -14,14 +14,12 @@ export function HomeButton() {
   }
 
   return (
-    <Button
+    <button
       onClick={() => router.push('/')}
-      variant="outline"
-      size="sm"
-      className="fixed bottom-4 left-4 z-50 bg-amber-600 hover:bg-amber-700 text-black border-amber-600 hover:border-amber-700 shadow-lg"
+      className="fixed bottom-36 right-6 z-50 w-12 h-12 bg-amber-600 hover:bg-amber-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
+      aria-label="Go to Home"
     >
-      <Home className="w-4 h-4 mr-2" />
-      Home
-    </Button>
+      <Home className="w-5 h-5" />
+    </button>
   );
 }

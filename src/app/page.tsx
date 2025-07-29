@@ -743,17 +743,19 @@ export default function HomePage() {
             </div>
 
             {/* Founder Image Below Content */}
-            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-lg">
-              <div className="relative w-32 h-32 lg:w-48 lg:h-48 mx-auto mb-4 lg:mb-6 ring-4 ring-egyptian-gold/20">
-                <Image
-                  src={get('founder_image', '/images/our-story-founder.jpg')}
-                  alt="Our founder"
-                  fill
-                  className="object-cover rounded-full shadow-lg"
-                />
+            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-lg mt-8">
+              <div className="relative w-24 h-24 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6">
+                <div className="w-full h-full rounded-full overflow-hidden ring-2 ring-egyptian-gold/30 shadow-lg">
+                  <Image
+                    src={get('founder_image', '/images/our-story-founder.jpg')}
+                    alt="Our founder"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
               </div>
-              <h3 className="text-lg lg:text-2xl font-bold text-gray-800 mb-1 lg:mb-2 mobile-card-title">{get('founder_name', 'Captain Ahmed Hassan')}</h3>
-              <p className="text-gray-600 text-sm lg:text-base mobile-subtitle">{get('founder_title', 'Founder & Master Navigator')}</p>
+              <h3 className="text-base lg:text-xl font-bold text-gray-800 mb-1 lg:mb-2 mobile-card-title">{get('founder_name', 'Captain Ahmed Hassan')}</h3>
+              <p className="text-gray-600 text-xs lg:text-sm mobile-subtitle">{get('founder_title', 'Founder & Master Navigator')}</p>
             </div>
           </div>
         </Container>

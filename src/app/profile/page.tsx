@@ -379,10 +379,10 @@ export default function ProfilePage() {
                   </div>
 
                   {/* Action Buttons */}
-                  <div className="flex flex-col gap-3">
+                  <div className="profile-action-buttons flex flex-col gap-3">
                     <Button
                       onClick={() => setIsEditing(!isEditing)}
-                      className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm"
+                      className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm w-full justify-center"
                     >
                       <Edit3 className="w-4 h-4 mr-2" />
                       {isEditing ? 'Cancel' : 'Edit Profile'}
@@ -390,7 +390,7 @@ export default function ProfilePage() {
                     <Button
                       variant="destructive"
                       onClick={handleSignOut}
-                      className="bg-red-500/80 hover:bg-red-600/80 backdrop-blur-sm"
+                      className="bg-red-500/80 hover:bg-red-600/80 backdrop-blur-sm w-full justify-center"
                     >
                       <LogOut className="w-4 h-4 mr-2" />
                       Sign Out
@@ -403,64 +403,117 @@ export default function ProfilePage() {
 
           {/* Enhanced Tabs Section */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
-              <TabsTrigger
-                value="bookings"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Calendar className="w-4 h-4" />
-                <span className="hidden sm:inline">My Journeys</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="notifications"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Bell className="w-4 h-4" />
-                <span className="hidden sm:inline">Notifications</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="wishlist"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Heart className="w-4 h-4" />
-                <span className="hidden sm:inline">Wishlist</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="reviews"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Star className="w-4 h-4" />
-                <span className="hidden sm:inline">Reviews</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="settings"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Settings className="w-4 h-4" />
-                <span className="hidden sm:inline">Settings</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="loyalty"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Crown className="w-4 h-4" />
-                <span className="hidden sm:inline">Loyalty</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="memories"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Camera className="w-4 h-4" />
-                <span className="hidden sm:inline">Memories</span>
-              </TabsTrigger>
-              <TabsTrigger
-                value="reviews"
-                className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
-              >
-                <Star className="w-4 h-4" />
-                <span className="hidden sm:inline">Reviews</span>
-              </TabsTrigger>
-            </TabsList>
+            {/* Mobile Tabs - Scrollable */}
+            <div className="lg:hidden">
+              <div className="overflow-x-auto scrollbar-hide">
+                <TabsList className="flex w-max min-w-full gap-1 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
+                  <TabsTrigger
+                    value="bookings"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Calendar className="w-4 h-4" />
+                    <span className="text-xs">Journeys</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="notifications"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Bell className="w-4 h-4" />
+                    <span className="text-xs">Alerts</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="wishlist"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Heart className="w-4 h-4" />
+                    <span className="text-xs">Wishlist</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="reviews"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Star className="w-4 h-4" />
+                    <span className="text-xs">Reviews</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="loyalty"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Crown className="w-4 h-4" />
+                    <span className="text-xs">Loyalty</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="memories"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Camera className="w-4 h-4" />
+                    <span className="text-xs">Memories</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="settings"
+                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  >
+                    <Settings className="w-4 h-4" />
+                    <span className="text-xs">Settings</span>
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+            </div>
+
+            {/* Desktop Tabs - Grid */}
+            <div className="hidden lg:block">
+              <TabsList className="grid w-full grid-cols-6 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
+                <TabsTrigger
+                  value="bookings"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Calendar className="w-4 h-4" />
+                  <span>My Journeys</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="notifications"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Bell className="w-4 h-4" />
+                  <span>Notifications</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="wishlist"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Heart className="w-4 h-4" />
+                  <span>Wishlist</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="reviews"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Star className="w-4 h-4" />
+                  <span>Reviews</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="loyalty"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Crown className="w-4 h-4" />
+                  <span>Loyalty</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="memories"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Camera className="w-4 h-4" />
+                  <span>Memories</span>
+                </TabsTrigger>
+                <TabsTrigger
+                  value="settings"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                >
+                  <Settings className="w-4 h-4" />
+                  <span>Settings</span>
+                </TabsTrigger>
+              </TabsList>
+            </div>
 
             {/* My Journeys Tab */}
             <TabsContent value="bookings" className="mt-8">
