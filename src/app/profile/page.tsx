@@ -524,22 +524,43 @@ export default function ProfilePage() {
                       <Ship className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl text-gray-800">My Journeys</CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardTitle className="text-xl lg:text-2xl text-gray-800">My Journeys</CardTitle>
+                      <CardDescription className="text-gray-600 text-sm lg:text-base">
                         Your adventures along the eternal Nile
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6">
-                  <BookingsList />
+                <CardContent className="p-4 lg:p-6">
+                  <div className="min-h-[200px]">
+                    <BookingsList />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
 
             {/* Notifications Tab */}
             <TabsContent value="notifications" className="mt-8">
-              <UserNotificationCenter />
+              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+                  <div className="flex items-center gap-3">
+                    <div className="p-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-lg">
+                      <Bell className="w-6 h-6 text-white" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl lg:text-2xl text-gray-800">Notifications</CardTitle>
+                      <CardDescription className="text-gray-600 text-sm lg:text-base">
+                        Stay updated with your journey alerts
+                      </CardDescription>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent className="p-4 lg:p-6">
+                  <div className="min-h-[200px]">
+                    <UserNotificationCenter />
+                  </div>
+                </CardContent>
+              </Card>
             </TabsContent>
 
             {/* Wishlist Tab */}
@@ -551,15 +572,17 @@ export default function ProfilePage() {
                       <Heart className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl text-gray-800">Treasured Desires</CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardTitle className="text-xl lg:text-2xl text-gray-800">Treasured Desires</CardTitle>
+                      <CardDescription className="text-gray-600 text-sm lg:text-base">
                         Cruises and experiences you wish to embark upon
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6">
-                  <WishlistGrid />
+                <CardContent className="p-4 lg:p-6">
+                  <div className="min-h-[200px]">
+                    <WishlistGrid />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>
@@ -573,15 +596,17 @@ export default function ProfilePage() {
                       <Star className="w-6 h-6 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl text-gray-800">Royal Testimonials</CardTitle>
-                      <CardDescription className="text-gray-600">
+                      <CardTitle className="text-xl lg:text-2xl text-gray-800">Royal Testimonials</CardTitle>
+                      <CardDescription className="text-gray-600 text-sm lg:text-base">
                         Share your experiences with fellow travelers
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6">
-                  <ReviewsList />
+                <CardContent className="p-4 lg:p-6">
+                  <div className="min-h-[200px]">
+                    <ReviewsList />
+                  </div>
                 </CardContent>
               </Card>
             </TabsContent>

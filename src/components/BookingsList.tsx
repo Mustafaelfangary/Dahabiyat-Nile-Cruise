@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Calendar, MapPin, Users, Clock, Star, Eye } from 'lucide-react';
+import { Calendar, MapPin, Users, Clock, Star, Eye, Package } from 'lucide-react';
 import { format } from 'date-fns';
 
 interface Booking {
@@ -54,19 +54,28 @@ const BookingsList: React.FC<BookingsListProps> = ({
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const url = userId 
+      setError(null);
+      const url = userId
         ? `/api/bookings?userId=${userId}${limit ? `&limit=${limit}` : ''}`
         : `/api/bookings${limit ? `?limit=${limit}` : ''}`;
-      
+
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch bookings');
+        // If unauthorized, show empty state instead of error
+        if (response.status === 401) {
+          setBookings([]);
+          return;
+        }
+        throw new Error(`Failed to fetch bookings: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setBookings(data.bookings || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Bookings fetch error:', err);
+      // Set empty array instead of error for better UX
+      setBookings([]);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -123,29 +132,23 @@ const BookingsList: React.FC<BookingsListProps> = ({
     );
   }
 
-  if (error) {
-    return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <p className="text-red-600">Error: {error}</p>
-          <Button onClick={fetchBookings} className="mt-4">
-            Try Again
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Remove error display - just show empty state for better UX
 
   if (bookings.length === 0) {
     return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <p className="text-gray-500 mb-4">No bookings found</p>
-          <Link href="/packages">
-            <Button>Browse Packages</Button>
-          </Link>
-        </CardContent>
-      </Card>
+      <div className="text-center py-12">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
+          <Calendar className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">No Journeys Yet</h3>
+        <p className="text-gray-600 mb-6">Start your Egyptian adventure by booking your first Dahabiya cruise</p>
+        <Link href="/packages">
+          <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white">
+            <Package className="w-4 h-4 mr-2" />
+            Browse Packages
+          </Button>
+        </Link>
+      </div>
     );
   }
 

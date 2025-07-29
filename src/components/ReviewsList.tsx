@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -65,25 +66,34 @@ const ReviewsList: React.FC<ReviewsListProps> = ({
   const fetchReviews = async () => {
     try {
       setLoading(true);
+      setError(null);
       let url = '/api/reviews?';
       const params = new URLSearchParams();
-      
+
       if (userId) params.append('userId', userId);
       if (packageId) params.append('packageId', packageId);
       if (dahabiyaId) params.append('dahabiyaId', dahabiyaId);
       if (limit) params.append('limit', limit.toString());
-      
+
       url += params.toString();
-      
+
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch reviews');
+        // If unauthorized, show empty state instead of error
+        if (response.status === 401) {
+          setReviews([]);
+          return;
+        }
+        throw new Error(`Failed to fetch reviews: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setReviews(data.reviews || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Reviews fetch error:', err);
+      // Set empty array instead of error for better UX
+      setReviews([]);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -148,27 +158,23 @@ const ReviewsList: React.FC<ReviewsListProps> = ({
     );
   }
 
-  if (error) {
-    return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <p className="text-red-600">Error: {error}</p>
-          <Button onClick={fetchReviews} className="mt-4">
-            Try Again
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Remove error display - just show empty state for better UX
 
   if (reviews.length === 0) {
     return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <MessageSquare className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500">No reviews found</p>
-        </CardContent>
-      </Card>
+      <div className="text-center py-12">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-full flex items-center justify-center">
+          <Star className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">No Reviews Yet</h3>
+        <p className="text-gray-600 mb-6">Share your experiences after completing a journey</p>
+        <Link href="/packages">
+          <Button className="bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-500 hover:to-amber-500 text-white">
+            <Star className="w-4 h-4 mr-2" />
+            Book a Journey
+          </Button>
+        </Link>
+      </div>
     );
   }
 

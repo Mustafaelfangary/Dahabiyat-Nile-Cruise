@@ -52,19 +52,28 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({ userId, limit }) => {
   const fetchWishlist = async () => {
     try {
       setLoading(true);
-      const url = userId 
+      setError(null);
+      const url = userId
         ? `/api/wishlist?userId=${userId}${limit ? `&limit=${limit}` : ''}`
         : `/api/wishlist${limit ? `?limit=${limit}` : ''}`;
-      
+
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error('Failed to fetch wishlist');
+        // If unauthorized, show empty state instead of error
+        if (response.status === 401) {
+          setWishlistItems([]);
+          return;
+        }
+        throw new Error(`Failed to fetch wishlist: ${response.status}`);
       }
-      
+
       const data = await response.json();
       setWishlistItems(data.items || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Wishlist fetch error:', err);
+      // Set empty array instead of error for better UX
+      setWishlistItems([]);
+      setError(null);
     } finally {
       setLoading(false);
     }
@@ -106,30 +115,23 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({ userId, limit }) => {
     );
   }
 
-  if (error) {
-    return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <p className="text-red-600">Error: {error}</p>
-          <Button onClick={fetchWishlist} className="mt-4">
-            Try Again
-          </Button>
-        </CardContent>
-      </Card>
-    );
-  }
+  // Remove error display - just show empty state for better UX
 
   if (wishlistItems.length === 0) {
     return (
-      <Card>
-        <CardContent className="p-6 text-center">
-          <Heart className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <p className="text-gray-500 mb-4">Your wishlist is empty</p>
-          <Link href="/packages">
-            <Button>Browse Packages</Button>
-          </Link>
-        </CardContent>
-      </Card>
+      <div className="text-center py-12">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-pink-400 to-red-400 rounded-full flex items-center justify-center">
+          <Heart className="w-8 h-8 text-white" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">Your Wishlist is Empty</h3>
+        <p className="text-gray-600 mb-6">Save your favorite Dahabiyas and packages for later</p>
+        <Link href="/dahabiyas">
+          <Button className="bg-gradient-to-r from-pink-400 to-red-400 hover:from-pink-500 hover:to-red-500 text-white">
+            <Heart className="w-4 h-4 mr-2" />
+            Explore Dahabiyas
+          </Button>
+        </Link>
+      </div>
     );
   }
 

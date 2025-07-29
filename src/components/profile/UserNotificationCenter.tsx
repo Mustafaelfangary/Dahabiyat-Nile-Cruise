@@ -51,12 +51,22 @@ export default function UserNotificationCenter({ className }: UserNotificationCe
   const fetchNotifications = async () => {
     try {
       const response = await fetch('/api/user/notifications');
-      if (!response.ok) throw new Error('Failed to fetch notifications');
-      
+      if (!response.ok) {
+        // If unauthorized or not found, show empty state
+        if (response.status === 401 || response.status === 404) {
+          setNotifications([]);
+          setLoading(false);
+          return;
+        }
+        throw new Error(`Failed to fetch notifications: ${response.status}`);
+      }
+
       const data = await response.json();
       setNotifications(data.notifications || []);
     } catch (error) {
       console.error('Error fetching notifications:', error);
+      // Show empty state instead of error for better UX
+      setNotifications([]);
     } finally {
       setLoading(false);
     }
