@@ -743,8 +743,8 @@ export default function HomePage() {
             </div>
 
             {/* Founder Image Below Content */}
-            <div className="founder-image-section text-center">
-              <div className="relative w-32 h-32 lg:w-48 lg:h-48 mx-auto mb-4 lg:mb-6">
+            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-lg">
+              <div className="relative w-32 h-32 lg:w-48 lg:h-48 mx-auto mb-4 lg:mb-6 ring-4 ring-egyptian-gold/20">
                 <Image
                   src={get('founder_image', '/images/our-story-founder.jpg')}
                   alt="Our founder"

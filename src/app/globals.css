@@ -1651,11 +1651,24 @@ img.no-zoom:hover,
 
   .founder-image-section {
     margin-top: 2rem !important;
+    padding: 1rem !important;
   }
 
   .founder-image-section .relative {
     width: 8rem !important;
     height: 8rem !important;
+    margin: 0 auto !important;
+  }
+
+  .founder-image-section h3 {
+    font-size: 1.125rem !important;
+    line-height: 1.3 !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .founder-image-section p {
+    font-size: 0.875rem !important;
+    line-height: 1.4 !important;
   }
 
   /* General Mobile Layout Improvements */
