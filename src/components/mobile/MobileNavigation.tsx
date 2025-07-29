@@ -196,7 +196,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
   const navItems: NavItem[] = [
     { href: '/', label: 'Home', icon: Home, hieroglyph: '𓇳' },
     {
-      href: '/dahabiyat',
+      href: '/dahabiyas',
       label: 'Dahabiyat',
       icon: Ship,
       hieroglyph: '𓊪',

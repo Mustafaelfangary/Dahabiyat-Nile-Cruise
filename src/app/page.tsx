@@ -241,7 +241,7 @@ export default function HomePage() {
                 <span className="inline-block ml-1">𓊪</span>
               </p>
               <div className="flex justify-center">
-                <Link href="/dahabiyat">
+                <Link href="/dahabiyas">
                   <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-6 py-3 text-sm sm:text-base md:text-lg hover:from-egyptian-amber hover:to-orange-600 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 shadow-lg hover:shadow-xl">
                     <span className="mr-1">𓊪</span>
                     <span className="hidden sm:inline">{get('hero_video_cta_text', 'Explore Fleet')}</span>
@@ -355,7 +355,7 @@ export default function HomePage() {
           </div>
 
           <div className="text-center mt-12">
-            <Link href="/dahabiyat">
+            <Link href="/dahabiyas">
               <Button className="bg-emerald-500 text-white px-8 py-4 text-lg hover:bg-emerald-600 rounded-full">
                 <span className="mr-2">𓊪</span>
                 {get('dahabiyat_view_all_text', 'View All Dahabiyat')}
