@@ -9,36 +9,59 @@ interface MobileOptimizedLayoutProps {
 
 export default function MobileOptimizedLayout({ children }: MobileOptimizedLayoutProps) {
   const [isMobile, setIsMobile] = useState(false);
+  const [isLandscape, setIsLandscape] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      setIsMobile(width < 768);
+      setIsLandscape(width > height && width < 768);
+      setIsSmallScreen(width <= 320 || (width <= 568 && height <= 320));
     };
 
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    return () => window.removeEventListener('resize', checkMobile);
+    window.addEventListener('orientationchange', checkMobile);
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      window.removeEventListener('orientationchange', checkMobile);
+    };
   }, []);
 
   useEffect(() => {
     // Apply mobile-specific classes to body when on mobile
     if (isMobile) {
       document.body.classList.add('mobile-optimized');
-      
+
+      // Add orientation and screen size classes
+      if (isLandscape) {
+        document.body.classList.add('mobile-landscape');
+      } else {
+        document.body.classList.remove('mobile-landscape');
+      }
+
+      if (isSmallScreen) {
+        document.body.classList.add('mobile-small-screen');
+      } else {
+        document.body.classList.remove('mobile-small-screen');
+      }
+
       // Add mobile-specific meta tags
       const viewport = document.querySelector('meta[name="viewport"]');
       if (viewport) {
-        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
+        viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover');
       }
     } else {
-      document.body.classList.remove('mobile-optimized');
+      document.body.classList.remove('mobile-optimized', 'mobile-landscape', 'mobile-small-screen');
     }
 
     return () => {
-      document.body.classList.remove('mobile-optimized');
+      document.body.classList.remove('mobile-optimized', 'mobile-landscape', 'mobile-small-screen');
     };
-  }, [isMobile]);
+  }, [isMobile, isLandscape, isSmallScreen]);
 
   // Mobile-specific styles with Egyptian theme
   const mobileStyles = isMobile ? {
@@ -55,8 +78,8 @@ export default function MobileOptimizedLayout({ children }: MobileOptimizedLayou
   } : {};
 
   return (
-    <div 
-      className={`mobile-layout-wrapper ${isMobile ? 'mobile-mode' : 'desktop-mode'}`}
+    <div
+      className={`mobile-layout-wrapper ${isMobile ? 'mobile-mode' : 'desktop-mode'} ${isLandscape ? 'landscape-mode' : 'portrait-mode'} ${isSmallScreen ? 'small-screen-mode' : ''}`}
       style={mobileStyles}
     >
       {/* Mobile-specific CSS injection */}
@@ -87,6 +110,36 @@ export default function MobileOptimizedLayout({ children }: MobileOptimizedLayou
             font-size: 1rem !important;
             line-height: 1.3 !important;
             margin-bottom: 0.5rem !important;
+          }
+
+          /* Landscape mode adjustments */
+          .landscape-mode section {
+            padding-top: 1.5rem !important;
+            padding-bottom: 1.5rem !important;
+          }
+
+          .landscape-mode .mobile-hero-title {
+            font-size: 1.25rem !important;
+          }
+
+          .landscape-mode .founder-image-section .relative {
+            width: 5rem !important;
+            height: 5rem !important;
+          }
+
+          /* Small screen mode adjustments */
+          .small-screen-mode .mobile-title {
+            font-size: 1rem !important;
+          }
+
+          .small-screen-mode .founder-image-section .relative {
+            width: 4rem !important;
+            height: 4rem !important;
+          }
+
+          .small-screen-mode section {
+            padding-top: 1rem !important;
+            padding-bottom: 1rem !important;
           }
           
           .mobile-mode p {

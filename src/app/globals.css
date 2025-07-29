@@ -1643,6 +1643,202 @@ img.no-zoom:hover,
   .mobile-spacing-sm {
     margin-bottom: 0.5rem !important;
   }
+
+  /* Our Story Section Mobile Optimizations */
+  .our-story-section {
+    padding: 1rem !important;
+  }
+
+  .founder-image-section {
+    margin-top: 2rem !important;
+  }
+
+  .founder-image-section .relative {
+    width: 8rem !important;
+    height: 8rem !important;
+  }
+
+  /* General Mobile Layout Improvements */
+  .mobile-container {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  /* Mobile section spacing */
+  section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  /* Mobile image optimizations */
+  .mobile-image-container {
+    width: 100% !important;
+    height: auto !important;
+    max-width: 100% !important;
+  }
+
+  /* Mobile grid adjustments */
+  .grid {
+    gap: 1rem !important;
+  }
+
+  /* Mobile card adjustments */
+  .mobile-card {
+    padding: 1rem !important;
+    margin-bottom: 1rem !important;
+    border-radius: 0.75rem !important;
+  }
+
+  /* Mobile button improvements */
+  button, .button, .btn {
+    min-height: 44px !important;
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+    touch-action: manipulation !important;
+    -webkit-tap-highlight-color: transparent !important;
+  }
+
+  /* Mobile form elements */
+  input, textarea, select {
+    font-size: 16px !important; /* Prevents zoom on iOS */
+    padding: 0.75rem !important;
+    border-radius: 0.5rem !important;
+  }
+
+  /* Mobile navigation improvements */
+  .mobile-nav {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 1000 !important;
+    background: rgba(255, 255, 255, 0.95) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+}
+
+/* Extra Small Screens (320px and below) */
+@media (max-width: 320px) {
+  .mobile-title {
+    font-size: 1.125rem !important;
+    padding: 0 0.25rem !important;
+  }
+
+  .mobile-section-title {
+    font-size: 1rem !important;
+    padding: 0 0.25rem !important;
+  }
+
+  .mobile-container {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .founder-image-section .relative {
+    width: 6rem !important;
+    height: 6rem !important;
+  }
+
+  section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .grid {
+    gap: 0.5rem !important;
+  }
+
+  button, .button, .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    min-height: 40px !important;
+  }
+}
+
+/* Landscape Orientation Optimizations */
+@media (max-width: 767px) and (orientation: landscape) {
+  /* Reduce vertical spacing in landscape */
+  section {
+    padding-top: 2rem !important;
+    padding-bottom: 2rem !important;
+  }
+
+  .mobile-hero-title {
+    font-size: 1.25rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .mobile-hero-subtitle {
+    font-size: 0.75rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .founder-image-section {
+    margin-top: 1rem !important;
+  }
+
+  .founder-image-section .relative {
+    width: 6rem !important;
+    height: 6rem !important;
+  }
+
+  .mobile-spacing {
+    margin-bottom: 0.5rem !important;
+  }
+
+  /* Optimize navigation for landscape */
+  .mobile-nav {
+    height: 60px !important;
+  }
+
+  /* Compact grid layout for landscape */
+  .grid {
+    gap: 0.75rem !important;
+  }
+
+  /* Smaller buttons in landscape */
+  button, .button, .btn {
+    padding: 0.5rem 0.75rem !important;
+    font-size: 0.75rem !important;
+    min-height: 36px !important;
+  }
+}
+
+/* Very Small Screens in Landscape (iPhone SE, etc.) */
+@media (max-width: 568px) and (orientation: landscape) and (max-height: 320px) {
+  section {
+    padding-top: 1rem !important;
+    padding-bottom: 1rem !important;
+  }
+
+  .mobile-title {
+    font-size: 1rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .mobile-section-title {
+    font-size: 0.875rem !important;
+    margin-bottom: 0.25rem !important;
+  }
+
+  .founder-image-section .relative {
+    width: 4rem !important;
+    height: 4rem !important;
+  }
+
+  .founder-image-section {
+    margin-top: 0.5rem !important;
+  }
+
+  .mobile-nav {
+    height: 50px !important;
+  }
+
+  button, .button, .btn {
+    padding: 0.25rem 0.5rem !important;
+    font-size: 0.625rem !important;
+    min-height: 32px !important;
+  }
 }
 
 /* Navbar Responsive Styles */

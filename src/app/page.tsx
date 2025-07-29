@@ -682,36 +682,26 @@ export default function HomePage() {
       <FeaturedReviews />
 
       {/* 7. Our Story Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
+      <section className="py-12 lg:py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
         <Container maxWidth="lg">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center">
-              <div className="relative w-64 h-64 mx-auto mb-6">
-                <Image
-                  src={get('founder_image', '/images/our-story-founder.jpg')}
-                  alt="Our founder"
-                  fill
-                  className="object-cover rounded-full"
-                />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-800 mb-2">{get('founder_name', 'Captain Ahmed Hassan')}</h3>
-              <p className="text-gray-600">{get('founder_title', 'Founder & Master Navigator')}</p>
-            </div>
-            <div>
+          <div className="our-story-section">
+            {/* Content First */}
+            <div className="text-center lg:text-left mb-8 lg:mb-12">
               {/* Hieroglyphic Header */}
-              <div className="mb-8">
-                <div className="text-2xl mb-4">
+              <div className="mb-6 lg:mb-8">
+                <div className="text-lg lg:text-2xl mb-4">
                   <span className="text-egyptian-gold">𓇯</span> <span className="text-emerald-600">𓊪</span> <span className="text-egyptian-gold">𓈖</span> <span className="text-yellow-600">𓂀</span> <span className="text-emerald-600">𓏏</span> <span className="text-egyptian-gold">𓇳</span>
                 </div>
                 <HieroglyphicDivider />
               </div>
 
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                <span className="text-egyptian-gold mr-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
+              <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 lg:mb-6 mobile-section-title">
+                <span className="text-egyptian-gold mr-2 lg:mr-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
                 {get('our_story_title', 'Our Story')}
-                <span className="text-egyptian-gold ml-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
+                <span className="text-egyptian-gold ml-2 lg:ml-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
               </h2>
-              <div className="text-gray-600 leading-relaxed">
+
+              <div className="text-gray-600 leading-relaxed text-sm lg:text-base mobile-text-wrap">
                 <p className={`mb-4 ${!expandedSections.ourStory ? 'line-clamp-3' : ''}`}>
                   {get('our_story_content', 'Our journey began over 30 years ago when Captain Ahmed Hassan, a third-generation Nile navigator, had a vision to revive the authentic way of exploring Egypt\'s ancient wonders. Growing up along the banks of the Nile, he witnessed the transformation of river travel and felt called to preserve the traditional Dahabiya experience.')}
                 </p>
@@ -736,19 +726,34 @@ export default function HomePage() {
                 )}
                 <button
                   onClick={() => toggleSection('ourStory')}
-                  className="text-egyptian-gold hover:text-egyptian-gold font-semibold flex items-center mt-4"
+                  className="text-egyptian-gold hover:text-egyptian-gold font-semibold flex items-center justify-center lg:justify-start mt-4 mobile-button-text"
                 >
                   {expandedSections.ourStory ? get('read_less_text', 'Read Less') : get('read_more_text', 'Read More')}
                   <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expandedSections.ourStory ? 'rotate-90' : ''}`} />
                 </button>
               </div>
-              <div className="mt-8">
+
+              <div className="mt-6 lg:mt-8 text-center lg:text-left">
                 <Link href="/about">
-                  <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-white px-6 py-3 hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg">
+                  <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-white px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg mobile-button-text">
                     Learn More About Us
                   </Button>
                 </Link>
               </div>
+            </div>
+
+            {/* Founder Image Below Content */}
+            <div className="founder-image-section text-center">
+              <div className="relative w-32 h-32 lg:w-48 lg:h-48 mx-auto mb-4 lg:mb-6">
+                <Image
+                  src={get('founder_image', '/images/our-story-founder.jpg')}
+                  alt="Our founder"
+                  fill
+                  className="object-cover rounded-full shadow-lg"
+                />
+              </div>
+              <h3 className="text-lg lg:text-2xl font-bold text-gray-800 mb-1 lg:mb-2 mobile-card-title">{get('founder_name', 'Captain Ahmed Hassan')}</h3>
+              <p className="text-gray-600 text-sm lg:text-base mobile-subtitle">{get('founder_title', 'Founder & Master Navigator')}</p>
             </div>
           </div>
         </Container>
