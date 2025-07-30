@@ -146,7 +146,7 @@ async function main() {
     {
       key: 'founder_name',
       title: 'Founder Name',
-      content: 'Captain Ahmed Hassan',
+      content: 'Ashraf Elmasry',
       page: 'homepage',
       section: 'story',
       contentType: 'TEXT',
@@ -155,7 +155,7 @@ async function main() {
     {
       key: 'founder_title',
       title: 'Founder Title',
-      content: 'Founder & Master Navigator',
+      content: 'Founder & CEO',
       page: 'homepage',
       section: 'story',
       contentType: 'TEXT',
@@ -164,7 +164,7 @@ async function main() {
     {
       key: 'founder_image',
       title: 'Founder Image',
-      content: '/images/our-story-founder.jpg',
+      content: '/images/ashraf-elmasry.jpg',
       page: 'homepage',
       section: 'story',
       contentType: 'IMAGE',

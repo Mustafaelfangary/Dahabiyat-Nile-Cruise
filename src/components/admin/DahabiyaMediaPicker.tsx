@@ -140,7 +140,7 @@ export default function DahabiyaMediaPicker({
       {valueArray.length > 0 ? (
         <Grid container spacing={2}>
           {valueArray.map((url, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
+            <Grid size={{ xs: 12, sm: type === 'single' ? 12 : 6, md: type === 'single' ? 8 : 4, lg: type === 'single' ? 6 : 3 }} key={index}>
               <Card variant="outlined" className="relative group">
                 <CardContent className="p-3">
                   {/* Preview */}
@@ -285,7 +285,7 @@ export default function DahabiyaMediaPicker({
         fullWidth
       >
         <DialogTitle className="flex justify-between items-center">
-          <Typography variant="h6">Media Preview</Typography>
+          <span className="text-lg font-semibold">Media Preview</span>
           <IconButton onClick={() => setPreviewOpen(false)}>
             <Close />
           </IconButton>

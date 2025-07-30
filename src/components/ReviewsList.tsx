@@ -67,6 +67,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({
     try {
       setLoading(true);
       setError(null);
+      // Use the reviews API endpoint
       let url = '/api/reviews?';
       const params = new URLSearchParams();
 
@@ -88,7 +89,7 @@ const ReviewsList: React.FC<ReviewsListProps> = ({
       }
 
       const data = await response.json();
-      setReviews(data.reviews || []);
+      setReviews(data.reviews || data || []);
     } catch (err) {
       console.error('Reviews fetch error:', err);
       // Set empty array instead of error for better UX

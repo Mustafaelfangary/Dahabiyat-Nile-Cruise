@@ -4,7 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Container, Typography, Box, CircularProgress } from '@mui/material';
 import { DahabiyaList } from '@/components/dahabiyas';
-import FloatingBookingButton from '@/components/booking/FloatingBookingButton';
+
 import { usePageContent } from '@/hooks/usePageContent';
 
 export default function DahabiyasPage() {
@@ -44,54 +44,11 @@ export default function DahabiyasPage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
 
-        {/* Animated Hieroglyphic Pattern Overlay */}
-        <div className="absolute inset-0 opacity-8 animate-pulse" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.3'%3E%3Cpath d='M40 40c0-14.728-11.938-26.667-26.667-26.667S-13.333 25.272-13.333 40 -1.395 66.667 13.333 66.667 40 54.728 40 40zm0 0c0 14.728 11.938 26.667 26.667 26.667S93.333 54.728 93.333 40 81.395 13.333 66.667 13.333 40 25.272 40 40z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-        }}></div>
 
-        {/* Enhanced Floating Hieroglyphic Elements with Glow Effects */}
-        <div className="absolute top-12 left-12 text-8xl opacity-70 animate-pulse drop-shadow-2xl" style={{
-          color: '#FFD700',
-          textShadow: '0 0 20px #FFD700, 0 0 40px #FFD700, 0 0 60px #FFD700',
-          filter: 'drop-shadow(0 0 15px rgba(255, 215, 0, 0.9))'
-        }}>𓊪</div>
-        <div className="absolute top-24 right-16 text-6xl opacity-60 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF6347',
-          textShadow: '0 0 15px #FF6347, 0 0 30px #FF6347, 0 0 45px #FF6347',
-          filter: 'drop-shadow(0 0 12px rgba(255, 99, 71, 0.8))'
-        }}>𓇳</div>
-        <div className="absolute bottom-28 left-20 text-7xl opacity-65 animate-pulse drop-shadow-2xl" style={{
-          color: '#00CED1',
-          textShadow: '0 0 25px #00CED1, 0 0 50px #00CED1, 0 0 75px #00CED1',
-          filter: 'drop-shadow(0 0 18px rgba(0, 206, 209, 0.9))'
-        }}>𓈖</div>
-        <div className="absolute bottom-12 right-12 text-5xl opacity-75 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF1493',
-          textShadow: '0 0 15px #FF1493, 0 0 30px #FF1493, 0 0 45px #FF1493',
-          filter: 'drop-shadow(0 0 10px rgba(255, 20, 147, 0.8))'
-        }}>𓊽</div>
 
-        {/* Additional Magical Elements */}
-        <div className="absolute top-1/3 left-8 text-4xl opacity-50 animate-pulse drop-shadow-xl" style={{
-          color: '#9370DB',
-          textShadow: '0 0 12px #9370DB, 0 0 24px #9370DB',
-          filter: 'drop-shadow(0 0 8px rgba(147, 112, 219, 0.7))'
-        }}>𓏏</div>
-        <div className="absolute top-1/4 right-8 text-6xl opacity-55 animate-pulse drop-shadow-2xl" style={{
-          color: '#32CD32',
-          textShadow: '0 0 18px #32CD32, 0 0 36px #32CD32',
-          filter: 'drop-shadow(0 0 12px rgba(50, 205, 50, 0.8))'
-        }}>𓇯</div>
-        <div className="absolute bottom-1/3 left-1/4 text-3xl opacity-40 animate-spin-slow drop-shadow-lg" style={{
-          color: '#FF8C00',
-          textShadow: '0 0 10px #FF8C00',
-          animationDuration: '25s'
-        }}>𓊃</div>
-        <div className="absolute top-2/3 right-1/4 text-4xl opacity-45 animate-bounce drop-shadow-lg" style={{
-          color: '#DA70D6',
-          textShadow: '0 0 12px #DA70D6',
-          animationDelay: '3s'
-        }}>𓆎</div>
+
+
+
 
         <div className="relative z-10 py-24">
           <Container maxWidth="lg">
@@ -225,11 +182,7 @@ export default function DahabiyasPage() {
                 }}
               ></div>
 
-              {/* Floating Hieroglyphs */}
-              <div className="absolute top-6 left-6 text-egyptian-gold opacity-30 text-4xl animate-pulse">𓊪</div>
-              <div className="absolute top-6 right-6 text-egyptian-gold opacity-30 text-4xl animate-bounce">𓇳</div>
-              <div className="absolute bottom-6 left-6 text-egyptian-gold opacity-30 text-4xl">𓈖</div>
-              <div className="absolute bottom-6 right-6 text-egyptian-gold opacity-30 text-4xl">𓊽</div>
+
 
               <div className="relative z-10">
                 {/* Header */}
@@ -331,8 +284,7 @@ export default function DahabiyasPage() {
         </Container>
       </div>
 
-      {/* Floating Booking Button */}
-      <FloatingBookingButton />
+
     </div>
   );
 }

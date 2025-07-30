@@ -29,6 +29,9 @@ import {
   MenuItem,
   FormControl,
   InputLabel,
+  useMediaQuery,
+  useTheme,
+  Box
 } from '@mui/material';
 import { Edit, Delete, Add, DirectionsBoat, Star } from '@mui/icons-material';
 import DahabiyaMediaPicker from './DahabiyaMediaPicker';
@@ -78,6 +81,9 @@ const formatPrice = (price: number) => {
 };
 
 const DahabiyaManager = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const [dahabiyas, setDahabiyas] = useState<Dahabiya[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -388,7 +394,22 @@ const DahabiyaManager = () => {
         </Table>
       </TableContainer>
 
-      <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="lg" fullWidth>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        maxWidth="lg"
+        fullWidth
+        fullScreen={isMobile}
+        PaperProps={{
+          sx: {
+            ...(isMobile && {
+              margin: 0,
+              borderRadius: 0,
+              maxHeight: '100vh'
+            })
+          }
+        }}
+      >
         <DialogTitle style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <DirectionsBoat style={{ color: '#D4AF37' }} />
           {editingDahabiya ? 'Edit Sacred Vessel' : 'Add New Sacred Vessel'}
@@ -400,12 +421,19 @@ const DahabiyaManager = () => {
             </Alert>
           )}
 
-          <Tabs value={formTab} onChange={(e, newValue) => setFormTab(newValue)} style={{ marginBottom: '24px' }}>
-            <Tab label="Basic Info" />
-            <Tab label="Specifications" />
-            <Tab label="Media & Content" />
-            <Tab label="Features & Amenities" />
-            <Tab label="SEO & Marketing" />
+          <Tabs
+            value={formTab}
+            onChange={(e, newValue) => setFormTab(newValue)}
+            style={{ marginBottom: '24px' }}
+            variant={isMobile ? "scrollable" : "standard"}
+            scrollButtons={isMobile ? "auto" : false}
+            allowScrollButtonsMobile={isMobile}
+          >
+            <Tab label={isMobile ? "Basic" : "Basic Info"} />
+            <Tab label={isMobile ? "Specs" : "Specifications"} />
+            <Tab label={isMobile ? "Media" : "Media & Content"} />
+            <Tab label={isMobile ? "Features" : "Features & Amenities"} />
+            <Tab label={isMobile ? "SEO" : "SEO & Marketing"} />
           </Tabs>
 
           <div style={{ marginTop: '16px' }}>
@@ -568,25 +596,47 @@ const DahabiyaManager = () => {
               <Grid container spacing={4}>
                 {/* Main Image */}
                 <Grid item xs={12}>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                      Main Image
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Select the primary image that will be displayed as the main photo for this dahabiya
+                    </Typography>
+                  </Box>
                   <DahabiyaMediaPicker
                     label="Main Image"
                     value={formData.mainImage}
-                    onChange={(value) => setFormData({ ...formData, mainImage: value as string })}
+                    onChange={(value) => {
+                      console.log('🖼️ Main image changed:', value);
+                      setFormData(prev => ({ ...prev, mainImage: value as string }));
+                    }}
                     type="single"
                     accept="image/*"
-                    helperText="Select the primary image that will be displayed as the main photo for this dahabiya"
+                    helperText="Click to select or change the main image"
                   />
                 </Grid>
 
                 {/* Gallery Images */}
                 <Grid item xs={12}>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                      Gallery Images
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      Add multiple images to showcase different views and features of the dahabiya
+                    </Typography>
+                  </Box>
                   <DahabiyaMediaPicker
                     label="Gallery Images"
                     value={formData.gallery}
-                    onChange={(value) => setFormData({ ...formData, gallery: value as string[] })}
+                    onChange={(value) => {
+                      console.log('🖼️ Gallery changed:', value);
+                      setFormData(prev => ({ ...prev, gallery: value as string[] }));
+                    }}
                     type="multiple"
                     accept="image/*"
-                    helperText="Add multiple images to showcase different views and features of the dahabiya"
+                    helperText="Click to add more images to the gallery"
                     maxItems={15}
                   />
                 </Grid>

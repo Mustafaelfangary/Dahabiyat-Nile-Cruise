@@ -53,9 +53,8 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({ userId, limit }) => {
     try {
       setLoading(true);
       setError(null);
-      const url = userId
-        ? `/api/wishlist?userId=${userId}${limit ? `&limit=${limit}` : ''}`
-        : `/api/wishlist${limit ? `?limit=${limit}` : ''}`;
+      // Use the wishlist API endpoint
+      const url = `/api/wishlist${limit ? `?limit=${limit}` : ''}`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -81,15 +80,19 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({ userId, limit }) => {
 
   const removeFromWishlist = async (itemId: string) => {
     try {
-      const response = await fetch(`/api/wishlist/${itemId}`, {
+      const response = await fetch('/api/wishlist', {
         method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ itemId }),
       });
 
       if (!response.ok) {
         throw new Error('Failed to remove from wishlist');
       }
 
-      setWishlistItems(prev => prev.filter(item => item.id !== itemId));
+      setWishlistItems(prev => prev.filter(w => w.id !== itemId));
       toast.success('Removed from wishlist');
     } catch (err) {
       toast.error('Failed to remove from wishlist');

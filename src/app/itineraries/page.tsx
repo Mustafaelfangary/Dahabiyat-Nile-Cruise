@@ -121,59 +121,7 @@ export default function ItinerariesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
         <div className="absolute inset-0 bg-[url('/images/hieroglyphic-pattern.png')] opacity-10 animate-pulse"></div>
 
-        {/* Spectacular Floating Hieroglyphic Elements with Intense Glow Effects */}
-        <div className="absolute top-16 left-16 text-10xl opacity-85 animate-pulse drop-shadow-2xl" style={{
-          color: '#FFD700',
-          textShadow: '0 0 40px #FFD700, 0 0 80px #FFD700, 0 0 120px #FFD700',
-          filter: 'drop-shadow(0 0 25px rgba(255, 215, 0, 1))'
-        }}>𓇳</div>
-        <div className="absolute top-28 right-20 text-8xl opacity-75 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF6347',
-          textShadow: '0 0 30px #FF6347, 0 0 60px #FF6347, 0 0 90px #FF6347',
-          filter: 'drop-shadow(0 0 20px rgba(255, 99, 71, 1))'
-        }}>𓊪</div>
-        <div className="absolute bottom-32 left-24 text-12xl opacity-80 animate-pulse drop-shadow-2xl" style={{
-          color: '#00CED1',
-          textShadow: '0 0 50px #00CED1, 0 0 100px #00CED1, 0 0 150px #00CED1',
-          filter: 'drop-shadow(0 0 30px rgba(0, 206, 209, 1))'
-        }}>𓂀</div>
-        <div className="absolute bottom-16 right-16 text-7xl opacity-90 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF1493',
-          textShadow: '0 0 25px #FF1493, 0 0 50px #FF1493, 0 0 75px #FF1493',
-          filter: 'drop-shadow(0 0 15px rgba(255, 20, 147, 1))'
-        }}>𓈖</div>
 
-        {/* Additional Magnificent Elements */}
-        <div className="absolute top-1/3 left-8 text-6xl opacity-70 animate-pulse drop-shadow-xl" style={{
-          color: '#9370DB',
-          textShadow: '0 0 20px #9370DB, 0 0 40px #9370DB, 0 0 60px #9370DB',
-          filter: 'drop-shadow(0 0 15px rgba(147, 112, 219, 0.9))'
-        }}>𓏏</div>
-        <div className="absolute top-1/4 right-8 text-9xl opacity-75 animate-pulse drop-shadow-2xl" style={{
-          color: '#32CD32',
-          textShadow: '0 0 35px #32CD32, 0 0 70px #32CD32, 0 0 105px #32CD32',
-          filter: 'drop-shadow(0 0 25px rgba(50, 205, 50, 1))'
-        }}>𓇯</div>
-        <div className="absolute bottom-1/2 left-1/3 text-5xl opacity-60 animate-spin-slow drop-shadow-lg" style={{
-          color: '#FF8C00',
-          textShadow: '0 0 18px #FF8C00, 0 0 36px #FF8C00',
-          animationDuration: '35s'
-        }}>𓊃</div>
-        <div className="absolute top-1/2 right-1/3 text-6xl opacity-65 animate-bounce drop-shadow-lg" style={{
-          color: '#DA70D6',
-          textShadow: '0 0 20px #DA70D6, 0 0 40px #DA70D6',
-          animationDelay: '5s'
-        }}>𓆎</div>
-        <div className="absolute bottom-2/3 right-1/4 text-4xl opacity-55 animate-pulse drop-shadow-lg" style={{
-          color: '#20B2AA',
-          textShadow: '0 0 15px #20B2AA, 0 0 30px #20B2AA',
-          animationDelay: '2s'
-        }}>𓊽</div>
-        <div className="absolute top-2/3 left-1/4 text-3xl opacity-50 animate-bounce drop-shadow-lg" style={{
-          color: '#FF69B4',
-          textShadow: '0 0 12px #FF69B4, 0 0 24px #FF69B4',
-          animationDelay: '3.5s'
-        }}>𓈗</div>
         
         <div className="container mx-auto px-4 relative z-10">
           <AnimatedSection animation="fade-up">

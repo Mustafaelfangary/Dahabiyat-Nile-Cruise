@@ -14,7 +14,6 @@ import {
   PharaonicButton,
   PharaonicBorder,
   PharaonicObelisk,
-  FloatingPharaonicElements,
   PharaonicPatternBackground,
   PharaonicCrown,
   EgyptHieroglyphic
@@ -101,56 +100,8 @@ export default function PackagesPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/20 via-transparent to-orange-900/20"></div>
 
         <PharaonicPatternBackground className="opacity-8 animate-pulse" />
-        <FloatingPharaonicElements />
 
-        {/* Enhanced Floating Hieroglyphic Elements with Brilliant Glow Effects */}
-        <div className="absolute top-16 left-16 text-9xl opacity-80 animate-pulse drop-shadow-2xl" style={{
-          color: '#FFD700',
-          textShadow: '0 0 30px #FFD700, 0 0 60px #FFD700, 0 0 90px #FFD700',
-          filter: 'drop-shadow(0 0 20px rgba(255, 215, 0, 1))'
-        }}>𓇳</div>
-        <div className="absolute top-24 right-20 text-7xl opacity-70 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF6347',
-          textShadow: '0 0 25px #FF6347, 0 0 50px #FF6347, 0 0 75px #FF6347',
-          filter: 'drop-shadow(0 0 15px rgba(255, 99, 71, 0.9))'
-        }}>𓊪</div>
-        <div className="absolute bottom-32 left-24 text-10xl opacity-75 animate-pulse drop-shadow-2xl" style={{
-          color: '#00CED1',
-          textShadow: '0 0 35px #00CED1, 0 0 70px #00CED1, 0 0 105px #00CED1',
-          filter: 'drop-shadow(0 0 25px rgba(0, 206, 209, 1))'
-        }}>𓂀</div>
-        <div className="absolute bottom-16 right-16 text-6xl opacity-85 animate-bounce drop-shadow-2xl" style={{
-          color: '#FF1493',
-          textShadow: '0 0 20px #FF1493, 0 0 40px #FF1493, 0 0 60px #FF1493',
-          filter: 'drop-shadow(0 0 12px rgba(255, 20, 147, 0.9))'
-        }}>𓈖</div>
 
-        {/* Additional Spectacular Elements */}
-        <div className="absolute top-1/3 left-12 text-5xl opacity-60 animate-pulse drop-shadow-xl" style={{
-          color: '#9370DB',
-          textShadow: '0 0 15px #9370DB, 0 0 30px #9370DB, 0 0 45px #9370DB',
-          filter: 'drop-shadow(0 0 10px rgba(147, 112, 219, 0.8))'
-        }}>𓏏</div>
-        <div className="absolute top-1/4 right-12 text-8xl opacity-65 animate-pulse drop-shadow-2xl" style={{
-          color: '#32CD32',
-          textShadow: '0 0 25px #32CD32, 0 0 50px #32CD32, 0 0 75px #32CD32',
-          filter: 'drop-shadow(0 0 18px rgba(50, 205, 50, 0.9))'
-        }}>𓇯</div>
-        <div className="absolute bottom-1/2 left-1/3 text-4xl opacity-50 animate-spin-slow drop-shadow-lg" style={{
-          color: '#FF8C00',
-          textShadow: '0 0 12px #FF8C00, 0 0 24px #FF8C00',
-          animationDuration: '30s'
-        }}>𓊃</div>
-        <div className="absolute top-1/2 right-1/3 text-5xl opacity-55 animate-bounce drop-shadow-lg" style={{
-          color: '#DA70D6',
-          textShadow: '0 0 15px #DA70D6, 0 0 30px #DA70D6',
-          animationDelay: '4s'
-        }}>𓆎</div>
-        <div className="absolute bottom-2/3 right-1/4 text-3xl opacity-45 animate-pulse drop-shadow-lg" style={{
-          color: '#20B2AA',
-          textShadow: '0 0 10px #20B2AA, 0 0 20px #20B2AA',
-          animationDelay: '1.5s'
-        }}>𓊽</div>
 
         <Container maxWidth="lg" className="relative z-10">
           <AnimatedSection animation="fade-in">
@@ -327,7 +278,6 @@ export default function PackagesPage() {
       {/* Packages Section */}
       <section className="py-24 relative">
         <PharaonicPatternBackground className="opacity-10" />
-        <FloatingPharaonicElements />
 
         <Container maxWidth="lg" className="relative z-10">
           <AnimatedSection animation="fade-in">
@@ -606,7 +556,6 @@ export default function PackagesPage() {
       {/* Call to Action Section */}
       <section className="py-32 bg-slate-50 relative overflow-hidden">
         <PharaonicPatternBackground className="opacity-15" />
-        <FloatingPharaonicElements />
 
         <Container maxWidth="lg" className="relative z-10">
           <AnimatedSection animation="fade-in">

@@ -56,7 +56,7 @@ interface NavItem {
 
 export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationProps) {
   const pathname = usePathname();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const [scrolled, setScrolled] = useState(false);
   const [expandedDropdown, setExpandedDropdown] = useState<string | null>(null);
   const [dahabiyatItems, setDahabiyatItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
@@ -228,10 +228,12 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
 
   const handleSignOut = async () => {
     try {
-      await signOut();
+      await signOut({ redirect: false });
       onToggle(); // Close mobile menu
+      window.location.href = '/';
       toast.success("You have been signed out");
     } catch (error) {
+      console.error('Error signing out:', error);
       toast.error("Failed to sign out");
     }
   };
@@ -476,7 +478,12 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                     <span className="font-medium">Book Royal Journey</span>
                   </Link>
 
-                  {session ? (
+                  {status === "loading" ? (
+                    <div className="flex items-center space-x-3 p-3 border border-egyptian-gold/30 rounded-lg">
+                      <User className="w-5 h-5 text-egyptian-gold animate-pulse" />
+                      <span className="text-hieroglyph-brown font-medium">Loading...</span>
+                    </div>
+                  ) : session ? (
                     <Link
                       href="/profile"
                       onClick={onToggle}

@@ -120,7 +120,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
             {dahabiya.isFeatured && (
               <div className="relative">
                 <Chip
-                  label={getContentValue('dahabiyas_card_featured_label', 'Sacred')}
+                  label={getContentValue('dahabiyas_card_featured_label', 'Featured')}
                   size="small"
                   className="bg-gradient-to-r from-yellow-400 to-amber-500 text-hieroglyph-brown font-bold shadow-lg"
                   icon={<Award className="w-3 h-3" />}
@@ -173,8 +173,8 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           )}
 
           {/* Enhanced Price Display */}
-          <div className="absolute bottom-4 right-4 bg-gradient-to-r from-egyptian-gold to-amber-400 text-hieroglyph-brown px-4 py-2 rounded-full shadow-lg font-bold border border-amber-600">
-            <Typography variant="body2" className="font-bold">
+          <div className="absolute bottom-4 right-4 bg-gradient-to-r from-egyptian-gold to-amber-400 text-white px-4 py-2 rounded-full shadow-lg font-bold border border-amber-600">
+            <Typography variant="body2" className="font-bold text-white" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
               {formatPrice(dahabiya.pricePerDay)}/day
             </Typography>
           </div>
@@ -236,7 +236,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           {dahabiya.features.length > 0 && (
             <Box className="mb-4">
               <Typography variant="subtitle2" className="text-hieroglyph-brown font-bold mb-2 text-center">
-                {getContentValue('dahabiyas_card_features_title', 'Sacred Features')}
+                {getContentValue('dahabiyas_card_features_title', 'Premium Features')}
               </Typography>
               <div className="flex flex-wrap gap-1 justify-center">
                 {dahabiya.features.slice(0, 3).map((feature, index) => (
@@ -277,7 +277,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                 </Typography>
                 <Typography className="text-lg">𓊪</Typography>
               </div>
-              <Typography variant="caption" className="block mt-1 opacity-80">
+              <Typography variant="caption" className="block mt-1 opacity-90 text-hieroglyph-brown font-bold">
                 From {formatPrice(dahabiya.pricePerDay)}/day
               </Typography>
             </div>

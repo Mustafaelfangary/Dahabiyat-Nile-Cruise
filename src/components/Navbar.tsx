@@ -588,18 +588,32 @@ export default function Navbar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" style={{ background: "white" }}>
                   <DropdownMenuItem asChild>
-                    <Link href="/dashboard" style={{
+                    <Link href="/profile" style={{
                       display: 'flex',
                       alignItems: 'center',
                       gap: '8px',
                       color: 'hsl(222.2, 84%, 4.9%)',
                       textDecoration: 'none'
                     }}>
-                      <LayoutDashboard size={16} />
-                      {t('dashboard')}
+                      <User size={16} />
+                      Profile
                     </Link>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => signOut()} style={{
+                  {session.user?.role === 'ADMIN' && (
+                    <DropdownMenuItem asChild>
+                      <Link href="/admin" style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '8px',
+                        color: 'hsl(222.2, 84%, 4.9%)',
+                        textDecoration: 'none'
+                      }}>
+                        <LayoutDashboard size={16} />
+                        Admin Panel
+                      </Link>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem onClick={handleSignOut} style={{
                     display: 'flex',
                     alignItems: 'center',
                     gap: '8px',

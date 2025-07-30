@@ -38,7 +38,7 @@ export default function SignInForm() {
   const onSubmit = async (data: SignInFormData) => {
     try {
       setIsLoading(true);
-      
+
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
@@ -52,17 +52,17 @@ export default function SignInForm() {
 
       toast.success("Signed in successfully");
 
-      // Get the session to check user role
-      const session = await getSession();
+      // Simple redirect without complex session checking
+      toast.success("Signed in successfully! Redirecting...");
 
-      if (session?.user?.role === 'ADMIN') {
-        // Redirect admin users to the admin panel
-        router.push("/admin");
-      } else {
-        // Redirect regular users to the main homepage
-        router.push("/");
-      }
-      router.refresh();
+      // Use NextAuth's built-in redirect mechanism
+      const urlParams = new URLSearchParams(window.location.search);
+      const callbackUrl = urlParams.get('callbackUrl') || '/profile';
+
+      // Use router.push instead of window.location.href to avoid loops
+      setTimeout(() => {
+        router.push(callbackUrl);
+      }, 500);
     } catch (error) {
       console.error('Sign in error:', error);
       toast.error("Something went wrong. Please try again.");

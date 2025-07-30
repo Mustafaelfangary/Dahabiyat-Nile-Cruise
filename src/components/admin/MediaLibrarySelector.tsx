@@ -145,29 +145,32 @@ export default function MediaLibrarySelector({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-2xl max-w-6xl w-full max-h-[90vh] overflow-hidden relative transform transition-transform duration-200 scale-100"
+        className="bg-white rounded-lg shadow-2xl max-w-6xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden relative transform transition-transform duration-200 scale-100 mx-2 sm:mx-4"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b-2 border-yellow-500 bg-gradient-to-r from-slate-800 to-slate-700">
-          <h2 className="text-2xl font-bold text-white flex items-center gap-3">
-            <span className="text-3xl">📱</span>
-            Media Library
+        <div className="flex justify-between items-center p-4 sm:p-6 border-b-2 border-yellow-500 bg-gradient-to-r from-slate-800 to-slate-700">
+          <h2 className="text-lg sm:text-2xl font-bold text-white flex items-center gap-2 sm:gap-3">
+            <span className="text-2xl sm:text-3xl">📱</span>
+            <span className="hidden sm:inline">Media Library</span>
+            <span className="sm:hidden">Media</span>
           </h2>
           <button
             onClick={onClose}
-            className="text-white hover:text-yellow-400 text-xl font-bold px-4 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
+            className="text-white hover:text-yellow-400 text-lg sm:text-xl font-bold px-3 sm:px-4 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
           >
-            ✕ Close
+            <span className="sm:hidden">✕</span>
+            <span className="hidden sm:inline">✕ Close</span>
           </button>
         </div>
 
-        <div className="p-6 overflow-y-auto max-h-[calc(90vh-200px)]">
+        <div className="p-3 sm:p-6 overflow-y-auto max-h-[calc(95vh-200px)] sm:max-h-[calc(90vh-200px)]">
           {/* Upload Section */}
-          <div className="mb-8 p-6 bg-gradient-to-r from-blue-50 to-yellow-50 rounded-lg border border-yellow-200">
-            <h3 className="text-xl font-semibold text-slate-800 mb-4 flex items-center gap-3">
-              <span className="text-2xl">📤</span>
-              Upload New Media
+          <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-yellow-50 rounded-lg border border-yellow-200">
+            <h3 className="text-lg sm:text-xl font-semibold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
+              <span className="text-xl sm:text-2xl">📤</span>
+              <span className="hidden sm:inline">Upload New Media</span>
+              <span className="sm:hidden">Upload</span>
             </h3>
             <input
               type="file"
@@ -203,7 +206,7 @@ export default function MediaLibrarySelector({
                 <p className="text-gray-500">Upload some files to get started.</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 max-h-96 overflow-y-auto p-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 max-h-96 overflow-y-auto p-2">
                 {mediaItems.map((item) => (
                   <div
                     key={item.id}
@@ -244,37 +247,40 @@ export default function MediaLibrarySelector({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex justify-between items-center p-6 border-t-2 border-yellow-500 bg-gray-50">
-          <div className="text-slate-600 text-sm">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-6 border-t-2 border-yellow-500 bg-gray-50 gap-3 sm:gap-0">
+          <div className="text-slate-600 text-xs sm:text-sm w-full sm:w-auto">
             {selectedItem ? (
               <span className="flex items-center gap-2">
                 <span className="text-green-600">✓</span>
-                Selected: <span className="font-medium text-slate-800 truncate max-w-xs">{selectedItem.split('/').pop()}</span>
+                <span className="hidden sm:inline">Selected:</span>
+                <span className="font-medium text-slate-800 truncate max-w-[200px] sm:max-w-xs">{selectedItem.split('/').pop()}</span>
               </span>
             ) : (
               <span className="flex items-center gap-2">
                 <span className="text-gray-400">○</span>
-                No media selected
+                <span className="hidden sm:inline">No media selected</span>
+                <span className="sm:hidden">Select an image</span>
               </span>
             )}
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-medium"
+              className="flex-1 sm:flex-none px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-medium text-sm sm:text-base"
             >
               Cancel
             </button>
             <button
               onClick={handleSelect}
               disabled={!selectedItem}
-              className={`px-6 py-2 rounded-lg font-medium transition-all duration-200 ${
+              className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base ${
                 selectedItem
                   ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-white hover:from-yellow-600 hover:to-yellow-700 shadow-lg'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
-              Select Media
+              <span className="hidden sm:inline">Select Media</span>
+              <span className="sm:hidden">Select</span>
             </button>
           </div>
         </div>

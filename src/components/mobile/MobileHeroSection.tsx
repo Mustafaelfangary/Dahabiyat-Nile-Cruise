@@ -58,10 +58,10 @@ export default function MobileHeroSection({
         <motion.div
           key={index}
           className="absolute inset-0"
-          initial={{ opacity: 0, scale: 1.1 }}
-          animate={{ 
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{
             opacity: index === currentSlide ? 1 : 0,
-            scale: index === currentSlide ? 1 : 1.1
+            scale: index === currentSlide ? 1 : 1.05
           }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
         >
@@ -69,8 +69,10 @@ export default function MobileHeroSection({
             src={slide.image}
             alt={slide.title}
             fill
-            className="object-cover"
+            className="object-cover object-center"
             priority={index === 0}
+            sizes="100vw"
+            quality={90}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/60" />
         </motion.div>

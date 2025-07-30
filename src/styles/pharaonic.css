@@ -1,0 +1,243 @@
+/* Pharaonic Profile Enhancements */
+
+/* Text shadow for pharaonic titles */
+.text-shadow-lg {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Egyptian hieroglyph animations */
+@keyframes hieroglyph-glow {
+  0%, 100% {
+    text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 15px rgba(212, 175, 55, 0.8);
+  }
+}
+
+.hieroglyph-glow {
+  animation: hieroglyph-glow 3s ease-in-out infinite;
+}
+
+/* Pharaonic border patterns */
+.pharaonic-border {
+  position: relative;
+}
+
+.pharaonic-border::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    #D4AF37 0%, 
+    #FFD700 25%, 
+    #D4AF37 50%, 
+    #FFD700 75%, 
+    #D4AF37 100%
+  );
+}
+
+.pharaonic-border::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, 
+    #D4AF37 0%, 
+    #FFD700 25%, 
+    #D4AF37 50%, 
+    #FFD700 75%, 
+    #D4AF37 100%
+  );
+}
+
+/* Enhanced shimmer effect for buttons */
+@keyframes pharaonic-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.pharaonic-shimmer {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: pharaonic-shimmer 2s infinite;
+}
+
+/* Golden glow effect */
+.golden-glow {
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+  transition: box-shadow 0.3s ease;
+}
+
+.golden-glow:hover {
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+/* Pharaonic card hover effects */
+.pharaonic-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pharaonic-card::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #D4AF37, #FFD700, #D4AF37);
+  z-index: -1;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.pharaonic-card:hover::before {
+  opacity: 1;
+}
+
+/* Floating animation for hieroglyphs */
+@keyframes float-hieroglyph {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  66% {
+    transform: translateY(-5px) rotate(-1deg);
+  }
+}
+
+.float-hieroglyph {
+  animation: float-hieroglyph 6s ease-in-out infinite;
+}
+
+/* Pulse animation for important elements */
+@keyframes pharaonic-pulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.pharaonic-pulse {
+  animation: pharaonic-pulse 2s ease-in-out infinite;
+}
+
+/* Egyptian gold gradient text */
+.text-egyptian-gradient {
+  background: linear-gradient(45deg, #D4AF37, #FFD700, #B8860B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hieroglyph decorative elements */
+.hieroglyph-decoration {
+  position: relative;
+}
+
+.hieroglyph-decoration::before,
+.hieroglyph-decoration::after {
+  position: absolute;
+  font-size: 1.2em;
+  color: rgba(212, 175, 55, 0.3);
+  pointer-events: none;
+}
+
+.hieroglyph-decoration::before {
+  content: '𓇳';
+  top: -10px;
+  left: -15px;
+}
+
+.hieroglyph-decoration::after {
+  content: '𓊪';
+  bottom: -10px;
+  right: -15px;
+}
+
+/* Responsive hieroglyph sizing */
+@media (max-width: 640px) {
+  .hieroglyph-decoration::before,
+  .hieroglyph-decoration::after {
+    font-size: 1em;
+  }
+  
+  .hieroglyph-decoration::before {
+    top: -8px;
+    left: -12px;
+  }
+  
+  .hieroglyph-decoration::after {
+    bottom: -8px;
+    right: -12px;
+  }
+}
+
+/* Enhanced progress bar with pharaonic styling */
+.pharaonic-progress {
+  position: relative;
+  background: linear-gradient(90deg, #f3f4f6, #e5e7eb);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.pharaonic-progress::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(212, 175, 55, 0.1) 25%, 
+    rgba(212, 175, 55, 0.2) 50%, 
+    rgba(212, 175, 55, 0.1) 75%, 
+    transparent 100%
+  );
+  animation: pharaonic-shimmer 3s ease-in-out infinite;
+}
+
+.pharaonic-progress-fill {
+  background: linear-gradient(90deg, #D4AF37, #FFD700, #FFA500);
+  position: relative;
+  overflow: hidden;
+}
+
+.pharaonic-progress-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.3), 
+    transparent
+  );
+  animation: pharaonic-shimmer 2s ease-in-out infinite;
+}

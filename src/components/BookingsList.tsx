@@ -55,9 +55,8 @@ const BookingsList: React.FC<BookingsListProps> = ({
     try {
       setLoading(true);
       setError(null);
-      const url = userId
-        ? `/api/bookings?userId=${userId}${limit ? `&limit=${limit}` : ''}`
-        : `/api/bookings${limit ? `?limit=${limit}` : ''}`;
+      // Use the existing bookings API endpoint
+      const url = `/api/bookings${limit ? `?limit=${limit}` : ''}`;
 
       const response = await fetch(url);
       if (!response.ok) {
@@ -70,7 +69,7 @@ const BookingsList: React.FC<BookingsListProps> = ({
       }
 
       const data = await response.json();
-      setBookings(data.bookings || []);
+      setBookings(data.bookings || data || []);
     } catch (err) {
       console.error('Bookings fetch error:', err);
       // Set empty array instead of error for better UX
@@ -116,13 +115,13 @@ const BookingsList: React.FC<BookingsListProps> = ({
       <div className="space-y-4">
         {[1, 2, 3].map((i) => (
           <Card key={i} className="animate-pulse">
-            <CardContent className="p-6">
-              <div className="flex space-x-4">
-                <div className="w-24 h-24 bg-gray-200 rounded-lg"></div>
+            <CardContent className="p-3 lg:p-6">
+              <div className="flex space-x-3">
+                <div className="w-16 h-16 lg:w-24 lg:h-24 bg-gray-200 rounded-lg"></div>
                 <div className="flex-1 space-y-2">
-                  <div className="h-4 bg-gray-200 rounded w-3/4"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-                  <div className="h-4 bg-gray-200 rounded w-1/4"></div>
+                  <div className="h-3 lg:h-4 bg-gray-200 rounded w-3/4"></div>
+                  <div className="h-3 lg:h-4 bg-gray-200 rounded w-1/2"></div>
+                  <div className="h-3 lg:h-4 bg-gray-200 rounded w-1/4"></div>
                 </div>
               </div>
             </CardContent>
@@ -156,10 +155,10 @@ const BookingsList: React.FC<BookingsListProps> = ({
     <div className="space-y-6">
       {bookings.map((booking) => (
         <Card key={booking.id} className="overflow-hidden hover:shadow-lg transition-shadow">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row gap-4">
+          <CardContent className="p-3 lg:p-6">
+            <div className="flex flex-col md:flex-row gap-3 lg:gap-4">
               {/* Image */}
-              <div className="w-full md:w-32 h-32 relative rounded-lg overflow-hidden">
+              <div className="w-full md:w-24 lg:w-32 h-24 lg:h-32 relative rounded-lg overflow-hidden">
                 <Image
                   src={booking.package?.mainImageUrl || booking.dahabiya?.mainImageUrl || '/images/placeholder-booking.jpg'}
                   alt={booking.package?.name || booking.dahabiya?.name || 'Booking'}
@@ -172,7 +171,7 @@ const BookingsList: React.FC<BookingsListProps> = ({
               <div className="flex-1">
                 <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h3 className="text-base lg:text-lg font-semibold text-gray-900 mb-2">
                       {booking.package?.name || booking.dahabiya?.name || 'Custom Booking'}
                     </h3>
                     <div className="flex items-center gap-2 mb-2">

@@ -88,6 +88,10 @@ export async function POST(request: Request) {
       return new NextResponse('Unauthorized', { status: 401 });
     }
 
+    // This route is deprecated - the old Dahabiya booking system has been removed
+    // Use the main /api/bookings route instead
+    return new NextResponse('This booking endpoint is deprecated. Please use /api/bookings instead.', { status: 410 });
+
     const body = await request.json();
     const {
       dahabiyaId,

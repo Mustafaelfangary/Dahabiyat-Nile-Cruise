@@ -133,10 +133,12 @@ export default function HomePage() {
     <div className="pharaonic-container">
       {/* 1. Editable Video Hero Section - Full area touching navbar */}
       <section
-        className="relative h-[50vh] md:h-[55vh] overflow-hidden w-full"
+        className="relative w-full overflow-hidden"
         style={{
           marginTop: '0', // No margin - touch navbar directly
-          minHeight: '400px' // Reasonable height - not too tall
+          height: '70vh', // Fixed height for consistent layout
+          minHeight: '500px', // Minimum height for smaller screens
+          maxHeight: '800px' // Maximum height to prevent excessive size on large screens
         }}
       >
         {/* Fallback background - only shows if video fails */}
@@ -152,12 +154,13 @@ export default function HomePage() {
           />
         )}
 
-        {/* Background Video - Full coverage with minimal cropping */}
+        {/* Background Video - Stretched to fill the full hero area */}
         <video
           className="absolute inset-0 w-full h-full z-10 brightness-110 contrast-105"
           style={{
-            objectFit: 'cover',
-            objectPosition: 'center center'
+            objectFit: 'fill',
+            width: '100%',
+            height: '100%'
           }}
           autoPlay
           muted
@@ -324,7 +327,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {(featuredDahabiyat.length > 0 ? featuredDahabiyat : dahabiyat.slice(0, 4)).map((dahabiya: any, index: number) => (
               <div key={dahabiya.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative h-48">
+                <div className="relative aspect-[4/3]">
                   <Image
                     src={dahabiya.mainImage || '/images/dahabiya-placeholder.jpg'}
                     alt={dahabiya.name}
@@ -410,29 +413,32 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="relative h-48 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('what_is_dahabiya_image_1', '/images/dahabiya-sailing.jpg')}
                     alt="Dahabiya sailing on the Nile"
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
-                <div className="relative h-32 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('what_is_dahabiya_image_2', '/images/dahabiya-deck.jpg')}
                     alt="Dahabiya deck view"
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, 50vw"
                   />
                 </div>
               </div>
-              <div className="relative h-80 rounded-lg overflow-hidden">
+              <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
                 <Image
                   src={get('what_is_dahabiya_image_3', '/images/dahabiya-sunset.jpg')}
                   alt="Dahabiya at sunset"
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
             </div>
@@ -469,7 +475,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {(featuredPackages.length > 0 ? featuredPackages : packages.slice(0, 4)).map((pkg: any, index: number) => (
               <div key={pkg.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative h-48">
+                <div className="relative aspect-[4/3]">
                   <Image
                     src={pkg.mainImageUrl || '/images/package-placeholder.jpg'}
                     alt={pkg.name}
@@ -522,29 +528,32 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="relative h-48 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('why_different_image_1', '/images/cruise-comparison-1.jpg')}
                     alt="Intimate Dahabiya experience"
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
-                <div className="relative h-32 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('why_different_image_2', '/images/cruise-comparison-2.jpg')}
                     alt="Personalized service"
                     fill
-                    className="object-cover"
+                    className="object-cover object-center"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                   />
                 </div>
               </div>
-              <div className="relative h-80 rounded-lg overflow-hidden">
+              <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
                 <Image
                   src={get('why_different_image_3', '/images/cruise-comparison-3.jpg')}
                   alt="Exclusive access to sites"
                   fill
-                  className="object-cover"
+                  className="object-cover object-center"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 25vw"
                 />
               </div>
             </div>
@@ -645,7 +654,7 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-4">
-                <div className="relative h-48 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('share_memories_image_1', '/images/guest-memories-1.jpg')}
                     alt="Guest enjoying sunset"
@@ -653,7 +662,7 @@ export default function HomePage() {
                     className="object-cover"
                   />
                 </div>
-                <div className="relative h-32 rounded-lg overflow-hidden">
+                <div className="relative aspect-[4/3] rounded-lg overflow-hidden">
                   <Image
                     src={get('share_memories_image_2', '/images/guest-memories-2.jpg')}
                     alt="Family on deck"
@@ -662,7 +671,7 @@ export default function HomePage() {
                   />
                 </div>
               </div>
-              <div className="relative h-80 rounded-lg overflow-hidden">
+              <div className="relative aspect-[3/4] rounded-lg overflow-hidden">
                 <Image
                   src={get('share_memories_image_3', '/images/guest-memories-3.jpg')}
                   alt="Couple at temple"
@@ -743,19 +752,32 @@ export default function HomePage() {
             </div>
 
             {/* Founder Image Below Content */}
-            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-xl p-4 lg:p-6 shadow-lg mt-8">
-              <div className="relative w-24 h-24 lg:w-32 lg:h-32 mx-auto mb-4 lg:mb-6">
-                <div className="w-full h-full rounded-full overflow-hidden ring-2 ring-egyptian-gold/30 shadow-lg">
+            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-lg p-3 lg:p-4 shadow-md mt-16 lg:mt-20 relative z-10 max-w-xs mx-auto">
+              <div className="flex flex-col items-center space-y-2 sm:space-y-3">
+                <div className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex-shrink-0 mx-auto">
                   <Image
-                    src={get('founder_image', '/images/our-story-founder.jpg')}
-                    alt="Our founder"
-                    fill
-                    className="object-cover"
+                    src={get('founder_image', '/images/ashraf-elmasry.jpg')}
+                    alt={get('founder_name', 'Ashraf El-Masry')}
+                    width={64}
+                    height={64}
+                    className="w-full h-full rounded-full object-cover object-center ring-1 ring-egyptian-gold/30 shadow-md"
+                    priority={false}
+                    quality={90}
+                    onError={(e) => {
+                      // Fallback to default image
+                      e.currentTarget.src = '/images/our-story-founder.jpg';
+                    }}
                   />
                 </div>
+                <div className="text-center space-y-1 w-full">
+                  <h3 className="text-xs sm:text-sm lg:text-base font-bold text-hieroglyph-brown leading-tight break-words">
+                    {get('founder_name', 'Ashraf El-Masry')}
+                  </h3>
+                  <p className="text-[10px] sm:text-xs lg:text-sm text-egyptian-gold font-medium break-words">
+                    {get('founder_title', 'Founder & CEO')}
+                  </p>
+                </div>
               </div>
-              <h3 className="text-base lg:text-xl font-bold text-gray-800 mb-1 lg:mb-2 mobile-card-title">{get('founder_name', 'Captain Ahmed Hassan')}</h3>
-              <p className="text-gray-600 text-xs lg:text-sm mobile-subtitle">{get('founder_title', 'Founder & Master Navigator')}</p>
             </div>
           </div>
         </Container>

@@ -523,7 +523,7 @@ export default function AdminDashboard() {
                     {packages.slice(0, 4).map((pkg, index) => {
                       const icons = [Crown, Star, Compass, Package];
                       const colors = ['text-purple-600', 'text-amber-600', 'text-green-600', 'text-blue-600'];
-                      const IconComponent = icons[index % icons.length];
+                      const IconComponent = icons[index % icons.length] as React.ComponentType<{ size?: number; className?: string }>;
                       const iconColor = colors[index % colors.length];
 
                       return (

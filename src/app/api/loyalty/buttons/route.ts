@@ -5,78 +5,153 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
+    // Default configuration
+    const defaultButtons = [
+      {
+        id: 'book-package',
+        label: 'Book a Package',
+        icon: 'Package',
+        points: 500,
+        enabled: true,
+        url: '/packages',
+        action: 'redirect',
+        description: 'Browse and book our luxury packages',
+        color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+      },
+      {
+        id: 'like-facebook',
+        label: 'Like Us',
+        icon: 'Facebook',
+        points: 50,
+        enabled: true,
+        url: 'https://facebook.com/cleopatradahabiya',
+        action: 'redirect',
+        description: 'Follow us on Facebook',
+        color: 'bg-gradient-to-r from-blue-600 to-blue-700'
+      },
+      {
+        id: 'follow-instagram',
+        label: 'Follow Us',
+        icon: 'Instagram',
+        points: 50,
+        enabled: true,
+        url: 'https://instagram.com/cleopatradahabiya',
+        action: 'redirect',
+        description: 'Follow us on Instagram',
+        color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+      },
+      {
+        id: 'subscribe-youtube',
+        label: 'Subscribe',
+        icon: 'Youtube',
+        points: 75,
+        enabled: true,
+        url: 'https://youtube.com/@cleopatradahabiya',
+        action: 'redirect',
+        description: 'Subscribe to our YouTube channel',
+        color: 'bg-gradient-to-r from-red-500 to-red-600'
+      },
+      {
+        id: 'share-memories',
+        label: 'Share Memories',
+        icon: 'Camera',
+        points: 100,
+        enabled: true,
+        action: 'internal',
+        description: 'Share your travel memories with us',
+        color: 'bg-gradient-to-r from-green-500 to-emerald-600'
+      }
+    ];
+
     // Get loyalty button configuration
     const config = await prisma.loyaltyConfig.findFirst({
       orderBy: { updatedAt: 'desc' }
     });
 
-    if (!config) {
-      // Return default configuration if none exists
+    if (!config || !config.buttonsConfig) {
+      // Return default configuration if none exists or buttonsConfig is null
       return NextResponse.json({
-        buttons: [
-          {
-            id: 'book-package',
-            label: 'Book a Package',
-            points: 500,
-            enabled: true,
-            url: '/packages',
-            action: 'redirect',
-            description: 'Browse and book our luxury packages',
-            color: 'bg-gradient-to-r from-amber-500 to-orange-500'
-          },
-          {
-            id: 'like-facebook',
-            label: 'Like Us',
-            points: 50,
-            enabled: true,
-            url: 'https://facebook.com/cleopatradahabiya',
-            action: 'redirect',
-            description: 'Follow us on Facebook',
-            color: 'bg-gradient-to-r from-blue-600 to-blue-700'
-          },
-          {
-            id: 'follow-instagram',
-            label: 'Follow Us',
-            points: 50,
-            enabled: true,
-            url: 'https://instagram.com/cleopatradahabiya',
-            action: 'redirect',
-            description: 'Follow us on Instagram',
-            color: 'bg-gradient-to-r from-pink-500 to-purple-600'
-          },
-          {
-            id: 'subscribe-youtube',
-            label: 'Subscribe',
-            points: 75,
-            enabled: true,
-            url: 'https://youtube.com/@cleopatradahabiya',
-            action: 'redirect',
-            description: 'Subscribe to our YouTube channel',
-            color: 'bg-gradient-to-r from-red-500 to-red-600'
-          },
-          {
-            id: 'share-memories',
-            label: 'Share Memories',
-            points: 100,
-            enabled: true,
-            action: 'internal',
-            description: 'Share your travel memories with us',
-            color: 'bg-gradient-to-r from-green-500 to-emerald-600'
-          }
-        ]
+        buttons: defaultButtons
       });
     }
 
-    return NextResponse.json({
-      buttons: JSON.parse(config.buttonsConfig)
-    });
+    try {
+      // Try to parse the stored configuration
+      const storedButtons = JSON.parse(config.buttonsConfig);
+      return NextResponse.json({
+        buttons: Array.isArray(storedButtons) ? storedButtons : defaultButtons
+      });
+    } catch (parseError) {
+      console.error('Error parsing stored loyalty button config:', parseError);
+      // Return default configuration if JSON parsing fails
+      return NextResponse.json({
+        buttons: defaultButtons
+      });
+    }
 
   } catch (error) {
     console.error('Error fetching loyalty button config:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    // Return default configuration on any error
+    const defaultButtons = [
+      {
+        id: 'book-package',
+        label: 'Book a Package',
+        icon: 'Package',
+        points: 500,
+        enabled: true,
+        url: '/packages',
+        action: 'redirect',
+        description: 'Browse and book our luxury packages',
+        color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+      },
+      {
+        id: 'like-facebook',
+        label: 'Like Us',
+        icon: 'Facebook',
+        points: 50,
+        enabled: true,
+        url: 'https://facebook.com/cleopatradahabiya',
+        action: 'redirect',
+        description: 'Follow us on Facebook',
+        color: 'bg-gradient-to-r from-blue-600 to-blue-700'
+      },
+      {
+        id: 'follow-instagram',
+        label: 'Follow Us',
+        icon: 'Instagram',
+        points: 50,
+        enabled: true,
+        url: 'https://instagram.com/cleopatradahabiya',
+        action: 'redirect',
+        description: 'Follow us on Instagram',
+        color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+      },
+      {
+        id: 'subscribe-youtube',
+        label: 'Subscribe',
+        icon: 'Youtube',
+        points: 75,
+        enabled: true,
+        url: 'https://youtube.com/@cleopatradahabiya',
+        action: 'redirect',
+        description: 'Subscribe to our YouTube channel',
+        color: 'bg-gradient-to-r from-red-500 to-red-600'
+      },
+      {
+        id: 'share-memories',
+        label: 'Share Memories',
+        icon: 'Camera',
+        points: 100,
+        enabled: true,
+        action: 'internal',
+        description: 'Share your travel memories with us',
+        color: 'bg-gradient-to-r from-green-500 to-emerald-600'
+      }
+    ];
+
+    return NextResponse.json({
+      buttons: defaultButtons
+    });
   }
 }
 

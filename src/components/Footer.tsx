@@ -1,11 +1,12 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Container } from '@mui/material';
-import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Send, Heart, Star, Globe } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, Mail, Phone, MapPin, Send, Heart, Star, Globe, X, LayoutDashboard } from 'lucide-react';
 import Link from 'next/link';
 import { useContent } from '@/hooks/useContent';
 import Image from 'next/image';
+import { useSession } from 'next-auth/react';
 import {
   RoyalCrown,
   FloatingEgyptianElements,
@@ -15,14 +16,144 @@ import {
   PharaohButton,
   EgyptHieroglyphic
 } from '@/components/ui/pharaonic-elements';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 interface FooterProps {
   settings?: Record<string, any>;
   footerSettings?: Record<string, any>;
 }
 
+// Contact Developer Modal Component
+function ContactDeveloperModal() {
+  const [isOpen, setIsOpen] = useState(false);
+  const { getContent } = useContent({ page: 'global_media' });
+
+  const get = (key: string, fallback = '') => {
+    const contentValue = getContent(key, '');
+    return contentValue || fallback;
+  };
+
+  return (
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+      <DialogTrigger asChild>
+        <button className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown text-xs rounded-full hover:from-egyptian-amber hover:to-orange-600 transition-colors duration-300">
+          <Mail className="w-3 h-3 mr-1" />
+          {get('footer_developer_contact_text', 'Contact Developer')}
+        </button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-md" style={{
+        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 30%, rgba(255, 165, 0, 0.08) 70%, rgba(184, 134, 11, 0.1) 100%)',
+        backdropFilter: 'blur(20px)',
+        border: '2px solid rgba(212, 175, 55, 0.3)',
+        borderRadius: '20px',
+        boxShadow: '0 20px 40px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
+      }}>
+        <DialogHeader>
+          <DialogTitle className="text-center text-egyptian-gold" style={{
+            textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+            fontSize: '1.5rem',
+            fontWeight: 'bold'
+          }}>
+            <span className="text-3xl mr-3">𓇳</span>
+            Contact Developer
+            <span className="text-3xl ml-3">𓇳</span>
+          </DialogTitle>
+        </DialogHeader>
+        <div className="space-y-6 p-6" style={{
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%)',
+          borderRadius: '16px',
+          margin: '8px'
+        }}>
+          {/* Developer Info */}
+          <div className="text-center">
+            <div className="text-5xl text-egyptian-gold mb-4" style={{
+              textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
+              filter: 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.5))'
+            }}>𓊪</div>
+            <h3 className="text-xl font-bold text-hieroglyph-brown mb-2" style={{
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}>
+              Just X Development
+            </h3>
+            <p className="text-gray-700 mb-2 font-medium">
+              Crafted with love in the land of the Pharaohs
+            </p>
+            <div className="text-egyptian-gold font-semibold text-sm mb-4" style={{
+              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            }}>
+              📞 +20 123 456 7890
+            </div>
+          </div>
+
+          {/* Contact Options */}
+          <div className="space-y-4">
+            <a
+              href={get('footer_developer_contact_url', 'mailto:developer@justx.com')}
+              className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFA500 100%)',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                border: '2px solid rgba(255, 255, 255, 0.3)'
+              }}
+            >
+              <Mail className="w-5 h-5 mr-3" />
+              Send Email
+            </a>
+
+            <a
+              href="tel:+201234567890"
+              className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+              style={{
+                background: 'linear-gradient(135deg, #25D366 0%, #128C7E 50%, #075E54 100%)',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                boxShadow: '0 8px 25px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                border: '2px solid rgba(255, 255, 255, 0.3)'
+              }}
+            >
+              <span className="w-5 h-5 mr-3 text-lg">📞</span>
+              Call Now
+            </a>
+
+            {get('footer_developer_website_url') && (
+              <a
+                href={get('footer_developer_website_url', 'https://justx.com')}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+                style={{
+                  background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%)',
+                  color: '#FFFFFF',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                  boxShadow: '0 8px 25px rgba(255, 107, 53, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                  border: '2px solid rgba(255, 255, 255, 0.3)'
+                }}
+              >
+                <Globe className="w-5 h-5 mr-3" />
+                Visit Website
+              </a>
+            )}
+          </div>
+
+          {/* Egyptian Decorative Elements */}
+          <div className="flex items-center justify-center gap-3 text-egyptian-gold text-lg">
+            <span>𓈖</span>
+            <span>𓂀</span>
+            <span>𓏏</span>
+            <span>𓇯</span>
+            <span>𓊃</span>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 export default function Footer({ settings = {}, footerSettings = {} }: FooterProps) {
   const { getContent, loading: contentLoading } = useContent({ page: 'global_media' });
+  const { data: session } = useSession();
 
   // Helper to get a setting value with priority: footerSettings > content > settings > fallback
   const get = (key: string, fallback = '') => {
@@ -214,6 +345,26 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
             </div>
           </div>
 
+          {/* Admin Access - Only visible to admin users */}
+          {session?.user?.role === 'ADMIN' && (
+            <div className="mt-8 p-4 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-lg border border-purple-200">
+              <div className="text-center">
+                <h4 className="text-purple-800 font-bold text-sm mb-2">
+                  <span className="text-purple-600 mr-2">👑</span>
+                  Admin Access
+                  <span className="text-purple-600 ml-2">👑</span>
+                </h4>
+                <Link
+                  href="/admin"
+                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-indigo-700 transition-all duration-300 text-sm font-medium"
+                >
+                  <LayoutDashboard className="w-4 h-4" />
+                  <span>Admin Dashboard</span>
+                </Link>
+              </div>
+            </div>
+          )}
+
           {/* Hieroglyphic Divider */}
           <div className="my-8">
             <HieroglyphicDivider />
@@ -240,26 +391,9 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                     {get('footer_developer_branding_text', 'crafted with love in the land of the Pharaohs by Just X')}
                   </p>
 
-                  {/* Contact Developer Buttons */}
-                  <div className="flex space-x-2 justify-center">
-                    <a
-                      href={get('footer_developer_contact_url', 'mailto:developer@justx.com')}
-                      className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown text-xs rounded-full hover:from-egyptian-amber hover:to-orange-600 transition-colors duration-300"
-                    >
-                      <Mail className="w-3 h-3 mr-1" />
-                      {get('footer_developer_contact_text', 'Contact Developer')}
-                    </a>
-                    {get('footer_developer_website_url') && (
-                      <a
-                        href={get('footer_developer_website_url', 'https://justx.com')}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-sunset-orange to-egyptian-gold text-white text-xs rounded-full hover:from-orange-600 hover:to-egyptian-amber transition-colors duration-300"
-                      >
-                        <Globe className="w-3 h-3 mr-1" />
-                        Website
-                      </a>
-                    )}
+                  {/* Contact Developer Modal */}
+                  <div className="flex justify-center">
+                    <ContactDeveloperModal />
                   </div>
                 </div>
               </div>

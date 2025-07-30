@@ -49,7 +49,8 @@ import {
   Award,
   Compass,
   Sunset,
-  Palmtree
+  Palmtree,
+  Home
 } from "lucide-react";
 
 export const dynamic = 'force-dynamic';
@@ -104,11 +105,12 @@ export default function ProfilePage() {
   const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   useEffect(() => {
-    if (session) {
+    if (session?.user?.id) {
+      // Only fetch data if we have a valid session with user ID
       fetchUserStats();
       fetchUserPreferences();
     }
-  }, [session]);
+  }, [session?.user?.id]);
 
   useEffect(() => {
     // Listen for memory sharing events from loyalty buttons
@@ -181,8 +183,8 @@ export default function ProfilePage() {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-4 border-amber-400 border-t-transparent mx-auto mb-4"></div>
-          <p className="text-amber-700 font-medium">Loading your royal profile...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-amber-400 border-t-transparent mx-auto mb-3"></div>
+          <p className="text-amber-700 font-medium text-sm">Loading profile...</p>
         </div>
       </div>
     );
@@ -194,10 +196,11 @@ export default function ProfilePage() {
 
   const handleSignOut = async () => {
     try {
-      await signOut();
-      router.push('/');
+      await signOut({ redirect: false });
+      window.location.href = '/';
       toast.success("You have been signed out");
     } catch (error) {
+      console.error('Error signing out:', error);
       toast.error("Failed to sign out");
     }
   };
@@ -236,9 +239,16 @@ export default function ProfilePage() {
         throw new Error(errorData.error || 'Failed to upload image');
       }
 
+      const result = await response.json();
       toast.success('Profile image updated successfully!');
 
-      // Refresh the session to get the updated image
+      // Update the session with the new image URL
+      if (session) {
+        session.user.image = result.imageUrl;
+      }
+
+      // Force a session update and page refresh
+      await new Promise(resolve => setTimeout(resolve, 500));
       window.location.reload();
 
     } catch (error) {
@@ -250,10 +260,38 @@ export default function ProfilePage() {
   };
 
   const getLoyaltyTier = (points: number) => {
-    if (points >= 10000) return { name: 'Pharaoh', color: 'text-purple-600', icon: Crown };
-    if (points >= 5000) return { name: 'Noble', color: 'text-amber-600', icon: Award };
-    if (points >= 1000) return { name: 'Explorer', color: 'text-blue-600', icon: Compass };
-    return { name: 'Traveler', color: 'text-green-600', icon: Palmtree };
+    if (points >= 10000) return {
+      name: 'Pharaoh',
+      color: 'text-purple-600',
+      icon: Crown,
+      description: 'Supreme ruler of the Nile',
+      hieroglyph: '𓇳',
+      benefits: ['Royal suite upgrades', 'Private butler service', 'Exclusive pharaonic experiences']
+    };
+    if (points >= 5000) return {
+      name: 'Noble',
+      color: 'text-amber-600',
+      icon: Award,
+      description: 'Honored member of the royal court',
+      hieroglyph: '𓊪',
+      benefits: ['Premium cabin upgrades', 'Priority boarding', 'Complimentary excursions']
+    };
+    if (points >= 1000) return {
+      name: 'Explorer',
+      color: 'text-blue-600',
+      icon: Compass,
+      description: 'Adventurous discoverer of ancient wonders',
+      hieroglyph: '𓂀',
+      benefits: ['Cabin upgrades', 'Early booking access', 'Welcome amenities']
+    };
+    return {
+      name: 'Traveler',
+      color: 'text-green-600',
+      icon: Palmtree,
+      description: 'Beginning your journey along the sacred river',
+      hieroglyph: '𓈖',
+      benefits: ['Priority booking access', 'Exclusive member rates', 'Complimentary upgrades']
+    };
   };
 
   const loyaltyTier = getLoyaltyTier(userStats.loyaltyPoints);
@@ -261,39 +299,73 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 relative overflow-hidden">
-      {/* Pharaonic Background Pattern */}
-      <div className="absolute inset-0 opacity-5">
+      {/* Enhanced Pharaonic Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
         <div className="w-full h-full" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.1'%3E%3Cpath d='M50 50l25-25v50z'/%3E%3C/g%3E%3C/svg%3E")`
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.15'%3E%3Cpath d='M60 20l20 20v40l-20 20-20-20V40z'/%3E%3Cpath d='M20 60l20-20h40l20 20-20 20H40z'/%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
+      </div>
+
+      {/* Enhanced Floating Hieroglyphic Elements */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute top-20 left-10 text-6xl text-egyptian-gold/20 float-hieroglyph hieroglyph-glow">𓇳</div>
+        <div className="absolute top-40 right-20 text-4xl text-egyptian-gold/15 float-hieroglyph" style={{animationDelay: '1s'}}>𓂀</div>
+        <div className="absolute bottom-40 left-20 text-5xl text-egyptian-gold/20 float-hieroglyph hieroglyph-glow" style={{animationDelay: '2s'}}>𓊪</div>
+        <div className="absolute bottom-20 right-10 text-3xl text-egyptian-gold/15 float-hieroglyph" style={{animationDelay: '0.5s'}}>𓈖</div>
+        <div className="absolute top-1/2 left-1/4 text-4xl text-egyptian-gold/10 float-hieroglyph" style={{animationDelay: '1.5s'}}>𓏏</div>
+        <div className="absolute top-1/3 right-1/3 text-5xl text-egyptian-gold/15 float-hieroglyph hieroglyph-glow" style={{animationDelay: '3s'}}>𓇯</div>
       </div>
 
       <Container maxWidth="full" className="relative z-10 py-8">
         <AnimatedSection animation="fade-in">
           {/* Hero Profile Section */}
           <div className="relative mb-12">
-            {/* Background Card with Golden Gradient */}
-            <Card className="bg-gradient-to-r from-amber-400 via-orange-400 to-amber-500 border-none shadow-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-black/10"></div>
+            {/* Background Card with Enhanced Pharaonic Gradient */}
+            <Card className="bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 border-none shadow-2xl overflow-hidden relative pharaonic-card golden-glow">
+              <div className="absolute inset-0 bg-black/15"></div>
+
+              {/* Enhanced Pharaonic Border Pattern */}
+              <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold pharaonic-shimmer"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold pharaonic-shimmer"></div>
+
+              {/* Egyptian Hieroglyphic Corner Decorations */}
+              <div className="absolute top-4 left-4 text-2xl text-white/30">𓇳</div>
+              <div className="absolute top-4 right-4 text-2xl text-white/30">𓇳</div>
+              <div className="absolute bottom-4 left-4 text-2xl text-white/30">𓊪</div>
+              <div className="absolute bottom-4 right-4 text-2xl text-white/30">𓊪</div>
+
               <CardContent className="relative z-10 p-8">
                 <div className="flex flex-col lg:flex-row items-center lg:items-start gap-8">
-                  {/* Profile Avatar */}
+                  {/* Enhanced Profile Avatar with Pharaonic Elements */}
                   <div className="relative">
-                    {/* Pharaonic ornamental rings */}
-                    <div className="absolute inset-0 w-40 h-40 rounded-full border-4 border-egyptian-gold/30 animate-pulse" />
-                    <div className="absolute inset-2 w-36 h-36 rounded-full border-2 border-white/40" />
+                    {/* Outer pharaonic ring with hieroglyphs */}
+                    <div className="absolute -inset-4 w-48 h-48 rounded-full border-4 border-egyptian-gold/40 animate-pulse">
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 text-lg text-egyptian-gold">𓇳</div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-egyptian-gold">𓊪</div>
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 text-lg text-egyptian-gold">𓂀</div>
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 text-lg text-egyptian-gold">𓈖</div>
+                    </div>
 
-                    {/* Main avatar container */}
-                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white/60 shadow-2xl bg-gradient-to-br from-white/30 to-white/10 backdrop-blur-sm">
+                    {/* Middle ornamental ring */}
+                    <div className="absolute inset-0 w-40 h-40 rounded-full border-4 border-white/50 animate-pulse" />
+                    <div className="absolute inset-2 w-36 h-36 rounded-full border-2 border-egyptian-gold/60" />
+
+                    {/* Main avatar container with pharaonic styling */}
+                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white/80 shadow-2xl bg-gradient-to-br from-white/40 to-amber-100/30 backdrop-blur-sm">
                       <Avatar className="w-full h-full">
                         <AvatarImage src={session.user.image || ''} alt={session.user.name || ''} />
-                        <AvatarFallback className="text-5xl font-bold text-amber-700 bg-gradient-to-br from-white to-amber-50">
+                        <AvatarFallback className="text-5xl font-bold text-amber-800 bg-gradient-to-br from-white to-amber-100">
                           {session.user.name?.charAt(0) || 'U'}
                         </AvatarFallback>
                       </Avatar>
 
-                      {/* Pharaonic symbols overlay */}
-                      <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+                      {/* Pharaonic crown overlay for high-tier users */}
+                      {loyaltyTier.name === 'Pharaoh' && (
+                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-2xl text-egyptian-gold animate-bounce">👑</div>
+                      )}
+
+                      {/* Golden rim effect */}
+                      <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-egyptian-gold/20 to-transparent" />
                     </div>
 
                     {/* Pharaonic crown symbol */}
@@ -330,15 +402,19 @@ export default function ProfilePage() {
                     </Button>
                   </div>
 
-                  {/* Profile Info */}
+                  {/* Enhanced Profile Info with Pharaonic Elements */}
                   <div className="flex-1 text-center lg:text-left text-white">
                     <div className="flex items-center justify-center lg:justify-start gap-3 mb-4">
-                      <h1 className="text-4xl lg:text-5xl font-heading font-bold drop-shadow-lg">
+                      <h1 className="text-4xl lg:text-5xl font-heading font-bold drop-shadow-lg text-shadow-lg text-egyptian-gradient">
                         {session.user.name}
                       </h1>
-                      <div className="flex items-center gap-2 bg-white/20 backdrop-blur-sm px-3 py-1 rounded-full">
-                        <LoyaltyIcon className="w-5 h-5" />
-                        <span className="font-semibold">{loyaltyTier.name}</span>
+                      <div className="flex items-center gap-2 bg-gradient-to-r from-egyptian-gold/30 to-amber-600/30 backdrop-blur-sm px-4 py-2 rounded-full border border-egyptian-gold/50 golden-glow hieroglyph-decoration">
+                        <LoyaltyIcon className="w-6 h-6 text-egyptian-gold pharaonic-pulse" />
+                        <span className="font-bold text-egyptian-gold">{loyaltyTier.name}</span>
+                        {loyaltyTier.name === 'Pharaoh' && <span className="text-lg hieroglyph-glow">𓇳</span>}
+                        {loyaltyTier.name === 'Noble' && <span className="text-lg hieroglyph-glow">𓊪</span>}
+                        {loyaltyTier.name === 'Explorer' && <span className="text-lg hieroglyph-glow">𓂀</span>}
+                        {loyaltyTier.name === 'Traveler' && <span className="text-lg hieroglyph-glow">𓈖</span>}
                       </div>
                     </div>
 
@@ -353,33 +429,52 @@ export default function ProfilePage() {
                       </div>
                     </div>
 
-                    {/* Stats Row */}
+                    {/* Enhanced Stats Row with Pharaonic Styling */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <Ship className="w-6 h-6 mx-auto mb-2" />
-                        <div className="text-2xl font-bold">{userStats.totalBookings}</div>
-                        <div className="text-sm text-white/80">Cruises</div>
+                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                        <div className="relative">
+                          <Ship className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
+                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓊪</div>
+                        </div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.totalBookings}</div>
+                        <div className="text-sm text-white/90 font-medium">Cruises</div>
                       </div>
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <Crown className="w-6 h-6 mx-auto mb-2" />
-                        <div className="text-2xl font-bold">{userStats.loyaltyPoints.toLocaleString()}</div>
-                        <div className="text-sm text-white/80">Points</div>
+                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                        <div className="relative">
+                          <Crown className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
+                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓇳</div>
+                        </div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.loyaltyPoints.toLocaleString()}</div>
+                        <div className="text-sm text-white/90 font-medium">Points</div>
                       </div>
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <Gift className="w-6 h-6 mx-auto mb-2" />
-                        <div className="text-2xl font-bold">${userStats.totalSpent.toLocaleString()}</div>
-                        <div className="text-sm text-white/80">Spent</div>
+                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                        <div className="relative">
+                          <Gift className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
+                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓂀</div>
+                        </div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">${userStats.totalSpent.toLocaleString()}</div>
+                        <div className="text-sm text-white/90 font-medium">Spent</div>
                       </div>
-                      <div className="bg-white/20 backdrop-blur-sm rounded-lg p-4 text-center">
-                        <MapPin className="w-6 h-6 mx-auto mb-2" />
-                        <div className="text-2xl font-bold">{userStats.favoriteDestination || 'Egypt'}</div>
-                        <div className="text-sm text-white/80">Favorite</div>
+                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                        <div className="relative">
+                          <MapPin className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
+                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓈖</div>
+                        </div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.favoriteDestination || 'Egypt'}</div>
+                        <div className="text-sm text-white/90 font-medium">Favorite</div>
                       </div>
                     </div>
                   </div>
 
                   {/* Action Buttons */}
                   <div className="profile-action-buttons flex flex-col gap-3">
+                    <Button
+                      onClick={() => router.push('/')}
+                      className="bg-blue-500/80 hover:bg-blue-600/80 text-white border border-blue-300/30 backdrop-blur-sm w-full justify-center"
+                    >
+                      <Home className="w-4 h-4 mr-2" />
+                      Go to Homepage
+                    </Button>
                     <Button
                       onClick={() => setIsEditing(!isEditing)}
                       className="bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm w-full justify-center"
@@ -409,52 +504,52 @@ export default function ProfilePage() {
                 <TabsList className="flex w-max min-w-full gap-1 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
                   <TabsTrigger
                     value="bookings"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Calendar className="w-4 h-4" />
-                    <span className="text-xs">Journeys</span>
+                    <Calendar className="w-3 h-3" />
+                    <span>Journeys</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="notifications"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Bell className="w-4 h-4" />
-                    <span className="text-xs">Alerts</span>
+                    <Bell className="w-3 h-3" />
+                    <span>Alerts</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="wishlist"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Heart className="w-4 h-4" />
-                    <span className="text-xs">Wishlist</span>
+                    <Heart className="w-3 h-3" />
+                    <span>Wishlist</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="reviews"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Star className="w-4 h-4" />
-                    <span className="text-xs">Reviews</span>
+                    <Star className="w-3 h-3" />
+                    <span>Reviews</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="loyalty"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Crown className="w-4 h-4" />
-                    <span className="text-xs">Loyalty</span>
+                    <Crown className="w-3 h-3" />
+                    <span>Loyalty</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="memories"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Camera className="w-4 h-4" />
-                    <span className="text-xs">Memories</span>
+                    <Camera className="w-3 h-3" />
+                    <span>Memories</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="settings"
-                    className="flex items-center gap-2 whitespace-nowrap px-3 py-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
                   >
-                    <Settings className="w-4 h-4" />
-                    <span className="text-xs">Settings</span>
+                    <Settings className="w-3 h-3" />
+                    <span>Settings</span>
                   </TabsTrigger>
                 </TabsList>
               </div>
@@ -531,7 +626,7 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-4 lg:p-6">
+                <CardContent className="p-3 lg:p-6">
                   <div className="min-h-[200px]">
                     <BookingsList />
                   </div>
@@ -649,6 +744,17 @@ export default function ProfilePage() {
                     <div>
                       <Label htmlFor="location">Location</Label>
                       <Input id="location" placeholder="City, Country" />
+                    </div>
+                    <div className="flex justify-end pt-4">
+                      <Button
+                        onClick={() => {
+                          toast.success('Profile updated successfully!');
+                        }}
+                        className="bg-gradient-to-r from-egyptian-gold to-amber-600 hover:from-egyptian-gold/90 hover:to-amber-600/90 text-white"
+                      >
+                        <Save className="w-4 h-4 mr-2" />
+                        Save Changes
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>
@@ -784,47 +890,87 @@ export default function ProfilePage() {
               </div>
             </TabsContent>
 
-            {/* Loyalty Tab */}
+            {/* Enhanced Loyalty Tab with Pharaonic Theme */}
             <TabsContent value="loyalty" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-gradient-to-br from-white/90 to-amber-50/80 backdrop-blur-sm border border-egyptian-gold/30 shadow-2xl relative overflow-hidden">
+                {/* Pharaonic border decorations */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+
+                <CardHeader className="bg-gradient-to-r from-amber-100/80 to-orange-100/80 border-b border-egyptian-gold/30 relative">
+                  {/* Hieroglyphic corner decorations */}
+                  <div className="absolute top-2 left-2 text-lg text-egyptian-gold/40">𓇳</div>
+                  <div className="absolute top-2 right-2 text-lg text-egyptian-gold/40">𓇳</div>
+
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-purple-400 to-indigo-400 rounded-lg">
-                      <Crown className="w-6 h-6 text-white" />
+                    <div className="p-3 bg-gradient-to-r from-egyptian-gold to-amber-500 rounded-lg shadow-lg">
+                      <Crown className="w-7 h-7 text-white" />
                     </div>
                     <div>
-                      <CardTitle className="text-2xl text-gray-800">Royal Loyalty Program</CardTitle>
-                      <CardDescription className="text-gray-600">
-                        Your journey to pharaonic privileges
+                      <CardTitle className="text-3xl text-gray-800 font-heading flex items-center gap-2">
+                        Royal Loyalty Program
+                        <span className="text-2xl text-egyptian-gold">𓊪</span>
+                      </CardTitle>
+                      <CardDescription className="text-gray-700 font-medium">
+                        Your journey to pharaonic privileges and ancient treasures
                       </CardDescription>
                     </div>
                   </div>
                 </CardHeader>
-                <CardContent className="p-6">
-                  {/* Current Tier */}
-                  <div className="text-center mb-8">
-                    <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-100 to-orange-100 px-6 py-3 rounded-full border border-amber-200">
-                      <LoyaltyIcon className={`w-8 h-8 ${loyaltyTier.color}`} />
+                <CardContent className="p-8 relative">
+                  {/* Floating hieroglyphic elements */}
+                  <div className="absolute top-4 right-4 text-3xl text-egyptian-gold/20 animate-pulse">𓂀</div>
+                  <div className="absolute bottom-4 left-4 text-2xl text-egyptian-gold/15 animate-bounce">𓈖</div>
+
+                  {/* Enhanced Current Tier Display */}
+                  <div className="text-center mb-10">
+                    <div className="inline-flex items-center gap-4 bg-gradient-to-r from-egyptian-gold/20 to-amber-200/30 px-8 py-4 rounded-full border-2 border-egyptian-gold/40 shadow-lg relative">
+                      {/* Pharaonic tier decorations */}
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-lg text-egyptian-gold">𓇳</div>
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-lg text-egyptian-gold">𓊪</div>
+
+                      <LoyaltyIcon className={`w-10 h-10 ${loyaltyTier.color} drop-shadow-lg`} />
                       <div>
-                        <div className="text-2xl font-bold text-gray-800">{loyaltyTier.name}</div>
-                        <div className="text-sm text-gray-600">{userStats.loyaltyPoints.toLocaleString()} points</div>
+                        <div className="text-3xl font-bold text-gray-800 font-heading flex items-center gap-2">
+                          {loyaltyTier.name}
+                          {loyaltyTier.name === 'Pharaoh' && <span className="text-2xl">👑</span>}
+                          {loyaltyTier.name === 'Noble' && <span className="text-xl">𓇳</span>}
+                          {loyaltyTier.name === 'Explorer' && <span className="text-xl">𓂀</span>}
+                          {loyaltyTier.name === 'Traveler' && <span className="text-xl">𓈖</span>}
+                        </div>
+                        <div className="text-lg text-gray-700 font-semibold">{userStats.loyaltyPoints.toLocaleString()} points</div>
                       </div>
                     </div>
                   </div>
 
-                  {/* Progress to Next Tier */}
-                  <div className="mb-8">
-                    <div className="flex justify-between items-center mb-2">
-                      <span className="text-sm font-medium text-gray-600">Progress to next tier</span>
-                      <span className="text-sm text-gray-500">
+                  {/* Enhanced Progress to Next Tier */}
+                  <div className="mb-10">
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-lg font-semibold text-gray-700 flex items-center gap-2">
+                        Progress to next tier
+                        <span className="text-egyptian-gold">𓏏</span>
+                      </span>
+                      <span className="text-lg text-gray-600 font-medium">
                         {Math.min(userStats.loyaltyPoints, 10000)}/10000 points
                       </span>
                     </div>
-                    <div className="w-full bg-gray-200 rounded-full h-3">
-                      <div
-                        className="bg-gradient-to-r from-amber-400 to-orange-400 h-3 rounded-full transition-all duration-500"
-                        style={{ width: `${Math.min((userStats.loyaltyPoints / 10000) * 100, 100)}%` }}
-                      ></div>
+                    <div className="relative">
+                      <div className="pharaonic-progress w-full h-4 shadow-inner">
+                        <div
+                          className="pharaonic-progress-fill h-4 rounded-full transition-all duration-700 shadow-lg relative overflow-hidden"
+                          style={{ width: `${Math.min((userStats.loyaltyPoints / 10000) * 100, 100)}%` }}
+                        >
+                        </div>
+                      </div>
+                      {/* Enhanced Hieroglyphic markers at progress points */}
+                      <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓇯</div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓇳</div>
+                      <div className="absolute top-1/2 left-3/4 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓊪</div>
+
+                      {/* Tier milestone indicators */}
+                      <div className="absolute -bottom-6 left-1/4 transform -translate-x-1/2 text-xs text-gray-600 font-medium">1K</div>
+                      <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-gray-600 font-medium">5K</div>
+                      <div className="absolute -bottom-6 left-3/4 transform -translate-x-1/2 text-xs text-gray-600 font-medium">10K</div>
                     </div>
                   </div>
 

@@ -5,12 +5,25 @@ import { useSession } from 'next-auth/react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Users, UserPlus, Download, Shield, Crown, User, ArrowLeft, Eye, Edit, Trash2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Users, UserPlus, Download, Shield, Crown, User, ArrowLeft, Eye, Edit, Trash2, X } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function UsersManagement() {
   const { data: session, status } = useSession();
   const [users, setUsers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [createLoading, setCreateLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    role: 'ADMIN'
+  });
 
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') {
@@ -50,6 +63,37 @@ export default function UsersManagement() {
       }
     } catch (error) {
       console.error('Error exporting users:', error);
+    }
+  };
+
+  const handleCreateAdmin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setCreateLoading(true);
+
+    try {
+      const response = await fetch('/api/admin/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success('Admin user created successfully!');
+        setShowCreateModal(false);
+        setFormData({ name: '', email: '', password: '', role: 'ADMIN' });
+        fetchUsers(); // Refresh the users list
+      } else {
+        toast.error(data.message || 'Failed to create admin user');
+      }
+    } catch (error) {
+      console.error('Error creating admin:', error);
+      toast.error('Failed to create admin user');
+    } finally {
+      setCreateLoading(false);
     }
   };
 
@@ -200,10 +244,116 @@ export default function UsersManagement() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <Button className="admin-btn-secondary h-12 admin-focus">
-                <UserPlus className="w-5 h-5 mr-2" />
-                Add New Admin
-              </Button>
+              <Dialog open={showCreateModal} onOpenChange={setShowCreateModal}>
+                <DialogTrigger asChild>
+                  <Button className="admin-btn-secondary h-12 admin-focus">
+                    <UserPlus className="w-5 h-5 mr-2" />
+                    Add New Admin
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md bg-white border-2 border-amber-200 shadow-2xl">
+                  <DialogHeader className="pb-4 border-b border-amber-100">
+                    <DialogTitle className="flex items-center gap-2 text-amber-800 text-xl font-bold">
+                      <Crown className="w-6 h-6 text-amber-600" />
+                      Create New Admin User
+                    </DialogTitle>
+                    <p className="text-amber-600 text-sm mt-2">
+                      Add a new administrator to the royal system
+                    </p>
+                  </DialogHeader>
+                  <form onSubmit={handleCreateAdmin} className="space-y-6 pt-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-amber-800 font-semibold">
+                        Full Name *
+                      </Label>
+                      <Input
+                        id="name"
+                        type="text"
+                        value={formData.name}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="Enter full name"
+                        required
+                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-amber-800 font-semibold">
+                        Email Address *
+                      </Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                        placeholder="Enter email address"
+                        required
+                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="password" className="text-amber-800 font-semibold">
+                        Password *
+                      </Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        value={formData.password}
+                        onChange={(e) => setFormData(prev => ({ ...prev, password: e.target.value }))}
+                        placeholder="Enter password (min 6 characters)"
+                        required
+                        minLength={6}
+                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="role" className="text-amber-800 font-semibold">
+                        Role *
+                      </Label>
+                      <Select value={formData.role} onValueChange={(value) => setFormData(prev => ({ ...prev, role: value }))}>
+                        <SelectTrigger className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900">
+                          <SelectValue placeholder="Select role" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-white border-2 border-amber-200">
+                          <SelectItem value="ADMIN" className="text-gray-900 hover:bg-amber-50">
+                            👑 Admin
+                          </SelectItem>
+                          <SelectItem value="USER" className="text-gray-900 hover:bg-amber-50">
+                            👤 User
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className="flex justify-end gap-3 pt-6 border-t border-amber-100">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => setShowCreateModal(false)}
+                        disabled={createLoading}
+                        className="border-2 border-gray-300 text-gray-700 hover:bg-gray-50 px-6 py-2"
+                      >
+                        Cancel
+                      </Button>
+                      <Button
+                        type="submit"
+                        className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-200"
+                        disabled={createLoading}
+                      >
+                        {createLoading ? (
+                          <>
+                            <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent mr-2"></div>
+                            Creating Admin...
+                          </>
+                        ) : (
+                          <>
+                            <Crown className="w-4 h-4 mr-2" />
+                            Create Admin User
+                          </>
+                        )}
+                      </Button>
+                    </div>
+                  </form>
+                </DialogContent>
+              </Dialog>
               <Button
                 className="admin-btn-primary h-12 admin-focus"
                 onClick={handleExportUsers}

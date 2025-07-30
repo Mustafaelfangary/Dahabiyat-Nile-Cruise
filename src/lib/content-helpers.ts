@@ -155,8 +155,9 @@ export const DEFAULT_CONTENT = {
   // Our Story Section
   our_story_title: 'Our Story',
   our_story_content: 'Our journey began over 30 years ago when Captain Ahmed Hassan, a third-generation Nile navigator, had a vision to revive the authentic way of exploring Egypt\'s ancient wonders. Growing up along the banks of the Nile, he witnessed the transformation of river travel and felt called to preserve the traditional Dahabiya experience.',
-  founder_name: 'Captain Ahmed Hassan',
-  founder_title: 'Founder & Master Navigator',
+  founder_name: 'Ashraf Elmasry',
+  founder_title: 'Founder & CEO',
+  founder_image: '/images/ashraf-elmasry.jpg',
   
   // Safety Section
   safety_title: 'Your Safety is Our Priority',

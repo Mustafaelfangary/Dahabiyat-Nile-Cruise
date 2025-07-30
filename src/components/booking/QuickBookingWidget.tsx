@@ -105,7 +105,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                   Quick Booking
                 </div>
                 <div className="opacity-80 text-sm">
-                  Reserve Your Sacred Journey
+                  Reserve Your Royal Journey
                 </div>
               </div>
             </div>
@@ -139,7 +139,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                     />
                     {dahabiya.isFeatured && (
                       <Chip
-                        label="Sacred"
+                        label="Featured"
                         size="small"
                         className="bg-egyptian-gold text-hieroglyph-brown"
                         icon={<Crown style={{ fontSize: 16 }} />}
@@ -247,10 +247,10 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
               </Typography>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <Typography variant="body2" className="text-amber-700">
+                  <Typography variant="body2" className="text-amber-700 font-bold">
                     {formatPrice(dahabiya.pricePerDay)} × {duration} days
                   </Typography>
-                  <Typography variant="body2" className="text-hieroglyph-brown font-medium">
+                  <Typography variant="body2" className="text-hieroglyph-brown font-bold">
                     {formatPrice(totalPrice)}
                   </Typography>
                 </div>

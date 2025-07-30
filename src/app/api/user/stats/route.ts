@@ -16,7 +16,6 @@ export async function GET(request: NextRequest) {
     const bookings = await prisma.booking.findMany({
       where: { userId },
       include: {
-        dahabiya: true,
         package: true
       }
     });
@@ -28,11 +27,11 @@ export async function GET(request: NextRequest) {
     // Find favorite destination (most booked location)
     const destinations: { [key: string]: number } = {};
     bookings.forEach(booking => {
-      if (booking.dahabiya) {
-        destinations['Nile River'] = (destinations['Nile River'] || 0) + 1;
-      }
       if (booking.package) {
         destinations['Egypt'] = (destinations['Egypt'] || 0) + 1;
+      } else {
+        // For non-package bookings, assume they are Nile River cruises
+        destinations['Nile River'] = (destinations['Nile River'] || 0) + 1;
       }
     });
     

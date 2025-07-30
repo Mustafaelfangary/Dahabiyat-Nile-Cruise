@@ -95,7 +95,7 @@ export default function MobileAdminLayout({
 
           {/* Right Side */}
           <div className="flex items-center gap-2">
-            <Link href="/" className="p-2 rounded-lg hover:bg-slate-100 transition-colors">
+            <Link href="/admin" className="p-2 rounded-lg hover:bg-slate-100 transition-colors">
               <Home className="w-5 h-5 text-slate-600" />
             </Link>
             <Button

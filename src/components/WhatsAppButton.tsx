@@ -47,25 +47,48 @@ export default function WhatsAppButton({
   return (
     <button
       onClick={handleWhatsAppClick}
-      className={`fixed z-50 w-14 h-14 bg-green-500 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group shadow-lg hover:shadow-xl ${
+      className={`fixed z-50 w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group ${
         finalPosition === 'bottom-right' ? 'bottom-24 right-6' : 'bottom-24 left-6'
       }`}
+      style={{
+        background: 'linear-gradient(135deg, #25D366 0%, #128C7E 50%, #075E54 100%)',
+        boxShadow: '0 8px 25px rgba(37, 211, 102, 0.5), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 20px rgba(37, 211, 102, 0.3)',
+        border: '3px solid rgba(255, 255, 255, 0.4)',
+        animation: 'pulse-whatsapp 2s infinite'
+      }}
       aria-label="Contact us on WhatsApp"
     >
       <MessageCircle
-        size={28}
+        size={32}
         color="white"
         className="transition-transform duration-300 group-hover:scale-110"
+        style={{
+          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.3))'
+        }}
       />
       
       {/* Tooltip */}
-      <div className={`absolute ${
-        finalPosition === 'bottom-right' ? 'right-16 bottom-2' : 'left-16 bottom-2'
-      } bg-gray-800 text-white text-sm px-3 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap pointer-events-none shadow-lg`}>
-        Chat with us on WhatsApp
-        <div className={`absolute top-1/2 transform -translate-y-1/2 w-2 h-2 bg-gray-800 rotate-45 ${
-          finalPosition === 'bottom-right' ? '-right-1' : '-left-1'
-        }`}></div>
+      <div
+        className={`absolute ${
+          finalPosition === 'bottom-right' ? 'right-20 bottom-3' : 'left-20 bottom-3'
+        } text-white text-sm px-4 py-3 rounded-xl opacity-0 group-hover:opacity-100 transition-all duration-300 whitespace-nowrap pointer-events-none font-semibold`}
+        style={{
+          background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+          boxShadow: '0 8px 25px rgba(37, 211, 102, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+          border: '2px solid rgba(255, 255, 255, 0.3)',
+          textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        }}
+      >
+        💬 Chat with us on WhatsApp
+        <div
+          className={`absolute top-1/2 transform -translate-y-1/2 w-3 h-3 rotate-45 ${
+            finalPosition === 'bottom-right' ? '-right-1.5' : '-left-1.5'
+          }`}
+          style={{
+            background: 'linear-gradient(135deg, #25D366 0%, #128C7E 100%)',
+            border: '2px solid rgba(255, 255, 255, 0.3)'
+          }}
+        ></div>
       </div>
 
       <style jsx>{`

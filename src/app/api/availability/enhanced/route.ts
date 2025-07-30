@@ -100,12 +100,12 @@ async function checkDahabiyaAvailability({
   // Fetch dahabiya details
   const dahabiya = await prisma.dahabiya.findUnique({
     where: { id: dahabiyaId },
-    include: {
-      cabins: {
-        include: {
-          cabinType: true
-        }
-      }
+    select: {
+      id: true,
+      name: true,
+      capacity: true,
+      pricePerDay: true,
+      isActive: true,
     }
   });
 
@@ -118,7 +118,7 @@ async function checkDahabiyaAvailability({
   }
 
   // Check guest capacity
-  const totalCapacity = dahabiya.cabins.reduce((sum, cabin) => sum + cabin.capacity, 0);
+  const totalCapacity = dahabiya.capacity;
   if (guests > totalCapacity) {
     return NextResponse.json({
       isAvailable: false,
@@ -129,9 +129,13 @@ async function checkDahabiyaAvailability({
   }
 
   // Check for conflicting bookings
+  // Note: Since dahabiyaId field was removed from Booking model,
+  // we'll check for any bookings in the date range for now
   const conflictingBookings = await prisma.booking.findMany({
     where: {
-      dahabiyaId,
+      // dahabiyaId field no longer exists in Booking model
+      // For now, we'll assume availability based on package bookings
+      type: 'DAHABIYA',
       status: { in: ['PENDING', 'CONFIRMED'] },
       ...(excludeBookingId && { id: { not: excludeBookingId } }),
       OR: [

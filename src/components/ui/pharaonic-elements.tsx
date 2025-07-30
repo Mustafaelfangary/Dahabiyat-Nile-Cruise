@@ -101,28 +101,11 @@ export const PharaohCard = ({ children, className = "", title }: { children: Rea
 export const FloatingEgyptianElements = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {/* Floating Hieroglyphs */}
-      <div className="absolute top-20 left-10 text-egyptian-gold/20 text-4xl animate-bounce" style={{ animationDelay: '0s', animationDuration: '3s' }}>
-        𓂀
-      </div>
-      <div className="absolute top-40 right-20 text-egyptian-gold/20 text-3xl animate-bounce" style={{ animationDelay: '1s', animationDuration: '4s' }}>
-        𓇳
-      </div>
-      <div className="absolute bottom-32 left-20 text-egyptian-gold/20 text-5xl animate-bounce" style={{ animationDelay: '2s', animationDuration: '5s' }}>
-        𓈖
-      </div>
-      <div className="absolute bottom-20 right-10 text-egyptian-gold/20 text-3xl animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '3.5s' }}>
-        𓊪
-      </div>
-      <div className="absolute top-60 left-1/2 text-egyptian-gold/20 text-4xl animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '4.5s' }}>
-        𓏏
-      </div>
-      
-      {/* Floating Golden Particles */}
-      <div className="absolute top-16 right-16 w-2 h-2 bg-egyptian-gold/40 rounded-full animate-ping" style={{ animationDelay: '0s' }}></div>
-      <div className="absolute top-80 left-16 w-3 h-3 bg-egyptian-gold/30 rounded-full animate-ping" style={{ animationDelay: '2s' }}></div>
-      <div className="absolute bottom-40 right-32 w-2 h-2 bg-egyptian-gold/50 rounded-full animate-ping" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute bottom-60 left-32 w-4 h-4 bg-egyptian-gold/20 rounded-full animate-ping" style={{ animationDelay: '3s' }}></div>
+      {/* Subtle Floating Golden Particles only */}
+      <div className="absolute top-16 right-16 w-1 h-1 bg-egyptian-gold/30 rounded-full"></div>
+      <div className="absolute top-80 left-16 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
+      <div className="absolute bottom-40 right-32 w-1 h-1 bg-egyptian-gold/25 rounded-full"></div>
+      <div className="absolute bottom-60 left-32 w-1 h-1 bg-egyptian-gold/15 rounded-full"></div>
     </div>
   );
 };
@@ -428,14 +411,11 @@ export const PharaonicObelisk = ({ children, className = "" }: { children: React
 
 export const FloatingPharaonicElements = ({ className = "" }: { className?: string }) => (
   <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
-    <div className="absolute top-10 left-10 text-egyptian-gold/20 text-4xl animate-pulse">𓇳</div>
-    <div className="absolute top-20 right-20 text-egyptian-gold/15 text-3xl animate-bounce">𓊪</div>
-    <div className="absolute bottom-20 left-20 text-egyptian-gold/20 text-3xl animate-pulse">𓈖</div>
-    <div className="absolute bottom-10 right-10 text-egyptian-gold/15 text-4xl animate-bounce">𓂀</div>
-    <div className="absolute top-1/2 left-10 text-egyptian-gold/10 text-2xl animate-pulse">𓏏</div>
-    <div className="absolute top-1/3 right-10 text-egyptian-gold/10 text-2xl animate-bounce">𓇯</div>
-    <div className="absolute bottom-1/3 left-1/3 text-egyptian-gold/10 text-xl animate-pulse">𓊃</div>
-    <div className="absolute top-2/3 right-1/3 text-egyptian-gold/10 text-xl animate-bounce">𓈖</div>
+    {/* Subtle decorative particles only */}
+    <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
+    <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-egyptian-gold/15 rounded-full"></div>
+    <div className="absolute bottom-1/4 left-3/4 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
+    <div className="absolute top-1/2 right-1/2 w-1 h-1 bg-egyptian-gold/10 rounded-full"></div>
   </div>
 );
 

@@ -4,16 +4,27 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { toast } from 'sonner';
-import { 
-  Package, 
-  Facebook, 
-  Instagram, 
-  Youtube, 
-  Camera, 
+import {
+  Package,
+  Facebook,
+  Instagram,
+  Youtube,
+  Camera,
   ExternalLink,
   Crown,
   Gift
 } from 'lucide-react';
+
+// Icon mapping for string-based icons from API
+const iconMap: Record<string, any> = {
+  Package,
+  Facebook,
+  Instagram,
+  Youtube,
+  Camera,
+  Crown,
+  Gift
+};
 
 interface LoyaltyButtonConfig {
   id: string;
@@ -35,61 +46,62 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
   const [buttons, setButtons] = useState<LoyaltyButtonConfig[]>([]);
   const [loading, setLoading] = useState(true);
   const [processingAction, setProcessingAction] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // Default button configuration
+  // Enhanced pharaonic button configuration
   const defaultButtons: LoyaltyButtonConfig[] = [
     {
       id: 'book-package',
-      label: 'Book a Package',
+      label: 'Book a Royal Journey',
       icon: Package,
       points: 500,
       enabled: true,
       url: '/packages',
       action: 'redirect',
-      description: 'Browse and book our luxury packages',
-      color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+      description: 'Browse and book our luxury pharaonic packages',
+      color: 'bg-gradient-to-r from-egyptian-gold to-amber-600'
     },
     {
       id: 'like-facebook',
-      label: 'Like Us',
+      label: 'Join Our Kingdom',
       icon: Facebook,
       points: 50,
       enabled: true,
       url: 'https://facebook.com/cleopatradahabiya',
       action: 'redirect',
-      description: 'Follow us on Facebook',
+      description: 'Follow us on Facebook for royal updates',
       color: 'bg-gradient-to-r from-blue-600 to-blue-700'
     },
     {
       id: 'follow-instagram',
-      label: 'Follow Us',
+      label: 'Follow the Pharaoh',
       icon: Instagram,
       points: 50,
       enabled: true,
       url: 'https://instagram.com/cleopatradahabiya',
       action: 'redirect',
-      description: 'Follow us on Instagram',
+      description: 'Follow us on Instagram for ancient treasures',
       color: 'bg-gradient-to-r from-pink-500 to-purple-600'
     },
     {
       id: 'subscribe-youtube',
-      label: 'Subscribe',
+      label: 'Royal Chronicles',
       icon: Youtube,
       points: 75,
       enabled: true,
       url: 'https://youtube.com/@cleopatradahabiya',
       action: 'redirect',
-      description: 'Subscribe to our YouTube channel',
+      description: 'Subscribe to our royal YouTube channel',
       color: 'bg-gradient-to-r from-red-500 to-red-600'
     },
     {
       id: 'share-memories',
-      label: 'Share Memories',
+      label: 'Share Sacred Memories',
       icon: Camera,
       points: 100,
       enabled: true,
       action: 'internal',
-      description: 'Share your travel memories with us',
+      description: 'Share your sacred travel memories with us',
       color: 'bg-gradient-to-r from-green-500 to-emerald-600'
     }
   ];
@@ -100,16 +112,35 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
 
   const fetchButtonConfig = async () => {
     try {
-      const response = await fetch('/api/loyalty/buttons');
+      setError(null);
+      const response = await fetch('/api/loyalty/buttons', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        cache: 'no-store' // Ensure fresh data
+      });
+
       if (response.ok) {
         const config = await response.json();
-        setButtons(config.buttons || defaultButtons);
+        if (config.buttons && Array.isArray(config.buttons)) {
+          // Map string icons to actual icon components
+          const mappedButtons = config.buttons.map((button: any) => ({
+            ...button,
+            icon: typeof button.icon === 'string' ? iconMap[button.icon] || Package : button.icon
+          }));
+          setButtons(mappedButtons);
+        } else {
+          console.warn('Invalid button configuration received, using defaults');
+          setButtons(defaultButtons);
+        }
       } else {
-        // Use default configuration if API fails
+        console.warn(`API response not ok: ${response.status} ${response.statusText}`);
         setButtons(defaultButtons);
       }
     } catch (error) {
       console.error('Error fetching loyalty button config:', error);
+      setError('Failed to load loyalty actions. Using default configuration.');
       setButtons(defaultButtons);
     } finally {
       setLoading(false);
@@ -118,7 +149,8 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
 
   const handleButtonClick = async (button: LoyaltyButtonConfig) => {
     if (processingAction === button.id) return;
-    
+
+    console.log('Loyalty button clicked:', button.id, button.label);
     setProcessingAction(button.id);
 
     try {
@@ -136,24 +168,29 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
 
       if (response.ok) {
         const result = await response.json();
-        
+
         // Handle different action types
         switch (button.action) {
           case 'redirect':
             if (button.url) {
-              // Open external links in new tab, internal links in same tab
-              if (button.url.startsWith('http')) {
-                window.open(button.url, '_blank', 'noopener,noreferrer');
-              } else {
-                window.location.href = button.url;
-              }
+              // Add small delay for mobile to show feedback
+              setTimeout(() => {
+                // Open external links in new tab, internal links in same tab
+                if (button.url.startsWith('http')) {
+                  window.open(button.url, '_blank', 'noopener,noreferrer');
+                } else {
+                  window.location.href = button.url;
+                }
+              }, 100);
             }
             break;
           case 'internal':
             if (button.id === 'share-memories') {
               // Trigger memory sharing modal or navigate to memories tab
-              const event = new CustomEvent('openMemorySharing');
-              window.dispatchEvent(event);
+              setTimeout(() => {
+                const event = new CustomEvent('openMemorySharing');
+                window.dispatchEvent(event);
+              }, 100);
             }
             break;
         }
@@ -161,10 +198,18 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
         // Show success message and update points
         toast.success(`+${button.points} points earned! ${result.message || ''}`);
         onPointsEarned?.(button.points, button.id);
-        
+
       } else {
-        const error = await response.json();
-        toast.error(error.message || 'Failed to process action');
+        const error = await response.json().catch(() => ({ error: 'Network error' }));
+        console.error('Loyalty action error:', error);
+
+        if (response.status === 401) {
+          toast.error('Please sign in to earn loyalty points');
+        } else if (response.status === 400 && error.error?.includes('already earned')) {
+          toast.warning('You have already earned points for this action today');
+        } else {
+          toast.error(error.error || error.message || 'Failed to process action');
+        }
       }
     } catch (error) {
       console.error('Error processing loyalty action:', error);
@@ -178,8 +223,17 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
     return (
       <div className="space-y-3">
         {[1, 2, 3, 4, 5].map((i) => (
-          <div key={i} className="h-16 bg-gray-200 rounded-lg animate-pulse" />
+          <div key={i} className="h-16 bg-gradient-to-r from-gray-200 to-gray-300 rounded-lg animate-pulse" />
         ))}
+      </div>
+    );
+  }
+
+  if (!buttons || buttons.length === 0) {
+    return (
+      <div className="text-center py-8">
+        <Crown className="w-12 h-12 text-gray-400 mx-auto mb-4" />
+        <p className="text-gray-500">No loyalty actions available at the moment.</p>
       </div>
     );
   }
@@ -190,40 +244,65 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
         <Crown className="w-5 h-5 text-amber-600" />
         <h4 className="font-semibold text-gray-800">Earn More Points</h4>
       </div>
-      
+
+      {error && (
+        <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 mb-4">
+          <p className="text-yellow-800 text-sm">{error}</p>
+        </div>
+      )}
+
       <div className="grid grid-cols-1 gap-3">
         {buttons
           .filter(button => button.enabled)
           .map((button) => {
-            const IconComponent = button.icon;
+            const IconComponent = button.icon || Package; // Fallback to Package icon
             const isProcessing = processingAction === button.id;
-            
+
             return (
-              <Card key={button.id} className="overflow-hidden border border-amber-200 hover:border-amber-300 transition-colors">
+              <Card key={button.id} className="overflow-hidden border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all duration-300 shadow-lg hover:shadow-xl relative">
+                {/* Pharaonic corner decorations */}
+                <div className="absolute top-1 left-1 text-xs text-egyptian-gold/40">𓇳</div>
+                <div className="absolute top-1 right-1 text-xs text-egyptian-gold/40">𓇳</div>
+
                 <CardContent className="p-0">
                   <Button
                     onClick={() => handleButtonClick(button)}
                     disabled={isProcessing}
-                    className={`w-full h-16 ${button.color} hover:opacity-90 text-white border-0 rounded-lg flex items-center justify-between p-4 transition-all duration-200 hover:scale-[1.02]`}
+                    className={`w-full min-h-[4rem] sm:h-16 ${button.color} hover:opacity-90 text-white border-0 rounded-lg flex items-center justify-between p-3 sm:p-4 transition-all duration-300 hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed relative overflow-hidden touch-manipulation active:scale-95`}
                     variant="ghost"
+                    style={{
+                      WebkitTapHighlightColor: 'transparent',
+                      touchAction: 'manipulation'
+                    }}
                   >
-                    <div className="flex items-center gap-3">
-                      <div className="p-2 bg-white/20 rounded-lg">
-                        <IconComponent className="w-5 h-5" />
+                    {/* Shimmer effect overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-shimmer"></div>
+
+                    <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0 relative z-10">
+                      <div className="p-1.5 sm:p-2 bg-white/25 rounded-lg flex-shrink-0 border border-white/20">
+                        {IconComponent ? (
+                          <IconComponent className="w-4 h-4 sm:w-5 sm:h-5" />
+                        ) : (
+                          <Package className="w-4 h-4 sm:w-5 sm:h-5" />
+                        )}
                       </div>
-                      <div className="text-left">
-                        <div className="font-semibold text-sm">{button.label}</div>
-                        <div className="text-xs text-white/80">{button.description}</div>
+                      <div className="text-left flex-1 min-w-0">
+                        <div className="font-bold text-xs sm:text-sm truncate drop-shadow-sm">{button.label}</div>
+                        <div className="text-xs text-white/90 truncate font-medium">{button.description}</div>
                       </div>
                     </div>
-                    
-                    <div className="flex items-center gap-2">
-                      <div className="flex items-center gap-1 bg-white/20 px-2 py-1 rounded-full">
-                        <Gift className="w-3 h-3" />
-                        <span className="text-xs font-medium">+{button.points}</span>
+
+                    <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 relative z-10">
+                      <div className="flex items-center gap-1 bg-white/30 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded-full border border-white/20 backdrop-blur-sm">
+                        <Crown className="w-3 h-3 text-egyptian-gold" />
+                        <span className="text-xs font-bold">+{button.points}</span>
+                        <span className="text-xs text-egyptian-gold">𓊪</span>
                       </div>
                       {button.action === 'redirect' && (
-                        <ExternalLink className="w-4 h-4 text-white/60" />
+                        <ExternalLink className="w-3 h-3 sm:w-4 sm:h-4 text-white/60" />
+                      )}
+                      {isProcessing && (
+                        <div className="w-3 h-3 sm:w-4 sm:h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                       )}
                     </div>
                   </Button>

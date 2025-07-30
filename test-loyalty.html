@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Loyalty Buttons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .button {
+            background: linear-gradient(to right, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            margin: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .button:hover {
+            opacity: 0.9;
+        }
+        .button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .result {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #f3f4f6;
+        }
+        .success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        .error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Loyalty Buttons</h1>
+    <p>This page tests the loyalty button functionality without requiring the full React app.</p>
+    
+    <div>
+        <button class="button" onclick="testLoyaltyAction('like-facebook', 50)">
+            Test Facebook Like (+50 points)
+        </button>
+        <button class="button" onclick="testLoyaltyAction('follow-instagram', 50)">
+            Test Instagram Follow (+50 points)
+        </button>
+        <button class="button" onclick="testLoyaltyAction('subscribe-youtube', 75)">
+            Test YouTube Subscribe (+75 points)
+        </button>
+        <button class="button" onclick="testLoyaltyAction('share-memories', 100)">
+            Test Share Memories (+100 points)
+        </button>
+    </div>
+
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script>
+        async function testLoyaltyAction(action, points) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result';
+            resultDiv.innerHTML = 'Testing loyalty action...';
+
+            try {
+                const response = await fetch('/api/loyalty/action', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: action,
+                        points: points,
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    resultDiv.className = 'result success';
+                    resultDiv.innerHTML = `
+                        <h3>Success!</h3>
+                        <p><strong>Action:</strong> ${action}</p>
+                        <p><strong>Points Earned:</strong> ${data.pointsEarned}</p>
+                        <p><strong>Total Points:</strong> ${data.totalPoints}</p>
+                        <p><strong>Current Tier:</strong> ${data.newTier}</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                        ${data.tierUpgrade ? '<p><strong>🎉 Tier Upgrade!</strong></p>' : ''}
+                    `;
+                } else {
+                    resultDiv.className = 'result error';
+                    resultDiv.innerHTML = `
+                        <h3>Error</h3>
+                        <p><strong>Status:</strong> ${response.status}</p>
+                        <p><strong>Message:</strong> ${data.error || data.message || 'Unknown error'}</p>
+                    `;
+                }
+            } catch (error) {
+                resultDiv.className = 'result error';
+                resultDiv.innerHTML = `
+                    <h3>Network Error</h3>
+                    <p><strong>Error:</strong> ${error.message}</p>
+                    <p>Make sure you're logged in and the server is running.</p>
+                `;
+            }
+        }
+
+        // Test if user is logged in
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/auth/session');
+                const session = await response.json();
+                
+                if (session?.user) {
+                    document.body.insertAdjacentHTML('afterbegin', `
+                        <div class="result success">
+                            <p>✅ Logged in as: ${session.user.name || session.user.email}</p>
+                        </div>
+                    `);
+                } else {
+                    document.body.insertAdjacentHTML('afterbegin', `
+                        <div class="result error">
+                            <p>❌ Not logged in. Please <a href="/auth/signin">sign in</a> first.</p>
+                        </div>
+                    `);
+                }
+            } catch (error) {
+                document.body.insertAdjacentHTML('afterbegin', `
+                    <div class="result error">
+                        <p>❌ Could not check authentication status.</p>
+                    </div>
+                `);
+            }
+        }
+
+        // Check auth status when page loads
+        checkAuth();
+    </script>
+</body>
+</html>

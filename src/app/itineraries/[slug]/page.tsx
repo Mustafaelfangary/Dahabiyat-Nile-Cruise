@@ -222,7 +222,7 @@ export default function ItineraryDetailPage() {
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fade-up">
             <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
-              📅 Daily Sacred Journey 📅
+              📅 Daily Royal Journey 📅
             </h2>
           </AnimatedSection>
 
@@ -409,7 +409,7 @@ export default function ItineraryDetailPage() {
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection animation="fade-up">
             <h2 className="text-4xl font-bold mb-6">
-              Ready to Begin This Sacred Journey?
+              Ready to Begin This Royal Journey?
             </h2>
             <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto">
               Let our expert guides lead you through this carefully crafted itinerary. 

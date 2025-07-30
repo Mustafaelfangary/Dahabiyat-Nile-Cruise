@@ -12,6 +12,8 @@ import { ContactForm } from '@/components/contact/contact-form';
 import { useTranslation } from '@/lib/i18n';
 import { useContent } from '@/hooks/useContent';
 import { AnimatedSection } from '@/components/ui/animated-section';
+import { useSession } from 'next-auth/react';
+import '@/styles/admin.css';
 import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, Send, Play, Star, Edit3, Save } from 'lucide-react';
 import {
   RoyalCrown,
@@ -26,6 +28,7 @@ import {
 } from '@/components/ui/pharaonic-elements';
 
 export default function ContactPage() {
+  const { data: session } = useSession();
   const { getContent, loading, error } = useContent({ page: 'contact' });
   const [activeTab, setActiveTab] = useState('whatsapp');
   const [isEditing, setIsEditing] = useState(false);
@@ -107,8 +110,8 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-text-primary">
-                {getContent('contact_hero_subtitle', 'Connect with our team to plan your perfect Nile journey')}
+              <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-text-primary admin-text-justify">
+                {getContent('contact_hero_subtitle', 'Connect with our team to plan your perfect Nile journey. Our expert travel consultants are here to help you create unforgettable memories along the eternal Nile River, ensuring every detail of your pharaonic adventure is perfectly crafted.')}
               </p>
             </div>
           </AnimatedSection>
@@ -132,20 +135,21 @@ export default function ContactPage() {
             <div className="max-w-4xl mx-auto">
               <div className="bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm rounded-3xl border-2 border-egyptian-gold/30 shadow-2xl overflow-hidden">
                 <div className="p-8">
-                  {/* Edit Button */}
-                  <div className="flex justify-end mb-6">
-                    {!isEditing ? (
-                      <Button
-                        onClick={() => setIsEditing(true)}
-                        className="bg-egyptian-gold hover:bg-egyptian-gold/80 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
-                      >
-                        <Edit3 className="w-4 h-4 mr-2" />
-                        Edit Links
-                      </Button>
-                    ) : (
-                      <div className="flex gap-3">
+                  {/* Edit Button - Only show for admin users */}
+                  {session?.user?.role === 'ADMIN' && (
+                    <div className="flex justify-end mb-6">
+                      {!isEditing ? (
                         <Button
-                          onClick={handleSave}
+                          onClick={() => setIsEditing(true)}
+                          className="bg-egyptian-gold hover:bg-egyptian-gold/80 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                        >
+                          <Edit3 className="w-4 h-4 mr-2" />
+                          Edit Links
+                        </Button>
+                      ) : (
+                        <div className="flex gap-3">
+                          <Button
+                            onClick={handleSave}
                           className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
                           <Save className="w-4 h-4 mr-2" />
@@ -158,39 +162,48 @@ export default function ContactPage() {
                         >
                           Cancel
                         </Button>
-                      </div>
-                    )}
-                  </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-egyptian-gold/20 to-sunset-orange/20 rounded-2xl p-2 mb-8">
+                    <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-egyptian-gold/20 to-sunset-orange/20 rounded-2xl p-1 mb-8 gap-0.5">
                       <TabsTrigger
                         value="whatsapp"
-                        className="data-[state=active]:bg-green-500 data-[state=active]:text-white rounded-xl transition-all duration-300 font-semibold"
+                        className="data-[state=active]:bg-green-500 data-[state=active]:text-white rounded-lg transition-all duration-300 font-medium flex items-center justify-center text-center px-0.5 py-2 min-h-[2.5rem] text-xs"
                       >
-                        <MessageCircle className="w-4 h-4 mr-2" />
-                        WhatsApp
+                        <div className="flex flex-col items-center justify-center gap-0.5">
+                          <MessageCircle className="w-3 h-3 flex-shrink-0" />
+                          <span className="text-[10px] leading-tight">WhatsApp</span>
+                        </div>
                       </TabsTrigger>
                       <TabsTrigger
                         value="telegram"
-                        className="data-[state=active]:bg-blue-500 data-[state=active]:text-white rounded-xl transition-all duration-300 font-semibold"
+                        className="data-[state=active]:bg-blue-500 data-[state=active]:text-white rounded-lg transition-all duration-300 font-medium flex items-center justify-center text-center px-0.5 py-2 min-h-[2.5rem] text-xs"
                       >
-                        <Send className="w-4 h-4 mr-2" />
-                        Telegram
+                        <div className="flex flex-col items-center justify-center gap-0.5">
+                          <Send className="w-3 h-3 flex-shrink-0" />
+                          <span className="text-[10px] leading-tight">Telegram</span>
+                        </div>
                       </TabsTrigger>
                       <TabsTrigger
                         value="youtube"
-                        className="data-[state=active]:bg-red-500 data-[state=active]:text-white rounded-xl transition-all duration-300 font-semibold"
+                        className="data-[state=active]:bg-red-500 data-[state=active]:text-white rounded-lg transition-all duration-300 font-medium flex items-center justify-center text-center px-0.5 py-2 min-h-[2.5rem] text-xs"
                       >
-                        <Play className="w-4 h-4 mr-2" />
-                        YouTube
+                        <div className="flex flex-col items-center justify-center gap-0.5">
+                          <Play className="w-3 h-3 flex-shrink-0" />
+                          <span className="text-[10px] leading-tight">YouTube</span>
+                        </div>
                       </TabsTrigger>
                       <TabsTrigger
                         value="tripadvisor"
-                        className="data-[state=active]:bg-green-600 data-[state=active]:text-white rounded-xl transition-all duration-300 font-semibold"
+                        className="data-[state=active]:bg-green-600 data-[state=active]:text-white rounded-lg transition-all duration-300 font-medium flex items-center justify-center text-center px-0.5 py-2 min-h-[2.5rem] text-xs"
                       >
-                        <Star className="w-4 h-4 mr-2" />
-                        TripAdvisor
+                        <div className="flex flex-col items-center justify-center gap-0.5">
+                          <Star className="w-3 h-3 flex-shrink-0" />
+                          <span className="text-[10px] leading-tight">TripAdvisor</span>
+                        </div>
                       </TabsTrigger>
                     </TabsList>
 
@@ -204,7 +217,10 @@ export default function ContactPage() {
                           <h3 className="text-2xl font-heading font-bold text-green-800 mb-4">
                             Connect via WhatsApp
                           </h3>
-                          {isEditing ? (
+                          <p className="text-green-700 mb-6 admin-text-justify max-w-md mx-auto">
+                            Get instant responses to your questions about our dahabiya cruises, packages, and availability. Our team is ready to assist you in planning your perfect Nile adventure.
+                          </p>
+                          {isEditing && session?.user?.role === 'ADMIN' ? (
                             <Input
                               value={tempLinks.whatsapp}
                               onChange={(e) => handleLinkChange('whatsapp', e.target.value)}
@@ -234,7 +250,10 @@ export default function ContactPage() {
                           <h3 className="text-2xl font-heading font-bold text-blue-800 mb-4">
                             Join our Telegram
                           </h3>
-                          {isEditing ? (
+                          <p className="text-blue-700 mb-6 admin-text-justify max-w-md mx-auto">
+                            Join our exclusive Telegram channel for real-time updates, special offers, and behind-the-scenes content from our luxury Nile cruises and Egyptian adventures.
+                          </p>
+                          {isEditing && session?.user?.role === 'ADMIN' ? (
                             <Input
                               value={tempLinks.telegram}
                               onChange={(e) => handleLinkChange('telegram', e.target.value)}
@@ -264,7 +283,10 @@ export default function ContactPage() {
                           <h3 className="text-2xl font-heading font-bold text-red-800 mb-4">
                             Watch our Videos
                           </h3>
-                          {isEditing ? (
+                          <p className="text-red-700 mb-6 admin-text-justify max-w-md mx-auto">
+                            Explore our YouTube channel featuring stunning footage of our dahabiyas, guest testimonials, and virtual tours of ancient Egyptian temples and monuments.
+                          </p>
+                          {isEditing && session?.user?.role === 'ADMIN' ? (
                             <Input
                               value={tempLinks.youtube}
                               onChange={(e) => handleLinkChange('youtube', e.target.value)}
@@ -294,7 +316,10 @@ export default function ContactPage() {
                           <h3 className="text-2xl font-heading font-bold text-emerald-800 mb-4">
                             Read our Reviews
                           </h3>
-                          {isEditing ? (
+                          <p className="text-emerald-700 mb-6 admin-text-justify max-w-md mx-auto">
+                            Discover what our guests say about their unforgettable experiences aboard our luxury dahabiyas. Read authentic reviews and testimonials from travelers who have sailed the Nile with us.
+                          </p>
+                          {isEditing && session?.user?.role === 'ADMIN' ? (
                             <Input
                               value={tempLinks.tripadvisor}
                               onChange={(e) => handleLinkChange('tripadvisor', e.target.value)}

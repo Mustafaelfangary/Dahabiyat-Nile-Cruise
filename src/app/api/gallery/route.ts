@@ -9,7 +9,8 @@ export async function GET(request: NextRequest) {
         select: {
           id: true,
           name: true,
-          images: true,
+          gallery: true,
+          mainImage: true,
         }
       }),
       prisma.package.findMany({
@@ -24,17 +25,34 @@ export async function GET(request: NextRequest) {
 
     // Process dahabiya images
     dahabiyat.forEach(dahabiya => {
-      if (dahabiya.images && Array.isArray(dahabiya.images)) {
-        dahabiya.images.forEach((image: any, index: number) => {
-          if (image && image.url && image.url.trim() !== '') {
+      // Add main image if it exists
+      if (dahabiya.mainImage && dahabiya.mainImage.trim() !== '') {
+        galleryImages.push({
+          id: `dahabiya-${dahabiya.id}-main`,
+          url: dahabiya.mainImage,
+          alt: `${dahabiya.name} - Main Image`,
+          caption: `Beautiful view of ${dahabiya.name}`,
+          category: 'dahabiya',
+          itemName: dahabiya.name,
+          itemSlug: dahabiya.id,
+          location: 'Nile River, Egypt',
+          likes: Math.floor(Math.random() * 100) + 10,
+          views: Math.floor(Math.random() * 1000) + 100,
+        });
+      }
+
+      // Add gallery images if they exist
+      if (dahabiya.gallery && Array.isArray(dahabiya.gallery)) {
+        dahabiya.gallery.forEach((imageUrl: string, index: number) => {
+          if (imageUrl && imageUrl.trim() !== '') {
             galleryImages.push({
               id: `dahabiya-${dahabiya.id}-${index}`,
-              url: image.url,
-              alt: image.alt || `${dahabiya.name} - Image ${index + 1}`,
+              url: imageUrl,
+              alt: `${dahabiya.name} - Image ${index + 1}`,
               caption: `Beautiful view of ${dahabiya.name}`,
               category: 'dahabiya',
               itemName: dahabiya.name,
-              itemSlug: dahabiya.id, // Use ID as slug fallback
+              itemSlug: dahabiya.id,
               location: 'Nile River, Egypt',
               likes: Math.floor(Math.random() * 100) + 10,
               views: Math.floor(Math.random() * 1000) + 100,

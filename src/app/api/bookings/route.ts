@@ -230,12 +230,6 @@ export async function GET(request: NextRequest) {
           userId: session.user.id,
         },
         include: {
-          dahabiya: {
-            select: {
-              name: true,
-              mainImageUrl: true,
-            },
-          },
           package: {
             select: {
               name: true,

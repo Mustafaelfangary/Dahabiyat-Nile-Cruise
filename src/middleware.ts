@@ -4,17 +4,7 @@ import { NextResponse } from 'next/server';
 
 export default withAuth(
   function middleware(req: NextRequest, token: any) {
-    console.log("middleware", req.nextUrl.pathname);
-    
-    // Handle admin routes
-    const isAdminRoute = req.nextUrl.pathname.startsWith('/admin');
-    if (isAdminRoute) {
-      // Check if user has admin role
-      if (token?.role !== 'ADMIN') {
-        return NextResponse.redirect(new URL('/', req.url));
-      }
-    }
-    
+    // Simple middleware - just let withAuth handle the authorization
     return NextResponse.next();
   },
   {
@@ -39,7 +29,7 @@ export const config = {
   matcher: [
     "/profile/:path*",
     "/bookings/:path*",
-    // "/admin/:path*", // Temporarily disabled for testing
+    "/admin/:path*",
     // Protect specific API routes but exclude NextAuth
     "/api/admin/:path*",
     "/api/upload/:path*",

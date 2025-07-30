@@ -95,12 +95,12 @@ export default function BookingPage() {
       {/* Enhanced Pharaonic Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Hieroglyphic Background Elements */}
-        <div className="absolute top-10 left-10 text-egyptian-gold/20 text-6xl animate-pulse" style={{ animationDelay: '0s' }}>𓇳</div>
-        <div className="absolute top-20 right-16 text-egyptian-gold/15 text-5xl animate-pulse" style={{ animationDelay: '2s' }}>𓊪</div>
-        <div className="absolute top-32 left-1/4 text-egyptian-gold/25 text-4xl animate-pulse" style={{ animationDelay: '4s' }}>𓈖</div>
-        <div className="absolute top-40 right-1/3 text-egyptian-gold/18 text-7xl animate-pulse" style={{ animationDelay: '1s' }}>𓂀</div>
-        <div className="absolute bottom-32 left-12 text-egyptian-gold/15 text-4xl animate-pulse" style={{ animationDelay: '1.5s' }}>𓊃</div>
-        <div className="absolute bottom-40 right-12 text-egyptian-gold/25 text-5xl animate-pulse" style={{ animationDelay: '3.5s' }}>𓈖</div>
+        <div className="absolute top-10 left-10 text-egyptian-gold/10 text-4xl animate-pulse" style={{ animationDelay: '0s' }}>𓇳</div>
+        <div className="absolute top-20 right-16 text-egyptian-gold/8 text-3xl animate-pulse" style={{ animationDelay: '2s' }}>𓊪</div>
+        <div className="absolute top-32 left-1/4 text-egyptian-gold/12 text-3xl animate-pulse" style={{ animationDelay: '4s' }}>𓈖</div>
+        <div className="absolute top-40 right-1/3 text-egyptian-gold/10 text-3xl animate-pulse" style={{ animationDelay: '1s' }}>𓂀</div>
+        <div className="absolute bottom-32 left-12 text-egyptian-gold/8 text-3xl animate-pulse" style={{ animationDelay: '1.5s' }}>𓊃</div>
+        <div className="absolute bottom-40 right-12 text-egyptian-gold/10 text-3xl animate-pulse" style={{ animationDelay: '3.5s' }}>𓈖</div>
       </div>
 
       <div className="relative max-w-4xl mx-auto">
@@ -218,7 +218,7 @@ export default function BookingPage() {
                             <Star className="w-4 h-4" />
                             Type: {selectedDahabiya.type}
                           </p>
-                          <p className="flex items-center gap-2">
+                          <p className="flex items-center gap-2 font-bold">
                             <Crown className="w-4 h-4" />
                             From ${selectedDahabiya.pricePerDay}/day
                           </p>

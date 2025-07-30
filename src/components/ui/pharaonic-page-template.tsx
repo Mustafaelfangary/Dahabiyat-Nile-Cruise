@@ -10,7 +10,6 @@ import { ReactNode } from 'react';
 import {
   PharaonicCrown,
   PharaonicPatternBackground,
-  FloatingPharaonicElements,
   EgyptHieroglyphic
 } from '@/components/ui/pharaonic-elements';
 import BookingForm from '@/components/BookingForm';
@@ -122,33 +121,11 @@ export function PharaonicPageTemplate({
         <div className="absolute inset-0 bg-slate-50"></div>
         <div className="absolute inset-0 bg-gradient-to-tr from-ocean-blue/15 via-transparent to-ocean-blue/25"></div>
 
-      {/* Extensive Hieroglyphic Background Elements */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {/* Large Background Hieroglyphs */}
-        <div className="absolute top-10 left-10 text-ocean-blue/20 text-6xl animate-pulse" style={{ animationDelay: '0s' }}>𓇳</div>
-        <div className="absolute top-20 right-16 text-ocean-blue/15 text-5xl animate-pulse" style={{ animationDelay: '2s' }}>𓊪</div>
-        <div className="absolute top-32 left-1/4 text-ocean-blue/25 text-4xl animate-pulse" style={{ animationDelay: '4s' }}>𓈖</div>
-        <div className="absolute top-40 right-1/3 text-ocean-blue/18 text-7xl animate-pulse" style={{ animationDelay: '1s' }}>𓂀</div>
-        <div className="absolute top-60 left-1/2 text-ocean-blue/22 text-5xl animate-pulse" style={{ animationDelay: '3s' }}>𓏏</div>
-        <div className="absolute top-80 right-20 text-ocean-blue/20 text-6xl animate-pulse" style={{ animationDelay: '5s' }}>𓇯</div>
 
-        {/* Medium Background Hieroglyphs */}
-        <div className="absolute bottom-32 left-12 text-ocean-blue/15 text-4xl animate-pulse" style={{ animationDelay: '1.5s' }}>𓊃</div>
-        <div className="absolute bottom-40 right-12 text-ocean-blue/25 text-5xl animate-pulse" style={{ animationDelay: '3.5s' }}>𓈖</div>
-        <div className="absolute bottom-60 left-1/3 text-ocean-blue/18 text-6xl animate-pulse" style={{ animationDelay: '0.5s' }}>𓇳</div>
-        <div className="absolute bottom-80 right-1/4 text-ocean-blue/22 text-4xl animate-pulse" style={{ animationDelay: '2.5s' }}>𓊪</div>
-
-        {/* Center Area Hieroglyphs */}
-        <div className="absolute top-1/2 left-8 text-ocean-blue/15 text-3xl animate-pulse" style={{ animationDelay: '6s' }}>𓏏</div>
-        <div className="absolute top-1/2 right-8 text-ocean-blue/18 text-4xl animate-pulse" style={{ animationDelay: '1.2s' }}>𓇯</div>
-        <div className="absolute top-1/3 left-16 text-ocean-blue/22 text-5xl animate-pulse" style={{ animationDelay: '3.8s' }}>𓊃</div>
-        <div className="absolute top-2/3 right-16 text-ocean-blue/15 text-6xl animate-pulse" style={{ animationDelay: '0.8s' }}>𓈖</div>
-      </div>
 
       {/* Hero Section with Video/Image */}
       <section className="relative py-32 bg-slate-50 overflow-hidden">
         <PharaonicPatternBackground className="opacity-25" />
-        <FloatingPharaonicElements />
         
         {/* Background Video/Image */}
         <div className="absolute inset-0">

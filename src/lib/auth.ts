@@ -10,6 +10,7 @@ export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
     maxAge: 30 * 24 * 60 * 60, // 30 days
+    updateAge: 24 * 60 * 60, // 24 hours
   },
   pages: {
     signIn: "/auth/signin",
@@ -68,15 +69,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async redirect({ url, baseUrl }) {
-      // If user is logging in and the URL contains admin or dashboard
-      if (url.includes('/admin') || url.includes('/dashboard') || url.includes('4040')) {
-        return `${baseUrl}/admin`;
-      }
-
-      // If redirecting to profile, redirect to homepage instead (for regular users)
-      if (url.includes('/profile')) {
-        return baseUrl;
-      }
+      console.log('Auth redirect called with:', { url, baseUrl });
 
       // If it's a relative URL, make it absolute
       if (url.startsWith('/')) {
@@ -88,8 +81,8 @@ export const authOptions: NextAuthOptions = {
         return url;
       }
 
-      // Default to homepage for regular users
-      return baseUrl;
+      // Default to profile page
+      return `${baseUrl}/profile`;
     },
     async session({ token, session }) {
       if (token) {
@@ -107,6 +100,8 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = user.role;
         token.image = user.image;
+        token.email = user.email;
+        token.name = user.name;
       }
       return token;
     },

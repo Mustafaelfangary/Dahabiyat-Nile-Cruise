@@ -315,28 +315,30 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Chip
                   icon={<Users size={18} className="text-white" />}
                   label={`${dahabiya.capacity} Guests`}
-                  className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl transition-all duration-300"
+                  className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                   variant="outlined"
                   style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                    backdropFilter: 'blur(10px)',
-                    border: '2px solid rgba(255, 255, 255, 0.6)',
+                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                    backdropFilter: 'blur(15px)',
+                    border: '2px solid rgba(255, 255, 255, 0.8)',
                     color: '#FFFFFF',
-                    textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                   }}
                 />
                 {dahabiya.cabins && (
                   <Chip
                     icon={<Ship size={18} className="text-white" />}
                     label={`${dahabiya.cabins} Cabins`}
-                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl transition-all duration-300"
+                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                     variant="outlined"
                     style={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                      backdropFilter: 'blur(10px)',
-                      border: '2px solid rgba(255, 255, 255, 0.6)',
+                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                      backdropFilter: 'blur(15px)',
+                      border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
-                      textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                     }}
                   />
                 )}
@@ -344,26 +346,30 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   <Chip
                     icon={<Ruler size={18} className="text-white" />}
                     label={`${dahabiya.length}m Length`}
-                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl transition-all duration-300"
+                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                     variant="outlined"
                     style={{
-                      backgroundColor: 'rgba(255, 255, 255, 0.25)',
-                      backdropFilter: 'blur(10px)',
-                      border: '2px solid rgba(255, 255, 255, 0.6)',
+                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                      backdropFilter: 'blur(15px)',
+                      border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
-                      textShadow: '1px 1px 3px rgba(0,0,0,0.7)'
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                     }}
                   />
                 )}
                 <Chip
-                  icon={<DollarSign size={18} className="text-hieroglyph-brown" />}
+                  icon={<DollarSign size={18} className="text-white" />}
                   label={`From ${formatPrice(dahabiya.pricePerDay)}/day`}
-                  className="font-bold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
+                  className="font-bold px-8 py-4 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300"
                   style={{
-                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%)',
-                    color: '#8B4513',
-                    border: '2px solid rgba(255, 255, 255, 0.4)',
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.3)'
+                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 30%, #FFA500 70%, #FF8C00 100%)',
+                    color: '#FFFFFF',
+                    border: '3px solid rgba(255, 255, 255, 0.9)',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 215, 0, 0.3)',
+                    fontSize: '1.1rem',
+                    fontWeight: 'bold'
                   }}
                 />
               </div>
@@ -400,15 +406,24 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Button
                   variant="contained"
                   size="large"
-                  className="bg-gradient-to-r from-egyptian-gold to-egyptian-amber text-hieroglyph-brown hover:from-egyptian-amber hover:to-egyptian-gold font-bold px-10 py-4 rounded-xl shadow-egyptian-lg border-2 border-white/30 transform hover:scale-110 transition-all duration-300 text-lg"
-                  startIcon={<Crown size={20} />}
+                  className="font-bold px-12 py-5 rounded-2xl transform hover:scale-110 transition-all duration-300 text-lg"
+                  startIcon={<Crown size={22} className="text-white" />}
                   sx={{
+                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 25%, #FFA500 50%, #FF8C00 75%, #FF6347 100%)',
+                    color: '#FFFFFF',
+                    border: '3px solid rgba(255, 255, 255, 0.9)',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    boxShadow: '0 15px 40px rgba(212, 175, 55, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 215, 0, 0.4)',
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
                     '&:hover': {
-                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.6), 0 0 20px rgba(255, 215, 0, 0.4)'
+                      background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #FF8C00 50%, #FF6347 75%, #DC143C 100%)',
+                      boxShadow: '0 20px 50px rgba(212, 175, 55, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 215, 0, 0.6)',
+                      transform: 'scale(1.1) translateY(-2px)'
                     }
                   }}
                 >
-                  Book Sacred Journey
+                  Book Royal Journey
                 </Button>
 
                 {dahabiya.videoUrl && (
@@ -416,8 +431,21 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     variant="outlined"
                     size="large"
                     onClick={() => setShowVideo(true)}
-                    className="bg-white/30 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/40 hover:border-egyptian-gold px-8 py-4 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
-                    startIcon={<Play size={20} />}
+                    className="font-semibold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
+                    startIcon={<Play size={20} className="text-white" />}
+                    sx={{
+                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.2) 50%, rgba(184, 134, 11, 0.3) 100%)',
+                      backdropFilter: 'blur(20px)',
+                      border: '2px solid rgba(255, 255, 255, 0.8)',
+                      color: '#FFFFFF',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(255, 215, 0, 0.4) 50%, rgba(184, 134, 11, 0.5) 100%)',
+                        border: '2px solid rgba(255, 215, 0, 0.9)',
+                        boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
+                      }
+                    }}
                   >
                     Watch Video
                   </Button>
@@ -431,8 +459,21 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     href={dahabiya.virtualTourUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="bg-white/30 backdrop-blur-md text-white border-2 border-white/50 hover:bg-white/40 hover:border-egyptian-gold px-8 py-4 rounded-xl font-semibold shadow-lg transform hover:scale-105 transition-all duration-300"
-                    startIcon={<Eye size={20} />}
+                    className="font-semibold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
+                    startIcon={<Eye size={20} className="text-white" />}
+                    sx={{
+                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.2) 50%, rgba(184, 134, 11, 0.3) 100%)',
+                      backdropFilter: 'blur(20px)',
+                      border: '2px solid rgba(255, 255, 255, 0.8)',
+                      color: '#FFFFFF',
+                      textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      '&:hover': {
+                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(255, 215, 0, 0.4) 50%, rgba(184, 134, 11, 0.5) 100%)',
+                        border: '2px solid rgba(255, 215, 0, 0.9)',
+                        boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
+                      }
+                    }}
                   >
                     Virtual Tour
                   </Button>
@@ -450,18 +491,34 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <button
                   key={index}
                   onClick={() => setSelectedImage(image)}
-                  className={`w-3 h-3 rounded-full transition-all duration-300 border ${
+                  className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
                     selectedImage === image
-                      ? 'bg-egyptian-gold border-egyptian-gold scale-110 shadow-md shadow-egyptian-gold/50'
-                      : 'bg-white/70 border-white/50 hover:bg-egyptian-gold/70 hover:border-egyptian-gold hover:scale-105'
+                      ? 'bg-gradient-to-r from-egyptian-gold to-amber-400 border-white scale-125 shadow-lg shadow-egyptian-gold/60'
+                      : 'bg-white/80 border-white/70 hover:bg-gradient-to-r hover:from-egyptian-gold/70 hover:to-amber-400/70 hover:border-egyptian-gold hover:scale-110 hover:shadow-md hover:shadow-egyptian-gold/40'
                   }`}
+                  style={{
+                    boxShadow: selectedImage === image
+                      ? '0 4px 15px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                      : '0 2px 8px rgba(0, 0, 0, 0.2)'
+                  }}
                 />
               ))}
               {allImages.length > 8 && (
                 <Button
                   size="small"
                   onClick={() => setShowGallery(true)}
-                  className="text-egyptian-gold hover:text-white text-xs ml-1 bg-white/20 hover:bg-egyptian-gold/80 border border-egyptian-gold/50 rounded-full px-2 py-0.5"
+                  className="text-xs ml-2 rounded-full px-3 py-1 font-bold transition-all duration-300 hover:scale-110"
+                  sx={{
+                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.8) 0%, rgba(255, 215, 0, 0.7) 100%)',
+                    color: '#FFFFFF',
+                    border: '2px solid rgba(255, 255, 255, 0.8)',
+                    textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
+                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 100%)',
+                      boxShadow: '0 6px 20px rgba(212, 175, 55, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                    }
+                  }}
                 >
                   +{allImages.length - 8}
                 </Button>
@@ -474,13 +531,44 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
       {/* Content Sections */}
       <Container maxWidth="lg" className="py-16">
         {/* Tabs Navigation */}
-        <Paper elevation={0} className="mb-8">
+        <Paper elevation={0} className="mb-8 rounded-2xl overflow-hidden" sx={{
+          background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 50%, rgba(184, 134, 11, 0.1) 100%)',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(212, 175, 55, 0.2)'
+        }}>
           <Tabs
             value={activeTab}
             onChange={handleTabChange}
             variant="scrollable"
             scrollButtons="auto"
-            className="border-b"
+            className="px-4 py-2"
+            sx={{
+              '& .MuiTab-root': {
+                color: '#8B4513',
+                fontWeight: 'bold',
+                fontSize: '1rem',
+                textTransform: 'none',
+                minHeight: '60px',
+                padding: '12px 24px',
+                margin: '0 8px',
+                borderRadius: '12px',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(255, 215, 0, 0.15) 100%)',
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                },
+                '&.Mui-selected': {
+                  background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%)',
+                  color: '#FFFFFF',
+                  textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
+                  boxShadow: '0 6px 20px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                }
+              },
+              '& .MuiTabs-indicator': {
+                display: 'none'
+              }
+            }}
           >
             <Tab label="Overview" />
             <Tab label="Features & Amenities" />
@@ -601,7 +689,11 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                       </ListItemIcon>
                       <ListItemText
                         primary="Price"
-                        secondary={`${formatPrice(dahabiya.pricePerDay)} per day`}
+                        secondary={
+                          <Typography variant="body2" className="font-bold">
+                            {`${formatPrice(dahabiya.pricePerDay)} per day`}
+                          </Typography>
+                        }
                       />
                     </ListItem>
                   </List>
