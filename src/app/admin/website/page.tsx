@@ -284,9 +284,9 @@ export default function WebsiteContentPage() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                {content[section.id]?.length > 0 ? (
+                {(content[section.id]?.length ?? 0) > 0 ? (
                   <div className="space-y-4">
-                    {content[section.id].map((field) => 
+                    {content[section.id]?.map((field) =>
                       renderContentField(section.id, field)
                     )}
                   </div>
