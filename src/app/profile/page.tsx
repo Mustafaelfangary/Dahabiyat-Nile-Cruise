@@ -190,8 +190,8 @@ export default function ProfilePage() {
     );
   }
 
-  if (!session) {
-    redirect('/auth/signin');
+  if (status === 'unauthenticated' || !session) {
+    redirect('/auth/signin?callbackUrl=/profile');
   }
 
   const handleSignOut = async () => {

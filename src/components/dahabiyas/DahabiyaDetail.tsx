@@ -408,6 +408,11 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   size="large"
                   className="font-bold px-12 py-5 rounded-2xl transform hover:scale-110 transition-all duration-300 text-lg"
                   startIcon={<Crown size={22} className="text-white" />}
+                  onClick={() => {
+                    if (dahabiya?.id) {
+                      window.location.href = `/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`;
+                    }
+                  }}
                   sx={{
                     background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 25%, #FFA500 50%, #FF8C00 75%, #FF6347 100%)',
                     color: '#FFFFFF',
@@ -706,6 +711,11 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     size="large"
                     className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-amber font-semibold"
                     startIcon={<Crown />}
+                    onClick={() => {
+                      if (dahabiya?.id) {
+                        window.location.href = `/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`;
+                      }
+                    }}
                   >
                     Book Now
                   </Button>

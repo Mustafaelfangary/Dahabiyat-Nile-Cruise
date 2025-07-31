@@ -38,9 +38,58 @@ export default function WebsiteContentPage() {
     { id: 'global_media', label: 'Footer & Global', icon: Globe },
   ];
 
+  // Default homepage content structure
+  const defaultHomepageContent = [
+    { key: 'hero_title', title: 'Hero Title', value: 'Discover Ancient Egypt on Luxury Dahabiyas', type: 'text', section: 'hero' },
+    { key: 'hero_subtitle', title: 'Hero Subtitle', value: 'Experience the timeless beauty of the Nile River aboard our traditional sailing vessels', type: 'text', section: 'hero' },
+    { key: 'hero_description', title: 'Hero Description', value: 'Embark on an unforgettable journey through ancient Egypt aboard our luxury dahabiyas. Sail the legendary Nile River and discover temples, tombs, and treasures that have captivated travelers for millennia.', type: 'textarea', section: 'hero' },
+    { key: 'hero_video_url', title: 'Hero Video URL', value: '/videos/nile-cruise-hero.mp4', type: 'text', section: 'hero' },
+    { key: 'what_is_title', title: 'What is a Dahabiya - Title', value: 'What is a Dahabiya?', type: 'text', section: 'about' },
+    { key: 'what_is_description', title: 'What is a Dahabiya - Description', value: 'A dahabiya is a traditional Egyptian sailing boat, once used by royalty and nobility to cruise the Nile. These elegant vessels offer an intimate and authentic way to experience Egypt, with personalized service and access to sites that larger cruise ships cannot reach.', type: 'textarea', section: 'about' },
+    { key: 'why_different_title', title: 'Why Different - Title', value: 'Why Choose Our Dahabiyas?', type: 'text', section: 'features' },
+    { key: 'why_different_description', title: 'Why Different - Description', value: 'Our dahabiyas combine traditional charm with modern luxury. Enjoy spacious cabins, gourmet dining, expert guides, and the freedom to explore at your own pace. Experience Egypt as the pharaohs intended.', type: 'textarea', section: 'features' },
+    { key: 'our_story_title', title: 'Our Story - Title', value: 'Our Story', type: 'text', section: 'story' },
+    { key: 'our_story_description', title: 'Our Story - Description', value: 'For over two decades, we have been sharing the magic of Egypt through authentic dahabiya experiences. Our passion for Egyptian history and culture drives us to provide unforgettable journeys that connect you with the ancient world.', type: 'textarea', section: 'story' },
+  ];
+
   useEffect(() => {
     loadContent();
   }, []);
+
+  const populateDefaultContent = async () => {
+    try {
+      setSaving(true);
+      toast.loading('Creating default homepage content...');
+
+      for (const item of defaultHomepageContent) {
+        const response = await fetch('/api/website-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            key: item.key,
+            title: item.title,
+            content: item.value,
+            contentType: item.type === 'textarea' ? 'TEXT' : 'TEXT',
+            page: 'homepage',
+            section: item.section,
+            order: 0
+          }),
+        });
+
+        if (!response.ok) {
+          console.warn(`Failed to create ${item.key}:`, await response.text());
+        }
+      }
+
+      await loadContent();
+      toast.success('Default homepage content created successfully!');
+    } catch (error) {
+      console.error('Error creating default content:', error);
+      toast.error('Failed to create default content');
+    } finally {
+      setSaving(false);
+    }
+  };
 
   const loadContent = async () => {
     try {
@@ -185,13 +234,34 @@ export default function WebsiteContentPage() {
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-hieroglyph-brown mb-2 flex items-center gap-2">
-          <Globe className="text-egyptian-gold" />
-          Website Content Manager
-        </h1>
-        <p className="text-gray-600">
-          Manage your website content including founder information and footer data
-        </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-hieroglyph-brown mb-2 flex items-center gap-2">
+              <Globe className="text-egyptian-gold" />
+              Website Content Manager
+            </h1>
+            <p className="text-gray-600">
+              Manage your website content including homepage and footer data
+            </p>
+          </div>
+          <Button
+            onClick={populateDefaultContent}
+            disabled={saving}
+            className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90"
+          >
+            {saving ? (
+              <>
+                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                Creating...
+              </>
+            ) : (
+              <>
+                <Home className="w-4 h-4 mr-2" />
+                Create Default Homepage Content
+              </>
+            )}
+          </Button>
+        </div>
       </div>
 
       <Tabs defaultValue="homepage" className="w-full">
