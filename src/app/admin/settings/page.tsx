@@ -188,7 +188,7 @@ export default function AdminSettingsPage() {
             
             <Grid container spacing={3}>
               {groupedSettings[group]?.map((setting) => (
-                <Grid item xs={12} md={6} key={setting.key}>
+                <Grid size={{ xs: 12, md: 6 }} key={setting.key}>
                   <TextField
                     fullWidth
                     label={setting.key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
