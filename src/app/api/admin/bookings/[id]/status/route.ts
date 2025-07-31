@@ -53,7 +53,7 @@ export async function PATCH(
     }
 
     // Handle availability changes for dahabiya bookings
-    if (currentBooking.dahabiya && status) {
+    if (currentBooking.dahabiyaId && status) {
       const dates = [];
       const start = new Date(currentBooking.startDate);
       const end = new Date(currentBooking.endDate);
