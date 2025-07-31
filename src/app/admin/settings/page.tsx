@@ -56,7 +56,7 @@ export default function AdminSettingsPage() {
     if (!acc[setting.group]) {
       acc[setting.group] = [];
     }
-    acc[setting.group].push(setting);
+    acc[setting.group]?.push(setting);
     return acc;
   }, {} as Record<string, Setting[]>);
 
