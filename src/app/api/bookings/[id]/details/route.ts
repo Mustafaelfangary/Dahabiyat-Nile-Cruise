@@ -31,9 +31,7 @@ export async function GET(
           }
         },
         package: true,
-        guestDetails: {
-          orderBy: { createdAt: 'asc' }
-        },
+        guestDetails: true,
         user: {
           select: {
             id: true,

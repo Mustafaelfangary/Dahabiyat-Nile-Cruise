@@ -71,17 +71,17 @@ export async function GET(request: NextRequest) {
     const bookings = await prisma.booking.findMany({
       where,
       include: {
-        dahabiya: {
-          select: {
-            name: true,
-            pricePerDay: true
-          }
-        },
         package: {
           select: {
             name: true,
             price: true,
             durationDays: true
+          }
+        },
+        user: {
+          select: {
+            name: true,
+            email: true
           }
         }
       },
@@ -146,33 +146,14 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check availability before creating booking
-    if (bookingType === 'DAHABIYA') {
-      const availability = await prisma.availabilityDate.findMany({
-        where: {
-          dahabiyaId,
-          date: {
-            gte: new Date(startDate),
-            lte: new Date(endDate)
-          },
-          available: false
-        }
-      });
-
-      if (availability.length > 0) {
-        return NextResponse.json(
-          { error: 'Selected dates are not available' },
-          { status: 400 }
-        );
-      }
-    }
+    // Note: Dahabiya availability checking has been removed as part of system cleanup
+    // Only package bookings are now supported
 
     // Create the booking
     const booking = await prisma.booking.create({
       data: {
         userId: session.user.id, // Assuming we have a user session
         type: bookingType,
-        dahabiyaId: bookingType === 'DAHABIYA' ? dahabiyaId : null,
         packageId: bookingType === 'PACKAGE' ? packageId : null,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
@@ -182,17 +163,17 @@ export async function POST(request: NextRequest) {
         status: 'PENDING'
       },
       include: {
-        dahabiya: {
-          select: {
-            name: true,
-            pricePerDay: true
-          }
-        },
         package: {
           select: {
             name: true,
             price: true,
             durationDays: true
+          }
+        },
+        user: {
+          select: {
+            name: true,
+            email: true
           }
         }
       }

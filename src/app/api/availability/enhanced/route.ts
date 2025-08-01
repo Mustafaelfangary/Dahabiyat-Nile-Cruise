@@ -44,17 +44,7 @@ export async function POST(request: NextRequest) {
 
     const durationDays = Math.ceil((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
 
-    if (type === 'DAHABIYA') {
-      return await checkDahabiyaAvailability({
-        dahabiyaId: itemId,
-        startDate: start,
-        endDate: end,
-        guests,
-        durationDays,
-        excludeBookingId,
-        includeAlternatives
-      });
-    } else if (type === 'PACKAGE') {
+    if (type === 'PACKAGE') {
       return await checkPackageAvailability({
         packageId: itemId,
         startDate: start,
@@ -66,7 +56,7 @@ export async function POST(request: NextRequest) {
       });
     } else {
       return NextResponse.json(
-        { error: 'Invalid type. Must be DAHABIYA or PACKAGE' },
+        { error: 'Invalid type. Must be PACKAGE' },
         { status: 400 }
       );
     }
@@ -80,149 +70,12 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function checkDahabiyaAvailability({
-  dahabiyaId,
-  startDate,
-  endDate,
-  guests,
-  durationDays,
-  excludeBookingId,
-  includeAlternatives
-}: {
-  dahabiyaId: string;
-  startDate: Date;
-  endDate: Date;
-  guests: number;
-  durationDays: number;
-  excludeBookingId?: string;
-  includeAlternatives: boolean;
-}) {
-  // Fetch dahabiya details
-  const dahabiya = await prisma.dahabiya.findUnique({
-    where: { id: dahabiyaId },
-    select: {
-      id: true,
-      name: true,
-      capacity: true,
-      pricePerDay: true,
-      isActive: true,
-    }
-  });
 
-  if (!dahabiya) {
-    return NextResponse.json({
-      isAvailable: false,
-      message: 'Dahabiya not found',
-      totalPrice: 0
-    });
-  }
 
-  // Check guest capacity
-  const totalCapacity = dahabiya.capacity;
-  if (guests > totalCapacity) {
-    return NextResponse.json({
-      isAvailable: false,
-      message: `Maximum capacity is ${totalCapacity} guests`,
-      totalPrice: 0,
-      maxCapacity: totalCapacity
-    });
-  }
 
-  // Check for conflicting bookings
-  // Note: Since dahabiyaId field was removed from Booking model,
-  // we'll check for any bookings in the date range for now
-  const conflictingBookings = await prisma.booking.findMany({
-    where: {
-      // dahabiyaId field no longer exists in Booking model
-      // For now, we'll assume availability based on package bookings
-      type: 'DAHABIYA',
-      status: { in: ['PENDING', 'CONFIRMED'] },
-      ...(excludeBookingId && { id: { not: excludeBookingId } }),
-      OR: [
-        {
-          startDate: { lte: startDate },
-          endDate: { gt: startDate }
-        },
-        {
-          startDate: { lt: endDate },
-          endDate: { gte: endDate }
-        },
-        {
-          startDate: { gte: startDate },
-          endDate: { lte: endDate }
-        }
-      ]
-    }
-  });
 
-  const isAvailable = conflictingBookings.length === 0;
 
-  // Calculate pricing
-  const basePrice = Number(dahabiya.pricePerDay);
-  let totalPrice = basePrice * durationDays;
 
-  // Apply seasonal pricing adjustments
-  const month = startDate.getMonth() + 1;
-  if ([12, 1, 2].includes(month)) {
-    // Peak season (winter) - 30% increase
-    totalPrice *= 1.3;
-  } else if ([6, 7, 8].includes(month)) {
-    // Low season (summer) - 20% discount
-    totalPrice *= 0.8;
-  }
-
-  // Apply group discounts
-  if (guests >= 10) {
-    totalPrice *= 0.9; // 10% discount for groups of 10+
-  } else if (guests >= 6) {
-    totalPrice *= 0.95; // 5% discount for groups of 6+
-  }
-
-  // Apply duration discounts
-  if (durationDays >= 14) {
-    totalPrice *= 0.85; // 15% discount for 2+ weeks
-  } else if (durationDays >= 7) {
-    totalPrice *= 0.9; // 10% discount for 1+ week
-  }
-
-  const result: any = {
-    isAvailable,
-    totalPrice: Math.round(totalPrice),
-    basePrice,
-    durationDays,
-    priceBreakdown: {
-      basePrice: basePrice * durationDays,
-      seasonalAdjustment: totalPrice - (basePrice * durationDays),
-      finalPrice: Math.round(totalPrice)
-    }
-  };
-
-  if (!isAvailable) {
-    result.message = 'Dahabiya is not available for selected dates';
-    result.conflictingDates = conflictingBookings.map(booking => ({
-      startDate: booking.startDate,
-      endDate: booking.endDate
-    }));
-
-    // Suggest alternative dates if requested
-    if (includeAlternatives) {
-      result.alternativeDates = await findAlternativeDates(dahabiyaId, startDate, endDate, durationDays);
-    }
-  } else {
-    result.message = 'Dahabiya is available for selected dates';
-    
-    // Suggest available cabins
-    result.availableCabins = dahabiya.cabins.map(cabin => ({
-      id: cabin.id,
-      name: cabin.name,
-      type: cabin.cabinType?.name,
-      capacity: cabin.capacity,
-      pricePerNight: Number(cabin.price || 0)
-    }));
-  }
-
-  return NextResponse.json(result);
-}
 
 async function checkPackageAvailability({
   packageId,
@@ -264,122 +117,12 @@ async function checkPackageAvailability({
     });
   }
 
-  // For packages, we need to check dahabiya availability
-  // Find available dahabiyas for the package dates
-  const availableDahabiyas = await prisma.dahabiya.findMany({
+  // For packages, check if there are conflicting package bookings
+  const conflictingBookings = await prisma.booking.count({
     where: {
-      capacity: { gte: guests }
-    },
-    include: {
-      bookings: {
-        where: {
-          status: { in: ['PENDING', 'CONFIRMED'] },
-          ...(excludeBookingId && { id: { not: excludeBookingId } }),
-          OR: [
-            {
-              startDate: { lte: startDate },
-              endDate: { gt: startDate }
-            },
-            {
-              startDate: { lt: endDate },
-              endDate: { gte: endDate }
-            },
-            {
-              startDate: { gte: startDate },
-              endDate: { lte: endDate }
-            }
-          ]
-        }
-      }
-    }
-  });
-
-  const availableDahabiyasForDates = availableDahabiyas.filter(d => d.bookings.length === 0);
-
-  const isAvailable = availableDahabiyasForDates.length > 0;
-  const basePrice = Number(packageData.price || 0);
-  let totalPrice = basePrice * guests;
-
-  // Apply seasonal pricing for packages
-  const month = startDate.getMonth() + 1;
-  if ([12, 1, 2].includes(month)) {
-    totalPrice *= 1.2; // 20% increase for peak season
-  } else if ([6, 7, 8].includes(month)) {
-    totalPrice *= 0.9; // 10% discount for low season
-  }
-
-  const result: any = {
-    isAvailable,
-    totalPrice: Math.round(totalPrice),
-    basePrice,
-    pricePerPerson: guests > 0 ? Math.round(totalPrice / guests) : 0,
-    recommendedDahabiyaId: isAvailable ? availableDahabiyasForDates[0]?.id : null
-  };
-
-  if (!isAvailable) {
-    result.message = 'No dahabiyas available for package dates';
-    
-    if (includeAlternatives) {
-      result.alternativeDates = await findAlternativePackageDates(packageId, startDate, durationDays, guests);
-    }
-  } else {
-    result.message = 'Package is available for selected dates';
-    result.availableDahabiyas = availableDahabiyasForDates.slice(0, 3).map(d => ({
-      id: d.id,
-      name: d.name,
-      maxGuests: d.capacity,
-      pricePerDay: Number(d.pricePerDay)
-    }));
-  }
-
-  return NextResponse.json(result);
-}
-
-async function findAlternativeDates(dahabiyaId: string, preferredStart: Date, preferredEnd: Date, duration: number) {
-  const alternatives = [];
-  const searchRange = 60; // Search within 60 days
-
-  for (let offset = 1; offset <= searchRange; offset++) {
-    // Try dates before preferred
-    const earlierStart = new Date(preferredStart);
-    earlierStart.setDate(earlierStart.getDate() - offset);
-    const earlierEnd = new Date(earlierStart);
-    earlierEnd.setDate(earlierEnd.getDate() + duration);
-
-    if (earlierStart >= new Date()) {
-      const earlierAvailable = await checkDateAvailability(dahabiyaId, earlierStart, earlierEnd);
-      if (earlierAvailable) {
-        alternatives.push({ startDate: earlierStart, endDate: earlierEnd });
-      }
-    }
-
-    // Try dates after preferred
-    const laterStart = new Date(preferredStart);
-    laterStart.setDate(laterStart.getDate() + offset);
-    const laterEnd = new Date(laterStart);
-    laterEnd.setDate(laterEnd.getDate() + duration);
-
-    const laterAvailable = await checkDateAvailability(dahabiyaId, laterStart, laterEnd);
-    if (laterAvailable) {
-      alternatives.push({ startDate: laterStart, endDate: laterEnd });
-    }
-
-    if (alternatives.length >= 5) break; // Limit to 5 alternatives
-  }
-
-  return alternatives;
-}
-
-async function findAlternativePackageDates(packageId: string, preferredStart: Date, duration: number, guests: number) {
-  // Similar logic for package alternatives
-  return [];
-}
-
-async function checkDateAvailability(dahabiyaId: string, startDate: Date, endDate: Date): Promise<boolean> {
-  const conflicting = await prisma.booking.count({
-    where: {
-      dahabiyaId,
+      packageId,
       status: { in: ['PENDING', 'CONFIRMED'] },
+      ...(excludeBookingId && { id: { not: excludeBookingId } }),
       OR: [
         {
           startDate: { lte: startDate },
@@ -397,5 +140,41 @@ async function checkDateAvailability(dahabiyaId: string, startDate: Date, endDat
     }
   });
 
-  return conflicting === 0;
+  const isAvailable = conflictingBookings === 0;
+  const basePrice = Number(packageData.price || 0);
+  let totalPrice = basePrice * guests;
+
+  // Apply seasonal pricing for packages
+  const month = startDate.getMonth() + 1;
+  if ([12, 1, 2].includes(month)) {
+    totalPrice *= 1.2; // 20% increase for peak season
+  } else if ([6, 7, 8].includes(month)) {
+    totalPrice *= 0.9; // 10% discount for low season
+  }
+
+  const result: any = {
+    isAvailable,
+    totalPrice: Math.round(totalPrice),
+    basePrice,
+    pricePerPerson: guests > 0 ? Math.round(totalPrice / guests) : 0,
+    packageId: packageData.id,
+    packageName: packageData.name
+  };
+
+  if (!isAvailable) {
+    result.message = 'Package is not available for selected dates';
+
+    if (includeAlternatives) {
+      // Alternative dates logic could be implemented here
+      result.alternativeDates = [];
+    }
+  } else {
+    result.message = 'Package is available for selected dates';
+  }
+
+  return NextResponse.json(result);
 }
+
+
+
+

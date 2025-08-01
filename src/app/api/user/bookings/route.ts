@@ -225,13 +225,7 @@ export async function PATCH(request: Request) {
       where: { id },
       data: { status: newStatus },
       include: {
-        dahabiya: {
-          include: {
-            images: {
-              take: 1,
-            },
-          },
-        },
+        package: true,
         guestDetails: true,
       },
     });

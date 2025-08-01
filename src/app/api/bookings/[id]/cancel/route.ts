@@ -30,7 +30,6 @@ export async function PUT(
       where: { id: bookingId },
       include: {
         user: true,
-        dahabiya: true,
         package: true
       }
     });
@@ -88,7 +87,6 @@ export async function PUT(
       },
       include: {
         user: true,
-        dahabiya: true,
         package: true
       }
     });
@@ -117,7 +115,6 @@ export async function PUT(
           reason,
           cancellationFee,
           refundAmount,
-          dahabiya: cancelledBooking.dahabiya,
           package: cancelledBooking.package,
           daysUntilStart
         }
@@ -139,7 +136,6 @@ export async function PUT(
           reason,
           cancellationFee,
           refundAmount,
-          dahabiya: cancelledBooking.dahabiya,
           package: cancelledBooking.package
         }
       });

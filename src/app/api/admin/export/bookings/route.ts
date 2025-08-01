@@ -68,12 +68,7 @@ export async function GET(request: NextRequest) {
             phone: true
           }
         },
-        dahabiya: {
-          select: {
-            name: true,
-            pricePerDay: true
-          }
-        },
+
         package: {
           select: {
             name: true,
@@ -81,12 +76,7 @@ export async function GET(request: NextRequest) {
             durationDays: true
           }
         },
-        cabin: {
-          select: {
-            name: true,
-            capacity: true
-          }
-        },
+
         guestDetails: true
       },
       orderBy: {
@@ -106,9 +96,9 @@ export async function GET(request: NextRequest) {
     const formattedBookings = bookings.map(booking => ({
       ...booking,
       totalPrice: Number(booking.totalPrice),
-      dahabiya: booking.dahabiya ? {
-        ...booking.dahabiya,
-        pricePerDay: Number(booking.dahabiya.pricePerDay)
+      package: booking.package ? {
+        ...booking.package,
+        price: Number(booking.package.price)
       } : null
     }));
 

@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       // Send password reset email
       try {
         await sendEmail({
-          to: user.email,
+          to: user.email!,
           subject: '🔐 Password Reset Request - Dahabiyat Nile Cruise',
           template: 'password-reset',
           data: {
