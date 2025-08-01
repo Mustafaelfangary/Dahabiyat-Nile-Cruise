@@ -190,7 +190,8 @@ const DahabiyaManager = () => {
       const response = await fetch('/api/dahabiyas');
       if (!response.ok) throw new Error('Failed to fetch dahabiyas');
       const data = await response.json();
-      setDahabiyas(data);
+      // The API returns { dahabiyas: [...], total, pages, currentPage }
+      setDahabiyas(data.dahabiyas || data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch dahabiyas');
     } finally {
