@@ -110,7 +110,6 @@ export async function POST(request: NextRequest) {
     const hasBooking = await prisma.booking.findFirst({
       where: {
         userId: session.user.id,
-        dahabiyaId: validated.dahabiyaId,
         status: "CONFIRMED",
       },
     });
@@ -122,17 +121,22 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user has already reviewed this dahabiya
+    // Check if user has already reviewed (limit one review per user per day)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const existingReview = await prisma.review.findFirst({
       where: {
-        dahabiyaId: validated.dahabiyaId,
         userId: session.user.id,
+        createdAt: {
+          gte: today
+        }
       },
     });
 
     if (existingReview) {
       return NextResponse.json(
-        { error: "You have already reviewed this dahabiya" },
+        { error: "You have already submitted a review today. Please wait 24 hours before submitting another review." },
         { status: 400 }
       );
     }
@@ -140,7 +144,6 @@ export async function POST(request: NextRequest) {
     // Create the review
     const review = await prisma.review.create({
       data: {
-        dahabiyaId: validated.dahabiyaId,
         rating: validated.rating,
         comment: validated.comment,
         title: validated.title ?? null,
@@ -159,27 +162,7 @@ export async function POST(request: NextRequest) {
             image: true,
           },
         },
-        dahabiya: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
       },
-    });
-
-    // Update dahabiya average rating
-    const allReviews = await prisma.review.findMany({
-      where: { dahabiyaId: validated.dahabiyaId },
-    });
-
-    const averageRating =
-      allReviews.reduce((sum, review) => sum + review.rating, 0) /
-      allReviews.length;
-
-    await prisma.dahabiya.update({
-      where: { id: validated.dahabiyaId },
-      data: { rating: averageRating },
     });
 
     return NextResponse.json(review, { status: 201 });
@@ -233,35 +216,8 @@ export async function PUT(request: NextRequest) {
             image: true,
           },
         },
-        dahabiya: {
-          select: {
-            id: true,
-            name: true,
-          },
-        },
       },
     });
-
-    // Update dahabiya average rating if approved
-    if (status === "APPROVED") {
-      const approvedReviews = await prisma.review.findMany({
-        where: {
-          dahabiyaId: review.dahabiyaId,
-          status: "APPROVED"
-        },
-      });
-
-      if (approvedReviews.length > 0) {
-        const averageRating =
-          approvedReviews.reduce((sum, review) => sum + review.rating, 0) /
-          approvedReviews.length;
-
-        await prisma.dahabiya.update({
-          where: { id: review.dahabiyaId },
-          data: { averageRating },
-        });
-      }
-    }
 
     return NextResponse.json(review);
   } catch (error) {
@@ -295,23 +251,6 @@ export async function DELETE(request: NextRequest) {
     }
 
     await prisma.review.delete({ where: { id } });
-
-    // Recalculate dahabiya average rating
-    const remainingReviews = await prisma.review.findMany({
-      where: {
-        dahabiyaId: review.dahabiyaId,
-        status: "APPROVED"
-      },
-    });
-
-    const averageRating = remainingReviews.length > 0
-      ? remainingReviews.reduce((sum, review) => sum + review.rating, 0) / remainingReviews.length
-      : 0;
-
-    await prisma.dahabiya.update({
-      where: { id: review.dahabiyaId },
-      data: { averageRating },
-    });
 
     return NextResponse.json({ success: true });
   } catch (error) {

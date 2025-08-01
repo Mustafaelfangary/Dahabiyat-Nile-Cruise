@@ -14,17 +14,16 @@ export async function GET(request: NextRequest) {
     const [
       totalUsers,
       totalBookings,
-      totalDahabiyat,
+      totalPackages,
       totalNotifications,
       recentBookings,
       recentUsers,
-      featuredDahabiyat,
-      princessCleopatra
+      featuredPackages
     ] = await Promise.all([
       // Count totals
       prisma.user.count(),
       prisma.booking.count(),
-      prisma.dahabiya.count(),
+      prisma.package.count(),
       prisma.notification.count(),
       
       // Get recent data
@@ -35,7 +34,7 @@ export async function GET(request: NextRequest) {
           user: {
             select: { name: true, email: true }
           },
-          dahabiya: {
+          package: {
             select: { name: true }
           }
         }
@@ -52,38 +51,17 @@ export async function GET(request: NextRequest) {
           createdAt: true
         }
       }),
-      
-      // Check featured dahabiyat
-      prisma.dahabiya.findMany({
+
+      // Check featured packages
+      prisma.package.findMany({
         where: { isFeaturedOnHomepage: true },
         select: {
           id: true,
           name: true,
-          slug: true,
           isFeaturedOnHomepage: true,
           homepageOrder: true
         },
         orderBy: { homepageOrder: 'asc' }
-      }),
-      
-      // Check Princess Cleopatra specifically
-      prisma.dahabiya.findFirst({
-        where: {
-          name: {
-            contains: 'Princess Cleopatra',
-            mode: 'insensitive'
-          }
-        },
-        select: {
-          id: true,
-          name: true,
-          slug: true,
-          isFeaturedOnHomepage: true,
-          homepageOrder: true,
-          mainImageUrl: true,
-          createdAt: true,
-          updatedAt: true
-        }
       })
     ]);
 
@@ -103,27 +81,13 @@ export async function GET(request: NextRequest) {
       }
     });
 
-    // Check dahabiyat with missing slugs
-    const dahabiyatWithoutSlugs = await prisma.dahabiya.findMany({
-      where: {
-        OR: [
-          { slug: null },
-          { slug: '' }
-        ]
-      },
-      select: {
-        id: true,
-        name: true,
-        slug: true,
-        createdAt: true
-      }
-    });
+    // Note: Dahabiya-specific checks have been removed as the dahabiya system was removed
 
     return NextResponse.json({
       summary: {
         totalUsers,
         totalBookings,
-        totalDahabiyat,
+        totalPackages,
         totalNotifications
       },
       usersByRole: usersByRole.reduce((acc, item) => {
@@ -138,7 +102,7 @@ export async function GET(request: NextRequest) {
         id: booking.id,
         customerName: booking.user?.name || 'Unknown',
         customerEmail: booking.user?.email || 'Unknown',
-        dahabiyaName: booking.dahabiya?.name || 'Unknown',
+        packageName: booking.package?.name || 'Unknown',
         status: booking.status,
         totalPrice: booking.totalPrice,
         createdAt: booking.createdAt
@@ -150,14 +114,7 @@ export async function GET(request: NextRequest) {
         role: user.role,
         createdAt: user.createdAt
       })),
-      featuredDahabiyat,
-      princessCleopatra,
-      issues: {
-        dahabiyatWithoutSlugs: dahabiyatWithoutSlugs.length,
-        princessCleopatraNotFeatured: princessCleopatra ? !princessCleopatra.isFeaturedOnHomepage : true,
-        princessCleopatraMissingSlug: princessCleopatra ? !princessCleopatra.slug : true
-      },
-      dahabiyatWithoutSlugs
+      featuredPackages
     });
 
   } catch (error) {

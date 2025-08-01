@@ -44,10 +44,11 @@ export async function GET(request: NextRequest) {
 
     // Group by section for easier frontend consumption
     const grouped = contents.reduce((acc, content) => {
-      if (!acc[content.section]) {
-        acc[content.section] = [];
+      const section = content.section || 'default';
+      if (!acc[section]) {
+        acc[section] = [];
       }
-      acc[content.section].push(content);
+      acc[section].push(content);
       return acc;
     }, {} as Record<string, any[]>);
 

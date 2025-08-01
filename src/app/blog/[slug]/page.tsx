@@ -256,9 +256,8 @@ export default function IndividualBlogPostPage() {
                       </Typography>
                     </div>
                     <div className="flex gap-2">
-                      <PharaohButton 
-                        variant="secondary" 
-                        size="small"
+                      <PharaohButton
+                        variant="secondary"
                         onClick={() => {
                           if (navigator.share) {
                             navigator.share({

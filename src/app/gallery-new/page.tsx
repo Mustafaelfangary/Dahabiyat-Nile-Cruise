@@ -104,7 +104,7 @@ export default function EnhancedGalleryPage() {
       : (currentImageIndex + 1) % filteredImages.length;
     
     setCurrentImageIndex(newIndex);
-    setSelectedImage(filteredImages[newIndex]);
+    setSelectedImage(filteredImages[newIndex] || null);
   };
 
   if (loading) {
@@ -166,7 +166,7 @@ export default function EnhancedGalleryPage() {
             {/* Category Filter */}
             <div className="flex flex-wrap gap-2">
               <Button
-                variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                variant={selectedCategory === 'all' ? 'primary' : 'outline'}
                 onClick={() => setSelectedCategory('all')}
                 className={selectedCategory === 'all' 
                   ? 'bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90' 
@@ -179,7 +179,7 @@ export default function EnhancedGalleryPage() {
               {categories.map((category) => (
                 <Button
                   key={category.id}
-                  variant={selectedCategory === category.id ? 'default' : 'outline'}
+                  variant={selectedCategory === category.id ? 'primary' : 'outline'}
                   onClick={() => setSelectedCategory(category.id)}
                   className={selectedCategory === category.id 
                     ? 'bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90' 
@@ -195,7 +195,7 @@ export default function EnhancedGalleryPage() {
             {/* View Mode */}
             <div className="flex gap-2">
               <Button
-                variant={viewMode === 'grid' ? 'default' : 'outline'}
+                variant={viewMode === 'grid' ? 'primary' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('grid')}
                 className={viewMode === 'grid' 
@@ -206,7 +206,7 @@ export default function EnhancedGalleryPage() {
                 <Grid className="w-4 h-4" />
               </Button>
               <Button
-                variant={viewMode === 'masonry' ? 'default' : 'outline'}
+                variant={viewMode === 'masonry' ? 'primary' : 'outline'}
                 size="sm"
                 onClick={() => setViewMode('masonry')}
                 className={viewMode === 'masonry' 

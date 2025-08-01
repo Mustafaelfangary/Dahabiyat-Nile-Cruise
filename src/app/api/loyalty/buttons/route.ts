@@ -52,6 +52,50 @@ export async function GET(request: NextRequest) {
         color: 'bg-gradient-to-r from-red-500 to-red-600'
       },
       {
+        id: 'download-app',
+        label: 'Download Our App',
+        icon: 'Smartphone',
+        points: 150,
+        enabled: true,
+        url: 'https://play.google.com/store/apps/details?id=com.cleopatradahabiya.app',
+        action: 'redirect',
+        description: 'Download our mobile app from Google Play',
+        color: 'bg-gradient-to-r from-indigo-500 to-purple-600'
+      },
+      {
+        id: 'book-dahabiya',
+        label: 'Book a Dahabiya',
+        icon: 'Ship',
+        points: 750,
+        enabled: true,
+        url: '/dahabiyat',
+        action: 'redirect',
+        description: 'Explore and book our luxury dahabiyas',
+        color: 'bg-gradient-to-r from-teal-500 to-cyan-600'
+      },
+      {
+        id: 'follow-instagram',
+        label: 'Follow Us',
+        icon: 'Instagram',
+        points: 50,
+        enabled: true,
+        url: 'https://instagram.com/cleopatradahabiya',
+        action: 'redirect',
+        description: 'Follow us on Instagram',
+        color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+      },
+      {
+        id: 'subscribe-youtube',
+        label: 'Subscribe',
+        icon: 'Youtube',
+        points: 75,
+        enabled: true,
+        url: 'https://youtube.com/@cleopatradahabiya',
+        action: 'redirect',
+        description: 'Subscribe to our YouTube channel',
+        color: 'bg-gradient-to-r from-red-500 to-red-600'
+      },
+      {
         id: 'share-memories',
         label: 'Share Memories',
         icon: 'Camera',

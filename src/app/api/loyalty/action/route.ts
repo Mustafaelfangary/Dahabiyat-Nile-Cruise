@@ -2,11 +2,12 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
+import { processLoyaltyAction, checkActionEligibility } from '@/lib/loyalty-automation';
 
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session?.user?.id) {
       return NextResponse.json(
         { error: 'Authentication required' },
@@ -14,7 +15,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const { action, points } = await request.json();
+    const { action, points, metadata } = await request.json();
 
     if (!action || typeof points !== 'number') {
       return NextResponse.json(
@@ -23,42 +24,23 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Check if user has already performed this action today (for social media actions)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const socialMediaActions = ['like-facebook', 'follow-instagram', 'subscribe-youtube'];
-    
-    if (socialMediaActions.includes(action)) {
-      const existingAction = await prisma.loyaltyAction.findFirst({
-        where: {
-          userId: session.user.id,
-          action: action,
-          createdAt: {
-            gte: today
-          }
-        }
-      });
+    // Use the automated loyalty processing
+    const result = await processLoyaltyAction(
+      session.user.id,
+      action,
+      points,
+      metadata
+    );
 
-      if (existingAction) {
-        return NextResponse.json(
-          { error: 'You have already earned points for this action today' },
-          { status: 400 }
-        );
-      }
+    if (!result.success) {
+      return NextResponse.json(
+        { error: result.error || result.message },
+        { status: 400 }
+      );
     }
 
-    // Record the loyalty action
-    const loyaltyAction = await prisma.loyaltyAction.create({
-      data: {
-        userId: session.user.id,
-        action: action,
-        points: points,
-        description: getActionDescription(action)
-      }
-    });
-
-    // Track social media interactions for analytics
+    // Track analytics for social media actions
+    const socialMediaActions = ['like-facebook', 'follow-instagram', 'subscribe-youtube'];
     if (socialMediaActions.includes(action)) {
       await prisma.analyticsEvent.create({
         data: {
@@ -67,41 +49,20 @@ export async function POST(request: NextRequest) {
           data: JSON.stringify({
             platform: action.replace('like-', '').replace('follow-', '').replace('subscribe-', ''),
             action: action,
-            points: points
+            points: result.pointsEarned,
+            tierUpgrade: result.tierUpgrade
           })
         }
       });
     }
 
-    // Update user's total loyalty points
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { loyaltyPoints: true }
-    });
-
-    const newTotalPoints = (user?.loyaltyPoints || 0) + points;
-
-    await prisma.user.update({
-      where: { id: session.user.id },
-      data: { loyaltyPoints: newTotalPoints }
-    });
-
-    // Check for tier upgrades
-    const newTier = calculateLoyaltyTier(newTotalPoints);
-    const oldTier = calculateLoyaltyTier((user?.loyaltyPoints || 0));
-
-    let message = `You earned ${points} loyalty points!`;
-    if (newTier.name !== oldTier.name) {
-      message += ` Congratulations! You've been upgraded to ${newTier.name} tier!`;
-    }
-
     return NextResponse.json({
       success: true,
-      message,
-      pointsEarned: points,
-      totalPoints: newTotalPoints,
-      newTier: newTier.name,
-      tierUpgrade: newTier.name !== oldTier.name
+      message: result.message,
+      pointsEarned: result.pointsEarned,
+      totalPoints: result.totalPoints,
+      newTier: result.newTier,
+      tierUpgrade: result.tierUpgrade
     });
 
   } catch (error) {
@@ -113,24 +74,39 @@ export async function POST(request: NextRequest) {
   }
 }
 
-function getActionDescription(action: string): string {
-  const descriptions: Record<string, string> = {
-    'book-package': 'Booked a cruise package',
-    'like-facebook': 'Liked us on Facebook',
-    'follow-instagram': 'Followed us on Instagram',
-    'subscribe-youtube': 'Subscribed to our YouTube channel',
-    'share-memories': 'Shared travel memories',
-    'write-review': 'Wrote a review',
-    'refer-friend': 'Referred a friend',
-    'complete-profile': 'Completed profile'
-  };
-  
-  return descriptions[action] || 'Loyalty action';
+// GET endpoint to check action eligibility
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions);
+
+    if (!session?.user?.id) {
+      return NextResponse.json(
+        { error: 'Authentication required' },
+        { status: 401 }
+      );
+    }
+
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get('action');
+
+    if (!action) {
+      return NextResponse.json(
+        { error: 'Action parameter required' },
+        { status: 400 }
+      );
+    }
+
+    const eligibility = await checkActionEligibility(session.user.id, action);
+
+    return NextResponse.json(eligibility);
+
+  } catch (error) {
+    console.error('Error checking action eligibility:', error);
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    );
+  }
 }
 
-function calculateLoyaltyTier(points: number) {
-  if (points >= 10000) return { name: 'Pharaoh', color: 'text-purple-600' };
-  if (points >= 5000) return { name: 'Noble', color: 'text-amber-600' };
-  if (points >= 1000) return { name: 'Explorer', color: 'text-blue-600' };
-  return { name: 'Traveler', color: 'text-green-600' };
-}
+// These functions are now handled by the loyalty-automation module

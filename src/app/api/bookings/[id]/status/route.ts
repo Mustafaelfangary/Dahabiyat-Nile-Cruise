@@ -32,7 +32,7 @@ export async function PATCH(
       },
       include: {
         user: true,
-        dahabiya: true,
+        package: true,
       },
     });
 

@@ -10,13 +10,28 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ req, token }) => {
+        const { pathname } = req.nextUrl;
+
         // For admin routes, require admin role
-        if (req.nextUrl.pathname.startsWith("/admin")) {
+        if (pathname.startsWith("/admin")) {
           return token?.role === "ADMIN";
         }
 
-        // For other protected routes, require authentication
-        return !!token;
+        // For profile and booking routes, require authentication
+        if (pathname.startsWith("/profile") || pathname.startsWith("/bookings")) {
+          return !!token;
+        }
+
+        // For API routes that need protection
+        if (pathname.startsWith("/api/admin") ||
+            pathname.startsWith("/api/upload") ||
+            pathname.startsWith("/api/media-assets") ||
+            pathname.startsWith("/api/content")) {
+          return !!token;
+        }
+
+        // Allow all other routes
+        return true;
       },
     },
     pages: {

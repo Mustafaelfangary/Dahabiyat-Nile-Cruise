@@ -303,7 +303,7 @@ export default function ItineraryDetailPage() {
                   {pricingCategories.map((category) => (
                     <Button
                       key={category}
-                      variant={selectedPricingCategory === category ? 'default' : 'outline'}
+                      variant={selectedPricingCategory === category ? 'primary' : 'outline'}
                       onClick={() => setSelectedPricingCategory(category)}
                       className={selectedPricingCategory === category 
                         ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-black' 

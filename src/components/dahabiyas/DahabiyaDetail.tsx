@@ -39,6 +39,7 @@ import {
   ArrowLeft, Share, ChevronDown, X, Activity, Navigation,
   TreePine, Sunset, Palette, ChevronRight
 } from 'lucide-react';
+import DahabiyaItineraries from './DahabiyaItineraries';
 
 interface Dahabiya {
   id: string;
@@ -410,7 +411,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   startIcon={<Crown size={22} className="text-white" />}
                   onClick={() => {
                     if (dahabiya?.id) {
-                      window.location.href = `/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`;
+                      window.location.href = `/booking?itemId=${dahabiya.id}&type=dahabiya`;
                     }
                   }}
                   sx={{
@@ -713,7 +714,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     startIcon={<Crown />}
                     onClick={() => {
                       if (dahabiya?.id) {
-                        window.location.href = `/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`;
+                        window.location.href = `/booking?itemId=${dahabiya.id}&type=dahabiya`;
                       }
                     }}
                   >
@@ -1254,6 +1255,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
           </Grid>
         )}
       </Container>
+
+      {/* Itineraries Section */}
+      <div className="bg-gradient-to-b from-amber-50/30 to-slate-50 py-16">
+        <Container maxWidth="lg">
+          <DahabiyaItineraries
+            dahabiyaId={dahabiya.id}
+            dahabiyaName={dahabiya.name}
+          />
+        </Container>
+      </div>
 
       {/* Video Dialog */}
       <Dialog open={showVideo} onClose={() => setShowVideo(false)} maxWidth="lg" fullWidth>

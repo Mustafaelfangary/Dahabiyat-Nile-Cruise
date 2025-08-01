@@ -90,8 +90,13 @@ export async function PATCH(
       }
     }
 
+    // Build update data object with only defined values
+    const updateData: any = {};
+    if (validated.name !== undefined) updateData.name = validated.name;
+    if (validated.email !== undefined) updateData.email = validated.email;
+    if (validated.role !== undefined) updateData.role = validated.role;
+
     // If password is being updated, hash it
-    let updateData = { ...validated };
     if (validated.password) {
       updateData.password = await hash(validated.password, 12);
     }

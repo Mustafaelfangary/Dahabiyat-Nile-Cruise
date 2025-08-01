@@ -77,8 +77,14 @@ const UniversalVideo = React.memo(function UniversalVideo({
   return (
     <div className={`relative ${className}`} style={style}>
       {isLoading && (
-        <div className="absolute inset-0 bg-black flex items-center justify-center z-10">
-          <div className="text-text-primary text-center">
+        <div className="absolute inset-0 flex items-center justify-center z-10"
+             style={{
+               backgroundImage: poster ? `url(${poster})` : 'none',
+               backgroundSize: 'cover',
+               backgroundPosition: 'center'
+             }}>
+          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="relative z-10 text-white text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
             <p className="text-sm">Loading video...</p>
           </div>
@@ -93,12 +99,15 @@ const UniversalVideo = React.memo(function UniversalVideo({
         loop={loop}
         controls={controls}
         playsInline={playsInline}
+        preload="metadata"
         onLoadedData={handleLoadedData}
         onError={handleError}
-        className="w-full h-full object-cover"
+        className={`w-full h-full object-cover transition-opacity duration-500 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
         style={{
           filter: 'brightness(1.08) saturate(1.15) contrast(1.08)',
-          transition: 'filter 1s cubic-bezier(0.4,0,0.2,1)',
+          transition: 'filter 1s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease-in-out',
         }}
       >
         <source src={src} type="video/mp4" />

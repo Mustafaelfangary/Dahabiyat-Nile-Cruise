@@ -22,7 +22,7 @@ export async function GET(request: NextRequest) {
 
     // Calculate stats
     const totalBookings = bookings.length;
-    const totalSpent = bookings.reduce((sum, booking) => sum + (booking.totalPrice || 0), 0);
+    const totalSpent = bookings.reduce((sum, booking) => sum + Number(booking.totalPrice || 0), 0);
     
     // Find favorite destination (most booked location)
     const destinations: { [key: string]: number } = {};
@@ -35,9 +35,11 @@ export async function GET(request: NextRequest) {
       }
     });
     
-    const favoriteDestination = Object.keys(destinations).reduce((a, b) => 
-      destinations[a] > destinations[b] ? a : b, 'Egypt'
-    );
+    const favoriteDestination = Object.keys(destinations).length > 0
+      ? Object.keys(destinations).reduce((a, b) =>
+          (destinations[a] || 0) > (destinations[b] || 0) ? a : b
+        )
+      : 'Egypt';
 
     // Get user creation date
     const user = await prisma.user.findUnique({

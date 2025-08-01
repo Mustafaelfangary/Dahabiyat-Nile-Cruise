@@ -39,7 +39,6 @@ export async function PATCH(
     const currentBooking = await prisma.booking.findUnique({
       where: { id },
       include: {
-        // dahabiya: true,  // REMOVED: dahabiya relation removed
         package: true,
         user: true
       }
@@ -52,44 +51,7 @@ export async function PATCH(
       );
     }
 
-    // Handle availability changes for dahabiya bookings
-    if (currentBooking.dahabiyaId && status) {
-      const dates = [];
-      const start = new Date(currentBooking.startDate);
-      const end = new Date(currentBooking.endDate);
-      
-      for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
-        dates.push(new Date(d));
-      }
-
-      if (status === 'CANCELLED' && currentBooking.status !== 'CANCELLED') {
-        // Free up the dates
-        await prisma.availabilityDate.updateMany({
-          where: {
-            dahabiyaId: currentBooking.dahabiyaId!,
-            date: {
-              in: dates
-            }
-          },
-          data: {
-            available: true
-          }
-        });
-      } else if (status === 'CONFIRMED' && currentBooking.status === 'CANCELLED') {
-        // Block the dates again
-        await prisma.availabilityDate.updateMany({
-          where: {
-            dahabiyaId: currentBooking.dahabiyaId!,
-            date: {
-              in: dates
-            }
-          },
-          data: {
-            available: false
-          }
-        });
-      }
-    }
+    // Note: Dahabiya availability management has been removed as part of system cleanup
 
     // Update the booking
     const updateData: any = {};
@@ -101,12 +63,6 @@ export async function PATCH(
       where: { id },
       data: updateData,
       include: {
-        dahabiya: {
-          select: {
-            name: true,
-            pricePerDay: true
-          }
-        },
         package: {
           select: {
             name: true,
@@ -129,7 +85,7 @@ export async function PATCH(
             oldStatus: currentBooking.status,
             newStatus: status,
             customerName: currentBooking.user.name || 'Guest',
-            bookingType: currentBooking.dahabiya ? 'DAHABIYA' : 'PACKAGE'
+            bookingType: currentBooking.type || 'PACKAGE'
           },
           userId: session.user.id
         }
@@ -145,7 +101,7 @@ export async function PATCH(
             userId: currentBooking.userId,
             action: 'book-package',
             points: loyaltyPoints,
-            description: `Completed booking for ${currentBooking.dahabiya?.name || currentBooking.package?.name || 'cruise'}`
+            description: `Completed booking for ${currentBooking.package?.name || 'cruise'}`
           }
         });
 

@@ -126,7 +126,7 @@ export default function BlogListingPage() {
 
               {/* Royal Crown */}
               <div className="flex justify-center mb-6">
-                <RoyalCrown size="large" />
+                <RoyalCrown />
               </div>
 
               {/* Main Title */}
@@ -172,10 +172,10 @@ export default function BlogListingPage() {
                 </p>
               </div>
 
-              <Grid container spacing={4}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {featuredPosts.slice(0, 3).map((post, index) => (
-                  <Grid size={{ xs: 12, md: 4 }} key={post.id}>
-                    <StaggeredAnimation delay={index * 0.2}>
+                  <div key={post.id}>
+                    <StaggeredAnimation>
                       <Link href={`/blog/${post.slug}`}>
                         <PharaohCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group">
                           <div className="relative overflow-hidden">
@@ -233,10 +233,11 @@ export default function BlogListingPage() {
                           </CardContent>
                         </PharaohCard>
                       </Link>
+                      <span></span>
                     </StaggeredAnimation>
-                  </Grid>
+                  </div>
                 ))}
-              </Grid>
+              </div>
             </AnimatedSection>
           </Container>
         </section>
@@ -257,10 +258,10 @@ export default function BlogListingPage() {
               </p>
             </div>
 
-            <Grid container spacing={4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {posts.map((post, index) => (
-                <Grid size={{ xs: 12, md: 6, lg: 4 }} key={post.id}>
-                  <StaggeredAnimation delay={index * 0.1}>
+                <div key={post.id}>
+                  <StaggeredAnimation>
                     <Link href={`/blog/${post.slug}`}>
                       <PharaohCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group">
                         <div className="relative overflow-hidden">
@@ -333,10 +334,11 @@ export default function BlogListingPage() {
                         </CardContent>
                       </PharaohCard>
                     </Link>
+                    <span></span>
                   </StaggeredAnimation>
-                </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
 
             {posts.length === 0 && (
               <div className="text-center py-20">

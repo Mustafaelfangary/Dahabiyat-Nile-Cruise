@@ -43,7 +43,7 @@ export default function BookingsPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="w-16 h-16 bg-gradient-to-br from-ocean-blue to-amber-600 rounded-full flex items-center justify-center mb-4 mx-auto animate-pulse">
-            <Crown className="w-8 h-8 text-text-primary" />
+            <Ship className="w-8 h-8 text-text-primary" />
           </div>
           <p className="text-ocean-blue text-xl">Loading your royal bookings...</p>
         </div>
@@ -113,7 +113,7 @@ export default function BookingsPage() {
               </Link>
             </div>
           ) : (
-            <BookingsList bookings={bookings} />
+            <BookingsList />
           )}
         </div>
       </div>

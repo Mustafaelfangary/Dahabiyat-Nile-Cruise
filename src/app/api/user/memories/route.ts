@@ -70,7 +70,11 @@ export async function POST(request: NextRequest) {
 
     const memory = await prisma.userMemory.create({
       data: {
-        ...validated,
+        title: validated.title,
+        imageUrl: validated.imageUrl,
+        description: validated.description || null,
+        location: validated.location || null,
+        tripDate: validated.tripDate || null,
         userId: session.user.id,
         status: "PENDING",
       },

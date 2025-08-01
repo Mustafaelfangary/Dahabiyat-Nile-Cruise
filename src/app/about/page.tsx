@@ -2,15 +2,30 @@
 export const dynamic = "force-dynamic";
 
 import React from 'react';
-import { Container } from '@mui/material';
+import { Container, Card, CardContent, Typography, Box, Avatar } from '@mui/material';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { useContent } from '@/hooks/useContent';
+import Image from 'next/image';
 import {
   RoyalCrown,
   FloatingEgyptianElements,
   EgyptianPatternBackground,
   EgyptHieroglyphic
 } from '@/components/ui/pharaonic-elements';
+import {
+  Users,
+  Award,
+  Target,
+  Heart,
+  Star,
+  Crown,
+  Shield,
+  Compass,
+  Globe,
+  Phone,
+  Mail,
+  MapPin
+} from 'lucide-react';
 
 export default function AboutPage() {
   const { getContent, loading, error } = useContent({ page: 'about' });
@@ -71,15 +86,223 @@ export default function AboutPage() {
           </Container>
         </div>
 
-        {/* Simple Content Section */}
-        <div className="py-20">
+        {/* Our Story Section */}
+        <div className="py-20 bg-gradient-to-b from-amber-50/30 to-white">
           <Container maxWidth="lg">
-            <div className="text-center">
-              <h2 className="text-3xl font-bold mb-6">{getContent('about_our_story_section_title', 'Our Story')}</h2>
-              <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-                {getContent('about_story', 'We are dedicated to providing authentic Egyptian experiences through our traditional Dahabiya cruises.')}
-              </p>
-            </div>
+            <AnimatedSection animation="fade-in">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-amber-800 mb-6">
+                  {getContent('about_our_story_section_title', 'Our Story')}
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
+                <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                  {getContent('about_story', 'We are dedicated to providing authentic Egyptian experiences through our traditional Dahabiya cruises that connect you with the timeless beauty of the Nile River.')}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div className="space-y-6">
+                  <div>
+                    <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                      <Target className="w-6 h-6 text-amber-600" />
+                      {getContent('about_mission_title', 'Our Mission')}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      {getContent('about_mission', 'To provide authentic, luxury Nile experiences that honor Egypt\'s ancient heritage while delivering modern comfort and exceptional service.')}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                      <Compass className="w-6 h-6 text-amber-600" />
+                      {getContent('about_vision_title', 'Our Vision')}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      {getContent('about_vision', 'To be the premier provider of traditional Dahabiya cruises, preserving Egypt\'s maritime heritage for future generations.')}
+                    </p>
+                  </div>
+
+                  <div>
+                    <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
+                      <Heart className="w-6 h-6 text-amber-600" />
+                      {getContent('about_values_title', 'Our Values')}
+                    </h3>
+                    <div className="space-y-2">
+                      {getContent('about_values', 'Authenticity,Excellence,Heritage,Sustainability').split(',').map((value, index) => (
+                        <div key={index} className="flex items-center gap-2">
+                          <Star className="w-4 h-4 text-amber-500" />
+                          <span className="text-gray-700">{value.trim()}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="relative">
+                  <Image
+                    src={getContent('about_story_image', '/images/about/our-story.jpg')}
+                    alt="Our Story"
+                    width={600}
+                    height={400}
+                    className="rounded-2xl shadow-2xl"
+                  />
+                  <div className="absolute -bottom-6 -right-6 w-24 h-24 bg-amber-600 rounded-full flex items-center justify-center shadow-xl">
+                    <Crown className="w-12 h-12 text-white" />
+                  </div>
+                </div>
+              </div>
+            </AnimatedSection>
+          </Container>
+        </div>
+
+        {/* Leadership Team Section */}
+        <div className="py-20 bg-white">
+          <Container maxWidth="lg">
+            <AnimatedSection animation="fade-in">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-amber-800 mb-6">
+                  {getContent('about_team_title', 'Our Leadership Team')}
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                  {getContent('about_team_description', 'Meet the passionate leaders who bring decades of experience to create unforgettable Nile journeys.')}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 justify-center">
+                {[1, 2, 3].map((index) => (
+                  <Card key={index} className="text-center hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-amber-100">
+                    <CardContent className="p-8">
+                      <div className="relative mb-6">
+                        <Avatar
+                          src={getContent(`about_circle_${index}`, `/images/about/team-${index}.jpg`)}
+                          alt={getContent(`about_circle_name_${index}`, `Team Member ${index}`)}
+                          sx={{
+                            width: 120,
+                            height: 120,
+                            margin: '0 auto',
+                            border: '4px solid #D97706',
+                            boxShadow: '0 8px 25px rgba(217, 119, 6, 0.3)'
+                          }}
+                        />
+                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center">
+                          <Crown className="w-4 h-4 text-white" />
+                        </div>
+                      </div>
+
+                      <h3 className="text-xl font-bold text-amber-800 mb-2">
+                        {getContent(`about_circle_name_${index}`, `Team Member ${index}`)}
+                      </h3>
+
+                      <p className="text-amber-600 font-semibold mb-4">
+                        {getContent(`about_circle_title_${index}`, 'Position')}
+                      </p>
+
+                      <p className="text-gray-600 text-sm leading-relaxed">
+                        {getContent(`about_circle_description_${index}`, 'Dedicated professional with extensive experience in luxury travel and Egyptian heritage.')}
+                      </p>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AnimatedSection>
+          </Container>
+        </div>
+
+        {/* Company Stats Section */}
+        <div className="py-20 bg-gradient-to-b from-amber-50/30 to-white">
+          <Container maxWidth="lg">
+            <AnimatedSection animation="fade-in">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {[
+                  {
+                    icon: Users,
+                    number: getContent('about_stat_guests', '10,000+'),
+                    label: getContent('about_stat_guests_label', 'Happy Guests'),
+                    color: 'text-blue-600'
+                  },
+                  {
+                    icon: Award,
+                    number: getContent('about_stat_years', '15+'),
+                    label: getContent('about_stat_years_label', 'Years Experience'),
+                    color: 'text-amber-600'
+                  },
+                  {
+                    icon: Shield,
+                    number: getContent('about_stat_safety', '100%'),
+                    label: getContent('about_stat_safety_label', 'Safety Record'),
+                    color: 'text-green-600'
+                  },
+                  {
+                    icon: Globe,
+                    number: getContent('about_stat_countries', '50+'),
+                    label: getContent('about_stat_countries_label', 'Countries Served'),
+                    color: 'text-purple-600'
+                  }
+                ].map((stat, index) => (
+                  <Card key={index} className="text-center p-6 hover:shadow-lg transition-all duration-300 border border-amber-100">
+                    <CardContent>
+                      <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
+                      <Typography variant="h3" className="font-bold text-gray-800 mb-2">
+                        {stat.number}
+                      </Typography>
+                      <Typography variant="body1" className="text-gray-600">
+                        {stat.label}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </AnimatedSection>
+          </Container>
+        </div>
+
+        {/* Contact Information Section */}
+        <div className="py-20 bg-white">
+          <Container maxWidth="lg">
+            <AnimatedSection animation="fade-in">
+              <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-amber-800 mb-6">
+                  {getContent('about_contact_title', 'Get in Touch')}
+                </h2>
+                <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
+                <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+                  {getContent('about_contact_description', 'Ready to embark on your Nile adventure? Contact our team to start planning your journey.')}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 justify-center">
+                <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 border-2 border-amber-100">
+                  <CardContent>
+                    <Phone className="w-12 h-12 text-amber-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-amber-800 mb-2">Phone</h3>
+                    <p className="text-gray-700">
+                      {getContent('about_contact_phone', '+201001538358')}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 border-2 border-amber-100">
+                  <CardContent>
+                    <Mail className="w-12 h-12 text-amber-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-amber-800 mb-2">Email</h3>
+                    <p className="text-gray-700">
+                      {getContent('about_contact_email', 'info@cleopatradahabiya.com')}
+                    </p>
+                  </CardContent>
+                </Card>
+
+                <Card className="text-center p-6 hover:shadow-xl transition-all duration-300 border-2 border-amber-100">
+                  <CardContent>
+                    <MapPin className="w-12 h-12 text-amber-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-amber-800 mb-2">Address</h3>
+                    <p className="text-gray-700">
+                      {getContent('about_contact_address', 'Luxor, Egypt')}
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </AnimatedSection>
           </Container>
         </div>
       </main>

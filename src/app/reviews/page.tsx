@@ -167,7 +167,7 @@ export default function ReviewsPage() {
 
               {/* Royal Crown */}
               <div className="flex justify-center mb-6">
-                <RoyalCrown size="large" />
+                <RoyalCrown />
               </div>
 
               {/* Main Title */}
@@ -261,9 +261,9 @@ export default function ReviewsPage() {
       <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
-            <Grid container spacing={4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredReviews.length === 0 ? (
-                <Grid size={12}>
+                <div className="col-span-full">
                   <div className="text-center py-20">
                     <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
                     <Typography variant="h5" className="text-amber-800 font-bold mb-4">
@@ -273,11 +273,11 @@ export default function ReviewsPage() {
                       No reviews match your current filter. Try adjusting your selection.
                     </Typography>
                   </div>
-                </Grid>
+                </div>
               ) : (
                 filteredReviews.map((review, index) => (
-                  <Grid size={{ xs: 12, md: 6, lg: 4 }} key={review.id}>
-                    <StaggeredAnimation delay={index * 0.1}>
+                  <div key={review.id}>
+                    <StaggeredAnimation>
                       <PharaohCard className="h-full hover:shadow-2xl transition-all duration-300">
                         <CardContent className="p-6">
                           {/* Header */}
@@ -362,11 +362,12 @@ export default function ReviewsPage() {
                           </div>
                         </CardContent>
                       </PharaohCard>
+                      <span></span>
                     </StaggeredAnimation>
-                  </Grid>
+                  </div>
                 ))
               )}
-            </Grid>
+            </div>
           </AnimatedSection>
         </Container>
       </section>

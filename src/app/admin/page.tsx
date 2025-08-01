@@ -33,7 +33,9 @@ import {
   Ship,
   Compass,
   Mail,
-  Bell
+  Bell,
+  MessageCircle,
+  Code
 } from 'lucide-react';
 import { FeaturedItemsManager } from '@/components/admin/FeaturedItemsManager';
 import { SiteNamePreview } from '@/components/admin/SiteNamePreview';
@@ -820,6 +822,24 @@ export default function AdminDashboard() {
                       <Calendar size={24} className="mb-2 text-green-600" />
                       Availability
                       <span className="text-xs text-slate-500 mt-1">Manage dahabiya schedules</span>
+                    </Button>
+                    <Button
+                      onClick={() => window.open('/admin/whatsapp-settings', '_blank')}
+                      variant="outline"
+                      className="h-20 flex-col"
+                    >
+                      <MessageCircle size={24} className="mb-2 text-green-600" />
+                      WhatsApp
+                      <span className="text-xs text-slate-500 mt-1">Configure WhatsApp button</span>
+                    </Button>
+                    <Button
+                      onClick={() => window.open('/admin/developer-settings', '_blank')}
+                      variant="outline"
+                      className="h-20 flex-col"
+                    >
+                      <Code size={24} className="mb-2 text-blue-600" />
+                      Developer
+                      <span className="text-xs text-slate-500 mt-1">Developer contact & branding</span>
                     </Button>
                     <Button
                       onClick={() => window.open('/admin/email-templates', '_blank')}

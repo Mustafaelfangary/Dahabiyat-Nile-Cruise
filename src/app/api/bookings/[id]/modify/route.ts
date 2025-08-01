@@ -23,7 +23,6 @@ export async function PUT(
       where: { id: bookingId },
       include: {
         user: true,
-        dahabiya: true,
         package: true
       }
     });
@@ -60,7 +59,7 @@ export async function PUT(
         }
 
         // Check availability for new dates
-        const availabilityEndpoint = existingBooking.dahabiyaId 
+        const availabilityEndpoint = existingBooking.type === 'DAHABIYA'
           ? '/api/availability/dahabiya'
           : '/api/availability/package';
         
@@ -104,7 +103,6 @@ export async function PUT(
       data: updateData,
       include: {
         user: true,
-        dahabiya: true,
         package: true
       }
     });
@@ -137,7 +135,6 @@ export async function PUT(
           user: updatedBooking.user,
           booking: updatedBooking,
           modificationType: type,
-          dahabiya: updatedBooking.dahabiya,
           package: updatedBooking.package
         }
       });

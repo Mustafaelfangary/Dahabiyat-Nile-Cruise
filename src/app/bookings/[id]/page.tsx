@@ -30,7 +30,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
+
 import { Container } from '@/components/ui/container';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { toast } from 'sonner';
@@ -187,7 +187,7 @@ export default function BookingDetailsPage() {
         }} />
       </div>
 
-      <Container maxWidth="full" className="relative z-10 py-8">
+      <Container maxWidth="xl" className="relative z-10 py-8">
         <AnimatedSection animation="fade-in">
           {/* Header */}
           <div className="flex items-center gap-4 mb-8">

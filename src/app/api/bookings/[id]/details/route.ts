@@ -22,18 +22,8 @@ export async function GET(
         userId: session.user.id // Ensure user can only access their own bookings
       },
       include: {
-        dahabiya: {
-          include: {
-            images: {
-              take: 5,
-              orderBy: { order: 'asc' }
-            }
-          }
-        },
         package: true,
-        guestDetails: {
-          orderBy: { createdAt: 'asc' }
-        },
+        guestDetails: true,
         user: {
           select: {
             id: true,
@@ -59,31 +49,20 @@ export async function GET(
       specialRequests: booking.specialRequests,
       createdAt: booking.createdAt.toISOString(),
       updatedAt: booking.updatedAt.toISOString(),
-      dahabiya: {
-        id: booking.dahabiya.id,
-        name: booking.dahabiya.name,
-        description: booking.dahabiya.description || '',
-        images: booking.dahabiya.images.map(img => ({
-          url: img.url,
-          alt: img.alt || booking.dahabiya.name
-        })),
-        capacity: booking.dahabiya.capacity || 0,
-        cabins: booking.dahabiya.cabins || 0
-      },
       package: booking.package ? {
         id: booking.package.id,
         name: booking.package.name,
-        duration: booking.package.duration || 0,
+        durationDays: booking.package.durationDays || 0,
         description: booking.package.description || ''
       } : null,
       guestDetails: booking.guestDetails.map(guest => ({
         id: guest.id,
         firstName: guest.firstName,
         lastName: guest.lastName,
-        email: guest.email,
-        phone: guest.phone,
-        dateOfBirth: guest.dateOfBirth?.toISOString(),
-        nationality: guest.nationality
+        dateOfBirth: guest.dateOfBirth.toISOString(),
+        passport: guest.passport,
+        nationality: guest.nationality,
+        dietaryRequirements: guest.dietaryRequirements
       }))
     };
 

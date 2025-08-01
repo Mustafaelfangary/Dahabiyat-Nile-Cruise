@@ -68,7 +68,6 @@ export async function POST(request: NextRequest) {
       try {
         // Convert to WebP for better compression
         finalExtension = "webp";
-        // @ts-expect-error: sharp Buffer type compatibility workaround
         finalBuffer = await sharp(buffer)
           .webp({ quality: 80 }) // Adjust quality as needed
           .toBuffer();
