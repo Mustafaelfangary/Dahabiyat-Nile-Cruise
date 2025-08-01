@@ -283,10 +283,30 @@ export default function UnifiedPackagePage({
               </div>
 
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <Button variant="contained" size="large" className="bg-blue-600 hover:bg-blue-700">
+                <Button
+                  variant="contained"
+                  size="large"
+                  className="bg-blue-600 hover:bg-blue-700"
+                  onClick={() => {
+                    const bookingSection = document.getElementById('booking-section');
+                    if (bookingSection) {
+                      bookingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   Book Now
                 </Button>
-                <Button variant="outlined" size="large" className="border-white text-white hover:bg-white/10">
+                <Button
+                  variant="outlined"
+                  size="large"
+                  className="border-white text-white hover:bg-white/10"
+                  onClick={() => {
+                    const itinerarySection = document.getElementById('itinerary-section');
+                    if (itinerarySection) {
+                      itinerarySection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   View Itinerary
                 </Button>
               </div>

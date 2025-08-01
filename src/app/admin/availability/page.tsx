@@ -423,15 +423,29 @@ export default function AvailabilityManagement() {
 
           {/* Add Month Button */}
           <div className="mb-6 text-center">
-            <Button
-              variant="contained"
-              onClick={addAvailabilityDates}
-              disabled={saving}
-              startIcon={saving ? <CircularProgress size={16} /> : <Plus />}
-              className="bg-ocean-blue hover:bg-amber-600 text-white"
-            >
-              {saving ? 'Adding...' : 'Add Missing Dates for This Month'}
-            </Button>
+            <div className="flex gap-3 justify-center">
+              <Button
+                variant="contained"
+                onClick={addAvailabilityDates}
+                disabled={!selectedDahabiya || saving}
+                startIcon={saving ? <CircularProgress size={16} /> : <Plus />}
+                className="bg-green-600 hover:bg-green-700 text-white"
+              >
+                {saving ? 'Adding...' : 'Add Missing Dates for This Month'}
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => {
+                  if (selectedDahabiya) {
+                    fetchAvailability();
+                  }
+                }}
+                disabled={!selectedDahabiya}
+                className="border-blue-600 text-blue-600 hover:bg-blue-50"
+              >
+                Refresh Calendar
+              </Button>
+            </div>
           </div>
 
           {/* Calendar Grid */}

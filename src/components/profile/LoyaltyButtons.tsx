@@ -12,7 +12,9 @@ import {
   Camera,
   ExternalLink,
   Crown,
-  Gift
+  Gift,
+  Smartphone,
+  Ship
 } from 'lucide-react';
 
 // Icon mapping for string-based icons from API
@@ -23,7 +25,9 @@ const iconMap: Record<string, any> = {
   Youtube,
   Camera,
   Crown,
-  Gift
+  Gift,
+  Smartphone,
+  Ship
 };
 
 interface LoyaltyButtonConfig {
@@ -103,6 +107,28 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       action: 'internal',
       description: 'Share your sacred travel memories with us',
       color: 'bg-gradient-to-r from-green-500 to-emerald-600'
+    },
+    {
+      id: 'download-app',
+      label: 'Download Our App',
+      icon: Smartphone,
+      points: 150,
+      enabled: true,
+      url: 'https://play.google.com/store/apps/details?id=com.cleopatradahabiya.app',
+      action: 'redirect',
+      description: 'Download our mobile app from Google Play',
+      color: 'bg-gradient-to-r from-indigo-500 to-purple-600'
+    },
+    {
+      id: 'book-dahabiya',
+      label: 'Book a Dahabiya',
+      icon: Ship,
+      points: 750,
+      enabled: true,
+      url: '/dahabiyat',
+      action: 'redirect',
+      description: 'Explore and book our luxury dahabiyas',
+      color: 'bg-gradient-to-r from-teal-500 to-cyan-600'
     }
   ];
 
@@ -154,6 +180,17 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
     setProcessingAction(button.id);
 
     try {
+      // Check eligibility first
+      const eligibilityResponse = await fetch(`/api/loyalty/action?action=${button.id}`);
+      if (eligibilityResponse.ok) {
+        const eligibility = await eligibilityResponse.json();
+        if (!eligibility.eligible) {
+          toast.error(eligibility.reason || 'Action not available right now');
+          setProcessingAction(null);
+          return;
+        }
+      }
+
       // Track the action and award points
       const response = await fetch('/api/loyalty/action', {
         method: 'POST',
@@ -163,6 +200,10 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
         body: JSON.stringify({
           action: button.id,
           points: button.points,
+          metadata: {
+            buttonLabel: button.label,
+            timestamp: new Date().toISOString()
+          }
         }),
       });
 

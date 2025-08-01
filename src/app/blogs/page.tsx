@@ -154,8 +154,8 @@ export default function BlogsPage() {
                 {categories.map((category) => (
                   <Button
                     key={category}
-                    variant={selectedCategory === category ? 'default' : 'outline'}
-                    onClick={() => setSelectedCategory(category)}
+                    variant={selectedCategory === category ? 'primary' : 'outline'}
+                    onClick={() => setSelectedCategory(category || '')}
                     className={`${
                       selectedCategory === category 
                         ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-black border-amber-400' 

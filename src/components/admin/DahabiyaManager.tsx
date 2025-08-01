@@ -1,6 +1,40 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+
+// Add CSS for spacing utilities
+const styles = `
+  .space-y-6 > * + * {
+    margin-top: 1.5rem;
+  }
+  .grid {
+    display: grid;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .gap-4 {
+    gap: 1rem;
+  }
+  .gap-6 {
+    gap: 1.5rem;
+  }
+  @media (min-width: 768px) {
+    .md\\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+`;
+
+// Inject styles
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
+}
 import {
   Button,
   Typography,
@@ -24,14 +58,17 @@ import {
   CircularProgress,
   Tabs,
   Tab,
-  Grid,
   Select,
   MenuItem,
   FormControl,
   InputLabel,
   useMediaQuery,
   useTheme,
-  Box
+  Box,
+  Checkbox,
+  ListItemText,
+  Card,
+  CardContent
 } from '@mui/material';
 import { Edit, Delete, Add, DirectionsBoat, Star } from '@mui/icons-material';
 import DahabiyaMediaPicker from './DahabiyaMediaPicker';
@@ -61,15 +98,20 @@ interface Dahabiya {
   routes?: string[];
   highlights?: string[];
   category?: 'LUXURY' | 'DELUXE' | 'PREMIUM' | 'BOUTIQUE';
-  rating?: number;
-  reviewCount?: number;
-  isFeatured?: boolean;
   isActive: boolean;
+  isFeatured?: boolean;
   metaTitle?: string;
   metaDescription?: string;
   tags?: string[];
   createdAt: string;
   updatedAt: string;
+}
+
+interface Itinerary {
+  id: string;
+  name: string;
+  description: string;
+  duration: number;
 }
 
 const formatPrice = (price: number) => {
@@ -114,25 +156,42 @@ const DahabiyaManager = () => {
     services: '',
     routes: '',
     highlights: '',
-    category: 'DELUXE' as 'LUXURY' | 'DELUXE' | 'PREMIUM' | 'BOUTIQUE',
+    category: 'DELUXE' as const,
     isActive: true,
     isFeatured: false,
     metaTitle: '',
     metaDescription: '',
     tags: '',
+    selectedItineraries: [] as string[],
   });
+
+  const [itineraries, setItineraries] = useState<Itinerary[]>([]);
 
   useEffect(() => {
     fetchDahabiyas();
+    fetchItineraries();
   }, []);
+
+  const fetchItineraries = async () => {
+    try {
+      const response = await fetch('/api/itineraries');
+      if (response.ok) {
+        const data = await response.json();
+        setItineraries(data);
+      }
+    } catch (err) {
+      console.error('Error fetching itineraries:', err);
+    }
+  };
 
   const fetchDahabiyas = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/dahabiyas?active=false&limit=100');
+      const response = await fetch('/api/dahabiyas');
       if (!response.ok) throw new Error('Failed to fetch dahabiyas');
       const data = await response.json();
-      setDahabiyas(data.dahabiyas || []);
+      // The API returns { dahabiyas: [...], total, pages, currentPage }
+      setDahabiyas(data.dahabiyas || data);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch dahabiyas');
     } finally {
@@ -171,6 +230,7 @@ const DahabiyaManager = () => {
         metaTitle: dahabiya.metaTitle || '',
         metaDescription: dahabiya.metaDescription || '',
         tags: dahabiya.tags?.join(', ') || '',
+        selectedItineraries: [],
       });
     } else {
       setEditingDahabiya(null);
@@ -202,6 +262,7 @@ const DahabiyaManager = () => {
         metaTitle: '',
         metaDescription: '',
         tags: '',
+        selectedItineraries: [],
       });
     }
     setDialogOpen(true);
@@ -220,7 +281,6 @@ const DahabiyaManager = () => {
 
       const payload = {
         ...formData,
-        gallery: Array.isArray(formData.gallery) ? formData.gallery : [],
         features: formData.features.split(',').map(f => f.trim()).filter(Boolean),
         amenities: formData.amenities.split(',').map(f => f.trim()).filter(Boolean),
         activities: formData.activities.split(',').map(f => f.trim()).filter(Boolean),
@@ -231,10 +291,7 @@ const DahabiyaManager = () => {
         tags: formData.tags.split(',').map(f => f.trim()).filter(Boolean),
       };
 
-      const url = editingDahabiya
-        ? `/api/dahabiyas/${editingDahabiya.id}`
-        : '/api/dahabiyas';
-
+      const url = editingDahabiya ? `/api/dahabiyas/${editingDahabiya.id}` : '/api/dahabiyas';
       const method = editingDahabiya ? 'PUT' : 'POST';
 
       const response = await fetch(url, {
@@ -288,91 +345,58 @@ const DahabiyaManager = () => {
           variant="contained"
           startIcon={<Add />}
           onClick={() => handleOpenDialog()}
-          style={{ backgroundColor: '#1976d2' }}
+          style={{ backgroundColor: '#D4AF37', color: 'white' }}
         >
           Add New Dahabiya
         </Button>
       </div>
 
       {error && (
-        <Alert severity="error" style={{ marginBottom: '16px' }} onClose={() => setError(null)}>
+        <Alert severity="error" style={{ marginBottom: '16px' }}>
           {error}
         </Alert>
       )}
 
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}>
         <Table>
-          <TableHead>
+          <TableHead style={{ backgroundColor: '#f5f5f5' }}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Price/Day</TableCell>
-              <TableCell>Capacity</TableCell>
-              <TableCell>Rating</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell align="right">Actions</TableCell>
+              <TableCell><strong>Name</strong></TableCell>
+              <TableCell><strong>Category</strong></TableCell>
+              <TableCell><strong>Capacity</strong></TableCell>
+              <TableCell><strong>Price/Day</strong></TableCell>
+              <TableCell><strong>Status</strong></TableCell>
+              <TableCell><strong>Featured</strong></TableCell>
+              <TableCell><strong>Actions</strong></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {dahabiyas.map((dahabiya) => (
-              <TableRow key={dahabiya.id}>
+              <TableRow key={dahabiya.id} hover>
                 <TableCell>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <Typography variant="subtitle2">
+                  <div>
+                    <Typography variant="subtitle2" style={{ fontWeight: 'bold' }}>
                       {dahabiya.name}
                     </Typography>
-                    {dahabiya.isFeatured && (
-                      <Star style={{ color: '#FFD700', fontSize: '16px' }} />
-                    )}
+                    <Typography variant="caption" color="textSecondary">
+                      {dahabiya.shortDescription}
+                    </Typography>
                   </div>
-                  <Typography variant="caption" color="text.secondary">
-                    /{dahabiya.slug}
-                  </Typography>
                 </TableCell>
                 <TableCell>
                   <Chip
-                    label={dahabiya.category || 'DELUXE'}
+                    label={dahabiya.category}
                     size="small"
                     style={{
-                      backgroundColor:
-                        (dahabiya.category || 'DELUXE') === 'LUXURY' ? '#e3f2fd' :
-                        (dahabiya.category || 'DELUXE') === 'DELUXE' ? '#f3e5f5' :
-                        (dahabiya.category || 'DELUXE') === 'PREMIUM' ? '#e8f5e8' :
-                        '#fff3e0',
-                      color:
-                        (dahabiya.category || 'DELUXE') === 'LUXURY' ? '#1976d2' :
-                        (dahabiya.category || 'DELUXE') === 'DELUXE' ? '#7b1fa2' :
-                        (dahabiya.category || 'DELUXE') === 'PREMIUM' ? '#388e3c' :
-                        '#f57c00'
+                      backgroundColor: dahabiya.category === 'LUXURY' ? '#FFD700' :
+                                     dahabiya.category === 'DELUXE' ? '#C0C0C0' :
+                                     dahabiya.category === 'PREMIUM' ? '#CD7F32' : '#90EE90',
+                      color: 'black'
                     }}
                   />
                 </TableCell>
+                <TableCell>{dahabiya.capacity} guests</TableCell>
                 <TableCell>{formatPrice(dahabiya.pricePerDay)}</TableCell>
-                <TableCell>
-                  {dahabiya.capacity} guests
-                  {dahabiya.cabins && (
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      {dahabiya.cabins} cabins
-                    </Typography>
-                  )}
-                </TableCell>
-                <TableCell>
-                  {(dahabiya.rating || 0) > 0 ? (
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                      <Star style={{ color: '#FFD700', fontSize: '16px' }} />
-                      <Typography variant="body2">
-                        {(dahabiya.rating || 0).toFixed(1)}
-                      </Typography>
-                      <Typography variant="caption" color="text.secondary">
-                        ({dahabiya.reviewCount || 0})
-                      </Typography>
-                    </div>
-                  ) : (
-                    <Typography variant="caption" color="text.secondary">
-                      No reviews
-                    </Typography>
-                  )}
-                </TableCell>
                 <TableCell>
                   <Chip
                     label={dahabiya.isActive ? 'Active' : 'Inactive'}
@@ -380,7 +404,10 @@ const DahabiyaManager = () => {
                     size="small"
                   />
                 </TableCell>
-                <TableCell align="right">
+                <TableCell>
+                  {dahabiya.isFeatured && <Star style={{ color: '#FFD700' }} />}
+                </TableCell>
+                <TableCell>
                   <IconButton onClick={() => handleOpenDialog(dahabiya)} size="small">
                     <Edit />
                   </IconButton>
@@ -394,25 +421,16 @@ const DahabiyaManager = () => {
         </Table>
       </TableContainer>
 
+      {/* Add/Edit Dialog */}
       <Dialog
         open={dialogOpen}
         onClose={handleCloseDialog}
-        maxWidth="lg"
+        maxWidth="md"
         fullWidth
         fullScreen={isMobile}
-        PaperProps={{
-          sx: {
-            ...(isMobile && {
-              margin: 0,
-              borderRadius: 0,
-              maxHeight: '100vh'
-            })
-          }
-        }}
       >
-        <DialogTitle style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <DirectionsBoat style={{ color: '#D4AF37' }} />
-          {editingDahabiya ? 'Edit Sacred Vessel' : 'Add New Sacred Vessel'}
+        <DialogTitle>
+          {editingDahabiya ? 'Edit Dahabiya' : 'Add New Dahabiya'}
         </DialogTitle>
         <DialogContent>
           {error && (
@@ -423,56 +441,50 @@ const DahabiyaManager = () => {
 
           <Tabs
             value={formTab}
-            onChange={(e, newValue) => setFormTab(newValue)}
-            style={{ marginBottom: '24px' }}
+            onChange={(_, newValue) => setFormTab(newValue)}
             variant={isMobile ? "scrollable" : "standard"}
-            scrollButtons={isMobile ? "auto" : false}
-            allowScrollButtonsMobile={isMobile}
+            scrollButtons="auto"
+            style={{ marginBottom: '16px' }}
           >
-            <Tab label={isMobile ? "Basic" : "Basic Info"} />
+            <Tab label={isMobile ? "Basic" : "Basic Information"} />
             <Tab label={isMobile ? "Specs" : "Specifications"} />
             <Tab label={isMobile ? "Media" : "Media & Content"} />
             <Tab label={isMobile ? "Features" : "Features & Amenities"} />
+            <Tab label={isMobile ? "Routes" : "Itineraries"} />
             <Tab label={isMobile ? "SEO" : "SEO & Marketing"} />
           </Tabs>
 
           <div style={{ marginTop: '16px' }}>
             {/* Tab 0: Basic Info */}
             {formTab === 0 && (
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    label="Name"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    fullWidth
-                    required
-                  />
-                </Grid>
+              <div className="space-y-6">
+                <TextField
+                  label="Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  fullWidth
+                  required
+                />
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Short Description"
-                    value={formData.shortDescription}
-                    onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
-                    fullWidth
-                    placeholder="Brief description for cards and previews"
-                  />
-                </Grid>
+                <TextField
+                  label="Short Description"
+                  value={formData.shortDescription}
+                  onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
+                  fullWidth
+                  placeholder="Brief description for cards and previews"
+                />
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Full Description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={4}
-                    required
-                  />
-                </Grid>
+                <TextField
+                  label="Full Description"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={4}
+                  required
+                />
 
-                <Grid size={{ xs: 6 }}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <TextField
                     label="Price per Day (USD)"
                     type="number"
@@ -481,9 +493,7 @@ const DahabiyaManager = () => {
                     fullWidth
                     required
                   />
-                </Grid>
 
-                <Grid size={{ xs: 6 }}>
                   <FormControl fullWidth>
                     <InputLabel>Category</InputLabel>
                     <Select
@@ -497,9 +507,9 @@ const DahabiyaManager = () => {
                       <MenuItem value="BOUTIQUE">Boutique</MenuItem>
                     </Select>
                   </FormControl>
-                </Grid>
+                </div>
 
-                <Grid item xs={6}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormControlLabel
                     control={
                       <Switch
@@ -509,9 +519,7 @@ const DahabiyaManager = () => {
                     }
                     label="Active"
                   />
-                </Grid>
 
-                <Grid item xs={6}>
                   <FormControlLabel
                     control={
                       <Switch
@@ -521,128 +529,109 @@ const DahabiyaManager = () => {
                     }
                     label="Featured"
                   />
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             )}
 
             {/* Tab 1: Specifications */}
             {formTab === 1 && (
-              <Grid container spacing={3}>
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Capacity (guests)"
-                    type="number"
-                    value={formData.capacity}
-                    onChange={(e) => setFormData({ ...formData, capacity: Number(e.target.value) })}
-                    fullWidth
-                    required
-                  />
-                </Grid>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <TextField
+                  label="Capacity (guests)"
+                  type="number"
+                  value={formData.capacity}
+                  onChange={(e) => setFormData({ ...formData, capacity: Number(e.target.value) })}
+                  fullWidth
+                  required
+                />
 
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Number of Cabins"
-                    type="number"
-                    value={formData.cabins}
-                    onChange={(e) => setFormData({ ...formData, cabins: Number(e.target.value) })}
-                    fullWidth
-                  />
-                </Grid>
+                <TextField
+                  label="Number of Cabins"
+                  type="number"
+                  value={formData.cabins}
+                  onChange={(e) => setFormData({ ...formData, cabins: Number(e.target.value) })}
+                  fullWidth
+                />
 
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Crew Members"
-                    type="number"
-                    value={formData.crew}
-                    onChange={(e) => setFormData({ ...formData, crew: Number(e.target.value) })}
-                    fullWidth
-                  />
-                </Grid>
+                <TextField
+                  label="Crew Members"
+                  type="number"
+                  value={formData.crew}
+                  onChange={(e) => setFormData({ ...formData, crew: Number(e.target.value) })}
+                  fullWidth
+                />
 
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Year Built"
-                    type="number"
-                    value={formData.yearBuilt}
-                    onChange={(e) => setFormData({ ...formData, yearBuilt: Number(e.target.value) })}
-                    fullWidth
-                  />
-                </Grid>
+                <TextField
+                  label="Year Built"
+                  type="number"
+                  value={formData.yearBuilt}
+                  onChange={(e) => setFormData({ ...formData, yearBuilt: Number(e.target.value) })}
+                  fullWidth
+                />
 
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Length (meters)"
-                    type="number"
-                    value={formData.length}
-                    onChange={(e) => setFormData({ ...formData, length: Number(e.target.value) })}
-                    fullWidth
-                  />
-                </Grid>
+                <TextField
+                  label="Length (meters)"
+                  type="number"
+                  value={formData.length}
+                  onChange={(e) => setFormData({ ...formData, length: Number(e.target.value) })}
+                  fullWidth
+                />
 
-                <Grid size={{ xs: 6 }}>
-                  <TextField
-                    label="Width (meters)"
-                    type="number"
-                    value={formData.width}
-                    onChange={(e) => setFormData({ ...formData, width: Number(e.target.value) })}
-                    fullWidth
-                  />
-                </Grid>
-              </Grid>
+                <TextField
+                  label="Width (meters)"
+                  type="number"
+                  value={formData.width}
+                  onChange={(e) => setFormData({ ...formData, width: Number(e.target.value) })}
+                  fullWidth
+                />
+              </div>
             )}
 
             {/* Tab 2: Media & Content */}
             {formTab === 2 && (
-              <Grid container spacing={4}>
-                {/* Main Image */}
-                <Grid item xs={12}>
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
-                      Main Image
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Select the primary image that will be displayed as the main photo for this dahabiya
-                    </Typography>
-                  </Box>
-                  <DahabiyaMediaPicker
-                    label="Main Image"
-                    value={formData.mainImage}
-                    onChange={(value) => {
-                      console.log('🖼️ Main image changed:', value);
-                      setFormData(prev => ({ ...prev, mainImage: value as string }));
-                    }}
-                    type="single"
-                    accept="image/*"
-                    helperText="Click to select or change the main image"
-                  />
-                </Grid>
+              <div className="space-y-6">
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                    Main Image
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Select the primary image that will be displayed as the main photo for this dahabiya
+                  </Typography>
+                </Box>
+                <DahabiyaMediaPicker
+                  label="Main Image"
+                  value={formData.mainImage}
+                  onChange={(value) => {
+                    console.log('🖼️ Main image changed:', value);
+                    setFormData({ ...formData, mainImage: value });
+                  }}
+                  type="single"
+                  accept="image/*"
+                  helperText="Click to select or change the main image"
+                />
 
-                {/* Gallery Images */}
-                <Grid item xs={12}>
-                  <Box sx={{ mb: 2 }}>
-                    <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
-                      Gallery Images
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Add multiple images to showcase different views and features of the dahabiya
-                    </Typography>
-                  </Box>
-                  <DahabiyaMediaPicker
-                    label="Gallery Images"
-                    value={formData.gallery}
-                    onChange={(value) => {
-                      console.log('🖼️ Gallery changed:', value);
-                      setFormData(prev => ({ ...prev, gallery: value as string[] }));
-                    }}
-                    type="multiple"
-                    accept="image/*"
-                    helperText="Click to add more images to the gallery"
-                    maxItems={15}
-                  />
-                </Grid>
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                    Gallery Images
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Add multiple images to showcase different aspects of the dahabiya
+                  </Typography>
+                </Box>
+                <DahabiyaMediaPicker
+                  label="Gallery Images"
+                  value={formData.gallery}
+                  onChange={(value) => {
+                    console.log('🖼️ Gallery changed:', value);
+                    setFormData({ ...formData, gallery: Array.isArray(value) ? value : [value] });
+                  }}
+                  type="multiple"
+                  accept="image/*"
+                  helperText="Click to add more images to the gallery"
+                  maxItems={15}
+                />
 
-                {/* Video and Virtual Tour URLs */}
-                <Grid item xs={6}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <TextField
                     label="Video URL"
                     value={formData.videoUrl}
@@ -651,9 +640,7 @@ const DahabiyaManager = () => {
                     placeholder="https://youtube.com/watch?v=..."
                     helperText="YouTube or Vimeo video URL"
                   />
-                </Grid>
 
-                <Grid item xs={6}>
                   <TextField
                     label="Virtual Tour URL"
                     value={formData.virtualTourUrl}
@@ -662,77 +649,66 @@ const DahabiyaManager = () => {
                     placeholder="https://virtualtour.example.com"
                     helperText="360° virtual tour link"
                   />
-                </Grid>
+                </div>
 
-                {/* Routes and Highlights */}
-                <Grid item xs={12}>
-                  <TextField
-                    label="Routes (comma-separated)"
-                    value={formData.routes}
-                    onChange={(e) => setFormData({ ...formData, routes: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="Luxor to Aswan Classic, Extended Nile Journey, Cultural Heritage Route"
-                    helperText="Available cruise routes and itineraries"
-                  />
-                </Grid>
+                <TextField
+                  label="Routes (comma-separated)"
+                  value={formData.routes}
+                  onChange={(e) => setFormData({ ...formData, routes: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Luxor to Aswan Classic, Extended Nile Journey, Cultural Heritage Route"
+                  helperText="Available cruise routes and itineraries"
+                />
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Highlights (comma-separated)"
-                    value={formData.highlights}
-                    onChange={(e) => setFormData({ ...formData, highlights: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="Valley of the Kings, Karnak Temple, Philae Temple, Abu Simbel"
-                    helperText="Key attractions and destinations visited"
-                  />
-                </Grid>
-              </Grid>
+                <TextField
+                  label="Highlights (comma-separated)"
+                  value={formData.highlights}
+                  onChange={(e) => setFormData({ ...formData, highlights: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Valley of the Kings, Karnak Temple, Philae Temple, Abu Simbel"
+                  helperText="Key attractions and destinations visited"
+                />
+              </div>
             )}
 
             {/* Tab 3: Features & Amenities */}
             {formTab === 3 && (
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    label="Features (comma-separated)"
-                    value={formData.features}
-                    onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="Luxury Suites, Sun Deck, Traditional Sailing"
-                  />
-                </Grid>
+              <div className="space-y-6">
+                <TextField
+                  label="Features (comma-separated)"
+                  value={formData.features}
+                  onChange={(e) => setFormData({ ...formData, features: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Luxury Suites, Sun Deck, Traditional Sailing"
+                />
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Amenities (comma-separated)"
-                    value={formData.amenities}
-                    onChange={(e) => setFormData({ ...formData, amenities: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="Air Conditioning, Private Bathrooms, WiFi"
-                  />
-                </Grid>
+                <TextField
+                  label="Amenities (comma-separated)"
+                  value={formData.amenities}
+                  onChange={(e) => setFormData({ ...formData, amenities: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Air Conditioning, Private Bathrooms, WiFi"
+                />
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Activities (comma-separated)"
-                    value={formData.activities}
-                    onChange={(e) => setFormData({ ...formData, activities: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="Cultural Tours, Cooking Classes, Stargazing"
-                  />
-                </Grid>
+                <TextField
+                  label="Activities (comma-separated)"
+                  value={formData.activities}
+                  onChange={(e) => setFormData({ ...formData, activities: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="Cultural Tours, Cooking Classes, Stargazing"
+                />
 
-                <Grid item xs={6}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <TextField
                     label="Dining Options (comma-separated)"
                     value={formData.diningOptions}
@@ -740,9 +716,7 @@ const DahabiyaManager = () => {
                     fullWidth
                     placeholder="Fine Dining Restaurant, Sunset Bar"
                   />
-                </Grid>
 
-                <Grid item xs={6}>
                   <TextField
                     label="Services (comma-separated)"
                     value={formData.services}
@@ -750,45 +724,109 @@ const DahabiyaManager = () => {
                     fullWidth
                     placeholder="24/7 Concierge, Laundry Service"
                   />
-                </Grid>
-              </Grid>
+                </div>
+              </div>
             )}
 
-            {/* Tab 4: SEO & Marketing */}
+            {/* Tab 4: Itineraries */}
             {formTab === 4 && (
-              <Grid container spacing={3}>
-                <Grid item xs={12}>
-                  <TextField
-                    label="Meta Title"
-                    value={formData.metaTitle}
-                    onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
-                    fullWidth
-                    placeholder="SEO title for search engines"
-                  />
-                </Grid>
+              <div className="space-y-6">
+                <Typography variant="h6" gutterBottom>
+                  Select Itineraries for this Dahabiya
+                </Typography>
+                <Typography variant="body2" color="textSecondary" gutterBottom>
+                  Choose which itineraries are available for this dahabiya. Guests will be able to select from these options.
+                </Typography>
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Meta Description"
-                    value={formData.metaDescription}
-                    onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
-                    fullWidth
-                    multiline
-                    rows={2}
-                    placeholder="SEO description for search engines"
-                  />
-                </Grid>
+                <FormControl fullWidth>
+                  <InputLabel>Available Itineraries</InputLabel>
+                  <Select
+                    multiple
+                    value={formData.selectedItineraries}
+                    onChange={(e) => setFormData({ ...formData, selectedItineraries: e.target.value as string[] })}
+                    label="Available Itineraries"
+                    renderValue={(selected) => (
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {(selected as string[]).map((value) => {
+                          const itinerary = itineraries.find(i => i.id === value);
+                          return (
+                            <Chip key={value} label={itinerary?.name || value} size="small" />
+                          );
+                        })}
+                      </Box>
+                    )}
+                  >
+                    {itineraries.map((itinerary) => (
+                      <MenuItem key={itinerary.id} value={itinerary.id}>
+                        <Checkbox checked={formData.selectedItineraries.indexOf(itinerary.id) > -1} />
+                        <ListItemText
+                          primary={itinerary.name}
+                          secondary={`${itinerary.duration} days - ${itinerary.description}`}
+                        />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
 
-                <Grid item xs={12}>
-                  <TextField
-                    label="Tags (comma-separated)"
-                    value={formData.tags}
-                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                    fullWidth
-                    placeholder="luxury, nile cruise, egypt, traditional"
-                  />
-                </Grid>
-              </Grid>
+                {formData.selectedItineraries.length > 0 && (
+                  <div>
+                    <Typography variant="subtitle1" gutterBottom>
+                      Selected Itineraries Preview:
+                    </Typography>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                      {formData.selectedItineraries.map((itineraryId) => {
+                        const itinerary = itineraries.find(i => i.id === itineraryId);
+                        return itinerary ? (
+                          <Card key={itinerary.id} variant="outlined">
+                            <CardContent style={{ padding: '12px' }}>
+                              <Typography variant="subtitle2" style={{ fontWeight: 'bold' }}>
+                                {itinerary.name}
+                              </Typography>
+                              <Typography variant="body2" color="textSecondary">
+                                Duration: {itinerary.duration} days
+                              </Typography>
+                              <Typography variant="body2">
+                                {itinerary.description}
+                              </Typography>
+                            </CardContent>
+                          </Card>
+                        ) : null;
+                      })}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Tab 5: SEO & Marketing */}
+            {formTab === 5 && (
+              <div className="space-y-6">
+                <TextField
+                  label="Meta Title"
+                  value={formData.metaTitle}
+                  onChange={(e) => setFormData({ ...formData, metaTitle: e.target.value })}
+                  fullWidth
+                  placeholder="SEO title for search engines"
+                />
+
+                <TextField
+                  label="Meta Description"
+                  value={formData.metaDescription}
+                  onChange={(e) => setFormData({ ...formData, metaDescription: e.target.value })}
+                  fullWidth
+                  multiline
+                  rows={2}
+                  placeholder="SEO description for search engines"
+                />
+
+                <TextField
+                  label="Tags (comma-separated)"
+                  value={formData.tags}
+                  onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
+                  fullWidth
+                  placeholder="luxury, nile cruise, egypt, traditional"
+                />
+              </div>
             )}
           </div>
         </DialogContent>
@@ -798,6 +836,7 @@ const DahabiyaManager = () => {
             onClick={handleSubmit}
             variant="contained"
             disabled={submitting}
+            style={{ backgroundColor: '#D4AF37', color: 'white' }}
           >
             {submitting ? <CircularProgress size={20} /> : (editingDahabiya ? 'Update' : 'Create')}
           </Button>

@@ -38,21 +38,21 @@ export default function RoyalHeritagePage() {
           } else {
             // Use CMS content with fallback data
             setPackageData({
-              name: cmsContent['royal-heritage_name'] || getContent('royal-heritage_name', 'Royal Heritage Package'),
-              shortDescription: cmsContent['royal-heritage_short_description'] || getContent('royal-heritage_short_description', 'Experience the wonders of Egypt with this amazing package.'),
-              description: cmsContent['royal-heritage_description'] || getContent('royal-heritage_description', 'Discover the beauty and history of Egypt with our comprehensive package.'),
-              advantages: cmsContent['royal-heritage_advantages'] || getContent('royal-heritage_advantages', 'This package offers an incredible journey through ancient Egypt.'),
-              meaning: cmsContent['royal-heritage_meaning'] || getContent('royal-heritage_meaning', 'This package represents the essence of Egyptian exploration.'),
-              mainImageUrl: cmsContent['royal-heritage_main_image'] || getContent('royal-heritage_main_image', '/images/royal-heritage-main.jpg'),
-              videoUrl: cmsContent['royal-heritage_video'] || getContent('royal-heritage_video', '/videos/royal-heritage-tour.mp4'),
-              price: parseInt(cmsContent['royal-heritage_price']) || 2000,
-              durationDays: parseInt(cmsContent['royal-heritage_duration']) || 7,
-              maxGuests: parseInt(cmsContent['royal-heritage_max_guests']) || 20,
-              rating: parseFloat(cmsContent['royal-heritage_rating']) || 4.8,
-              features: cmsContent['royal-heritage_features'] ? JSON.parse(cmsContent['royal-heritage_features']) : ['Guided Tours', 'Comfortable Accommodation', 'Cultural Experiences'],
-              inclusions: cmsContent['royal-heritage_inclusions'] ? JSON.parse(cmsContent['royal-heritage_inclusions']) : ['Accommodation', 'Meals', 'Transportation'],
-              images: cmsContent['royal-heritage_images'] ? JSON.parse(cmsContent['royal-heritage_images']) : [],
-              itineraryDays: cmsContent['royal-heritage_itinerary'] ? JSON.parse(cmsContent['royal-heritage_itinerary']) : []
+              name: (cmsContent as any)['royal-heritage_name'] || getContent('royal-heritage_name', 'Royal Heritage Package'),
+              shortDescription: (cmsContent as any)['royal-heritage_short_description'] || getContent('royal-heritage_short_description', 'Experience the wonders of Egypt with this amazing package.'),
+              description: (cmsContent as any)['royal-heritage_description'] || getContent('royal-heritage_description', 'Discover the beauty and history of Egypt with our comprehensive package.'),
+              advantages: (cmsContent as any)['royal-heritage_advantages'] || getContent('royal-heritage_advantages', 'This package offers an incredible journey through ancient Egypt.'),
+              meaning: (cmsContent as any)['royal-heritage_meaning'] || getContent('royal-heritage_meaning', 'This package represents the essence of Egyptian exploration.'),
+              mainImageUrl: (cmsContent as any)['royal-heritage_main_image'] || getContent('royal-heritage_main_image', '/images/royal-heritage-main.jpg'),
+              videoUrl: (cmsContent as any)['royal-heritage_video'] || getContent('royal-heritage_video', '/videos/royal-heritage-tour.mp4'),
+              price: parseInt((cmsContent as any)['royal-heritage_price']) || 2000,
+              durationDays: parseInt((cmsContent as any)['royal-heritage_duration']) || 7,
+              maxGuests: parseInt((cmsContent as any)['royal-heritage_max_guests']) || 20,
+              rating: parseFloat((cmsContent as any)['royal-heritage_rating']) || 4.8,
+              features: (cmsContent as any)['royal-heritage_features'] ? JSON.parse((cmsContent as any)['royal-heritage_features']) : ['Guided Tours', 'Comfortable Accommodation', 'Cultural Experiences'],
+              inclusions: (cmsContent as any)['royal-heritage_inclusions'] ? JSON.parse((cmsContent as any)['royal-heritage_inclusions']) : ['Accommodation', 'Meals', 'Transportation'],
+              images: (cmsContent as any)['royal-heritage_images'] ? JSON.parse((cmsContent as any)['royal-heritage_images']) : [],
+              itineraryDays: (cmsContent as any)['royal-heritage_itinerary'] ? JSON.parse((cmsContent as any)['royal-heritage_itinerary']) : []
             });
           }
         }
@@ -78,6 +78,8 @@ export default function RoyalHeritagePage() {
         advantages=""
         meaning=""
         pageType="package"
+        type="package"
+        category="LUXURY"
         loading={true}
       />
     );
@@ -95,6 +97,8 @@ export default function RoyalHeritagePage() {
         advantages=""
         meaning=""
         pageType="package"
+        type="package"
+        category="LUXURY"
         loading={true}
       />
     );

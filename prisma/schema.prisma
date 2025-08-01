@@ -141,19 +141,19 @@ model VerificationToken {
 //   @@map("dahabiyat")
 // }
 
-// REMOVED: AvailabilityDate model - related to deleted Dahabiya system
-// model AvailabilityDate {
-//   id         String   @id @default(cuid())
-//   date       DateTime
-//   available  Boolean  @default(true)
-//   price      Decimal  @db.Decimal(10, 2)
-//   createdAt  DateTime @default(now())
-//   updatedAt  DateTime @updatedAt
-//   dahabiyaId String
-//   dahabiya   Dahabiya @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
+// AvailabilityDate model - needed for admin availability management
+model AvailabilityDate {
+  id         String   @id @default(cuid())
+  date       DateTime
+  available  Boolean  @default(true)
+  price      Decimal  @db.Decimal(10, 2)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  dahabiyaId String
+  dahabiya   Dahabiya @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
 
-//   @@unique([dahabiyaId, date])
-// }
+  @@unique([dahabiyaId, date])
+}
 
 // REMOVED: Cabin model - related to deleted Dahabiya system
 // model Cabin {
@@ -362,7 +362,7 @@ model Itinerary {
   imageId       String?        @unique
 
   image         Image?         @relation(fields: [imageId], references: [id])
-  // dahabiyat     Dahabiya[]  // REMOVED: related to deleted Dahabiya model
+  dahabiyat     DahabiyaItinerary[]
   days          ItineraryDay[]
   pricingTiers  ItineraryPricing[]
 }
@@ -377,6 +377,21 @@ model ItineraryPricing {
   itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+}
+
+// Junction table for Dahabiya-Itinerary many-to-many relationship
+model DahabiyaItinerary {
+  id          String    @id @default(cuid())
+  dahabiyaId  String
+  itineraryId String
+  isDefault   Boolean   @default(false) // Mark one as default for the dahabiya
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  dahabiya    Dahabiya  @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
+  itinerary   Itinerary @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+
+  @@unique([dahabiyaId, itineraryId])
 }
 
 model Blog {
@@ -768,6 +783,10 @@ model Dahabiya {
   metaTitle   String?
   metaDescription String?
   tags        String[]
+
+  // Relations
+  availabilityDates AvailabilityDate[]
+  itineraries       DahabiyaItinerary[]
 
   // Timestamps
   createdAt   DateTime @default(now())

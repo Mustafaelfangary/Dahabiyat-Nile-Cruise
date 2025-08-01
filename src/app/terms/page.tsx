@@ -84,7 +84,7 @@ export default function TermsPage() {
 
             {/* Royal Crown */}
             <div className="flex justify-center mb-6">
-              <RoyalCrown size="large" />
+              <RoyalCrown />
             </div>
 
             {/* Main Title */}

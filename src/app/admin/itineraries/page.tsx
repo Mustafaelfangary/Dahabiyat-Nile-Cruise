@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Plus, Edit, Trash2, Eye, Calendar, Users, Star } from 'lucide-react';
+import { MapPin, Plus, Edit, Trash2, Eye, Calendar, Users, Star, Download } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Itinerary {
@@ -94,6 +94,29 @@ export default function ItinerariesManagementPage() {
     } catch (error) {
       console.error('Error updating itinerary:', error);
       toast.error('Error updating itinerary');
+    }
+  };
+
+  const downloadItinerary = async (itinerary: Itinerary) => {
+    try {
+      const response = await fetch(`/api/itineraries/${itinerary.id}/download`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${itinerary.name || 'itinerary'}.html`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+        toast.success('Itinerary downloaded successfully!');
+      } else {
+        toast.error('Failed to download itinerary');
+      }
+    } catch (error) {
+      console.error('Error downloading itinerary:', error);
+      toast.error('Error downloading itinerary');
     }
   };
 
@@ -222,11 +245,19 @@ export default function ItinerariesManagementPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.location.href = `/admin/itineraries/${itinerary.id}`}
+                    onClick={() => window.location.href = `/itineraries/${itinerary.slug}`}
                     className="flex-1"
                   >
-                    <Edit className="w-4 h-4 mr-1" />
-                    Edit
+                    <Eye className="w-4 h-4 mr-1" />
+                    View
+                  </Button>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => downloadItinerary(itinerary)}
+                    className="text-blue-600 hover:text-blue-700"
+                  >
+                    <Download className="w-4 h-4" />
                   </Button>
                   <Button
                     variant="outline"

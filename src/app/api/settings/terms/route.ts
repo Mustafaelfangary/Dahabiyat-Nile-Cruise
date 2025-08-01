@@ -86,21 +86,16 @@ export async function PUT(request: NextRequest) {
     // Update or create terms and conditions setting
     const termsSetting = await prisma.setting.upsert({
       where: {
-        group_key: {
-          group: 'legal',
-          key: 'terms_conditions'
-        }
+        key: 'terms_conditions'
       },
       update: {
         value: content,
-        updatedAt: new Date()
+        group: 'legal'
       },
       create: {
-        group: 'legal',
         key: 'terms_conditions',
-        value: content,
-        type: 'TEXT',
-        description: 'Terms and conditions content'
+        group: 'legal',
+        value: content
       }
     });
 

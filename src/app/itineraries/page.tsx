@@ -175,7 +175,7 @@ export default function ItinerariesPage() {
               ].map(({ key, label, icon: Icon }) => (
                 <Button
                   key={key}
-                  variant={filter === key ? 'default' : 'outline'}
+                  variant={filter === key ? 'primary' : 'outline'}
                   onClick={() => setFilter(key)}
                   className={`${
                     filter === key 

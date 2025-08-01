@@ -20,8 +20,9 @@ interface Dahabiya {
 
 export default function BookingPage() {
   const params = useSearchParams();
-  const dahabiyaId = params?.get('dahabiyaId') ?? null;
-  const packageId = params?.get('packageId') ?? null;
+  const itemId = params?.get('itemId') ?? null;
+  const dahabiyaId = params?.get('dahabiyaId') ?? itemId;
+  const packageId = params?.get('packageId') ?? itemId;
   const bookingType = params?.get('type') ?? 'dahabiya';
 
   const [selectedDahabiya, setSelectedDahabiya] = useState<Dahabiya | null>(null);

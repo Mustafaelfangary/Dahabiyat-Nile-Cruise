@@ -10,17 +10,14 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    // Get all ships
-    const ships = await prisma.ship.findMany({
+    // Get all dahabiyas (ships model was merged into dahabiyas)
+    const ships = await prisma.dahabiya.findMany({
       select: {
         id: true,
         name: true,
         createdAt: true,
-        _count: {
-          select: {
-            dahabiyat: true
-          }
-        }
+        capacity: true,
+        isActive: true
       },
       orderBy: {
         createdAt: 'desc'

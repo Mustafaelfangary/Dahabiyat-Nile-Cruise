@@ -22,6 +22,7 @@ import UserNotificationCenter from '@/components/profile/UserNotificationCenter'
 import MemorySharing from '@/components/profile/MemorySharing';
 import ReviewSharing from '@/components/profile/ReviewSharing';
 import LoyaltyButtons from '@/components/profile/LoyaltyButtons';
+import LoyaltyDashboard from '@/components/profile/LoyaltyDashboard';
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -316,7 +317,7 @@ export default function ProfilePage() {
         <div className="absolute top-1/3 right-1/3 text-5xl text-egyptian-gold/15 float-hieroglyph hieroglyph-glow" style={{animationDelay: '3s'}}>𓇯</div>
       </div>
 
-      <Container maxWidth="full" className="relative z-10 py-8">
+      <Container maxWidth="xl" className="relative z-10 py-8">
         <AnimatedSection animation="fade-in">
           {/* Hero Profile Section */}
           <div className="relative mb-12">
@@ -921,6 +922,9 @@ export default function ProfilePage() {
                   {/* Floating hieroglyphic elements */}
                   <div className="absolute top-4 right-4 text-3xl text-egyptian-gold/20 animate-pulse">𓂀</div>
                   <div className="absolute bottom-4 left-4 text-2xl text-egyptian-gold/15 animate-bounce">𓈖</div>
+
+                  {/* Enhanced Loyalty Dashboard */}
+                  <LoyaltyDashboard />
 
                   {/* Enhanced Current Tier Display */}
                   <div className="text-center mb-10">

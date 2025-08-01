@@ -169,11 +169,11 @@ export async function PATCH(request: Request) {
         },
       });
 
-      const booking = await prisma.booking.findUnique({
+      const booking = payment.bookingId ? await prisma.booking.findUnique({
         where: { id: payment.bookingId },
-      });
+      }) : null;
 
-      if (booking && Number(allPayments._sum.amount || 0) >= Number(booking.totalPrice)) {
+      if (booking && payment.bookingId && Number(allPayments._sum.amount || 0) >= Number(booking.totalPrice)) {
         await prisma.booking.update({
           where: { id: payment.bookingId },
           data: { status: 'CONFIRMED' },

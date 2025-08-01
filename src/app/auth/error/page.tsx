@@ -81,7 +81,7 @@ export default function AuthErrorPage() {
     }
   }, [searchParams]);
 
-  const errorInfo = errorMessages[error] || errorMessages.Default;
+  const errorInfo = errorMessages[error as keyof typeof errorMessages] || errorMessages.Default;
 
   const handleRetry = () => {
     router.push('/auth/signin');
@@ -100,21 +100,21 @@ export default function AuthErrorPage() {
               <AlertCircle className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold text-gray-800">
-              {errorInfo.title}
+              {errorInfo!.title}
             </CardTitle>
             <CardDescription className="text-gray-600">
-              {errorInfo.description}
+              {errorInfo!.description}
             </CardDescription>
           </CardHeader>
           
           <CardContent className="space-y-6">
-            {errorInfo.action && (
+            {errorInfo!.action && (
               <div className="bg-red-100 border border-red-200 rounded-lg p-4">
                 <div className="flex items-start gap-3">
                   <AlertCircle className="w-5 h-5 text-red-600 mt-0.5" />
                   <div className="text-sm text-red-800">
                     <p className="font-medium mb-1">What you can do:</p>
-                    <p>{errorInfo.action}</p>
+                    <p>{errorInfo!.action}</p>
                   </div>
                 </div>
               </div>

@@ -184,7 +184,7 @@ export default function GalleryPage() {
 
               {/* Royal Crown */}
               <div className="flex justify-center mb-6">
-                <RoyalCrown size="large" />
+                <RoyalCrown />
               </div>
 
               {/* Main Title */}
@@ -280,9 +280,9 @@ export default function GalleryPage() {
       <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
-            <Grid container spacing={3}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {filteredImages.length === 0 ? (
-                <Grid size={12}>
+                <div className="col-span-full">
                   <div className="text-center py-20">
                     <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
                     <Typography variant="h5" className="text-amber-800 font-bold mb-4">
@@ -292,11 +292,11 @@ export default function GalleryPage() {
                       No images match your current filter. Try adjusting your selection.
                     </Typography>
                   </div>
-                </Grid>
+                </div>
               ) : (
                 filteredImages.map((image, index) => (
-                  <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }} key={image.id}>
-                    <StaggeredAnimation delay={index * 0.05}>
+                  <div key={image.id}>
+                    <StaggeredAnimation>
                       <div
                         className="relative group cursor-pointer overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300"
                         onClick={() => setSelectedImage(image)}
@@ -355,11 +355,12 @@ export default function GalleryPage() {
                           </div>
                         )}
                       </div>
+                      <span></span>
                     </StaggeredAnimation>
-                  </Grid>
+                  </div>
                 ))
               )}
-            </Grid>
+            </div>
           </AnimatedSection>
         </Container>
       </section>

@@ -20,13 +20,11 @@ export async function GET(request: Request) {
       prisma.review.findMany({
         where: { userId: session.user.id },
         include: {
-          dahabiya: {
+          user: {
             select: {
               id: true,
               name: true,
-              images: {
-                take: 1,
-              },
+              image: true,
             },
           },
         },
@@ -60,33 +58,37 @@ export async function POST(request: Request) {
     const body = await request.json();
     const { dahabiyaId, rating, comment } = body;
 
-    // Verify the user has booked this dahabiya
+    // Verify the user has completed bookings
     const booking = await prisma.booking.findFirst({
       where: {
         userId: session.user.id,
-        dahabiyaId,
         status: 'COMPLETED',
       },
     });
 
     if (!booking) {
       return new NextResponse(
-        'You can only review dahabiyas you have completed',
+        'You can only review after completing a booking',
         { status: 400 }
       );
     }
 
-    // Check if user has already reviewed this dahabiya
+    // Check if user has already reviewed recently (limit one review per day)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     const existingReview = await prisma.review.findFirst({
       where: {
         userId: session.user.id,
-        dahabiyaId,
+        createdAt: {
+          gte: today
+        }
       },
     });
 
     if (existingReview) {
       return new NextResponse(
-        'You have already reviewed this dahabiya',
+        'You have already submitted a review today',
         { status: 400 }
       );
     }
@@ -94,18 +96,16 @@ export async function POST(request: Request) {
     const review = await prisma.review.create({
       data: {
         userId: session.user.id,
-        dahabiyaId,
         rating,
         comment,
+        status: 'PENDING'
       },
       include: {
-        dahabiya: {
+        user: {
           select: {
             id: true,
             name: true,
-            images: {
-              take: 1,
-            },
+            image: true,
           },
         },
       },
@@ -152,13 +152,11 @@ export async function PATCH(request: Request) {
         updatedAt: new Date(),
       },
       include: {
-        dahabiya: {
+        user: {
           select: {
             id: true,
             name: true,
-            images: {
-              take: 1,
-            },
+            image: true,
           },
         },
       },

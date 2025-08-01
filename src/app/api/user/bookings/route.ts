@@ -18,22 +18,18 @@ export async function GET(request: Request) {
 
     const skip = (page - 1) * limit;
 
-    const where = {
+    const where: any = {
       userId: session.user.id,
-      status,
     };
+
+    if (status) {
+      where.status = status;
+    }
 
     const [bookings, total] = await Promise.all([
       prisma.booking.findMany({
         where,
         include: {
-          dahabiya: {
-            include: {
-              images: {
-                take: 1
-              }
-            }
-          },
           package: {
             select: {
               name: true,
@@ -42,7 +38,6 @@ export async function GET(request: Request) {
               price: true
             }
           },
-          cabin: true,
           guestDetails: true,
           payment: true
         },
@@ -103,34 +98,18 @@ export async function POST(request: Request) {
       promotionCode,
     } = body;
 
-    // Verify dahabiya and cabin availability
+    // Verify dahabiya availability
     const dahabiya = await prisma.dahabiya.findUnique({
-      where: { id: dahabiyaId },
-      include: {
-        cabins: true,
-        availableDates: {
-          where: {
-            date: {
-              gte: new Date(startDate),
-              lte: new Date(endDate),
-            },
-            available: true,
-          },
-        },
-      },
+      where: { id: dahabiyaId }
     });
 
-    if (!dahabiya || dahabiya.cabins.length === 0) {
-      return new NextResponse('Invalid dahabiya or cabin', { status: 400 });
+    if (!dahabiya) {
+      return new NextResponse('Invalid dahabiya', { status: 400 });
     }
 
-    if (dahabiya.availableDates.length === 0) {
-      return new NextResponse('Selected dates are not available', { status: 400 });
-    }
-
-    // Calculate total price
-    const cabin = dahabiya.cabins[0];
-    let totalPrice = Number(cabin.price);
+    // Calculate total price based on dahabiya price per day
+    const days = Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24));
+    let totalPrice = Number(dahabiya!.pricePerDay) * days;
 
     // Apply promotion if provided
     if (promotionCode) {
@@ -144,33 +123,26 @@ export async function POST(request: Request) {
 
       if (promotion) {
         // Apply promotion discount
-        totalPrice = totalPrice * (1 - Number(promotion.discountPercentage) / 100);
+        totalPrice = totalPrice * (1 - Number(promotion!.discountPercentage) / 100);
       }
     }
 
     // Create booking
     const booking = await prisma.booking.create({
       data: {
-        userId: session.user.id,
-        dahabiyaId,
+        userId: session!.user.id,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
         status: Status.PENDING,
         totalPrice,
         specialRequests,
         guests: guestDetails.length,
+        type: 'DAHABIYA',
         guestDetails: {
           create: guestDetails,
         },
       },
       include: {
-        dahabiya: {
-          include: {
-            images: {
-              take: 1,
-            },
-          },
-        },
         guestDetails: true,
       },
     });

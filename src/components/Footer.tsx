@@ -73,15 +73,15 @@ function ContactDeveloperModal() {
             <h3 className="text-xl font-bold text-hieroglyph-brown mb-2" style={{
               textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
             }}>
-              Just X Development
+              {get('footer_developer_name', 'Just X Development')}
             </h3>
             <p className="text-gray-700 mb-2 font-medium">
-              Crafted with love in the land of the Pharaohs
+              {get('footer_developer_branding_text', 'Crafted with love in the land of the Pharaohs')}
             </p>
             <div className="text-egyptian-gold font-semibold text-sm mb-4" style={{
               textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
             }}>
-              📞 +20 123 456 7890
+              📞 {get('footer_developer_phone', '+20 123 456 7890')}
             </div>
           </div>
 
@@ -103,7 +103,7 @@ function ContactDeveloperModal() {
             </a>
 
             <a
-              href="tel:+201234567890"
+              href={get('footer_developer_phone_url', 'tel:+201234567890')}
               className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
               style={{
                 background: 'linear-gradient(135deg, #25D366 0%, #128C7E 50%, #075E54 100%)',

@@ -20,7 +20,7 @@ export async function GET(request: NextRequest) {
         createdAt: true,
         _count: {
           select: {
-            dahabiyat: true
+            days: true
           }
         }
       },

@@ -92,21 +92,16 @@ export async function PUT(request: NextRequest) {
     // Update or create privacy policy setting
     const privacySetting = await prisma.setting.upsert({
       where: {
-        group_key: {
-          group: 'legal',
-          key: 'privacy_policy'
-        }
+        key: 'privacy_policy'
       },
       update: {
         value: content,
-        updatedAt: new Date()
+        group: 'legal'
       },
       create: {
-        group: 'legal',
         key: 'privacy_policy',
-        value: content,
-        type: 'TEXT',
-        description: 'Privacy policy content'
+        group: 'legal',
+        value: content
       }
     });
 

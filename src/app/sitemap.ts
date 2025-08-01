@@ -67,21 +67,22 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    // Dynamic package pages
-    const packages = await prisma.package.findMany({
-      where: { isActive: true },
-      select: {
-        slug: true,
-        updatedAt: true,
-      },
-    });
+    // Dynamic package pages - commented out since Package model doesn't have slug field
+    // const packages = await prisma.package.findMany({
+    //   select: {
+    //     id: true,
+    //     updatedAt: true,
+    //   },
+    // });
 
-    const packagePages: MetadataRoute.Sitemap = packages.map((pkg) => ({
-      url: `${baseUrl}/packages/${pkg.slug}`,
-      lastModified: pkg.updatedAt,
-      changeFrequency: 'weekly',
-      priority: 0.8,
-    }));
+    // const packagePages: MetadataRoute.Sitemap = packages.map((pkg) => ({
+    //   url: `${baseUrl}/packages/${pkg.id}`,
+    //   lastModified: pkg.updatedAt,
+    //   changeFrequency: 'weekly',
+    //   priority: 0.8,
+    // }));
+
+    const packagePages: MetadataRoute.Sitemap = [];
 
     return [...staticPages, ...dahabiyaPages, ...packagePages];
   } catch (error) {

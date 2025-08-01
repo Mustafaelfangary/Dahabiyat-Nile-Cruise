@@ -287,7 +287,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               className="bg-gradient-to-r from-amber-100 to-orange-100 text-hieroglyph-brown px-6 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-egyptian-gold/30 text-center cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`);
+                router.push(`/booking?itemId=${dahabiya.id}&type=dahabiya`);
               }}
             >
               <div className="flex items-center justify-center gap-2">

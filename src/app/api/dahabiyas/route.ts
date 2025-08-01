@@ -33,6 +33,7 @@ const dahabiyaSchema = z.object({
   metaTitle: z.string().optional(),
   metaDescription: z.string().optional(),
   tags: z.array(z.string()).optional(),
+  itineraryIds: z.array(z.string()).optional(),
 });
 
 // Helper function to generate slug from name
@@ -120,28 +121,77 @@ export async function POST(request: NextRequest) {
       counter++;
     }
 
+    // Filter out undefined values and prepare data for creation
+    const createData = {
+      name: validatedData.name,
+      description: validatedData.description,
+      pricePerDay: validatedData.pricePerDay,
+      capacity: validatedData.capacity,
+      slug,
+      gallery: validatedData.gallery || [],
+      features: validatedData.features || [],
+      amenities: validatedData.amenities || [],
+      activities: validatedData.activities || [],
+      diningOptions: validatedData.diningOptions || [],
+      services: validatedData.services || [],
+      routes: validatedData.routes || [],
+      highlights: validatedData.highlights || [],
+      tags: validatedData.tags || [],
+      isActive: validatedData.isActive ?? true,
+      isFeatured: validatedData.isFeatured ?? false,
+      category: validatedData.category || 'DELUXE',
+      rating: 0,
+      reviewCount: 0,
+      ...(validatedData.shortDescription !== undefined && { shortDescription: validatedData.shortDescription }),
+      ...(validatedData.cabins !== undefined && { cabins: validatedData.cabins }),
+      ...(validatedData.crew !== undefined && { crew: validatedData.crew }),
+      ...(validatedData.length !== undefined && { length: validatedData.length }),
+      ...(validatedData.width !== undefined && { width: validatedData.width }),
+      ...(validatedData.yearBuilt !== undefined && { yearBuilt: validatedData.yearBuilt }),
+      ...(validatedData.mainImage !== undefined && { mainImage: validatedData.mainImage }),
+      ...(validatedData.videoUrl !== undefined && { videoUrl: validatedData.videoUrl }),
+      ...(validatedData.virtualTourUrl !== undefined && { virtualTourUrl: validatedData.virtualTourUrl }),
+      ...(validatedData.metaTitle !== undefined && { metaTitle: validatedData.metaTitle }),
+      ...(validatedData.metaDescription !== undefined && { metaDescription: validatedData.metaDescription }),
+    };
+
     const dahabiya = await prisma.dahabiya.create({
-      data: {
-        ...validatedData,
-        slug,
-        gallery: validatedData.gallery || [],
-        features: validatedData.features || [],
-        amenities: validatedData.amenities || [],
-        activities: validatedData.activities || [],
-        diningOptions: validatedData.diningOptions || [],
-        services: validatedData.services || [],
-        routes: validatedData.routes || [],
-        highlights: validatedData.highlights || [],
-        tags: validatedData.tags || [],
-        isActive: validatedData.isActive ?? true,
-        isFeatured: validatedData.isFeatured ?? false,
-        category: validatedData.category || 'DELUXE',
-        rating: 0,
-        reviewCount: 0,
-      },
+      data: createData,
     });
 
-    return NextResponse.json(dahabiya, { status: 201 });
+    // Handle itinerary associations if provided
+    if (validatedData.itineraryIds && validatedData.itineraryIds.length > 0) {
+      const itineraryAssociations = validatedData.itineraryIds.map((itineraryId, index) => ({
+        dahabiyaId: dahabiya.id,
+        itineraryId,
+        isDefault: index === 0 // First itinerary is default
+      }));
+
+      await prisma.dahabiyaItinerary.createMany({
+        data: itineraryAssociations,
+        skipDuplicates: true
+      });
+    }
+
+    // Fetch the created dahabiya with its itineraries
+    const dahabiyaWithItineraries = await prisma.dahabiya.findUnique({
+      where: { id: dahabiya.id },
+      include: {
+        itineraries: {
+          include: {
+            itinerary: {
+              select: {
+                id: true,
+                name: true,
+                durationDays: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    return NextResponse.json(dahabiyaWithItineraries, { status: 201 });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

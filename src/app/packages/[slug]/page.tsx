@@ -177,7 +177,7 @@ export default function IndividualPackagePage() {
 
               {/* Royal Crown */}
               <div className="flex justify-center mb-6">
-                <RoyalCrown size="large" />
+                <RoyalCrown />
               </div>
 
               {/* Main Title */}
@@ -230,11 +230,27 @@ export default function IndividualPackagePage() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                <PharaohButton variant="primary">
+                <PharaohButton
+                  variant="primary"
+                  onClick={() => {
+                    const bookingSection = document.getElementById('booking-section');
+                    if (bookingSection) {
+                      bookingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   <PackageIcon className="w-6 h-6" />
                   Book Royal Journey
                 </PharaohButton>
-                <PharaohButton variant="secondary">
+                <PharaohButton
+                  variant="secondary"
+                  onClick={() => {
+                    const itinerarySection = document.getElementById('itinerary-section');
+                    if (itinerarySection) {
+                      itinerarySection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                  }}
+                >
                   <Crown className="w-6 h-6" />
                   View Itinerary
                 </PharaohButton>
@@ -259,9 +275,9 @@ export default function IndividualPackagePage() {
               </p>
             </div>
 
-            <Grid container spacing={4}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Highlights */}
-              <Grid item xs={12} md={6}>
+              <div>
                 <PharaohCard className="h-full">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-6">
@@ -281,10 +297,10 @@ export default function IndividualPackagePage() {
                     </div>
                   </CardContent>
                 </PharaohCard>
-              </Grid>
+              </div>
 
               {/* Included & Excluded */}
-              <Grid size={{ xs: 12, md: 6 }}>
+              <div>
                 <PharaohCard className="h-full">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-6">
@@ -323,18 +339,18 @@ export default function IndividualPackagePage() {
                     </div>
                   </CardContent>
                 </PharaohCard>
-              </Grid>
-            </Grid>
+              </div>
+            </div>
           </AnimatedSection>
         </Container>
       </section>
 
       {/* Booking Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50/30 to-slate-50 relative">
+      <section id="booking-section" className="py-20 bg-gradient-to-b from-amber-50/30 to-slate-50 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="fade-in">
             <div className="text-center mb-16">
-              <HieroglyphicText 
+              <HieroglyphicText
                 text="Book Your Royal Adventure"
                 className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
               />
@@ -350,7 +366,7 @@ export default function IndividualPackagePage() {
                 packageName={packageData.name}
                 basePrice={packageData.price}
                 durationDays={packageData.durationDays}
-                maxGuests={packageData.maxGuests}
+                maxGuests={packageData.maxGuests || 10}
               />
             </div>
           </AnimatedSection>

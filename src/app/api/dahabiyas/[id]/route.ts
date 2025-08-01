@@ -7,6 +7,7 @@ import { z } from "zod";
 // Validation schema for dahabiya updates
 const updateDahabiyaSchema = z.object({
   name: z.string().min(1, "Name is required").optional(),
+  slug: z.string().optional(),
   description: z.string().min(1, "Description is required").optional(),
   shortDescription: z.string().optional(),
   pricePerDay: z.number().positive("Price must be positive").optional(),
@@ -141,9 +142,14 @@ export async function PUT(
       updateData = { ...updateData, slug };
     }
 
+    // Filter out undefined values to satisfy exactOptionalPropertyTypes
+    const filteredUpdateData = Object.fromEntries(
+      Object.entries(updateData).filter(([_, value]) => value !== undefined)
+    );
+
     const dahabiya = await prisma.dahabiya.update({
       where: { id: existingDahabiya.id },
-      data: updateData,
+      data: filteredUpdateData,
     });
 
     return NextResponse.json(dahabiya);

@@ -167,10 +167,10 @@ export const VideoHero = memo(function VideoHero({
         }}
         onLoad={() => setIsLoading(false)}
         onError={(error) => setError(error)}
-        autoPlay
-        muted
-        loop
-        playsInline
+        autoPlay={true}
+        muted={true}
+        loop={true}
+        playsInline={true}
       />
       
       {/* Gradient Overlay */}

@@ -8,11 +8,13 @@ import { revalidatePath } from 'next/cache';
 const updateContentSchema = z.object({
   title: z.string().optional(),
   content: z.string().optional(),
+  value: z.string().optional(),
   mediaUrl: z.string().optional(),
   mediaType: z.enum(['IMAGE', 'VIDEO', 'DOCUMENT']).optional(),
   contentType: z.enum(['TEXT', 'TEXTAREA', 'RICH_TEXT', 'IMAGE', 'VIDEO', 'GALLERY', 'TESTIMONIAL', 'FEATURE', 'CTA']).optional(),
   page: z.string().optional(),
   section: z.string().optional(),
+  group: z.string().optional(),
   order: z.number().optional(),
   isActive: z.boolean().optional(),
 });

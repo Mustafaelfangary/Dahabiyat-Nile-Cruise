@@ -3,10 +3,11 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get default ship
-    const defaultShip = await prisma.ship.findFirst({
-      where: { name: 'Default Ship' },
-      select: { id: true, name: true }
+    // Get default dahabiya (ship model was merged into dahabiya)
+    const defaultShip = await prisma.dahabiya.findFirst({
+      where: { isActive: true },
+      select: { id: true, name: true },
+      orderBy: { createdAt: 'asc' }
     });
 
     // Get default itinerary

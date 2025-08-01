@@ -19,7 +19,7 @@ export default function CancellationPolicyPage() {
         features={[]}
         advantages=""
         meaning=""
-        pageType="page"
+        pageType="package"
         loading={true}
         primaryColor="ocean-blue"
         secondaryColor="ocean-blue"
@@ -40,7 +40,7 @@ export default function CancellationPolicyPage() {
         features={[]}
         advantages=""
         meaning=""
-        pageType="page"
+        pageType="package"
         loading={false}
         primaryColor="ocean-blue"
         secondaryColor="ocean-blue"
@@ -60,7 +60,7 @@ export default function CancellationPolicyPage() {
       features={getContent('cancellation_policy_features', '𓇳 Flexible Cancellation Terms,𓊪 Transparent Refund Process,𓈖 Travel Insurance Options,𓂀 Emergency Cancellation,𓏏 Rebooking Opportunities,𓇯 Force Majeure Protection,𓊃 Clear Timeline Guidelines,𓌻 Customer Support').split(',')}
       advantages={getContent('cancellation_policy_advantages', '𓂀 Our cancellation policy balances flexibility with fairness, offering reasonable refund terms while protecting the interests of all parties involved in your royal journey 𓏏')}
       meaning={getContent('cancellation_policy_meaning', '𓇯 Like the ancient contracts blessed by the gods, our cancellation policy is built on principles of fairness, transparency, and mutual respect 𓊃')}
-      pageType="page"
+      pageType="package"
       primaryColor="ocean-blue"
       secondaryColor="ocean-blue"
     />

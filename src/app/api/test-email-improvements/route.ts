@@ -15,6 +15,7 @@ export async function POST(request: NextRequest) {
     // Test the improved email template
     await sendEmail({
       to: email,
+      subject: 'Email Verification Test',
       template: 'email-verification',
       data: {
         user: { name: 'Test User' },

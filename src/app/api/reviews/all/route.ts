@@ -3,64 +3,43 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
-    // Get all reviews from both dahabiyat and packages
-    const [dahabiyaReviews, packageReviews] = await Promise.all([
-      // Dahabiya reviews
-      prisma.review.findMany({
-        where: {
-          dahabiyaId: { not: null as any }
-        },
-        include: {
-          user: {
-            select: {
-              name: true,
-              image: true,
-            },
-          },
-          dahabiya: {
-            select: {
-              name: true,
-              slug: true,
-            },
+    // Get all reviews (dahabiyaId field has been removed from Review model)
+    const allReviews = await prisma.review.findMany({
+      where: {
+        status: 'APPROVED'
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+            image: true,
           },
         },
-        orderBy: {
-          createdAt: 'desc'
-        }
-      }),
-      
-      // Package reviews (not available - Booking model doesn't have rating/comment fields)
-      Promise.resolve([])
-    ]);
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
 
-    // Format dahabiya reviews
-    const formattedDahabiyaReviews = dahabiyaReviews.map(review => ({
+    // Format reviews
+    const formattedReviews = allReviews.map(review => ({
       id: review.id,
       rating: review.rating,
       comment: review.comment,
+      title: review.title,
       author: review.user?.name || 'Anonymous',
       authorImage: review.user?.image,
       date: review.createdAt.toISOString(),
-      type: 'dahabiya' as const,
-      itemName: review.dahabiya?.name || 'Unknown Dahabiya',
-      itemSlug: review.dahabiya?.slug || review.dahabiya?.name?.toLowerCase().replace(/\s+/g, '-') || 'unknown',
-      verified: true, // Assume all reviews are verified
-      helpful: Math.floor(Math.random() * 20), // Mock helpful count
-      photos: [] // Could be extended to include review photos
+      location: review.location,
+      tripDate: review.tripDate?.toISOString(),
+      verified: review.verified,
+      helpful: review.helpful,
+      photos: review.photos || []
     }));
 
-    // Format package reviews (empty since Booking model doesn't have rating/comment fields)
-    const formattedPackageReviews: any[] = [];
-
-    // Combine and sort all reviews
-    const allReviews = [...formattedDahabiyaReviews, ...formattedPackageReviews]
-      .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-
     return NextResponse.json({
-      reviews: allReviews,
-      total: allReviews.length,
-      dahabiyaCount: formattedDahabiyaReviews.length,
-      packageCount: formattedPackageReviews.length,
+      reviews: formattedReviews,
+      total: formattedReviews.length,
       averageRating: allReviews.length > 0 
         ? allReviews.reduce((sum, review) => sum + review.rating, 0) / allReviews.length 
         : 0

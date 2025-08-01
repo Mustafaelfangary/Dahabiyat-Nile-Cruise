@@ -27,6 +27,18 @@ export default function HomePage() {
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
+  // Fallback timeout to ensure loading overlay doesn't stay forever
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (!videoLoaded && !videoError) {
+        console.log('Video loading timeout - showing video anyway');
+        setVideoLoaded(true);
+      }
+    }, 5000); // 5 second timeout
+
+    return () => clearTimeout(timeout);
+  }, [videoLoaded, videoError]);
+
   const [expandedSections, setExpandedSections] = useState({
     whatIs: false,
     whyDifferent: false,
@@ -154,9 +166,11 @@ export default function HomePage() {
           />
         )}
 
-        {/* Background Video - Stretched to fill the full hero area */}
+        {/* Background Video - Optimized for smooth loading */}
         <video
-          className="absolute inset-0 w-full h-full z-10 brightness-110 contrast-105"
+          className={`absolute inset-0 w-full h-full z-10 brightness-110 contrast-105 transition-opacity duration-500 ${
+            videoLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           style={{
             objectFit: 'fill',
             width: '100%',
@@ -166,48 +180,45 @@ export default function HomePage() {
           muted
           loop
           playsInline
-          preload="none"
+          preload="metadata"
           poster={get('hero_video_poster', '/images/hero-video-poster.jpg')}
           onError={() => {
             setVideoError(true);
           }}
-          onCanPlay={() => {
+          onLoadedData={() => {
             setVideoError(false);
             setVideoLoaded(true);
           }}
-          onPlay={(e) => {
-            const video = e.target as HTMLVideoElement;
-            console.log('Video started playing:', {
-              src: video.currentSrc || video.src,
-              currentTime: video.currentTime
-            });
+          onLoadStart={() => {
+            setVideoLoaded(false);
           }}
-          ref={(video) => {
-            if (video) {
-              console.log('Video element created:', {
-                src: video.src,
-                sources: Array.from(video.querySelectorAll('source')).map(s => s.src)
-              });
-
-              // Manually load the video
-              video.load();
-
-              // Try to play after a short delay, but handle autoplay failures gracefully
-              setTimeout(() => {
-                const playPromise = video.play();
-                if (playPromise !== undefined) {
-                  playPromise.catch(err => {
-                    console.warn('Autoplay failed:', err);
-                    // Video will just not autoplay, which is fine
-                  });
-                }
-              }, 100);
-            }
+          onCanPlay={() => {
+            // Ensure video is marked as loaded when it can play
+            setVideoLoaded(true);
+          }}
+          onWaiting={() => {
+            // Handle buffering states gracefully
+            console.log('Video buffering...');
           }}
           src={get('hero_video_url', '/videos/home_hero_video.mp4')}
         >
+          <source src={get('hero_video_url', '/videos/home_hero_video.mp4')} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+
+        {/* Video Loading Overlay */}
+        {!videoLoaded && !videoError && (
+          <div className="absolute inset-0 z-20 bg-cover bg-center bg-no-repeat flex items-center justify-center"
+               style={{
+                 backgroundImage: `url(${get('hero_video_poster', '/images/hero-video-poster.jpg')})`
+               }}>
+            <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+            <div className="relative z-10 text-center text-white">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-white mx-auto mb-4"></div>
+              <p className="text-lg font-medium">Loading Experience...</p>
+            </div>
+          </div>
+        )}
 
         {/* Video Overlay - Reduced for brighter video */}
         <div className="absolute inset-0 bg-black/20 z-20"></div>

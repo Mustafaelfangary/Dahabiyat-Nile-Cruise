@@ -204,7 +204,7 @@ export default function DahabiyasPage() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap justify-center gap-6">
                   {/* Book Any Dahabiya */}
-                  <Link href="/booking?type=dahabiya">
+                  <Link href="/packages">
                     <button className="bg-gradient-to-r from-egyptian-gold to-amber-400 text-hieroglyph-brown px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-amber-500">
                       <div className="flex items-center gap-3">
                         <Typography className="text-2xl">𓊪</Typography>
@@ -222,7 +222,7 @@ export default function DahabiyasPage() {
                   </Link>
 
                   {/* Explore Packages */}
-                  <Link href="/booking?type=package">
+                  <Link href="/packages">
                     <button className="bg-gradient-to-r from-amber-700 to-orange-700 text-egyptian-gold px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-egyptian-gold">
                       <div className="flex items-center gap-3">
                         <Typography className="text-2xl">𓇳</Typography>

@@ -33,7 +33,9 @@ import {
   Ship,
   Compass,
   Mail,
-  Bell
+  Bell,
+  MessageCircle,
+  Code
 } from 'lucide-react';
 import { FeaturedItemsManager } from '@/components/admin/FeaturedItemsManager';
 import { SiteNamePreview } from '@/components/admin/SiteNamePreview';
@@ -64,7 +66,15 @@ export default function AdminDashboard() {
       const statsRes = await fetch('/api/dashboard/metrics');
       if (statsRes.ok) {
         const statsData = await statsRes.json();
-        setStats(statsData);
+        console.log('Dashboard metrics received:', statsData);
+        // Extract the overview data that the component expects
+        setStats({
+          totalBookings: statsData.overview?.totalBookings || 0,
+          totalUsers: statsData.overview?.totalUsers || 0,
+          totalRevenue: 0 // Revenue calculation would need to be added to the API
+        });
+      } else {
+        console.error('Failed to fetch dashboard metrics:', statsRes.status, statsRes.statusText);
       }
 
 
@@ -73,14 +83,20 @@ export default function AdminDashboard() {
       const packagesRes = await fetch('/api/packages');
       if (packagesRes.ok) {
         const packagesData = await packagesRes.json();
-        setPackages(packagesData.packages || []);
+        console.log('Packages data received:', packagesData);
+        setPackages(packagesData.packages || packagesData || []);
+      } else {
+        console.error('Failed to fetch packages:', packagesRes.status, packagesRes.statusText);
       }
 
       // Fetch bookings (admin gets all bookings)
       const bookingsRes = await fetch('/api/bookings?all=true');
       if (bookingsRes.ok) {
         const bookingsData = await bookingsRes.json();
-        setBookings(bookingsData.bookings || []);
+        console.log('Bookings data received:', bookingsData);
+        setBookings(bookingsData.bookings || bookingsData || []);
+      } else {
+        console.error('Failed to fetch bookings:', bookingsRes.status, bookingsRes.statusText);
       }
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
@@ -820,6 +836,24 @@ export default function AdminDashboard() {
                       <Calendar size={24} className="mb-2 text-green-600" />
                       Availability
                       <span className="text-xs text-slate-500 mt-1">Manage dahabiya schedules</span>
+                    </Button>
+                    <Button
+                      onClick={() => window.open('/admin/whatsapp-settings', '_blank')}
+                      variant="outline"
+                      className="h-20 flex-col"
+                    >
+                      <MessageCircle size={24} className="mb-2 text-green-600" />
+                      WhatsApp
+                      <span className="text-xs text-slate-500 mt-1">Configure WhatsApp button</span>
+                    </Button>
+                    <Button
+                      onClick={() => window.open('/admin/developer-settings', '_blank')}
+                      variant="outline"
+                      className="h-20 flex-col"
+                    >
+                      <Code size={24} className="mb-2 text-blue-600" />
+                      Developer
+                      <span className="text-xs text-slate-500 mt-1">Developer contact & branding</span>
                     </Button>
                     <Button
                       onClick={() => window.open('/admin/email-templates', '_blank')}
