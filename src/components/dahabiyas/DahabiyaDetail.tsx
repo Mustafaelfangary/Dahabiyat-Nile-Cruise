@@ -37,7 +37,7 @@ import {
   Route, Clock, Shield, Heart, Compass, Sun, Ruler, Ship,
   Crown, Gem, Waves, Mountain, Eye, Film, Image as ImageIcon,
   ArrowLeft, Share, ChevronDown, X, Activity, Navigation,
-  TreePine, Sunset, Palette, ChevronRight
+  TreePine, Sunset, Palette, ChevronRight, Download
 } from 'lucide-react';
 import DahabiyaItineraries from './DahabiyaItineraries';
 
@@ -201,6 +201,29 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue);
+  };
+
+  const downloadFactSheet = async () => {
+    if (!dahabiya) return;
+
+    try {
+      const response = await fetch(`/api/dahabiyas/${dahabiya.id}/fact-sheet`);
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `${dahabiya.name || 'dahabiya'}-fact-sheet.pdf`;
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+      } else {
+        console.error('Failed to download fact sheet');
+      }
+    } catch (error) {
+      console.error('Error downloading fact sheet:', error);
+    }
   };
 
   if (loading) {
@@ -484,6 +507,30 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     Virtual Tour
                   </Button>
                 )}
+
+                {/* Download Fact Sheet Button */}
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={downloadFactSheet}
+                  className="font-semibold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
+                  startIcon={<Download size={20} className="text-white" />}
+                  sx={{
+                    background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.3) 0%, rgba(16, 185, 129, 0.2) 50%, rgba(5, 150, 105, 0.3) 100%)',
+                    backdropFilter: 'blur(20px)',
+                    border: '2px solid rgba(255, 255, 255, 0.8)',
+                    color: '#FFFFFF',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    boxShadow: '0 8px 25px rgba(34, 197, 94, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                    '&:hover': {
+                      background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.5) 0%, rgba(16, 185, 129, 0.4) 50%, rgba(5, 150, 105, 0.5) 100%)',
+                      border: '2px solid rgba(16, 185, 129, 0.9)',
+                      boxShadow: '0 12px 35px rgba(34, 197, 94, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
+                    }
+                  }}
+                >
+                  Download Fact Sheet
+                </Button>
               </div>
             </div>
           </Container>
