@@ -17,6 +17,7 @@ import {
   EgyptHieroglyphic
 } from '@/components/ui/pharaonic-elements';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import MediaPicker from '@/components/admin/MediaPicker';
 
 interface FooterProps {
   settings?: Record<string, any>;
@@ -26,11 +27,32 @@ interface FooterProps {
 // Contact Developer Modal Component
 function ContactDeveloperModal() {
   const [isOpen, setIsOpen] = useState(false);
-  const { getContent } = useContent({ page: 'global_media' });
+  const [showLogoEditor, setShowLogoEditor] = useState(false);
+  const { getContent, updateContent } = useContent({ page: 'global_media' });
+  const { data: session } = useSession();
 
   const get = (key: string, fallback = '') => {
     const contentValue = getContent(key, '');
     return contentValue || fallback;
+  };
+
+  // WhatsApp handler
+  const handleWhatsApp = () => {
+    const phone = get('footer_developer_phone', '+201234567890').replace(/\s+/g, '').replace('+', '');
+    const message = encodeURIComponent('Hello! I would like to get in touch regarding your development services.');
+    window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
+  };
+
+  // Handle logo update (admin only)
+  const handleLogoUpdate = async (newLogoUrl: string) => {
+    if (session?.user?.role === 'ADMIN') {
+      try {
+        await updateContent('footer_developer_logo', newLogoUrl);
+        setShowLogoEditor(false);
+      } catch (error) {
+        console.error('Failed to update developer logo:', error);
+      }
+    }
   };
 
   return (
@@ -41,55 +63,104 @@ function ContactDeveloperModal() {
           {get('footer_developer_contact_text', 'Contact Developer')}
         </button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md" style={{
-        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 30%, rgba(255, 165, 0, 0.08) 70%, rgba(184, 134, 11, 0.1) 100%)',
-        backdropFilter: 'blur(20px)',
-        border: '2px solid rgba(212, 175, 55, 0.3)',
-        borderRadius: '20px',
-        boxShadow: '0 20px 40px rgba(212, 175, 55, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.2)'
-      }}>
-        <DialogHeader>
-          <DialogTitle className="text-center text-egyptian-gold" style={{
-            textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-            fontSize: '1.5rem',
+      <DialogContent
+        className="sm:max-w-md overflow-hidden"
+        style={{
+          background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(74, 20, 140, 0.9) 25%, rgba(139, 69, 19, 0.85) 50%, rgba(212, 175, 55, 0.9) 75%, rgba(255, 215, 0, 0.95) 100%)',
+          backdropFilter: 'blur(25px)',
+          border: '3px solid rgba(212, 175, 55, 0.4)',
+          borderRadius: '24px',
+          boxShadow: '0 25px 50px rgba(212, 175, 55, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 60px rgba(212, 175, 55, 0.2)',
+          position: 'relative'
+        }}
+      >
+        {/* Animated Background Pattern */}
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: `
+              radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 80% 80%, rgba(255, 215, 0, 0.3) 0%, transparent 50%),
+              radial-gradient(circle at 40% 60%, rgba(184, 134, 11, 0.2) 0%, transparent 50%)
+            `,
+            animation: 'pulse 4s ease-in-out infinite'
+          }}
+        />
+
+        <DialogHeader className="relative z-10">
+          <DialogTitle className="text-center text-white" style={{
+            textShadow: '3px 3px 6px rgba(0,0,0,0.7)',
+            fontSize: '1.6rem',
             fontWeight: 'bold'
           }}>
-            <span className="text-3xl mr-3">𓇳</span>
+            <span className="text-4xl mr-3 animate-pulse">𓇳</span>
             Contact Developer
-            <span className="text-3xl ml-3">𓇳</span>
+            <span className="text-4xl ml-3 animate-pulse">𓇳</span>
           </DialogTitle>
         </DialogHeader>
-        <div className="space-y-6 p-6" style={{
-          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(212, 175, 55, 0.05) 100%)',
-          borderRadius: '16px',
-          margin: '8px'
+
+        <div className="space-y-6 p-6 relative z-10" style={{
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(212, 175, 55, 0.1) 100%)',
+          borderRadius: '20px',
+          margin: '8px',
+          backdropFilter: 'blur(10px)',
+          border: '1px solid rgba(255, 255, 255, 0.2)'
         }}>
-          {/* Developer Info */}
+          {/* Developer Info with Logo */}
           <div className="text-center">
-            <div className="text-5xl text-egyptian-gold mb-4" style={{
-              textShadow: '2px 2px 4px rgba(0,0,0,0.3)',
-              filter: 'drop-shadow(0 0 10px rgba(212, 175, 55, 0.5))'
-            }}>𓊪</div>
-            <h3 className="text-xl font-bold text-hieroglyph-brown mb-2" style={{
-              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+            {/* Developer Logo */}
+            <div className="mb-4 flex justify-center">
+              <div className="relative group">
+                {get('footer_developer_logo') ? (
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden border-3 border-egyptian-gold shadow-lg">
+                    <Image
+                      src={get('footer_developer_logo')}
+                      alt="Developer Logo"
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-gradient-to-br from-egyptian-gold to-sunset-orange rounded-full flex items-center justify-center text-white text-2xl font-bold shadow-lg border-3 border-white">
+                    {get('footer_developer_name', 'Just X Development').charAt(0)}
+                  </div>
+                )}
+
+                {/* Admin Edit Button */}
+                {session?.user?.role === 'ADMIN' && (
+                  <button
+                    onClick={() => setShowLogoEditor(true)}
+                    className="absolute -top-1 -right-1 w-6 h-6 bg-egyptian-gold text-white rounded-full flex items-center justify-center text-xs hover:bg-egyptian-amber transition-colors duration-200 shadow-lg opacity-0 group-hover:opacity-100"
+                    title="Change Developer Logo"
+                  >
+                    ✏️
+                  </button>
+                )}
+              </div>
+            </div>
+
+            <h3 className="text-xl font-bold text-white mb-2" style={{
+              textShadow: '2px 2px 4px rgba(0,0,0,0.7)'
             }}>
               {get('footer_developer_name', 'Just X Development')}
             </h3>
-            <p className="text-gray-700 mb-2 font-medium">
+            <p className="text-gray-100 mb-2 font-medium" style={{
+              textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+            }}>
               {get('footer_developer_branding_text', 'Crafted with love in the land of the Pharaohs')}
             </p>
             <div className="text-egyptian-gold font-semibold text-sm mb-4" style={{
-              textShadow: '1px 1px 2px rgba(0,0,0,0.2)'
+              textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
             }}>
-              📞 {get('footer_developer_phone', '+20 123 456 7890')}
+              📞 {get('footer_developer_phone', '+20120095871')}
             </div>
           </div>
 
           {/* Contact Options */}
-          <div className="space-y-4">
+          <div className="space-y-3">
             <a
               href={get('footer_developer_contact_url', 'mailto:developer@justx.com')}
-              className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+              className="flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFA500 100%)',
                 color: '#FFFFFF',
@@ -102,9 +173,9 @@ function ContactDeveloperModal() {
               Send Email
             </a>
 
-            <a
-              href={get('footer_developer_phone_url', 'tel:+201234567890')}
-              className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+            <button
+              onClick={handleWhatsApp}
+              className="flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
               style={{
                 background: 'linear-gradient(135deg, #25D366 0%, #128C7E 50%, #075E54 100%)',
                 color: '#FFFFFF',
@@ -113,7 +184,22 @@ function ContactDeveloperModal() {
                 border: '2px solid rgba(255, 255, 255, 0.3)'
               }}
             >
-              <span className="w-5 h-5 mr-3 text-lg">📞</span>
+              <span className="w-5 h-5 mr-3 text-lg">💬</span>
+              WhatsApp
+            </button>
+
+            <a
+              href={get('footer_developer_phone_url', 'tel:+201200958713')}
+              className="flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              style={{
+                background: 'linear-gradient(135deg, #4285F4 0%, #34A853 50%, #1A73E8 100%)',
+                color: '#FFFFFF',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                boxShadow: '0 8px 25px rgba(66, 133, 244, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                border: '2px solid rgba(255, 255, 255, 0.3)'
+              }}
+            >
+              <Phone className="w-5 h-5 mr-3" />
               Call Now
             </a>
 
@@ -122,7 +208,7 @@ function ContactDeveloperModal() {
                 href={get('footer_developer_website_url', 'https://justx.com')}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center w-full px-6 py-4 rounded-xl font-semibold transition-all duration-300 hover:scale-105"
+                className="flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
                 style={{
                   background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 50%, #FFD700 100%)',
                   color: '#FFFFFF',
@@ -138,14 +224,39 @@ function ContactDeveloperModal() {
           </div>
 
           {/* Egyptian Decorative Elements */}
-          <div className="flex items-center justify-center gap-3 text-egyptian-gold text-lg">
-            <span>𓈖</span>
-            <span>𓂀</span>
-            <span>𓏏</span>
-            <span>𓇯</span>
-            <span>𓊃</span>
+          <div className="flex items-center justify-center gap-4 text-egyptian-gold text-xl pt-2">
+            <span className="animate-pulse">𓈖</span>
+            <span className="animate-bounce">𓂀</span>
+            <span className="animate-pulse">𓏏</span>
+            <span className="animate-bounce">𓇯</span>
+            <span className="animate-pulse">𓊃</span>
           </div>
         </div>
+
+        {/* Media Picker for Admin Logo Change */}
+        {showLogoEditor && session?.user?.role === 'ADMIN' && (
+          <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 rounded-3xl">
+            <div className="bg-white p-6 rounded-xl shadow-xl max-w-md w-full mx-4">
+              <h3 className="text-lg font-bold text-gray-900 mb-4">Change Developer Logo</h3>
+              <MediaPicker
+                label="Developer Logo"
+                value={get('footer_developer_logo')}
+                onChange={handleLogoUpdate}
+                accept="image/*"
+                placeholder="Select logo image..."
+                helperText="Logo displayed in contact modal (64x64px recommended)"
+              />
+              <div className="flex gap-2 mt-4">
+                <button
+                  onClick={() => setShowLogoEditor(false)}
+                  className="flex-1 px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </DialogContent>
     </Dialog>
   );
