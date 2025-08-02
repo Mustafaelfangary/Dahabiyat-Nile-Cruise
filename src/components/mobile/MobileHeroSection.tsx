@@ -52,7 +52,7 @@ export default function MobileHeroSection({
   }, [heroSlides.length]);
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative min-h-screen overflow-hidden">
       {/* Background Slides */}
       {heroSlides.map((slide, index) => (
         <motion.div
@@ -79,15 +79,15 @@ export default function MobileHeroSection({
       ))}
 
       {/* Content */}
-      <div className="relative z-10 h-full flex flex-col justify-center px-4">
-        <div className="text-center text-text-primary space-y-6">
+      <div className="relative z-10 min-h-screen flex flex-col justify-center px-3 sm:px-4">
+        <div className="text-center text-white space-y-4 sm:space-y-6">
           {/* Title */}
           <motion.h1
             key={currentSlide}
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8 }}
-            className="text-3xl sm:text-4xl font-bold leading-tight"
+            className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-bold leading-tight text-shadow-brilliant px-2"
           >
             {heroSlides[currentSlide].title}
           </motion.h1>
@@ -98,7 +98,7 @@ export default function MobileHeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
-            className="text-lg sm:text-xl text-text-primary/90 max-w-md mx-auto"
+            className="text-sm xs:text-base sm:text-lg md:text-xl text-white/90 max-w-xs sm:max-w-md mx-auto px-2"
           >
             {heroSlides[currentSlide].subtitle}
           </motion.p>
@@ -108,19 +108,19 @@ export default function MobileHeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8 }}
-            className="flex justify-center space-x-8 text-sm"
+            className="flex justify-center flex-wrap gap-3 sm:gap-6 text-xs sm:text-sm px-2"
           >
-            <div className="flex items-center space-x-1">
-              <Star className="w-4 h-4 text-ocean-blue" />
-              <span>4.9/5</span>
+            <div className="flex items-center space-x-1 bg-yellow-500/20 backdrop-blur-sm px-2 py-1 rounded-full">
+              <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
+              <span className="text-white font-semibold">4.9/5</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <Users className="w-4 h-4 text-ocean-blue" />
-              <span>2000+ Guests</span>
+            <div className="flex items-center space-x-1 bg-yellow-500/20 backdrop-blur-sm px-2 py-1 rounded-full">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
+              <span className="text-white font-semibold">2000+ Guests</span>
             </div>
-            <div className="flex items-center space-x-1">
-              <MapPin className="w-4 h-4 text-ocean-blue" />
-              <span>Luxor-Aswan</span>
+            <div className="flex items-center space-x-1 bg-yellow-500/20 backdrop-blur-sm px-2 py-1 rounded-full">
+              <MapPin className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-500" />
+              <span className="text-white font-semibold">Luxor-Aswan</span>
             </div>
           </motion.div>
 
@@ -129,18 +129,18 @@ export default function MobileHeroSection({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.1, duration: 0.8 }}
-            className="flex-col sm:flex-row gap-4 justify-center items-center"
+            className="flex flex-col gap-3 sm:gap-4 justify-center items-center px-4 max-w-xs sm:max-w-md mx-auto"
           >
             <a
               href={ctaLink}
-              className="w-full sm:w-auto bg-gradient-to-r from-ocean-blue to-deep-ocean-blue text-text-primary px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 min-h-[44px]"
             >
-              <Calendar className="w-5 h-5" />
+              <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>{ctaText}</span>
             </a>
-            
-            <button className="w-full sm:w-auto border-2 border-white/30 text-text-primary px-8 py-4 rounded-full font-semibold backdrop-blur-sm bg-white/95 hover:bg-white/10 transition-all duration-300 flex items-center justify-center space-x-2">
-              <Play className="w-5 h-5" />
+
+            <button className="w-full border-2 border-white/50 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold backdrop-blur-sm bg-black/20 hover:bg-black/40 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base min-h-[44px]">
+              <Play className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>Watch Video</span>
             </button>
           </motion.div>

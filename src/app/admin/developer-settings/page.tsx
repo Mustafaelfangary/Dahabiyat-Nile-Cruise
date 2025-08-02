@@ -8,13 +8,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
-import { 
-  Code, 
-  Save, 
-  RefreshCw, 
-  Phone, 
-  Mail, 
-  Globe, 
+import MediaPicker from '@/components/admin/MediaPicker';
+import {
+  Code,
+  Save,
+  RefreshCw,
+  Phone,
+  Mail,
+  Globe,
   Image as ImageIcon,
   User,
   Building,
@@ -251,14 +252,14 @@ export default function DeveloperSettingsPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="developer_logo">Developer Logo URL</Label>
-              <Input
-                id="developer_logo"
+              <MediaPicker
+                label="Developer Logo"
                 value={settings.developer_logo}
-                onChange={(e) => setSettings({...settings, developer_logo: e.target.value})}
-                placeholder="/images/logo-white.png"
+                onChange={(url) => setSettings({...settings, developer_logo: url})}
+                accept="image/*"
+                placeholder="Select logo image..."
+                helperText="Logo displayed in footer (48x48px recommended). Supports PNG, JPG, WebP formats."
               />
-              <p className="text-xs text-gray-500 mt-1">Logo displayed in footer (48x48px recommended)</p>
             </div>
 
             <div>

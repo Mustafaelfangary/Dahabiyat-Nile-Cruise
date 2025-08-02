@@ -4,6 +4,7 @@ import { authOptions } from "@/lib/auth";
 import { readdir, stat } from "fs/promises";
 import { join } from "path";
 import { existsSync } from "fs";
+import { prisma } from "@/lib/prisma";
 
 // Recursive function to scan directories
 async function scanDirectory(dirPath: string, baseUrl: string): Promise<any[]> {
