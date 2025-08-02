@@ -31,6 +31,7 @@ export default function ItinerariesManagementPage() {
   const { data: session, status } = useSession();
   const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -40,16 +41,28 @@ export default function ItinerariesManagementPage() {
 
   const fetchItineraries = async () => {
     try {
+      setLoading(true);
+      setError(null);
+      console.log('🔍 Fetching itineraries...');
       const response = await fetch('/api/admin/itineraries');
+      console.log('📡 Itineraries API response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
-        setItineraries(data);
+        console.log('📦 Itineraries API response data:', data);
+        setItineraries(data || []);
       } else {
-        toast.error('Failed to fetch itineraries');
+        const errorData = await response.json().catch(() => ({}));
+        console.error('❌ Itineraries API error:', errorData);
+        const errorMessage = `Failed to fetch itineraries: ${errorData.error || response.statusText}`;
+        setError(errorMessage);
+        toast.error(errorMessage);
       }
     } catch (error) {
-      console.error('Error fetching itineraries:', error);
-      toast.error('Error loading itineraries');
+      console.error('💥 Error fetching itineraries:', error);
+      const errorMessage = 'Error loading itineraries';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -148,14 +161,80 @@ export default function ItinerariesManagementPage() {
             </a>
             <h1 className="text-3xl font-bold text-amber-800">𓋖 Itineraries Management</h1>
           </div>
-          <Button
-            onClick={() => window.location.href = '/admin/itineraries/new'}
-            className="bg-amber-600 hover:bg-amber-700 text-black shadow-lg"
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Itinerary
-          </Button>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => window.open('/api/admin/debug', '_blank')}
+              variant="outline"
+              className="border-blue-200 text-blue-600 hover:bg-blue-50"
+            >
+              🔍 Debug Info
+            </Button>
+            <Button
+              onClick={() => fetchItineraries()}
+              variant="outline"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </Button>
+            <Button
+              onClick={() => window.location.href = '/admin/itineraries/new'}
+              className="bg-amber-600 hover:bg-amber-700 text-black shadow-lg"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add New Itinerary
+            </Button>
+          </div>
         </div>
+
+        {error && (
+          <Card className="mb-6 border-red-200 bg-red-50">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 text-red-600">
+                <AlertCircle className="w-5 h-5" />
+                <span className="font-medium">Error loading itineraries:</span>
+              </div>
+              <p className="text-red-700 mt-1">{error}</p>
+              <Button
+                onClick={() => fetchItineraries()}
+                className="mt-3 bg-red-600 hover:bg-red-700 text-white"
+                size="sm"
+              >
+                Try Again
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+        {!loading && !error && itineraries.length === 0 && (
+          <Card className="mb-6 border-yellow-200 bg-yellow-50">
+            <CardContent className="p-8 text-center">
+              <MapPin className="w-12 h-12 mx-auto mb-4 text-yellow-600" />
+              <h3 className="text-lg font-semibold text-yellow-800 mb-2">No Itineraries Found</h3>
+              <p className="text-yellow-700 mb-4">
+                No itineraries are currently available. This could be because:
+              </p>
+              <ul className="text-left text-yellow-700 mb-4 space-y-1">
+                <li>• No itineraries have been created yet</li>
+                <li>• Database connection issues</li>
+                <li>• Authentication problems</li>
+              </ul>
+              <div className="flex gap-2 justify-center">
+                <Button
+                  onClick={() => window.location.href = '/admin/itineraries/new'}
+                  className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                >
+                  Create First Itinerary
+                </Button>
+                <Button
+                  onClick={() => fetchItineraries()}
+                  variant="outline"
+                >
+                  Refresh Data
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {itineraries.map((itinerary) => (

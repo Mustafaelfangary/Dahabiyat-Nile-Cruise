@@ -78,7 +78,31 @@ export default function AdminPackagesPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
-      <PackageManager />
+      <div className="p-6">
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">Package Management</h1>
+            <p className="text-gray-600">Manage your cruise packages and itineraries</p>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={() => window.open('/api/admin/debug', '_blank')}
+              variant="outline"
+              className="border-blue-200 text-blue-600 hover:bg-blue-50"
+            >
+              🔍 Debug Info
+            </Button>
+            <Button
+              onClick={() => window.location.reload()}
+              variant="outline"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </Button>
+          </div>
+        </div>
+        <PackageManager />
+      </div>
     </div>
   );
 }

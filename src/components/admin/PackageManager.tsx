@@ -169,9 +169,10 @@ const PackageManager: React.FC = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch('/api/packages');
+      const response = await fetch('/api/packages?limit=100'); // Get more packages for admin view
       if (response.ok) {
         const data = await response.json();
+        console.log('Packages API response:', data); // Debug log
         setPackages(data.packages || data || []);
       } else if (response.status === 401) {
         setError('Unauthorized access. Please check your admin permissions.');
@@ -179,6 +180,7 @@ const PackageManager: React.FC = () => {
         setError('Access forbidden. Admin role required.');
       } else {
         const errorData = await response.json().catch(() => ({}));
+        console.error('Packages API error:', errorData); // Debug log
         throw new Error(errorData.error || `Failed to fetch packages (${response.status})`);
       }
     } catch (err) {

@@ -187,12 +187,19 @@ const DahabiyaManager = () => {
   const fetchDahabiyas = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/dahabiyas');
-      if (!response.ok) throw new Error('Failed to fetch dahabiyas');
+      setError(null);
+      const response = await fetch('/api/dahabiyas?limit=100'); // Get more dahabiyas for admin view
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        console.error('Dahabiyas API error:', errorData); // Debug log
+        throw new Error(errorData.error || `Failed to fetch dahabiyas (${response.status})`);
+      }
       const data = await response.json();
+      console.log('Dahabiyas API response:', data); // Debug log
       // The API returns { dahabiyas: [...], total, pages, currentPage }
       setDahabiyas(data.dahabiyas || data);
     } catch (err) {
+      console.error('Error fetching dahabiyas:', err);
       setError(err instanceof Error ? err.message : 'Failed to fetch dahabiyas');
     } finally {
       setLoading(false);
