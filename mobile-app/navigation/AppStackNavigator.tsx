@@ -1,0 +1,213 @@
+/**
+ * App Stack Navigator for Dahabiyat Mobile App
+ * Main navigation structure with authentication flow
+ */
+
+import React from 'react';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useAuth } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
+
+// Main Screens
+import TabNavigator from './TabNavigator';
+
+// Authentication Screens
+import SigninScreen from '../screens/auth/SigninScreen';
+import SignupScreen from '../screens/auth/SignupScreen';
+import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
+
+// Individual Screens
+import {
+  HomeScreen,
+  DahabiyatScreen,
+  PackagesScreen,
+  BookingScreen,
+  BookingHistoryScreen,
+  GalleryScreen,
+  ReviewsScreen,
+  MapScreen,
+  ContactScreen,
+  AdminScreen,
+} from '../screens';
+
+// Additional Screens
+import ContactDeveloperScreen from '../screens/ContactDeveloperScreen';
+
+// Admin Screens
+import AdminPackagesScreen from '../screens/admin/AdminPackagesScreen';
+import AdminContentScreen from '../screens/admin/AdminContentScreen';
+import AdminUsersScreen from '../screens/admin/AdminUsersScreen';
+import AdminAnalyticsScreen from '../screens/admin/AdminAnalyticsScreen';
+import AdminSettingsScreen from '../screens/admin/AdminSettingsScreen';
+import AdminBookingsScreen from '../screens/admin/AdminBookingsScreen';
+
+// UI Components
+import LoadingSpinner from '../components/ui/LoadingSpinner';
+
+const Stack = createStackNavigator();
+
+const AppStackNavigator: React.FC = () => {
+  const { isAuthenticated, isLoading, isGuest, user } = useAuth();
+  const { colors } = useTheme();
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
+
+  const screenOptions = {
+    headerStyle: {
+      backgroundColor: colors.background.primary,
+      borderBottomColor: colors.border.secondary,
+      borderBottomWidth: 1,
+    },
+    headerTintColor: colors.text.primary,
+    headerTitleStyle: {
+      fontWeight: 'bold',
+      fontSize: 18,
+    },
+    headerBackTitleVisible: false,
+  };
+
+  return (
+    <Stack.Navigator screenOptions={screenOptions}>
+      {!isAuthenticated && !isGuest ? (
+        // Authentication Stack
+        <>
+          <Stack.Screen 
+            name="Signin" 
+            component={SigninScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+            name="Signup" 
+            component={SignupScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+            name="ForgotPassword" 
+            component={ForgotPasswordScreen}
+            options={{ 
+              title: 'Reset Password',
+              headerShown: true,
+            }}
+          />
+        </>
+      ) : (
+        // Main App Stack
+        <>
+          <Stack.Screen
+            name="MainTabs"
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+
+          {/* Individual Screens accessible from Menu */}
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{ title: 'Home' }}
+          />
+
+          <Stack.Screen
+            name="Dahabiyat"
+            component={DahabiyatScreen}
+            options={{ title: 'Dahabiyat Fleet' }}
+          />
+
+          <Stack.Screen
+            name="Packages"
+            component={PackagesScreen}
+            options={{ title: 'Journey Packages' }}
+          />
+
+          <Stack.Screen
+            name="Booking"
+            component={BookingScreen}
+            options={{ title: 'Book Your Journey' }}
+          />
+
+          <Stack.Screen
+            name="BookingHistory"
+            component={BookingHistoryScreen}
+            options={{ title: 'My Bookings' }}
+          />
+
+          <Stack.Screen
+            name="Gallery"
+            component={GalleryScreen}
+            options={{ title: 'Sacred Gallery' }}
+          />
+
+          <Stack.Screen
+            name="Reviews"
+            component={ReviewsScreen}
+            options={{ title: 'Customer Reviews' }}
+          />
+
+          <Stack.Screen
+            name="Map"
+            component={MapScreen}
+            options={{ title: 'Map & Locations' }}
+          />
+
+          <Stack.Screen
+            name="Contact"
+            component={ContactScreen}
+            options={{ title: 'Contact Us' }}
+          />
+
+          <Stack.Screen
+            name="ContactDeveloper"
+            component={ContactDeveloperScreen}
+            options={{ title: 'Contact Developer' }}
+          />
+
+          <Stack.Screen
+            name="Admin"
+            component={AdminScreen}
+            options={{ title: 'Admin Panel' }}
+          />
+
+          {/* Admin Management Screens */}
+          <Stack.Screen
+            name="AdminPackages"
+            component={AdminPackagesScreen}
+            options={{ title: 'Package Management' }}
+          />
+
+          <Stack.Screen
+            name="AdminContent"
+            component={AdminContentScreen}
+            options={{ title: 'Content Management' }}
+          />
+
+          <Stack.Screen
+            name="AdminUsers"
+            component={AdminUsersScreen}
+            options={{ title: 'User Management' }}
+          />
+
+          <Stack.Screen
+            name="AdminBookings"
+            component={AdminBookingsScreen}
+            options={{ title: 'Booking Management' }}
+          />
+
+          <Stack.Screen
+            name="AdminAnalytics"
+            component={AdminAnalyticsScreen}
+            options={{ title: 'Analytics Dashboard' }}
+          />
+
+          <Stack.Screen
+            name="AdminSettings"
+            component={AdminSettingsScreen}
+            options={{ title: 'System Settings' }}
+          />
+        </>
+      )}
+    </Stack.Navigator>
+  );
+};
+
+export default AppStackNavigator;
