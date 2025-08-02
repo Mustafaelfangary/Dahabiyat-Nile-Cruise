@@ -4,11 +4,11 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { 
-  RefreshCw, 
-  CheckCircle, 
-  AlertTriangle, 
-  Sync,
+import {
+  RefreshCw,
+  CheckCircle,
+  AlertTriangle,
+  RotateCcw,
   Eye,
   Settings
 } from 'lucide-react';
@@ -169,7 +169,7 @@ export default function HomepageContentSync() {
     <Card className="border-2 border-blue-200">
       <CardHeader className="bg-gradient-to-r from-blue-100 to-indigo-100">
         <CardTitle className="text-blue-800 flex items-center gap-2">
-          <Sync className="w-5 h-5" />
+          <RotateCcw className="w-5 h-5" />
           Homepage Content Sync
         </CardTitle>
         <p className="text-blue-600 text-sm">

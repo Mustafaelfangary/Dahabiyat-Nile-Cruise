@@ -51,6 +51,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   ];
 
   try {
+    // Test database connection first
+    await prisma.$connect();
+
     // Dynamic dahabiya pages
     const dahabiyas = await prisma.dahabiya.findMany({
       where: { isActive: true },
@@ -63,31 +66,76 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const dahabiyaPages: MetadataRoute.Sitemap = dahabiyas.map((dahabiya) => ({
       url: `${baseUrl}/dahabiyas/${dahabiya.slug}`,
       lastModified: dahabiya.updatedAt,
-      changeFrequency: 'weekly',
+      changeFrequency: 'weekly' as const,
       priority: 0.8,
     }));
 
-    // Dynamic package pages - commented out since Package model doesn't have slug field
-    // const packages = await prisma.package.findMany({
-    //   select: {
-    //     id: true,
-    //     updatedAt: true,
-    //   },
-    // });
+    // Add static package pages since dynamic ones are commented out
+    const staticPackagePages: MetadataRoute.Sitemap = [
+      {
+        url: `${baseUrl}/packages/luxury-nile-experience`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/classic-egypt-explorer`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/cultural-discovery`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/adventure-explorer`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/royal-heritage`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/family-heritage`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+    ];
 
-    // const packagePages: MetadataRoute.Sitemap = packages.map((pkg) => ({
-    //   url: `${baseUrl}/packages/${pkg.id}`,
-    //   lastModified: pkg.updatedAt,
-    //   changeFrequency: 'weekly',
-    //   priority: 0.8,
-    // }));
-
-    const packagePages: MetadataRoute.Sitemap = [];
-
-    return [...staticPages, ...dahabiyaPages, ...packagePages];
+    return [...staticPages, ...dahabiyaPages, ...staticPackagePages];
   } catch (error) {
     console.error('Error generating sitemap:', error);
-    // Return static pages only if database query fails
-    return staticPages;
+
+    // Return static pages with fallback package pages if database query fails
+    const fallbackPackagePages: MetadataRoute.Sitemap = [
+      {
+        url: `${baseUrl}/packages/luxury-nile-experience`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/classic-egypt-explorer`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+      {
+        url: `${baseUrl}/packages/cultural-discovery`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.8,
+      },
+    ];
+
+    return [...staticPages, ...fallbackPackagePages];
   }
 }

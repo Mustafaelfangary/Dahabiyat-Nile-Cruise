@@ -287,12 +287,13 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               className="bg-gradient-to-r from-amber-100 to-orange-100 text-hieroglyph-brown px-6 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-egyptian-gold/30 text-center cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
-                router.push(`/booking?dahabiyaId=${dahabiya.id}&type=dahabiya`);
+                // Navigate to the dahabiya detail page which has the unified booking form
+                router.push(`/dahabiyas/${dahabiya.slug || dahabiya.id}`);
               }}
             >
               <div className="flex items-center justify-center gap-2">
                 <Typography variant="body2" className="font-medium">
-                  {getContentValue('dahabiyas_card_full_booking_text', 'Full Booking')}
+                  {getContentValue('dahabiyas_card_full_booking_text', 'View & Book')}
                 </Typography>
                 <Typography className="text-sm">𓇳</Typography>
               </div>

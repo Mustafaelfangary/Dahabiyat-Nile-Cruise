@@ -40,6 +40,7 @@ import {
   TreePine, Sunset, Palette, ChevronRight, Download
 } from 'lucide-react';
 import DahabiyaItineraries from './DahabiyaItineraries';
+import UnifiedBookingForm from '@/components/UnifiedBookingForm';
 
 interface Dahabiya {
   id: string;
@@ -433,8 +434,9 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   className="font-bold px-12 py-5 rounded-2xl transform hover:scale-110 transition-all duration-300 text-lg"
                   startIcon={<Crown size={22} className="text-white" />}
                   onClick={() => {
-                    if (dahabiya?.id) {
-                      window.location.href = `/booking?itemId=${dahabiya.id}&type=dahabiya`;
+                    const bookingSection = document.getElementById('booking-section');
+                    if (bookingSection) {
+                      bookingSection.scrollIntoView({ behavior: 'smooth' });
                     }
                   }}
                   sx={{
@@ -760,8 +762,9 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-amber font-semibold"
                     startIcon={<Crown />}
                     onClick={() => {
-                      if (dahabiya?.id) {
-                        window.location.href = `/booking?itemId=${dahabiya.id}&type=dahabiya`;
+                      const bookingSection = document.getElementById('booking-section');
+                      if (bookingSection) {
+                        bookingSection.scrollIntoView({ behavior: 'smooth' });
                       }
                     }}
                   >
@@ -1310,6 +1313,34 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
             dahabiyaId={dahabiya.id}
             dahabiyaName={dahabiya.name}
           />
+        </Container>
+      </div>
+
+      {/* Booking Section */}
+      <div id="booking-section" className="bg-gradient-to-b from-slate-50 to-amber-50/30 py-16">
+        <Container maxWidth="lg">
+          <div className="text-center mb-12">
+            <Typography variant="h3" className="text-hieroglyph-brown font-bold mb-4">
+              Book Your Royal Journey
+            </Typography>
+            <Typography variant="h6" className="text-amber-700 mb-2">
+              Reserve {dahabiya.name} for an unforgettable Nile experience
+            </Typography>
+            <div className="w-24 h-1 bg-gradient-to-r from-egyptian-gold to-amber-600 mx-auto rounded-full"></div>
+          </div>
+
+          <div className="max-w-4xl mx-auto">
+            <UnifiedBookingForm
+              type="dahabiya"
+              itemId={dahabiya.id}
+              itemName={dahabiya.name}
+              basePrice={dahabiya.pricePerDay || 0}
+              maxGuests={dahabiya.capacity || 20}
+              durationDays={7}
+              style="pharaonic"
+              showAvailabilityCheck={true}
+            />
+          </div>
         </Container>
       </div>
 
