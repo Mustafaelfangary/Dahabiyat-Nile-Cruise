@@ -66,6 +66,17 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       color: 'bg-gradient-to-r from-egyptian-gold to-amber-600'
     },
     {
+      id: 'book-dahabiya',
+      label: 'Book a Dahabiya',
+      icon: Ship,
+      points: 750,
+      enabled: true,
+      url: '/dahabiyat',
+      action: 'redirect',
+      description: 'Explore and book our luxury dahabiyas',
+      color: 'bg-gradient-to-r from-teal-500 to-cyan-600'
+    },
+    {
       id: 'like-facebook',
       label: 'Join Our Kingdom',
       icon: Facebook,
@@ -77,26 +88,26 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       color: 'bg-gradient-to-r from-blue-600 to-blue-700'
     },
     {
-      id: 'follow-instagram',
-      label: 'Follow the Pharaoh',
-      icon: Instagram,
+      id: 'review-tripadvisor',
+      label: 'Write a Review on TripAdvisor',
+      icon: Crown,
       points: 50,
       enabled: true,
-      url: 'https://instagram.com/cleopatradahabiya',
+      url: 'https://tripadvisor.com/cleopatradahabiya',
       action: 'redirect',
-      description: 'Follow us on Instagram for ancient treasures',
-      color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+      description: 'Share your experience on TripAdvisor',
+      color: 'bg-gradient-to-r from-green-500 to-emerald-600'
     },
     {
-      id: 'subscribe-youtube',
-      label: 'Royal Chronicles',
-      icon: Youtube,
+      id: 'book-day-tour',
+      label: 'Book a One Day Tour',
+      icon: Gift,
       points: 75,
       enabled: true,
-      url: 'https://youtube.com/@cleopatradahabiya',
+      url: '/day-tours',
       action: 'redirect',
-      description: 'Subscribe to our royal YouTube channel',
-      color: 'bg-gradient-to-r from-red-500 to-red-600'
+      description: 'Discover our exciting day tour packages',
+      color: 'bg-gradient-to-r from-purple-500 to-indigo-600'
     },
     {
       id: 'share-memories',
@@ -106,7 +117,7 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       enabled: true,
       action: 'internal',
       description: 'Share your sacred travel memories with us',
-      color: 'bg-gradient-to-r from-green-500 to-emerald-600'
+      color: 'bg-gradient-to-r from-orange-500 to-red-600'
     },
     {
       id: 'download-app',
@@ -118,17 +129,6 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       action: 'redirect',
       description: 'Download our mobile app from Google Play',
       color: 'bg-gradient-to-r from-indigo-500 to-purple-600'
-    },
-    {
-      id: 'book-dahabiya',
-      label: 'Book a Dahabiya',
-      icon: Ship,
-      points: 750,
-      enabled: true,
-      url: '/dahabiyat',
-      action: 'redirect',
-      description: 'Explore and book our luxury dahabiyas',
-      color: 'bg-gradient-to-r from-teal-500 to-cyan-600'
     }
   ];
 

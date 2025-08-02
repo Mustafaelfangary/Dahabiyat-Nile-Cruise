@@ -74,26 +74,26 @@ export async function GET(request: NextRequest) {
         color: 'bg-gradient-to-r from-teal-500 to-cyan-600'
       },
       {
-        id: 'follow-instagram',
-        label: 'Follow Us',
-        icon: 'Instagram',
+        id: 'review-tripadvisor',
+        label: 'Write a Review on TripAdvisor',
+        icon: 'Crown',
         points: 50,
         enabled: true,
-        url: 'https://instagram.com/cleopatradahabiya',
+        url: 'https://tripadvisor.com/cleopatradahabiya',
         action: 'redirect',
-        description: 'Follow us on Instagram',
-        color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+        description: 'Share your experience on TripAdvisor',
+        color: 'bg-gradient-to-r from-green-500 to-emerald-600'
       },
       {
-        id: 'subscribe-youtube',
-        label: 'Subscribe',
-        icon: 'Youtube',
+        id: 'book-day-tour',
+        label: 'Book a One Day Tour',
+        icon: 'Gift',
         points: 75,
         enabled: true,
-        url: 'https://youtube.com/@cleopatradahabiya',
+        url: '/day-tours',
         action: 'redirect',
-        description: 'Subscribe to our YouTube channel',
-        color: 'bg-gradient-to-r from-red-500 to-red-600'
+        description: 'Discover our exciting day tour packages',
+        color: 'bg-gradient-to-r from-purple-500 to-indigo-600'
       },
       {
         id: 'share-memories',
@@ -160,26 +160,26 @@ export async function GET(request: NextRequest) {
         color: 'bg-gradient-to-r from-blue-600 to-blue-700'
       },
       {
-        id: 'follow-instagram',
-        label: 'Follow Us',
-        icon: 'Instagram',
+        id: 'review-tripadvisor',
+        label: 'Write a Review on TripAdvisor',
+        icon: 'Crown',
         points: 50,
         enabled: true,
-        url: 'https://instagram.com/cleopatradahabiya',
+        url: 'https://tripadvisor.com/cleopatradahabiya',
         action: 'redirect',
-        description: 'Follow us on Instagram',
-        color: 'bg-gradient-to-r from-pink-500 to-purple-600'
+        description: 'Share your experience on TripAdvisor',
+        color: 'bg-gradient-to-r from-green-500 to-emerald-600'
       },
       {
-        id: 'subscribe-youtube',
-        label: 'Subscribe',
-        icon: 'Youtube',
+        id: 'book-day-tour',
+        label: 'Book a One Day Tour',
+        icon: 'Gift',
         points: 75,
         enabled: true,
-        url: 'https://youtube.com/@cleopatradahabiya',
+        url: '/day-tours',
         action: 'redirect',
-        description: 'Subscribe to our YouTube channel',
-        color: 'bg-gradient-to-r from-red-500 to-red-600'
+        description: 'Discover our exciting day tour packages',
+        color: 'bg-gradient-to-r from-purple-500 to-indigo-600'
       },
       {
         id: 'share-memories',

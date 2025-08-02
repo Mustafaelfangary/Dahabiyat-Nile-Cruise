@@ -66,8 +66,8 @@ export const ACTION_CONFIGS: Record<string, ActionVerification> = {
     requiresVerification: true,
     autoVerify: false
   },
-  'follow-instagram': {
-    action: 'follow-instagram',
+  'review-tripadvisor': {
+    action: 'review-tripadvisor',
     verificationMethod: 'manual',
     cooldownHours: 24,
     maxPerDay: 1,
@@ -76,15 +76,15 @@ export const ACTION_CONFIGS: Record<string, ActionVerification> = {
     requiresVerification: true,
     autoVerify: false
   },
-  'subscribe-youtube': {
-    action: 'subscribe-youtube',
-    verificationMethod: 'manual',
-    cooldownHours: 24,
-    maxPerDay: 1,
-    maxPerWeek: 1,
-    maxPerMonth: 1,
-    requiresVerification: true,
-    autoVerify: false
+  'book-day-tour': {
+    action: 'book-day-tour',
+    verificationMethod: 'automatic',
+    cooldownHours: 0,
+    maxPerDay: 5,
+    maxPerWeek: 10,
+    maxPerMonth: 20,
+    requiresVerification: false,
+    autoVerify: true
   },
   'share-memories': {
     action: 'share-memories',

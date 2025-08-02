@@ -39,15 +39,15 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Track analytics for social media actions
-    const socialMediaActions = ['like-facebook', 'follow-instagram', 'subscribe-youtube'];
-    if (socialMediaActions.includes(action)) {
+    // Track analytics for engagement actions
+    const engagementActions = ['like-facebook', 'review-tripadvisor', 'book-day-tour'];
+    if (engagementActions.includes(action)) {
       await prisma.analyticsEvent.create({
         data: {
-          event: 'social_media_interaction',
+          event: 'user_engagement',
           userId: session.user.id,
           data: JSON.stringify({
-            platform: action.replace('like-', '').replace('follow-', '').replace('subscribe-', ''),
+            platform: action.replace('like-', '').replace('review-', '').replace('book-', ''),
             action: action,
             points: result.pointsEarned,
             tierUpgrade: result.tierUpgrade
