@@ -19,6 +19,7 @@ import {
   Globe,
   Home
 } from 'lucide-react';
+import HomepageContentSync from '@/components/admin/HomepageContentSync';
 
 interface ContentField {
   key: string;
@@ -38,18 +39,29 @@ export default function WebsiteContentPage() {
     { id: 'global_media', label: 'Footer & Global', icon: Globe },
   ];
 
-  // Default homepage content structure
+  // Default homepage content structure - Updated to match actual homepage
   const defaultHomepageContent = [
     { key: 'hero_title', title: 'Hero Title', value: 'Discover Ancient Egypt on Luxury Dahabiyas', type: 'text', section: 'hero' },
     { key: 'hero_subtitle', title: 'Hero Subtitle', value: 'Experience the timeless beauty of the Nile River aboard our traditional sailing vessels', type: 'text', section: 'hero' },
     { key: 'hero_description', title: 'Hero Description', value: 'Embark on an unforgettable journey through ancient Egypt aboard our luxury dahabiyas. Sail the legendary Nile River and discover temples, tombs, and treasures that have captivated travelers for millennia.', type: 'textarea', section: 'hero' },
-    { key: 'hero_video_url', title: 'Hero Video URL', value: '/videos/nile-cruise-hero.mp4', type: 'text', section: 'hero' },
+    { key: 'hero_video_url', title: 'Hero Video URL', value: '/videos/home_hero_video.mp4', type: 'text', section: 'hero' },
+    { key: 'hero_video_poster', title: 'Hero Video Poster Image', value: '/images/hero-video-poster.jpg', type: 'text', section: 'hero' },
+
+    // Featured Dahabiyas Section (matches actual homepage)
+    { key: 'featured_dahabiyas_title', title: 'Featured Dahabiyas Section Title', value: 'Our Luxury Dahabiyas', type: 'text', section: 'featured_dahabiyas' },
+    { key: 'featured_dahabiyas_subtitle', title: 'Featured Dahabiyas Subtitle', value: 'Discover our fleet of traditional sailing vessels', type: 'text', section: 'featured_dahabiyas' },
+
+    // Featured Packages Section (matches actual homepage)
+    { key: 'featured_packages_title', title: 'Featured Packages Section Title', value: 'Popular Nile Cruise Packages', type: 'text', section: 'featured_packages' },
+    { key: 'featured_packages_subtitle', title: 'Featured Packages Subtitle', value: 'Carefully crafted journeys through ancient Egypt', type: 'text', section: 'featured_packages' },
+
+    // About Section
     { key: 'what_is_title', title: 'What is a Dahabiya - Title', value: 'What is a Dahabiya?', type: 'text', section: 'about' },
     { key: 'what_is_description', title: 'What is a Dahabiya - Description', value: 'A dahabiya is a traditional Egyptian sailing boat, once used by royalty and nobility to cruise the Nile. These elegant vessels offer an intimate and authentic way to experience Egypt, with personalized service and access to sites that larger cruise ships cannot reach.', type: 'textarea', section: 'about' },
+
+    // Features Section
     { key: 'why_different_title', title: 'Why Different - Title', value: 'Why Choose Our Dahabiyas?', type: 'text', section: 'features' },
     { key: 'why_different_description', title: 'Why Different - Description', value: 'Our dahabiyas combine traditional charm with modern luxury. Enjoy spacious cabins, gourmet dining, expert guides, and the freedom to explore at your own pace. Experience Egypt as the pharaohs intended.', type: 'textarea', section: 'features' },
-    { key: 'our_story_title', title: 'Our Story - Title', value: 'Our Story', type: 'text', section: 'story' },
-    { key: 'our_story_description', title: 'Our Story - Description', value: 'For over two decades, we have been sharing the magic of Egypt through authentic dahabiya experiences. Our passion for Egyptian history and culture drives us to provide unforgettable journeys that connect you with the ancient world.', type: 'textarea', section: 'story' },
   ];
 
   useEffect(() => {
@@ -262,6 +274,11 @@ export default function WebsiteContentPage() {
             )}
           </Button>
         </div>
+      </div>
+
+      {/* Homepage Content Sync Component */}
+      <div className="mb-8">
+        <HomepageContentSync />
       </div>
 
       <Tabs defaultValue="homepage" className="w-full">

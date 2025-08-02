@@ -33,15 +33,15 @@ interface LanguageContextType {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 const LANGUAGES = [
-  { code: 'en', label: '🇺🇸 English' },
-  { code: 'ar', label: '🇪🇬 العربية' },
-  { code: 'fr', label: '🇫🇷 Français' },
-  { code: 'de', label: '🇩🇪 Deutsch' },
-  { code: 'es', label: '🇪🇸 Español' },
-  { code: 'it', label: '🇮🇹 Italiano' },
-  { code: 'ru', label: '🇷🇺 Русский' },
-  { code: 'zh', label: '🇨🇳 中文' },
-  { code: 'ja', label: '🇯🇵 日本語' },
+  { code: 'en', label: '🇺🇸 English', flag: '🇺🇸', name: 'English' },
+  { code: 'ar', label: '🇪🇬 العربية', flag: '🇪🇬', name: 'العربية' },
+  { code: 'fr', label: '🇫🇷 Français', flag: '🇫🇷', name: 'Français' },
+  { code: 'de', label: '🇩🇪 Deutsch', flag: '🇩🇪', name: 'Deutsch' },
+  { code: 'es', label: '🇪🇸 Español', flag: '🇪🇸', name: 'Español' },
+  { code: 'it', label: '🇮🇹 Italiano', flag: '🇮🇹', name: 'Italiano' },
+  { code: 'ru', label: '🇷🇺 Русский', flag: '🇷🇺', name: 'Русский' },
+  { code: 'zh', label: '🇨🇳 中文', flag: '🇨🇳', name: '中文' },
+  { code: 'ja', label: '🇯🇵 日本語', flag: '🇯🇵', name: '日本語' },
 ];
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 // import { NotificationCenter } from '@/components/dashboard/NotificationCenter'; // Removed - dashboard components deleted
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { WebsiteContentManager } from '@/components/admin/WebsiteContentManager';
+
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -496,8 +496,29 @@ export default function AdminDashboard() {
               {/* Dynamic Site Branding Section */}
               <SiteNamePreview />
 
-              {/* Main Website Content Manager */}
-              <WebsiteContentManager />
+              {/* Redirect to dedicated website content page */}
+              <Card>
+                <CardContent className="p-8 text-center">
+                  <div className="space-y-4">
+                    <div className="w-16 h-16 bg-egyptian-gold/10 rounded-full flex items-center justify-center mx-auto">
+                      <FileText className="w-8 h-8 text-egyptian-gold" />
+                    </div>
+                    <h3 className="text-xl font-semibold text-slate-800">
+                      Website Content Management
+                    </h3>
+                    <p className="text-slate-600 max-w-md mx-auto">
+                      Manage your website content including homepage, footer, and all page content from the dedicated content management interface.
+                    </p>
+                    <Button
+                      onClick={() => window.location.href = '/admin/website'}
+                      className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90"
+                    >
+                      <FileText className="w-4 h-4 mr-2" />
+                      Open Website Content Manager
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 

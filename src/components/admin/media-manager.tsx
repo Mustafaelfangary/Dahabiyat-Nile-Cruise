@@ -7,21 +7,32 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { 
-  Upload, 
-  Search, 
-  Filter, 
-  Grid, 
-  List, 
-  Trash2, 
-  Edit, 
+import {
+  Upload,
+  Search,
+  Filter,
+  Grid,
+  List,
+  Trash2,
+  Edit,
   Download,
   Eye,
   Copy,
   FolderOpen,
-  Image as ImageIcon
+  Image as ImageIcon,
+  Link as LinkIcon,
+  Plus
 } from 'lucide-react';
 import { toast } from 'react-hot-toast';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 
 interface MediaFile {
   id: string;
@@ -55,6 +66,9 @@ const MediaManager: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [selectedFiles, setSelectedFiles] = useState<string[]>([]);
+  const [externalUrlDialogOpen, setExternalUrlDialogOpen] = useState(false);
+  const [externalUrl, setExternalUrl] = useState('');
+  const [uploadingExternal, setUploadingExternal] = useState(false);
 
   useEffect(() => {
     fetchFiles();
@@ -118,6 +132,53 @@ const MediaManager: React.FC = () => {
       toast.error('Upload failed');
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleExternalUpload = async () => {
+    if (!externalUrl.trim()) {
+      toast.error('Please enter a valid URL');
+      return;
+    }
+
+    setUploadingExternal(true);
+    try {
+      // First, fetch the file from the external URL
+      const response = await fetch(externalUrl);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
+      }
+
+      const blob = await response.blob();
+      const filename = externalUrl.split('/').pop() || 'external-file';
+
+      // Create a File object from the blob
+      const file = new File([blob], filename, { type: blob.type });
+
+      // Create FormData and upload using the external upload endpoint
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const uploadResponse = await fetch('/api/media/upload-external', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!uploadResponse.ok) {
+        const errorData = await uploadResponse.json();
+        throw new Error(errorData.error || 'Upload failed');
+      }
+
+      const data = await uploadResponse.json();
+      toast.success(`Successfully uploaded file from external URL`);
+      fetchFiles();
+      setExternalUrl('');
+      setExternalUrlDialogOpen(false);
+    } catch (error) {
+      console.error('External upload error:', error);
+      toast.error(error instanceof Error ? error.message : 'Failed to upload from external URL');
+    } finally {
+      setUploadingExternal(false);
     }
   };
 
@@ -197,6 +258,66 @@ const MediaManager: React.FC = () => {
               {uploading ? 'Uploading...' : 'Upload Files'}
             </Button>
           </label>
+
+          {/* External URL Upload Dialog */}
+          <Dialog open={externalUrlDialogOpen} onOpenChange={setExternalUrlDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" disabled={uploadingExternal}>
+                <LinkIcon className="w-4 h-4 mr-2" />
+                Upload from URL
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Upload from External URL</DialogTitle>
+                <DialogDescription>
+                  Enter a URL to upload media from external sources. Supports images, videos, and documents.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="grid gap-4 py-4">
+                <div className="space-y-2">
+                  <label htmlFor="external-url" className="text-sm font-medium">
+                    Media URL
+                  </label>
+                  <Input
+                    id="external-url"
+                    placeholder="https://example.com/image.jpg"
+                    value={externalUrl}
+                    onChange={(e) => setExternalUrl(e.target.value)}
+                    disabled={uploadingExternal}
+                  />
+                  <p className="text-xs text-gray-500">
+                    Supported formats: JPG, PNG, GIF, WebP, SVG, MP4, WebM, MOV, AVI, PDF, TXT, MP3, WAV, OGG
+                  </p>
+                </div>
+              </div>
+              <DialogFooter>
+                <Button
+                  variant="outline"
+                  onClick={() => setExternalUrlDialogOpen(false)}
+                  disabled={uploadingExternal}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  onClick={handleExternalUpload}
+                  disabled={uploadingExternal || !externalUrl.trim()}
+                >
+                  {uploadingExternal ? (
+                    <>
+                      <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                      Uploading...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Upload
+                    </>
+                  )}
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
         </div>
       </div>
 

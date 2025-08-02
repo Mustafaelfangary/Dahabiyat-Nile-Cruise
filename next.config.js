@@ -25,14 +25,6 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;"
   },
 
-  // API route configuration for larger uploads
-  api: {
-    bodyParser: {
-      sizeLimit: '100mb',
-    },
-    responseLimit: '100mb',
-  },
-  
   // Security headers
   async headers() {
     return [

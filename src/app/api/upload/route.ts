@@ -35,9 +35,25 @@ export async function POST(request: NextRequest) {
     const allowedTypes = isImage ? ALLOWED_IMAGE_TYPES : ALLOWED_VIDEO_TYPES;
     const maxSize = isImage ? MAX_IMAGE_SIZE : MAX_VIDEO_SIZE;
 
-    if (!allowedTypes.includes(file.type)) {
+    // Enhanced file type validation for external sources
+    const fileExtension = file.name.split('.').pop()?.toLowerCase();
+    const validImageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp', 'svg'];
+    const validVideoExtensions = ['mp4', 'webm', 'mov', 'avi'];
+
+    const isValidByExtension = isImage
+      ? validImageExtensions.includes(fileExtension || '')
+      : validVideoExtensions.includes(fileExtension || '');
+
+    if (!allowedTypes.includes(file.type) && !isValidByExtension) {
       return NextResponse.json(
-        { error: `Only ${isImage ? 'JPEG, PNG, WebP, and GIF' : 'MP4 and WebM'} files are allowed` },
+        {
+          error: `Invalid file type: ${file.type}. Allowed: ${isImage ? 'JPEG, PNG, WebP, GIF, SVG' : 'MP4, WebM, MOV, AVI'}`,
+          details: {
+            receivedType: file.type,
+            fileName: file.name,
+            fileExtension: fileExtension
+          }
+        },
         { status: 400 }
       );
     }
@@ -50,10 +66,9 @@ export async function POST(request: NextRequest) {
     }
 
     const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(new Uint8Array(bytes).buffer);
+    const buffer = Buffer.from(bytes);
 
-    // Create a unique filename
-    const fileExtension = file.name.split(".").pop();
+    // Create a unique filename (using fileExtension from line 39)
     const uniqueFilename = `${uuidv4()}.${fileExtension}`;
 
     // Determine the upload directory based on file type
@@ -113,16 +128,34 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    console.log('✅ File uploaded successfully:', {
+      originalName: file.name,
+      savedAs: finalFilename,
+      size: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
+      type: file.type,
+      url: publicUrl,
+      optimized: isImage ? 'Yes (WebP)' : 'No'
+    });
+
     return NextResponse.json({
       url: publicUrl,
-      mediaAsset: mediaAsset
+      mediaAsset: mediaAsset,
+      success: true,
+      filename: finalFilename,
+      originalName: file.name,
+      size: file.size,
+      type: file.type,
+      optimized: isImage
     });
   } catch (error) {
-    console.error("Upload error:", error);
-    return NextResponse.json(
-      { error: "Failed to upload file" },
-      { status: 500 }
-    );
+    console.error("❌ Upload error:", error);
+
+    return NextResponse.json({
+      error: "Failed to upload file",
+      details: error instanceof Error ? error.message : 'Unknown error',
+      timestamp: new Date().toISOString(),
+      success: false
+    }, { status: 500 });
   }
 }
 

@@ -93,12 +93,14 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
       } else {
         // Use website-content API for all other pages including homepage
         const sectionName = page || 'homepage';
-        const response = await fetch(`/api/website-content?page=${sectionName}&t=${Date.now()}&v=${Math.random()}`, {
+        const cacheBuster = `t=${Date.now()}&v=${Math.random()}&cb=${performance.now()}`;
+        const response = await fetch(`/api/website-content?page=${sectionName}&${cacheBuster}`, {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache, no-store, must-revalidate',
             'Pragma': 'no-cache',
             'Expires': '0',
+            'X-Requested-With': 'XMLHttpRequest',
           },
         });
 
@@ -110,12 +112,13 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
         }
 
         const data = await response.json();
+        console.log(`📦 Raw content data for ${sectionName}:`, data);
 
         // The API returns the content directly as an array
         const contentArray = Array.isArray(data) ? data : [];
 
         if (!Array.isArray(contentArray)) {
-          console.error('Expected content to be an array, got:', typeof contentArray, contentArray);
+          console.error('❌ Expected content to be an array, got:', typeof contentArray, contentArray);
           setContent([]);
           return;
         }
@@ -137,6 +140,7 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
           updatedAt: item.updatedAt || new Date().toISOString(),
         }));
 
+        console.log(`✅ Processed ${blocks.length} content blocks for ${sectionName}:`, blocks);
         setContent(blocks);
       }
     } catch (err) {
@@ -195,10 +199,27 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
   const getContent = useCallback((key: string, fallback = ''): string => {
     const block = content.find(c => c.key === key);
 
+    if (key.includes('hero_video')) {
+      console.log(`🎥 Getting content for ${key}:`, {
+        found: !!block,
+        content: block?.content,
+        mediaUrl: block?.mediaUrl,
+        fallback,
+        allKeys: content.map(c => c.key)
+      });
+    }
 
+    if (!block) {
+      console.log(`⚠️ Content not found for key: ${key}, using fallback: ${fallback}`);
+      return fallback;
+    }
 
-    if (!block) return fallback;
-    return block.content || block.mediaUrl || fallback;
+    const result = block.content || block.mediaUrl || fallback;
+    if (key.includes('hero_video')) {
+      console.log(`🎥 Returning for ${key}:`, result);
+    }
+
+    return result;
   }, [content]);
 
   const getContentBlock = useCallback((key: string): ContentBlock | undefined => {

@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/pharaonic-elements';
 import ShareYourMemories from '@/components/homepage/ShareYourMemories';
 import FeaturedReviews from '@/components/homepage/FeaturedReviews';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 
 export default function HomePage() {
   const { getContent, loading, error } = useContent({ page: 'homepage' });
@@ -48,7 +49,11 @@ export default function HomePage() {
 
   // Helper function for content
   const get = (key: string, fallback = '') => {
-    return getContent(key, fallback);
+    const result = getContent(key, fallback);
+    if (key.includes('hero_video')) {
+      console.log(`🎥 Homepage getting ${key}:`, result);
+    }
+    return result;
   };
 
   // Fetch dahabiyat and packages with cache busting
@@ -143,6 +148,21 @@ export default function HomePage() {
 
   return (
     <div className="pharaonic-container">
+      {/* Development Debug Panel */}
+      {process.env.NODE_ENV === 'development' && (
+        <div className="fixed top-4 left-4 bg-black bg-opacity-80 text-white p-4 rounded-lg z-50 max-w-sm">
+          <h3 className="font-bold mb-2">🔧 Debug Panel</h3>
+          <div className="text-xs space-y-1">
+            <div>Video URL: {get('hero_video_url', 'NOT_SET')}</div>
+            <div>Poster: {get('hero_video_poster', 'NOT_SET')}</div>
+            <div>Loading: {loading ? '⏳' : '✅'}</div>
+            <div>Error: {error || 'None'}</div>
+            <div>Video Loaded: {videoLoaded ? '✅' : '❌'}</div>
+            <div>Video Error: {videoError ? '❌' : '✅'}</div>
+          </div>
+        </div>
+      )}
+
       {/* 1. Editable Video Hero Section - Full area touching navbar */}
       <section
         className="relative w-full overflow-hidden"
@@ -166,45 +186,20 @@ export default function HomePage() {
           />
         )}
 
-        {/* Background Video - Optimized for smooth loading */}
-        <video
-          className={`absolute inset-0 w-full h-full z-10 brightness-110 contrast-105 transition-opacity duration-500 ${
-            videoLoaded ? 'opacity-100' : 'opacity-0'
-          }`}
-          style={{
-            objectFit: 'fill',
-            width: '100%',
-            height: '100%'
-          }}
-          autoPlay
-          muted
-          loop
-          playsInline
-          preload="metadata"
+        {/* Optimized Hero Video */}
+        <OptimizedHeroVideo
+          src={get('hero_video_url', '/videos/home_hero_video.mp4')}
           poster={get('hero_video_poster', '/images/hero-video-poster.jpg')}
-          onError={() => {
-            setVideoError(true);
-          }}
-          onLoadedData={() => {
+          className="absolute inset-0 w-full h-full z-10"
+          onLoad={() => {
             setVideoError(false);
             setVideoLoaded(true);
           }}
-          onLoadStart={() => {
+          onError={() => {
+            setVideoError(true);
             setVideoLoaded(false);
           }}
-          onCanPlay={() => {
-            // Ensure video is marked as loaded when it can play
-            setVideoLoaded(true);
-          }}
-          onWaiting={() => {
-            // Handle buffering states gracefully
-            console.log('Video buffering...');
-          }}
-          src={get('hero_video_url', '/videos/home_hero_video.mp4')}
-        >
-          <source src={get('hero_video_url', '/videos/home_hero_video.mp4')} type="video/mp4" />
-          Your browser does not support the video tag.
-        </video>
+        />
 
         {/* Video Loading Overlay */}
         {!videoLoaded && !videoError && (
@@ -335,31 +330,61 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {(featuredDahabiyat.length > 0 ? featuredDahabiyat : dahabiyat.slice(0, 4)).map((dahabiya: any, index: number) => (
-              <div key={dahabiya.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
+              <div key={dahabiya.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-egyptian-gold/20">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={dahabiya.mainImage || '/images/dahabiya-placeholder.jpg'}
                     alt={dahabiya.name}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-3 py-1 rounded-full text-sm font-semibold">
+                  {/* Enhanced overlay with gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Capacity badge with enhanced design */}
+                  <div className="absolute top-3 left-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-sunset-orange text-hieroglyph-brown px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
                     {dahabiya.capacity || 12} {get('guests_label', 'Guests')}
                   </div>
+
+                  {/* Featured badge */}
+                  {featuredDahabiyat.length > 0 && (
+                    <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                      <Star className="w-3 h-3 inline mr-1 fill-current" />
+                      Featured
+                    </div>
+                  )}
+
+                  {/* Hover overlay with Egyptian symbols */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="text-egyptian-gold text-4xl sm:text-5xl animate-pulse">𓇳</div>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{dahabiya.name}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{dahabiya.shortDescription}</p>
+
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-egyptian-gold text-lg">𓊪</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-egyptian-gold transition-colors duration-300 line-clamp-1">
+                      {dahabiya.name}
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base leading-relaxed">
+                    {dahabiya.shortDescription || 'Experience luxury and comfort aboard this magnificent dahabiya as you sail through the timeless waters of the Nile.'}
+                  </p>
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-yellow-500">
                       <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-600">4.9</span>
+                      <span className="ml-1 text-sm text-gray-600 font-medium">4.9</span>
+                      <span className="ml-1 text-xs text-gray-400">(127)</span>
                     </div>
                     <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
-                      <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-4 py-2 text-sm hover:from-egyptian-amber hover:to-orange-600 rounded-lg">
-                        {get('view_details_text', 'View Details')}
+                      <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-3 sm:px-4 py-2 text-xs sm:text-sm hover:from-egyptian-amber hover:to-orange-600 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 group/btn">
+                        <span className="group-hover/btn:mr-1 transition-all duration-300">{get('view_details_text', 'View Details')}</span>
+                        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                       </Button>
                     </Link>
                   </div>
@@ -483,35 +508,66 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {(featuredPackages.length > 0 ? featuredPackages : packages.slice(0, 4)).map((pkg: any, index: number) => (
-              <div key={pkg.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                <div className="relative aspect-[4/3]">
+              <div key={pkg.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-egyptian-gold/20">
+                <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={pkg.mainImageUrl || '/images/package-placeholder.jpg'}
                     alt={pkg.name}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute top-4 left-4 bg-emerald-500 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                    <Calendar className="w-4 h-4 inline mr-1" />
+                  {/* Enhanced overlay with gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+                  {/* Duration badge with enhanced design */}
+                  <div className="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
+                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
                     {pkg.durationDays} {get('days_label', 'Days')}
                   </div>
-                  <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm font-semibold">
+
+                  {/* Price badge with enhanced design */}
+                  <div className="absolute top-3 right-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
                     ${pkg.price?.toLocaleString()}
                   </div>
+
+                  {/* Featured badge */}
+                  {featuredPackages.length > 0 && (
+                    <div className="absolute bottom-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
+                      <Star className="w-3 h-3 inline mr-1 fill-current" />
+                      Featured
+                    </div>
+                  )}
+
+                  {/* Hover overlay with Egyptian symbols */}
+                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="text-egyptian-gold text-4xl sm:text-5xl animate-pulse">𓊪</div>
+                  </div>
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-800 mb-2">{pkg.name}</h3>
-                  <p className="text-gray-600 mb-4 line-clamp-2">{pkg.shortDescription}</p>
+
+                <div className="p-4 sm:p-6">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-egyptian-gold text-lg">𓇳</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-egyptian-gold transition-colors duration-300 line-clamp-1">
+                      {pkg.name}
+                    </h3>
+                  </div>
+
+                  <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base leading-relaxed">
+                    {pkg.shortDescription || 'Embark on an unforgettable journey through ancient Egypt with this carefully crafted package experience.'}
+                  </p>
+
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-yellow-500">
                       <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-600">4.8</span>
+                      <span className="ml-1 text-sm text-gray-600 font-medium">4.8</span>
+                      <span className="ml-1 text-xs text-gray-400">(89)</span>
                     </div>
                     <Link href={`/packages/${pkg.id}`}>
-                      <Button className="bg-emerald-500 text-white px-4 py-2 text-sm hover:bg-emerald-600 rounded-lg">
-                        {get('view_details_text', 'View Package')}
+                      <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 sm:px-4 py-2 text-xs sm:text-sm hover:from-emerald-600 hover:to-teal-700 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 group/btn">
+                        <span className="group-hover/btn:mr-1 transition-all duration-300">{get('view_details_text', 'View Package')}</span>
+                        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                       </Button>
                     </Link>
                   </div>

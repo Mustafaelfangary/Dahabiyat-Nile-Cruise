@@ -26,7 +26,8 @@ import {
   Crown,
   Anchor,
   Compass,
-  LayoutDashboard
+  LayoutDashboard,
+  Globe
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
@@ -35,6 +36,18 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { useContent } from '@/hooks/useContent';
 import Image from 'next/image';
+
+const LANGUAGES = [
+  { code: 'en', label: '🇺🇸 English', flag: '🇺🇸', name: 'English' },
+  { code: 'ar', label: '🇪🇬 العربية', flag: '🇪🇬', name: 'العربية' },
+  { code: 'fr', label: '🇫🇷 Français', flag: '🇫🇷', name: 'Français' },
+  { code: 'de', label: '🇩🇪 Deutsch', flag: '🇩🇪', name: 'Deutsch' },
+  { code: 'es', label: '🇪🇸 Español', flag: '🇪🇸', name: 'Español' },
+  { code: 'it', label: '🇮🇹 Italiano', flag: '🇮🇹', name: 'Italiano' },
+  { code: 'ru', label: '🇷🇺 Русский', flag: '🇷🇺', name: 'Русский' },
+  { code: 'zh', label: '🇨🇳 中文', flag: '🇨🇳', name: '中文' },
+  { code: 'ja', label: '🇯🇵 日本語', flag: '🇯🇵', name: '日本語' },
+];
 
 interface MobileNavigationProps {
   isOpen: boolean;
@@ -63,6 +76,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
   const [packagesItems, setPackagesItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
   const [itineraryItems, setItineraryItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
   const [settings, setSettings] = useState({ siteName: 'Dahabiyat Nile Cruise' });
+  const [currentLanguage, setCurrentLanguage] = useState('en');
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
   const { getContent } = useContent({ page: 'global_media' });
 
@@ -191,6 +206,31 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
           { href: "/itineraries/ancient-temples-tour", label: "𓂀 Ancient Temples Tour", hieroglyph: "𓂀" },
         ]);
       });
+  }, []);
+
+  // Language change handler
+  const handleLanguageChange = (languageCode: string) => {
+    setCurrentLanguage(languageCode);
+    setShowLanguageDropdown(false);
+
+    // Store language preference
+    localStorage.setItem('preferred-language', languageCode);
+
+    // Here you would typically trigger a language change in your i18n system
+    // For now, we'll just show a toast
+    const selectedLanguage = LANGUAGES.find(lang => lang.code === languageCode);
+    toast.success(`Language changed to ${selectedLanguage?.name}`);
+
+    // Close mobile menu
+    onToggle();
+  };
+
+  // Load saved language preference
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('preferred-language');
+    if (savedLanguage && LANGUAGES.find(lang => lang.code === savedLanguage)) {
+      setCurrentLanguage(savedLanguage);
+    }
   }, []);
 
   const navItems: NavItem[] = [
@@ -502,6 +542,59 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                       <span className="text-hieroglyph-brown font-medium">Sign In</span>
                     </Link>
                   )}
+                </div>
+              </div>
+
+              {/* Language Switcher */}
+              <div className="p-4 border-t border-egyptian-gold/20">
+                <div className="space-y-2">
+                  <button
+                    onClick={() => setShowLanguageDropdown(!showLanguageDropdown)}
+                    className="w-full flex items-center justify-between p-3 bg-gradient-to-r from-egyptian-gold/10 to-sunset-orange/10 border border-egyptian-gold/30 rounded-lg hover:bg-egyptian-gold/20 transition-all duration-300"
+                  >
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 rounded-lg bg-egyptian-gold/20 flex items-center justify-center">
+                        <Globe className="w-4 h-4 text-egyptian-gold" />
+                      </div>
+                      <div className="text-left">
+                        <span className="text-hieroglyph-brown font-medium block">Language</span>
+                        <span className="text-xs text-gray-600">
+                          {LANGUAGES.find(lang => lang.code === currentLanguage)?.label}
+                        </span>
+                      </div>
+                    </div>
+                    <ChevronDown className={`w-4 h-4 text-egyptian-gold transition-transform duration-200 ${showLanguageDropdown ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  <AnimatePresence>
+                    {showLanguageDropdown && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="space-y-1 overflow-hidden"
+                      >
+                        {LANGUAGES.map((language) => (
+                          <button
+                            key={language.code}
+                            onClick={() => handleLanguageChange(language.code)}
+                            className={`w-full flex items-center space-x-3 p-2 rounded-lg text-sm transition-all duration-200 ${
+                              currentLanguage === language.code
+                                ? 'bg-egyptian-gold/20 text-hieroglyph-brown border border-egyptian-gold/40'
+                                : 'hover:bg-egyptian-gold/10 text-gray-600 hover:text-hieroglyph-brown'
+                            }`}
+                          >
+                            <span className="text-lg">{language.flag}</span>
+                            <span className="font-medium">{language.name}</span>
+                            {currentLanguage === language.code && (
+                              <div className="ml-auto w-2 h-2 bg-egyptian-gold rounded-full"></div>
+                            )}
+                          </button>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               </div>
 

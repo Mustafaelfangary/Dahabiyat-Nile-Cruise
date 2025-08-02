@@ -161,38 +161,53 @@ export default function AvailabilityManagement() {
   };
 
   const addAvailabilityDates = async () => {
-    if (!selectedDahabiya) return;
-    
+    if (!selectedDahabiya) {
+      toast.error('Please select a dahabiya first');
+      return;
+    }
+
     setSaving(true);
     try {
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
       const dates = [];
-      
+
       for (let day = 1; day <= daysInMonth; day++) {
         const date = new Date(currentYear, currentMonth, day).toISOString().split('T')[0];
         const existingDate = availabilityDates.find(d => d.date === date);
-        
+
         if (!existingDate) {
           dates.push({
             date,
-            price: Array.isArray(dahabiyat) ? (dahabiyat.find(d => d.id === selectedDahabiya)?.pricePerDay || 0) : 0
+            price: Array.isArray(dahabiyat) ? (dahabiyat.find(d => d.id === selectedDahabiya)?.pricePerDay || 0) : 0,
+            available: true // Explicitly set as available
           });
         }
       }
 
       if (dates.length > 0) {
+        console.log('🗓️ Creating availability dates:', { dahabiyaId: selectedDahabiya, dates: dates.length });
+
         const response = await fetch('/api/dashboard/dahabiyat/availability', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ dahabiyaId: selectedDahabiya, dates })
         });
 
+        const result = await response.json();
+
         if (response.ok) {
+          toast.success(`✅ Created ${result.createdDates?.length || dates.length} availability dates for ${new Date(currentYear, currentMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`);
           fetchAvailability();
+        } else {
+          toast.error(`❌ Failed to create dates: ${result.error || 'Unknown error'}`);
+          console.error('Availability creation error:', result);
         }
+      } else {
+        toast.info(`ℹ️ All dates for ${new Date(currentYear, currentMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} already exist`);
       }
     } catch (error) {
       console.error('Error adding availability dates:', error);
+      toast.error('❌ Failed to add availability dates. Please try again.');
     } finally {
       setSaving(false);
     }

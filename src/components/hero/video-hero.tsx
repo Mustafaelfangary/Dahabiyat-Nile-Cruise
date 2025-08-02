@@ -164,6 +164,7 @@ export const VideoHero = memo(function VideoHero({
           width: '100%',
           height: '100%',
           objectFit: 'cover',
+          objectPosition: 'center center',
         }}
         onLoad={() => setIsLoading(false)}
         onError={(error) => setError(error)}

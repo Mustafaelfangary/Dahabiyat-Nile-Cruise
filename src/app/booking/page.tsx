@@ -152,7 +152,7 @@ export default function BookingPage() {
 
 
 
-        <div className="grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Selection Panel */}
           <div className="lg:col-span-1">
             <div className="bg-gradient-to-b from-amber-50 to-orange-50 p-6 border border-egyptian-gold/30 shadow-2xl rounded-xl">
@@ -308,7 +308,7 @@ export default function BookingPage() {
           <p className="text-text-secondary mb-4">
             Need assistance? Our royal advisors are here to help you plan your perfect journey.
           </p>
-          <div className="flex-col sm:flex-row gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="bg-white hover:bg-white text-text-primary px-6 py-3 rounded-xl transition-colors">
               Contact Our Advisors
             </Link>

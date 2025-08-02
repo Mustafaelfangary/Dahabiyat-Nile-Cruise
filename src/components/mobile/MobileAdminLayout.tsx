@@ -28,6 +28,7 @@ interface MobileAdminLayoutProps {
 
 const adminNavItems = [
   { href: '/admin', label: 'Dashboard', icon: BarChart3, hieroglyph: '𓇳' },
+  { href: '/admin/website', label: 'Website Content', icon: FileText, hieroglyph: '𓂋' },
   { href: '/admin/dahabiyas', label: 'Dahabiyas', icon: Ship, hieroglyph: '𓊪' },
   { href: '/admin/packages', label: 'Packages', icon: Package, hieroglyph: '𓈖' },
   { href: '/admin/bookings', label: 'Bookings', icon: FileText, hieroglyph: '𓂋' },

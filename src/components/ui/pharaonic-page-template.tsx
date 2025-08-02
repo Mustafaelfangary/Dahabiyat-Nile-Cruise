@@ -14,7 +14,7 @@ import {
 } from '@/components/ui/pharaonic-elements';
 import BookingForm from '@/components/BookingForm';
 import PackageBookingForm from '@/components/PackageBookingForm';
-import AvailabilityIntegratedBooking from '@/components/booking/AvailabilityIntegratedBooking';
+import UnifiedBookingForm from '@/components/UnifiedBookingForm';
 
 interface PharaonicPageTemplateProps {
   // Basic Info
@@ -263,24 +263,28 @@ export function PharaonicPageTemplate({
 
               {pageType === 'package' && price && durationDays ? (
                 <div className="max-w-4xl mx-auto">
-                  <AvailabilityIntegratedBooking
+                  <UnifiedBookingForm
                     type="package"
                     itemId={name.toLowerCase().replace(/[^a-z0-9]/g, '-')}
                     itemName={name}
                     basePrice={price}
                     maxGuests={maxGuests || 20}
                     durationDays={durationDays}
+                    style="pharaonic"
+                    showAvailabilityCheck={true}
                   />
                 </div>
               ) : pageType === 'dahabiya' && price ? (
                 <div className="max-w-4xl mx-auto">
-                  <AvailabilityIntegratedBooking
+                  <UnifiedBookingForm
                     type="dahabiya"
                     itemId={name.toLowerCase().replace(/[^a-z0-9]/g, '-')}
                     itemName={name}
                     basePrice={price}
                     maxGuests={maxGuests || 20}
                     durationDays={durationDays || 7}
+                    style="pharaonic"
+                    showAvailabilityCheck={true}
                   />
                 </div>
               ) : (
