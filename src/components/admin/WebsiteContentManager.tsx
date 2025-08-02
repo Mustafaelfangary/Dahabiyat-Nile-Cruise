@@ -51,6 +51,7 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
   const [editingField, setEditingField] = useState<string | null>(null);
   const [showMediaPicker, setShowMediaPicker] = useState(false);
   const [currentMediaField, setCurrentMediaField] = useState<string | null>(null);
+  const [isCleaningUp, setIsCleaningUp] = useState(false);
 
   const contentSections = [
     { id: 'homepage', label: 'Homepage Content', icon: Home },
@@ -94,28 +95,37 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
 
       for (const section of contentSections) {
         try {
-          // Load from websiteContent table
-          const response = await fetch(`/api/website-content?page=${section.id}`);
+          console.log(`🔍 Loading content for section: ${section.id}`);
+
+          // Load ONLY from websiteContent table (not settings)
+          const response = await fetch(`/api/website-content?page=${section.id}&t=${Date.now()}`);
           if (response.ok) {
             const data = await response.json();
+            console.log(`📦 Raw data for ${section.id}:`, data);
+
             // Convert websiteContent format to ContentField format
-            contentData[section.id] = data.map((item: any) => ({
+            const fields = Array.isArray(data) ? data : [];
+            contentData[section.id] = fields.map((item: any) => ({
               key: item.key,
               value: item.content || item.mediaUrl || '',
               group: item.page,
-              title: item.title,
-              type: item.contentType?.toLowerCase(),
-              contentType: item.contentType
+              title: item.title || item.key,
+              type: item.contentType?.toLowerCase() || 'text',
+              contentType: item.contentType || 'TEXT'
             }));
+
+            console.log(`✅ Processed ${contentData[section.id].length} fields for ${section.id}`);
           } else {
+            console.warn(`⚠️ Failed to load ${section.id}: ${response.status}`);
             contentData[section.id] = [];
           }
         } catch (error) {
-          console.warn(`Failed to load ${section.id} content:`, error);
+          console.warn(`❌ Failed to load ${section.id} content:`, error);
           contentData[section.id] = [];
         }
       }
 
+      console.log('📊 Final content data:', contentData);
       setContent(contentData);
     } catch (error) {
       console.error('❌ Error loading content:', error);
@@ -230,6 +240,43 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
     // Use a unique separator to avoid conflicts with underscores in field names
     setCurrentMediaField(`${sectionId}|||${fieldKey}`);
     setShowMediaPicker(true);
+  };
+
+  const handleAdvancedCleanup = async () => {
+    if (!confirm('This will remove old duplicate content and create fresh homepage content. Continue?')) {
+      return;
+    }
+
+    setIsCleaningUp(true);
+    try {
+      const response = await fetch('/api/admin/cleanup-content-advanced', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success(`Cleanup completed! Deleted ${result.summary.actions.deletedSettings} old settings, created ${result.summary.actions.createdContent} new content entries.`);
+
+        // Reload content
+        await loadContent();
+
+        // Force page refresh to clear any cached content
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      } else {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || 'Cleanup failed');
+      }
+    } catch (error) {
+      console.error('Cleanup error:', error);
+      toast.error(error instanceof Error ? error.message : 'Cleanup failed');
+    } finally {
+      setIsCleaningUp(false);
+    }
   };
 
   const handleMediaSelect = (url: string) => {
@@ -389,6 +436,19 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
             </p>
           </div>
           <div className="flex gap-2">
+            <Button
+              onClick={handleAdvancedCleanup}
+              variant="outline"
+              className="border-orange-200 text-orange-600 hover:bg-orange-50"
+              disabled={isCleaningUp}
+            >
+              {isCleaningUp ? (
+                <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+              ) : (
+                <Trash2 className="w-4 h-4 mr-2" />
+              )}
+              {isCleaningUp ? 'Cleaning...' : 'Fix Old Content'}
+            </Button>
             <Button
               onClick={cleanupDuplicates}
               variant="outline"
