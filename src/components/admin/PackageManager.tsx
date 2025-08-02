@@ -167,15 +167,23 @@ const PackageManager: React.FC = () => {
   const fetchPackages = async () => {
     try {
       setLoading(true);
+      setError(null);
+
       const response = await fetch('/api/packages');
       if (response.ok) {
         const data = await response.json();
         setPackages(data.packages || data || []);
+      } else if (response.status === 401) {
+        setError('Unauthorized access. Please check your admin permissions.');
+      } else if (response.status === 403) {
+        setError('Access forbidden. Admin role required.');
       } else {
-        throw new Error('Failed to fetch packages');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `Failed to fetch packages (${response.status})`);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      console.error('Error fetching packages:', err);
+      setError(err instanceof Error ? err.message : 'An error occurred while fetching packages');
     } finally {
       setLoading(false);
     }

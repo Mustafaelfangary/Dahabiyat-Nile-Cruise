@@ -18,6 +18,7 @@ import {
   Settings,
   Globe,
   Edit3,
+  Trash2,
   Check,
   X,
   Image,
@@ -56,7 +57,6 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
     { id: 'about', label: 'About Page', icon: Users },
     { id: 'contact', label: 'Contact Page', icon: Phone },
     { id: 'packages', label: 'Packages Page', icon: Package },
-    { id: 'itineraries', label: 'Itineraries Page', icon: Package },
     { id: 'dahabiyas', label: 'Dahabiyas Page', icon: Package },
     { id: 'testimonials', label: 'Testimonials Page', icon: FileText },
     { id: 'tailor-made', label: 'Tailor-Made Page', icon: Wand2 },
@@ -67,6 +67,25 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
   useEffect(() => {
     loadContent();
   }, []);
+
+  const cleanupDuplicates = async () => {
+    try {
+      const response = await fetch('/api/admin/cleanup-content', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' }
+      });
+
+      if (response.ok) {
+        toast.success('Content duplicates cleaned up successfully!');
+        loadContent(); // Reload content after cleanup
+      } else {
+        throw new Error('Failed to cleanup duplicates');
+      }
+    } catch (error) {
+      console.error('Error cleaning up duplicates:', error);
+      toast.error('Failed to cleanup duplicates');
+    }
+  };
 
   const loadContent = async () => {
     setLoading(true);
@@ -362,10 +381,31 @@ export function WebsiteContentManager({ className }: WebsiteContentManagerProps)
   return (
     <div className={className}>
       <div className="mb-6">
-        <h1 className="text-3xl font-bold text-gray-900 mb-2">Website Content Manager</h1>
-        <p className="text-gray-600">
-          Manage all website content including pages, sections, and global settings.
-        </p>
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">Website Content Manager</h1>
+            <p className="text-gray-600">
+              Manage all website content including pages, sections, and global settings.
+            </p>
+          </div>
+          <div className="flex gap-2">
+            <Button
+              onClick={cleanupDuplicates}
+              variant="outline"
+              className="border-red-200 text-red-600 hover:bg-red-50"
+            >
+              <Trash2 className="w-4 h-4 mr-2" />
+              Cleanup Duplicates
+            </Button>
+            <Button
+              onClick={loadContent}
+              variant="outline"
+            >
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
+            </Button>
+          </div>
+        </div>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
