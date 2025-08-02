@@ -98,13 +98,19 @@ export default function RootLayout({
             {/* Web Vitals tracking */}
             <Script id="web-vitals" strategy="afterInteractive">
               {`
-                import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-                  getCLS(${trackWebVitals.toString()});
-                  getFID(${trackWebVitals.toString()});
-                  getFCP(${trackWebVitals.toString()});
-                  getLCP(${trackWebVitals.toString()});
-                  getTTFB(${trackWebVitals.toString()});
-                });
+                (async () => {
+                  try {
+                    const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import('web-vitals');
+                    const trackWebVitals = ${trackWebVitals.toString()};
+                    getCLS(trackWebVitals);
+                    getFID(trackWebVitals);
+                    getFCP(trackWebVitals);
+                    getLCP(trackWebVitals);
+                    getTTFB(trackWebVitals);
+                  } catch (error) {
+                    console.warn('Web Vitals not available:', error);
+                  }
+                })();
               `}
             </Script>
           </>

@@ -97,10 +97,10 @@ export default function ReviewSharing() {
 
   const fetchDahabiyas = async () => {
     try {
-      const response = await fetch('/api/dahabiyat');
+      const response = await fetch('/api/dahabiyas');
       if (response.ok) {
         const data = await response.json();
-        setDahabiyas(data.dahabiyat || []);
+        setDahabiyas(data.dahabiyas || []);
       }
     } catch (error) {
       console.error('Error fetching dahabiyas:', error);

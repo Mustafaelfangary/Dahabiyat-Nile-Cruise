@@ -49,10 +49,10 @@ export function FeaturedItemsManager({ className }: FeaturedItemsManagerProps) {
     setLoading(true);
     try {
       // Load all dahabiyat
-      const dahabiyatResponse = await fetch('/api/dahabiyat?limit=100');
+      const dahabiyatResponse = await fetch('/api/dahabiyas?limit=100');
       if (dahabiyatResponse.ok) {
         const dahabiyatData = await dahabiyatResponse.json();
-        setDahabiyat(dahabiyatData.dahabiyat || []);
+        setDahabiyat(dahabiyatData.dahabiyas || []);
       }
 
       // Load all packages
