@@ -50,16 +50,22 @@ export default function SignInForm() {
         return;
       }
 
-      toast.success("Signed in successfully");
-
-      // Simple redirect without complex session checking
       toast.success("Signed in successfully! Redirecting...");
 
-      // Use NextAuth's built-in redirect mechanism
+      // Get the callback URL or use role-based default
       const urlParams = new URLSearchParams(window.location.search);
-      const callbackUrl = urlParams.get('callbackUrl') || '/profile';
+      let callbackUrl = urlParams.get('callbackUrl');
 
-      // Use router.push instead of window.location.href to avoid loops
+      // If no callback URL specified, let NextAuth handle role-based redirect
+      if (!callbackUrl) {
+        // Force a page reload to trigger NextAuth's redirect callback
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 500);
+        return;
+      }
+
+      // Use the specified callback URL
       setTimeout(() => {
         router.push(callbackUrl);
       }, 500);

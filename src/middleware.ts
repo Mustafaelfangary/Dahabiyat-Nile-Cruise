@@ -12,9 +12,14 @@ export default withAuth(
       authorized: ({ req, token }) => {
         const { pathname } = req.nextUrl;
 
-        // For admin routes, require admin role
+        // For admin routes, require admin or manager role
         if (pathname.startsWith("/admin")) {
-          return token?.role === "ADMIN";
+          return token?.role === "ADMIN" || token?.role === "MANAGER";
+        }
+
+        // For guide routes, require guide, manager, or admin role
+        if (pathname.startsWith("/guide")) {
+          return token?.role === "GUIDE" || token?.role === "MANAGER" || token?.role === "ADMIN";
         }
 
         // For profile and booking routes, require authentication
@@ -23,10 +28,20 @@ export default withAuth(
         }
 
         // For API routes that need protection
-        if (pathname.startsWith("/api/admin") ||
-            pathname.startsWith("/api/upload") ||
+        if (pathname.startsWith("/api/admin")) {
+          // Admin API routes - require admin or manager
+          return token?.role === "ADMIN" || token?.role === "MANAGER";
+        }
+
+        if (pathname.startsWith("/api/guide")) {
+          // Guide API routes - require guide, manager, or admin
+          return token?.role === "GUIDE" || token?.role === "MANAGER" || token?.role === "ADMIN";
+        }
+
+        if (pathname.startsWith("/api/upload") ||
             pathname.startsWith("/api/media-assets") ||
             pathname.startsWith("/api/content")) {
+          // General protected API routes - require any authenticated user
           return !!token;
         }
 

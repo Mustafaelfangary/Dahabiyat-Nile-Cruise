@@ -58,30 +58,45 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Map MANAGER and GUIDE roles to USER for NextAuth compatibility
-        const mappedRole = user.role === 'ADMIN' ? 'ADMIN' : 'USER';
-
+        // Keep all roles for proper authorization
         return {
           id: user.id,
           email: user.email,
           name: user.name,
-          role: mappedRole
+          role: user.role, // Keep original role: ADMIN, MANAGER, GUIDE, USER
+          originalRole: user.role // Store original role for reference
         };
       },
     }),
   ],
   callbacks: {
-    async redirect({ url, baseUrl }) {
-      console.log('Auth redirect called with:', { url, baseUrl });
+    async redirect({ url, baseUrl, token }) {
+      console.log('Auth redirect called with:', { url, baseUrl, token });
 
       // If it's a relative URL, make it absolute
       if (url.startsWith('/')) {
-        return `${baseUrl}${url}`;
+        url = `${baseUrl}${url}`;
       }
 
       // If it's the same origin, allow it
-      if (new URL(url).origin === baseUrl) {
+      if (url && new URL(url).origin === baseUrl) {
         return url;
+      }
+
+      // Role-based redirect after successful sign-in
+      if (token?.role) {
+        console.log('Redirecting based on role:', token.role);
+
+        switch (token.role) {
+          case 'ADMIN':
+            return `${baseUrl}/admin`;
+          case 'MANAGER':
+            return `${baseUrl}/admin/dashboard`; // Manager dashboard
+          case 'GUIDE':
+            return `${baseUrl}/guide/dashboard`; // Guide dashboard
+          default:
+            return `${baseUrl}/profile`; // Regular users
+        }
       }
 
       // Default to profile page
@@ -92,7 +107,8 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id as string;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.role = token.role as "ADMIN" | "USER";
+        session.user.role = token.role as "ADMIN" | "MANAGER" | "GUIDE" | "USER";
+        session.user.originalRole = token.originalRole as "ADMIN" | "MANAGER" | "GUIDE" | "USER";
         session.user.image = token.image as string;
       }
 
@@ -102,6 +118,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id = user.id;
         token.role = user.role;
+        token.originalRole = user.originalRole || user.role;
         token.image = user.image;
         token.email = user.email;
         token.name = user.name;

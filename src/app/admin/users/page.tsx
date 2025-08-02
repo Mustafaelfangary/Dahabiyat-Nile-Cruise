@@ -217,16 +217,31 @@ export default function UsersManagement() {
 
           <div className="admin-stat-card">
             <div className="flex items-center gap-3 mb-4">
-              <div className="bg-amber-100 p-2 rounded-lg">
-                <Shield className="w-6 h-6 text-amber-700" />
+              <div className="bg-orange-100 p-2 rounded-lg">
+                <Edit className="w-6 h-6 text-orange-700" />
               </div>
-              <span className="admin-stat-label text-amber-900">Active Sessions</span>
+              <span className="admin-stat-label text-orange-900">Managers</span>
             </div>
-            <div className="admin-stat-number text-amber-800">
-              {users.filter(u => u.role === 'ADMIN').length + users.filter(u => u.role === 'USER').length}
+            <div className="admin-stat-number text-orange-800">
+              {users.filter(u => u.role === 'MANAGER').length}
             </div>
             <p className="admin-stat-description admin-text-justify">
-              Currently active user sessions within the royal system, representing ongoing engagement with our services.
+              Operations managers with administrative access to manage content and users.
+            </p>
+          </div>
+
+          <div className="admin-stat-card">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-blue-100 p-2 rounded-lg">
+                <Eye className="w-6 h-6 text-blue-700" />
+              </div>
+              <span className="admin-stat-label text-blue-900">Guides</span>
+            </div>
+            <div className="admin-stat-number text-blue-800">
+              {users.filter(u => u.role === 'GUIDE').length}
+            </div>
+            <p className="admin-stat-description admin-text-justify">
+              Tour guides with content management access for itineraries and tours.
             </p>
           </div>
         </div>
@@ -315,10 +330,16 @@ export default function UsersManagement() {
                         </SelectTrigger>
                         <SelectContent className="bg-white border-2 border-amber-200">
                           <SelectItem value="ADMIN" className="text-gray-900 hover:bg-amber-50">
-                            👑 Admin
+                            👑 Admin - Full system access
+                          </SelectItem>
+                          <SelectItem value="MANAGER" className="text-gray-900 hover:bg-amber-50">
+                            📊 Manager - Administrative access
+                          </SelectItem>
+                          <SelectItem value="GUIDE" className="text-gray-900 hover:bg-amber-50">
+                            🗺️ Guide - Tour management access
                           </SelectItem>
                           <SelectItem value="USER" className="text-gray-900 hover:bg-amber-50">
-                            👤 User
+                            👤 User - Customer access
                           </SelectItem>
                         </SelectContent>
                       </Select>
@@ -403,9 +424,15 @@ export default function UsersManagement() {
                         <td>
                           <div className="flex items-center gap-3">
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
-                              user.role === 'ADMIN' ? 'bg-gradient-to-r from-purple-500 to-purple-600' : 'bg-gradient-to-r from-blue-500 to-blue-600'
+                              user.role === 'ADMIN' ? 'bg-gradient-to-r from-purple-500 to-purple-600' :
+                              user.role === 'MANAGER' ? 'bg-gradient-to-r from-orange-500 to-orange-600' :
+                              user.role === 'GUIDE' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
+                              'bg-gradient-to-r from-green-500 to-green-600'
                             }`}>
-                              {user.role === 'ADMIN' ? <Crown className="w-5 h-5" /> : <User className="w-5 h-5" />}
+                              {user.role === 'ADMIN' ? <Crown className="w-5 h-5" /> :
+                               user.role === 'MANAGER' ? <Edit className="w-5 h-5" /> :
+                               user.role === 'GUIDE' ? <Eye className="w-5 h-5" /> :
+                               <User className="w-5 h-5" />}
                             </div>
                             <div>
                               <div className="text-lg font-bold text-gray-900">
@@ -420,12 +447,16 @@ export default function UsersManagement() {
                         <td>
                           <Badge
                             className={`admin-badge ${
-                              user.role === 'ADMIN'
-                                ? 'admin-badge-purple'
-                                : 'admin-badge-blue'
+                              user.role === 'ADMIN' ? 'admin-badge-purple' :
+                              user.role === 'MANAGER' ? 'admin-badge-orange' :
+                              user.role === 'GUIDE' ? 'admin-badge-blue' :
+                              'admin-badge-green'
                             }`}
                           >
-                            {user.role === 'ADMIN' ? '👑 Royal Admin' : '👤 Customer'}
+                            {user.role === 'ADMIN' ? '👑 Admin' :
+                             user.role === 'MANAGER' ? '📊 Manager' :
+                             user.role === 'GUIDE' ? '🗺️ Guide' :
+                             '👤 Customer'}
                           </Badge>
                           <div className="text-sm text-gray-600 mt-1">
                             Active Member
