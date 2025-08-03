@@ -168,13 +168,15 @@ export default function HomePage() {
         className="relative w-full overflow-hidden"
         style={{
           marginTop: '0', // No margin - touch navbar directly
-          height: '70vh', // Fixed height for consistent layout
-          minHeight: '500px', // Minimum height for smaller screens
-          maxHeight: '800px' // Maximum height to prevent excessive size on large screens
+          height: '85vh', // Much larger height to show more video content
+          minHeight: '700px', // Much larger minimum height
+          maxHeight: '1000px' // Larger maximum height for better video display
         }}
       >
         {/* Fallback background - only shows if video fails */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900"></div>
+        {videoError && (
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900"></div>
+        )}
 
         {/* Fallback image when video fails */}
         {videoError && (
@@ -818,31 +820,72 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Founder Image Below Content */}
-            <div className="founder-image-section text-center bg-white/50 backdrop-blur-sm rounded-lg p-3 lg:p-4 shadow-md mt-16 lg:mt-20 relative z-10 max-w-xs mx-auto">
-              <div className="flex flex-col items-center space-y-2 sm:space-y-3">
-                <div className="relative w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 flex-shrink-0 mx-auto">
-                  <Image
-                    src={get('founder_image', '/images/ashraf-elmasry.jpg')}
-                    alt={get('founder_name', 'Ashraf El-Masry')}
-                    width={64}
-                    height={64}
-                    className="w-full h-full rounded-full object-cover object-center ring-1 ring-egyptian-gold/30 shadow-md"
-                    priority={false}
-                    quality={90}
-                    onError={(e) => {
-                      // Fallback to default image
-                      e.currentTarget.src = '/images/our-story-founder.jpg';
-                    }}
-                  />
-                </div>
-                <div className="text-center space-y-1 w-full">
-                  <h3 className="text-xs sm:text-sm lg:text-base font-bold text-hieroglyph-brown leading-tight break-words">
-                    {get('founder_name', 'Ashraf El-Masry')}
-                  </h3>
-                  <p className="text-[10px] sm:text-xs lg:text-sm text-egyptian-gold font-medium break-words">
-                    {get('founder_title', 'Founder & CEO')}
-                  </p>
+            {/* Enhanced Founder Image Section */}
+            <div className="founder-image-section mt-16 lg:mt-20 relative z-10">
+              <div className="max-w-sm mx-auto">
+                {/* Decorative Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-orange-50 to-amber-100 rounded-2xl transform rotate-3 opacity-30"></div>
+                <div className="absolute inset-0 bg-gradient-to-tl from-amber-50 via-orange-100 to-amber-50 rounded-2xl transform -rotate-2 opacity-40"></div>
+
+                {/* Main Content Card */}
+                <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-xl border border-amber-200/50">
+                  {/* Egyptian Decorative Elements */}
+                  <div className="absolute top-3 left-3 text-amber-400 text-lg opacity-60">𓇳</div>
+                  <div className="absolute top-3 right-3 text-amber-400 text-lg opacity-60">𓊪</div>
+                  <div className="absolute bottom-3 left-3 text-amber-400 text-lg opacity-60">𓈖</div>
+                  <div className="absolute bottom-3 right-3 text-amber-400 text-lg opacity-60">𓂀</div>
+
+                  <div className="flex flex-col items-center space-y-4">
+                    {/* Enhanced Founder Image */}
+                    <div className="relative">
+                      <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 relative">
+                        {/* Decorative Ring */}
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 p-1">
+                          <div className="w-full h-full rounded-full bg-white p-1">
+                            <Image
+                              src={get('founder_image', '/images/ashraf-elmasry.jpg')}
+                              alt={get('founder_name', 'Ashraf El-Masry')}
+                              width={112}
+                              height={112}
+                              className="w-full h-full rounded-full object-cover object-center shadow-lg"
+                              priority={false}
+                              quality={95}
+                              onError={(e) => {
+                                e.currentTarget.src = '/images/our-story-founder.jpg';
+                              }}
+                            />
+                          </div>
+                        </div>
+
+                        {/* Crown Icon */}
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                          <span className="text-white text-sm">👑</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Enhanced Text Content */}
+                    <div className="text-center space-y-2">
+                      <h3 className="font-bold text-gray-800 text-lg lg:text-xl leading-tight">
+                        {get('founder_name', 'Ashraf El-Masry')}
+                      </h3>
+                      <p className="text-amber-600 font-semibold text-sm lg:text-base">
+                        {get('founder_title', 'Founder & CEO')}
+                      </p>
+
+                      {/* Decorative Divider */}
+                      <div className="flex items-center justify-center space-x-2 pt-2">
+                        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-amber-400"></div>
+                        <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
+                        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-amber-400"></div>
+                      </div>
+
+                      {/* Quote or Tagline */}
+                      <p className="text-gray-600 text-xs lg:text-sm italic leading-relaxed pt-2 max-w-xs">
+                        {get('founder_quote', '"Preserving the ancient art of Nile navigation for future generations"')}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

@@ -85,10 +85,10 @@ export default function OptimizedHeroVideo({
 
   const videoStyle: React.CSSProperties = {
     objectFit: 'cover',
-    objectPosition: 'center center',
+    objectPosition: 'center 30%', // Position video to show more of the top/middle area
     width: '100%',
     height: '100%',
-    transform: 'scale(1.01)', // Slight scale to ensure full coverage
+    transform: 'scale(1.02)', // Slight scale to ensure full coverage and prevent cropping
     transition: 'opacity 0.5s ease-in-out',
     opacity: isLoaded && !hasError ? 1 : 0,
     ...style
@@ -124,7 +124,7 @@ export default function OptimizedHeroVideo({
       {/* Video element */}
       <video
         ref={videoRef}
-        className={className}
+        className={`hero-video ${className}`}
         style={videoStyle}
         autoPlay
         muted

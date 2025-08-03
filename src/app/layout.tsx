@@ -98,17 +98,68 @@ export default function RootLayout({
             {/* Web Vitals tracking */}
             <Script id="web-vitals" strategy="afterInteractive">
               {`
-                (async () => {
+                (function() {
                   try {
-                    const { getCLS, getFID, getFCP, getLCP, getTTFB } = await import('web-vitals');
+                    // Simple performance tracking without web-vitals dependency
                     const trackWebVitals = ${trackWebVitals.toString()};
-                    getCLS(trackWebVitals);
-                    getFID(trackWebVitals);
-                    getFCP(trackWebVitals);
-                    getLCP(trackWebVitals);
-                    getTTFB(trackWebVitals);
+
+                    // Track basic performance metrics
+                    if ('performance' in window) {
+                      window.addEventListener('load', function() {
+                        setTimeout(function() {
+                          const navigation = performance.getEntriesByType('navigation')[0];
+                          if (navigation) {
+                            trackWebVitals({
+                              name: 'page_load',
+                              value: navigation.loadEventEnd - navigation.navigationStart,
+                              id: 'page-load-' + Date.now()
+                            });
+                          }
+                        }, 0);
+                      });
+                    }
+
+                    // Track CLS (Cumulative Layout Shift) manually
+                    let clsValue = 0;
+                    let clsEntries = [];
+                    let sessionValue = 0;
+                    let sessionEntries = [];
+
+                    if ('PerformanceObserver' in window) {
+                      try {
+                        const observer = new PerformanceObserver(function(list) {
+                          for (const entry of list.getEntries()) {
+                            if (!entry.hadRecentInput) {
+                              const firstSessionEntry = sessionEntries[0];
+                              const lastSessionEntry = sessionEntries[sessionEntries.length - 1];
+
+                              if (sessionValue && entry.startTime - lastSessionEntry.startTime < 1000 && entry.startTime - firstSessionEntry.startTime < 5000) {
+                                sessionValue += entry.value;
+                                sessionEntries.push(entry);
+                              } else {
+                                sessionValue = entry.value;
+                                sessionEntries = [entry];
+                              }
+
+                              if (sessionValue > clsValue) {
+                                clsValue = sessionValue;
+                                clsEntries = [...sessionEntries];
+                                trackWebVitals({
+                                  name: 'CLS',
+                                  value: clsValue,
+                                  id: 'cls-' + Date.now()
+                                });
+                              }
+                            }
+                          }
+                        });
+                        observer.observe({ type: 'layout-shift', buffered: true });
+                      } catch (e) {
+                        // PerformanceObserver not supported
+                      }
+                    }
                   } catch (error) {
-                    console.warn('Web Vitals not available:', error);
+                    console.warn('Performance tracking not available:', error);
                   }
                 })();
               `}

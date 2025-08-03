@@ -35,7 +35,8 @@ import {
   Mail,
   Bell,
   MessageCircle,
-  Code
+  Code,
+  Settings
 } from 'lucide-react';
 import { FeaturedItemsManager } from '@/components/admin/FeaturedItemsManager';
 import { SiteNamePreview } from '@/components/admin/SiteNamePreview';
@@ -507,7 +508,7 @@ export default function AdminDashboard() {
                       Website Content Management
                     </h3>
                     <p className="text-slate-600 max-w-md mx-auto">
-                      Manage your website content including homepage, footer, and all page content from the dedicated content management interface.
+                      Manage your website content including homepage, footer, and all page content. Developer settings are managed separately in the Developer section.
                     </p>
                     <Button
                       onClick={() => window.location.href = '/admin/website'}
@@ -928,6 +929,15 @@ export default function AdminDashboard() {
                   </h3>
                   <p className="text-slate-600 mb-4">Development and testing tools for administrators.</p>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <Button
+                      onClick={() => window.open('/admin/developer-settings', '_blank')}
+                      variant="outline"
+                      className="h-20 flex-col"
+                    >
+                      <Settings size={24} className="mb-2 text-blue-600" />
+                      Developer Settings
+                      <span className="text-xs text-slate-500 mt-1">Contact & branding settings</span>
+                    </Button>
                     <Button
                       onClick={() => window.open('/admin/seed', '_blank')}
                       variant="outline"

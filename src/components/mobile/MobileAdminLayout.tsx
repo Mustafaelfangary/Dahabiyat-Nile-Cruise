@@ -35,6 +35,7 @@ const adminNavItems = [
   { href: '/admin/users', label: 'Users', icon: Users, hieroglyph: '𓂀' },
   { href: '/admin/loyalty-system', label: 'Loyalty System', icon: Settings, hieroglyph: '𓇳' },
   { href: '/admin/email-settings', label: 'Email', icon: Mail, hieroglyph: '𓏏' },
+  { href: '/admin/developer-settings', label: 'Developer Settings', icon: Settings, hieroglyph: '𓊪' },
   { href: '/admin/settings', label: 'Settings', icon: Settings, hieroglyph: '𓇳' },
 ];
 

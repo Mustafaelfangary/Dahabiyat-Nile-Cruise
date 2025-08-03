@@ -365,6 +365,7 @@ model Itinerary {
   dahabiyat     DahabiyaItinerary[]
   days          ItineraryDay[]
   pricingTiers  ItineraryPricing[]
+  pdfDocuments  PDFDocument[]
 }
 
 model ItineraryPricing {
@@ -787,6 +788,7 @@ model Dahabiya {
   // Relations
   availabilityDates AvailabilityDate[]
   itineraries       DahabiyaItinerary[]
+  pdfDocuments      PDFDocument[]
 
   // Timestamps
   createdAt   DateTime @default(now())
@@ -980,4 +982,29 @@ model LoyaltyConfig {
   updatedAt     DateTime @updatedAt
 
   @@map("loyalty_config")
+}
+
+model PDFDocument {
+  id          String      @id @default(cuid())
+  name        String
+  type        PDFType
+  category    String?
+  url         String
+  size        Int
+  dahabiyaId  String?
+  itineraryId String?
+  uploadedAt  DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  // Relations
+  dahabiya    Dahabiya?   @relation(fields: [dahabiyaId], references: [id], onDelete: Cascade)
+  itinerary   Itinerary?  @relation(fields: [itineraryId], references: [id], onDelete: Cascade)
+
+  @@map("pdf_documents")
+}
+
+enum PDFType {
+  FACTSHEET
+  ITINERARY
+  BROCHURE
 }

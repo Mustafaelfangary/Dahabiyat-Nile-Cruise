@@ -76,14 +76,23 @@ const UniversalVideo = React.memo(function UniversalVideo({
 
   return (
     <div className={`relative ${className}`} style={style}>
-      {isLoading && (
+      {isLoading && poster && (
         <div className="absolute inset-0 flex items-center justify-center z-10"
              style={{
-               backgroundImage: poster ? `url(${poster})` : 'none',
+               backgroundImage: `url(${poster})`,
                backgroundSize: 'cover',
                backgroundPosition: 'center'
              }}>
-          <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+          <div className="absolute inset-0 bg-black bg-opacity-30"></div>
+          <div className="relative z-10 text-white text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
+            <p className="text-sm">Loading video...</p>
+          </div>
+        </div>
+      )}
+
+      {isLoading && !poster && (
+        <div className="absolute inset-0 flex items-center justify-center z-10 bg-black">
           <div className="relative z-10 text-white text-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white mx-auto mb-2"></div>
             <p className="text-sm">Loading video...</p>

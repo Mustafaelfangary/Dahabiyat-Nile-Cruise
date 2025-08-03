@@ -192,7 +192,7 @@ export default function HomepageContentSync() {
             disabled={syncing || contentFields.length === 0}
             className="bg-blue-600 hover:bg-blue-700"
           >
-            <Sync className="w-4 h-4 mr-2" />
+            <RotateCcw className="w-4 h-4 mr-2" />
             {syncing ? 'Syncing...' : 'Sync Content'}
           </Button>
         </div>

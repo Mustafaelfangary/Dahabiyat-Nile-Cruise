@@ -7,14 +7,61 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
-import { MapPin, Save, ArrowLeft, Plus, Trash2 } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { 
+  MapPin, 
+  Save, 
+  ArrowLeft, 
+  Plus, 
+  Trash2,
+  Calendar,
+  Users,
+  Star,
+  Clock,
+  Camera,
+  Video,
+  Upload,
+  Eye,
+  Sunrise,
+  Sun,
+  Sunset,
+  Moon,
+  Utensils,
+  Ship,
+  Crown,
+  Image as ImageIcon
+} from 'lucide-react';
 import { toast } from 'sonner';
-import MediaPicker from '@/components/admin/MediaPicker';
+import MediaLibrarySelector from '@/components/admin/MediaLibrarySelector';
+
+interface ItineraryDay {
+  dayNumber: number;
+  title: string;
+  description: string;
+  location: string;
+  activities: string[];
+  meals: string[];
+  images: string[];
+  videoUrl: string;
+  highlights: string[];
+  optionalTours: string[];
+}
+
+interface PricingTier {
+  category: string;
+  paxRange: string;
+  price: number;
+  singleSupplement: number;
+}
 
 export default function NewItineraryPage() {
   const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState('basic');
+  const [showMediaPicker, setShowMediaPicker] = useState<string | null>(null);
+  
   const [formData, setFormData] = useState({
     name: '',
     slug: '',
@@ -36,6 +83,103 @@ export default function NewItineraryPage() {
     featured: false,
   });
 
+  const [days, setDays] = useState<ItineraryDay[]>([
+    {
+      dayNumber: 1,
+      title: '',
+      description: '',
+      location: '',
+      activities: [''],
+      meals: [],
+      images: [],
+      videoUrl: '',
+      highlights: [''],
+      optionalTours: ['']
+    }
+  ]);
+
+  const [pricingTiers, setPricingTiers] = useState<PricingTier[]>([
+    {
+      category: 'SILVER',
+      paxRange: '2-3 PAX',
+      price: 0,
+      singleSupplement: 0
+    }
+  ]);
+
+  // Helper functions for managing days
+  const addDay = () => {
+    const newDay: ItineraryDay = {
+      dayNumber: days.length + 1,
+      title: '',
+      description: '',
+      location: '',
+      activities: [''],
+      meals: [],
+      images: [],
+      videoUrl: '',
+      highlights: [''],
+      optionalTours: ['']
+    };
+    setDays([...days, newDay]);
+    setFormData(prev => ({ ...prev, durationDays: days.length + 1 }));
+  };
+
+  const removeDay = (dayIndex: number) => {
+    if (days.length > 1) {
+      const updatedDays = days.filter((_, index) => index !== dayIndex)
+        .map((day, index) => ({ ...day, dayNumber: index + 1 }));
+      setDays(updatedDays);
+      setFormData(prev => ({ ...prev, durationDays: updatedDays.length }));
+    }
+  };
+
+  const updateDay = (dayIndex: number, field: keyof ItineraryDay, value: any) => {
+    const updatedDays = [...days];
+    updatedDays[dayIndex] = { ...updatedDays[dayIndex], [field]: value };
+    setDays(updatedDays);
+  };
+
+  const addArrayItem = (dayIndex: number, field: 'activities' | 'highlights' | 'optionalTours', value: string = '') => {
+    const updatedDays = [...days];
+    updatedDays[dayIndex][field].push(value);
+    setDays(updatedDays);
+  };
+
+  const removeArrayItem = (dayIndex: number, field: 'activities' | 'highlights' | 'optionalTours', itemIndex: number) => {
+    const updatedDays = [...days];
+    updatedDays[dayIndex][field].splice(itemIndex, 1);
+    setDays(updatedDays);
+  };
+
+  const updateArrayItem = (dayIndex: number, field: 'activities' | 'highlights' | 'optionalTours', itemIndex: number, value: string) => {
+    const updatedDays = [...days];
+    updatedDays[dayIndex][field][itemIndex] = value;
+    setDays(updatedDays);
+  };
+
+  // Helper functions for pricing tiers
+  const addPricingTier = () => {
+    setPricingTiers([...pricingTiers, {
+      category: 'GOLD',
+      paxRange: '4-8 PAX',
+      price: 0,
+      singleSupplement: 0
+    }]);
+  };
+
+  const removePricingTier = (index: number) => {
+    if (pricingTiers.length > 1) {
+      setPricingTiers(pricingTiers.filter((_, i) => i !== index));
+    }
+  };
+
+  const updatePricingTier = (index: number, field: keyof PricingTier, value: any) => {
+    const updated = [...pricingTiers];
+    updated[index] = { ...updated[index], [field]: value };
+    setPricingTiers(updated);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -53,13 +197,21 @@ export default function NewItineraryPage() {
           notIncluded: formData.notIncluded.filter(n => n.trim()),
           price: formData.price ? parseFloat(formData.price) : null,
           maxGuests: formData.maxGuests ? parseInt(formData.maxGuests) : null,
+          days: days.map(day => ({
+            ...day,
+            activities: day.activities.filter(a => a.trim()),
+            highlights: day.highlights.filter(h => h.trim()),
+            optionalTours: day.optionalTours.filter(t => t.trim())
+          })),
+          pricingTiers: pricingTiers.filter(tier => tier.price > 0)
         }),
       });
 
       if (response.ok) {
         const newItinerary = await response.json();
-        toast.success('Itinerary created successfully!');
-        window.location.href = `/admin/itineraries/${newItinerary.id}`;
+        toast.success('🏺 Sacred Journey Created Successfully!');
+        // Redirect to the itineraries list page
+        window.location.href = `/admin/itineraries`;
       } else {
         toast.error('Failed to create itinerary');
       }
@@ -71,409 +223,619 @@ export default function NewItineraryPage() {
     }
   };
 
-  const addArrayItem = (field: 'highlights' | 'included' | 'notIncluded') => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: [...prev[field], '']
-    }));
-  };
-
-  const removeArrayItem = (field: 'highlights' | 'included' | 'notIncluded', index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: prev[field].filter((_, i) => i !== index)
-    }));
-  };
-
-  const updateArrayItem = (field: 'highlights' | 'included' | 'notIncluded', index: number, value: string) => {
+  const updateArrayField = (field: 'highlights' | 'included' | 'notIncluded', index: number, value: string) => {
     setFormData(prev => ({
       ...prev,
       [field]: prev[field].map((item, i) => i === index ? value : item)
     }));
   };
 
+  const addArrayField = (field: 'highlights' | 'included' | 'notIncluded') => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: [...prev[field], '']
+    }));
+  };
+
+  const removeArrayField = (field: 'highlights' | 'included' | 'notIncluded', index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: prev[field].filter((_, i) => i !== index)
+    }));
+  };
+
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-amber-800 text-lg">Loading...</p>
+          <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4 animate-pulse" />
+          <p className="text-amber-800 text-lg">Loading Sacred Portal...</p>
         </div>
       </div>
     );
   }
 
-  if (status === 'unauthenticated') {
-    return <div>Access denied. Please sign in.</div>;
+  if (!session || session.user.role !== 'ADMIN') {
+    return (
+      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+        <div className="text-center">
+          <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4" />
+          <h1 className="text-2xl font-bold text-amber-800 mb-4">Access Denied</h1>
+          <p className="text-amber-600">Only pharaonic administrators may enter this sacred realm.</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto py-10">
-        <div className="flex items-center gap-4 mb-8">
+    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+      <div className="container mx-auto py-8">
+        {/* Pharaonic Header */}
+        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 rounded-lg shadow-lg">
           <a
             href="/admin/itineraries"
-            className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-amber-600 text-black font-bold py-2 px-4 rounded transition-colors"
+            className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
           >
-            <ArrowLeft className="w-4 h-4" />
-            Back to Itineraries
+            <ArrowLeft className="w-5 h-5" />
+            Return to Sacred Journeys
           </a>
-          <h1 className="text-3xl font-bold text-amber-800">Create New Royal Journey</h1>
+          <div className="flex items-center gap-4">
+            <Crown className="w-10 h-10 text-amber-200" />
+            <div>
+              <h1 className="text-4xl font-bold text-white">Create Sacred Journey</h1>
+              <p className="text-amber-200">Craft a divine itinerary worthy of the pharaohs</p>
+            </div>
+          </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
-          {/* Basic Information */}
-          <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
-              <CardTitle className="text-amber-800 flex items-center gap-2">
-                <MapPin className="w-5 h-5" />
-                Basic Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <Label htmlFor="name">Journey Name *</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    placeholder="e.g., Dahabiya Cruise 5 Days Esna - Aswan"
-                    required
-                    className="border-amber-200 focus:border-amber-400"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="slug">URL Slug</Label>
-                  <Input
-                    id="slug"
-                    value={formData.slug}
-                    onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
-                    placeholder="dahabiya-cruise-5-days-esna-aswan"
-                    className="border-amber-200 focus:border-amber-400"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Leave empty to auto-generate from name</p>
-                </div>
-              </div>
+        <form onSubmit={handleSubmit} className="max-w-6xl mx-auto">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+            <TabsList className="grid w-full grid-cols-4 mb-8 bg-white/80 backdrop-blur-sm border-2 border-amber-200">
+              <TabsTrigger value="basic" className="flex items-center gap-2 data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+                <MapPin className="w-4 h-4" />
+                Basic Info
+              </TabsTrigger>
+              <TabsTrigger value="days" className="flex items-center gap-2 data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+                <Calendar className="w-4 h-4" />
+                Daily Journey
+              </TabsTrigger>
+              <TabsTrigger value="pricing" className="flex items-center gap-2 data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+                <Star className="w-4 h-4" />
+                Pricing Tiers
+              </TabsTrigger>
+              <TabsTrigger value="media" className="flex items-center gap-2 data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+                <Camera className="w-4 h-4" />
+                Media & Gallery
+              </TabsTrigger>
+            </TabsList>
 
-              <div>
-                <Label htmlFor="shortDescription">Short Description</Label>
-                <Textarea
-                  id="shortDescription"
-                  value={formData.shortDescription}
-                  onChange={(e) => setFormData(prev => ({ ...prev, shortDescription: e.target.value }))}
-                  placeholder="Brief description for cards and previews"
-                  className="border-amber-200 focus:border-amber-400"
-                  rows={2}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="description">Full Description *</Label>
-                <Textarea
-                  id="description"
-                  value={formData.description}
-                  onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
-                  placeholder="Detailed description of the journey"
-                  required
-                  className="border-amber-200 focus:border-amber-400"
-                  rows={4}
-                />
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div>
-                  <Label htmlFor="durationDays">Duration (Days) *</Label>
-                  <Input
-                    id="durationDays"
-                    type="number"
-                    min="1"
-                    value={formData.durationDays}
-                    onChange={(e) => setFormData(prev => ({ ...prev, durationDays: parseInt(e.target.value) }))}
-                    required
-                    className="border-amber-200 focus:border-amber-400"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="price">Starting Price ($)</Label>
-                  <Input
-                    id="price"
-                    type="number"
-                    step="0.01"
-                    value={formData.price}
-                    onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
-                    placeholder="982.00"
-                    className="border-amber-200 focus:border-amber-400"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="maxGuests">Max Guests</Label>
-                  <Input
-                    id="maxGuests"
-                    type="number"
-                    min="1"
-                    value={formData.maxGuests}
-                    onChange={(e) => setFormData(prev => ({ ...prev, maxGuests: e.target.value }))}
-                    placeholder="35"
-                    className="border-amber-200 focus:border-amber-400"
-                  />
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Media */}
-          <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
-              <CardTitle className="text-amber-800">Media & Images</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-6">
-              <div>
-                <MediaPicker
-                  label="Main Image"
-                  value={formData.mainImageUrl}
-                  onChange={(value) => setFormData(prev => ({ ...prev, mainImageUrl: value }))}
-                  placeholder="/images/itineraries/journey-main.jpg"
-                  helperText="Select the main image that will be displayed in itinerary cards and previews"
-                  accept="image/*"
-                />
-              </div>
-              <div>
-                <MediaPicker
-                  label="Hero Background Image"
-                  value={formData.heroImageUrl}
-                  onChange={(value) => setFormData(prev => ({ ...prev, heroImageUrl: value }))}
-                  placeholder="/images/itineraries/journey-hero.jpg"
-                  helperText="Select the hero background image for the itinerary header"
-                  accept="image/*"
-                />
-              </div>
-              <div>
-                <MediaPicker
-                  label="Video URL (Optional)"
-                  value={formData.videoUrl}
-                  onChange={(value) => setFormData(prev => ({ ...prev, videoUrl: value }))}
-                  placeholder="https://youtube.com/watch?v=..."
-                  helperText="Add a promotional video for this itinerary"
-                  accept="video/*"
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Highlights */}
-          <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
-              <CardTitle className="text-amber-800">Journey Highlights</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6">
-              <div className="space-y-3">
-                {formData.highlights.map((highlight, index) => (
-                  <div key={index} className="flex gap-2">
-                    <Input
-                      value={highlight}
-                      onChange={(e) => updateArrayItem('highlights', index, e.target.value)}
-                      placeholder="e.g., Edfu Temple - largest temple in Egypt"
-                      className="border-amber-200 focus:border-amber-400"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      onClick={() => removeArrayItem('highlights', index)}
-                      className="text-red-600 hover:text-red-700"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </Button>
+            {/* Basic Information Tab */}
+            <TabsContent value="basic" className="space-y-6">
+              <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
+                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                  <CardTitle className="flex items-center gap-3">
+                    <Ship className="w-6 h-6" />
+                    Sacred Journey Details
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-8 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <Label htmlFor="name" className="text-amber-800 font-semibold">Journey Name *</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
+                        placeholder="e.g., Royal Dahabiya Cruise: 5 Days Esna - Aswan"
+                        required
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="slug" className="text-amber-800 font-semibold">URL Slug</Label>
+                      <Input
+                        id="slug"
+                        value={formData.slug}
+                        onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
+                        placeholder="royal-dahabiya-cruise-5-days"
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      />
+                      <p className="text-sm text-amber-600 mt-1">Leave empty to auto-generate from name</p>
+                    </div>
                   </div>
-                ))}
+
+                  <div>
+                    <Label htmlFor="shortDescription" className="text-amber-800 font-semibold">Royal Summary</Label>
+                    <Textarea
+                      id="shortDescription"
+                      value={formData.shortDescription}
+                      onChange={(e) => setFormData(prev => ({ ...prev, shortDescription: e.target.value }))}
+                      placeholder="A brief, captivating description for cards and previews..."
+                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      rows={3}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="description" className="text-amber-800 font-semibold">Full Description</Label>
+                    <Textarea
+                      id="description"
+                      value={formData.description}
+                      onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
+                      placeholder="Detailed description of this magnificent journey..."
+                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      rows={6}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div>
+                      <Label htmlFor="durationDays" className="text-amber-800 font-semibold">Duration (Days)</Label>
+                      <Input
+                        id="durationDays"
+                        type="number"
+                        min="1"
+                        value={formData.durationDays}
+                        onChange={(e) => setFormData(prev => ({ ...prev, durationDays: parseInt(e.target.value) || 1 }))}
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="maxGuests" className="text-amber-800 font-semibold">Max Guests</Label>
+                      <Input
+                        id="maxGuests"
+                        type="number"
+                        min="1"
+                        value={formData.maxGuests}
+                        onChange={(e) => setFormData(prev => ({ ...prev, maxGuests: e.target.value }))}
+                        placeholder="e.g., 20"
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="price" className="text-amber-800 font-semibold">Base Price (USD)</Label>
+                      <Input
+                        id="price"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value={formData.price}
+                        onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
+                        placeholder="e.g., 1500"
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Journey Highlights */}
+                  <div>
+                    <Label className="text-amber-800 font-semibold">Journey Highlights</Label>
+                    <div className="space-y-3 mt-2">
+                      {formData.highlights.map((highlight, index) => (
+                        <div key={index} className="flex gap-2">
+                          <Input
+                            value={highlight}
+                            onChange={(e) => updateArrayField('highlights', index, e.target.value)}
+                            placeholder="e.g., Visit the magnificent Temple of Edfu"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => removeArrayField('highlights', index)}
+                            className="border-red-300 text-red-600 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        </div>
+                      ))}
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => addArrayField('highlights')}
+                        className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Add Highlight
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+
+            {/* Daily Journey Tab */}
+            <TabsContent value="days" className="space-y-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Calendar className="w-6 h-6 text-amber-600" />
+                  <h2 className="text-2xl font-bold text-amber-800">Daily Journey Details</h2>
+                </div>
                 <Button
                   type="button"
-                  variant="outline"
-                  onClick={() => addArrayItem('highlights')}
-                  className="border-amber-300 text-amber-800 hover:bg-amber-50"
+                  onClick={addDay}
+                  className="bg-amber-500 hover:bg-amber-600 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Highlight
+                  Add Day
                 </Button>
               </div>
-            </CardContent>
-          </Card>
 
-          {/* Included/Not Included */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Included */}
-            <Card className="border-2 border-green-200">
-              <CardHeader className="bg-gradient-to-r from-green-100 to-emerald-100">
-                <CardTitle className="text-green-800">What's Included</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  {formData.included.map((item, index) => (
-                    <div key={index} className="flex gap-2">
+              <div className="space-y-6">
+                {days.map((day, dayIndex) => (
+                  <Card key={dayIndex} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
+                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                      <div className="flex items-center justify-between">
+                        <CardTitle className="flex items-center gap-3">
+                          <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-amber-800 font-bold">
+                            {day.dayNumber}
+                          </div>
+                          Day {day.dayNumber}
+                        </CardTitle>
+                        {days.length > 1 && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => removeDay(dayIndex)}
+                            className="border-red-300 text-red-600 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-6 space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                          <Label className="text-amber-800 font-semibold">Day Title *</Label>
+                          <Input
+                            value={day.title}
+                            onChange={(e) => updateDay(dayIndex, 'title', e.target.value)}
+                            placeholder="e.g., Arrival in Luxor - Temple of Karnak"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-amber-800 font-semibold">Location</Label>
+                          <Input
+                            value={day.location}
+                            onChange={(e) => updateDay(dayIndex, 'location', e.target.value)}
+                            placeholder="e.g., Luxor, Egypt"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                        </div>
+                      </div>
+
+                      <div>
+                        <Label className="text-amber-800 font-semibold">Day Description</Label>
+                        <Textarea
+                          value={day.description}
+                          onChange={(e) => updateDay(dayIndex, 'description', e.target.value)}
+                          placeholder="Detailed description of this day's journey..."
+                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          rows={4}
+                        />
+                      </div>
+
+                      {/* Meals */}
+                      <div>
+                        <Label className="text-amber-800 font-semibold">Meals Included</Label>
+                        <div className="flex gap-4 mt-2">
+                          {[
+                            { label: 'Breakfast', value: 'BREAKFAST' },
+                            { label: 'Lunch', value: 'LUNCH' },
+                            { label: 'Dinner', value: 'DINNER' },
+                            { label: 'Snack', value: 'SNACK' },
+                            { label: 'Afternoon Tea', value: 'AFTERNOON_TEA' }
+                          ].map((meal) => (
+                            <label key={meal.value} className="flex items-center gap-2">
+                              <input
+                                type="checkbox"
+                                checked={day.meals.includes(meal.value)}
+                                onChange={(e) => {
+                                  const meals = e.target.checked
+                                    ? [...day.meals, meal.value]
+                                    : day.meals.filter(m => m !== meal.value);
+                                  updateDay(dayIndex, 'meals', meals);
+                                }}
+                                className="rounded border-amber-300"
+                              />
+                              <span className="text-amber-700 flex items-center gap-1">
+                                <Utensils className="w-4 h-4" />
+                                {meal.label}
+                              </span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Activities */}
+                      <div>
+                        <Label className="text-amber-800 font-semibold">Activities & Excursions</Label>
+                        <div className="space-y-3 mt-2">
+                          {day.activities.map((activity, actIndex) => (
+                            <div key={actIndex} className="flex gap-2">
+                              <Input
+                                value={activity}
+                                onChange={(e) => updateArrayItem(dayIndex, 'activities', actIndex, e.target.value)}
+                                placeholder="e.g., Guided tour of Karnak Temple Complex"
+                                className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                              />
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => removeArrayItem(dayIndex, 'activities', actIndex)}
+                                className="border-red-300 text-red-600 hover:bg-red-50"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => addArrayItem(dayIndex, 'activities')}
+                            className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add Activity
+                          </Button>
+                        </div>
+                      </div>
+
+                      {/* Day Highlights */}
+                      <div>
+                        <Label className="text-amber-800 font-semibold">Day Highlights</Label>
+                        <div className="space-y-3 mt-2">
+                          {day.highlights.map((highlight, hlIndex) => (
+                            <div key={hlIndex} className="flex gap-2">
+                              <Input
+                                value={highlight}
+                                onChange={(e) => updateArrayItem(dayIndex, 'highlights', hlIndex, e.target.value)}
+                                placeholder="e.g., Witness the sunset from the temple's sacred halls"
+                                className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                              />
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => removeArrayItem(dayIndex, 'highlights', hlIndex)}
+                                className="border-red-300 text-red-600 hover:bg-red-50"
+                              >
+                                <Trash2 className="w-4 h-4" />
+                              </Button>
+                            </div>
+                          ))}
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={() => addArrayItem(dayIndex, 'highlights')}
+                            className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                          >
+                            <Plus className="w-4 h-4 mr-2" />
+                            Add Highlight
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+
+            {/* Pricing Tiers Tab */}
+            <TabsContent value="pricing" className="space-y-6">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <Star className="w-6 h-6 text-amber-600" />
+                  <h2 className="text-2xl font-bold text-amber-800">Pricing Tiers</h2>
+                </div>
+                <Button
+                  type="button"
+                  onClick={addPricingTier}
+                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                >
+                  <Plus className="w-4 h-4 mr-2" />
+                  Add Tier
+                </Button>
+              </div>
+
+              <div className="grid gap-6">
+                {pricingTiers.map((tier, index) => (
+                  <Card key={index} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
+                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                      <div className="flex items-center justify-between">
+                        <CardTitle>Pricing Tier {index + 1}</CardTitle>
+                        {pricingTiers.length > 1 && (
+                          <Button
+                            type="button"
+                            variant="outline"
+                            size="sm"
+                            onClick={() => removePricingTier(index)}
+                            className="border-red-300 text-red-600 hover:bg-red-50"
+                          >
+                            <Trash2 className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
+                    </CardHeader>
+                    <CardContent className="p-6">
+                      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div>
+                          <Label className="text-amber-800 font-semibold">Category</Label>
+                          <Select
+                            value={tier.category}
+                            onValueChange={(value) => updatePricingTier(index, 'category', value)}
+                          >
+                            <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectItem value="SILVER">Silver</SelectItem>
+                              <SelectItem value="GOLD">Gold</SelectItem>
+                              <SelectItem value="DIAMOND">Diamond</SelectItem>
+                              <SelectItem value="PLATINUM">Platinum</SelectItem>
+                            </SelectContent>
+                          </Select>
+                        </div>
+                        <div>
+                          <Label className="text-amber-800 font-semibold">PAX Range</Label>
+                          <Input
+                            value={tier.paxRange}
+                            onChange={(e) => updatePricingTier(index, 'paxRange', e.target.value)}
+                            placeholder="e.g., 2-3 PAX"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-amber-800 font-semibold">Price (USD)</Label>
+                          <Input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={tier.price}
+                            onChange={(e) => updatePricingTier(index, 'price', parseFloat(e.target.value) || 0)}
+                            placeholder="e.g., 1500"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-amber-800 font-semibold">Single Supplement</Label>
+                          <Input
+                            type="number"
+                            min="0"
+                            step="0.01"
+                            value={tier.singleSupplement}
+                            onChange={(e) => updatePricingTier(index, 'singleSupplement', parseFloat(e.target.value) || 0)}
+                            placeholder="e.g., 300"
+                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          />
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+
+            {/* Media & Gallery Tab */}
+            <TabsContent value="media" className="space-y-6">
+              <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
+                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                  <CardTitle className="flex items-center gap-3">
+                    <Camera className="w-6 h-6" />
+                    Media & Visual Gallery
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-8 space-y-8">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <Label className="text-amber-800 font-semibold">Main Image URL</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          value={formData.mainImageUrl}
+                          onChange={(e) => setFormData(prev => ({ ...prev, mainImageUrl: e.target.value }))}
+                          placeholder="Main display image URL"
+                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowMediaPicker('mainImage')}
+                          className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                        >
+                          <ImageIcon className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                    <div>
+                      <Label className="text-amber-800 font-semibold">Hero Image URL</Label>
+                      <div className="flex gap-2">
+                        <Input
+                          value={formData.heroImageUrl}
+                          onChange={(e) => setFormData(prev => ({ ...prev, heroImageUrl: e.target.value }))}
+                          placeholder="Hero banner image URL"
+                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowMediaPicker('heroImage')}
+                          className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                        >
+                          <ImageIcon className="w-4 h-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label className="text-amber-800 font-semibold">Video URL</Label>
+                    <div className="flex gap-2">
                       <Input
-                        value={item}
-                        onChange={(e) => updateArrayItem('included', index, e.target.value)}
-                        placeholder="e.g., 04 nights Dahabiya Nile Cruise full board"
-                        className="border-green-200 focus:border-green-400"
+                        value={formData.videoUrl}
+                        onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
+                        placeholder="Journey video URL"
+                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
                       />
                       <Button
                         type="button"
                         variant="outline"
-                        size="sm"
-                        onClick={() => removeArrayItem('included', index)}
-                        className="text-red-600 hover:text-red-700"
+                        onClick={() => setShowMediaPicker('video')}
+                        className="border-amber-300 text-amber-600 hover:bg-amber-50"
                       >
-                        <Trash2 className="w-4 h-4" />
+                        <Video className="w-4 h-4" />
                       </Button>
                     </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => addArrayItem('included')}
-                    className="border-green-300 text-green-800 hover:bg-green-50"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Included Item
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+          </Tabs>
 
-            {/* Not Included */}
-            <Card className="border-2 border-red-200">
-              <CardHeader className="bg-gradient-to-r from-red-100 to-pink-100">
-                <CardTitle className="text-red-800">What's Not Included</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
-                <div className="space-y-3">
-                  {formData.notIncluded.map((item, index) => (
-                    <div key={index} className="flex gap-2">
-                      <Input
-                        value={item}
-                        onChange={(e) => updateArrayItem('notIncluded', index, e.target.value)}
-                        placeholder="e.g., International flights"
-                        className="border-red-200 focus:border-red-400"
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        size="sm"
-                        onClick={() => removeArrayItem('notIncluded', index)}
-                        className="text-red-600 hover:text-red-700"
-                      >
-                        <Trash2 className="w-4 h-4" />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={() => addArrayItem('notIncluded')}
-                    className="border-red-300 text-red-800 hover:bg-red-50"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Not Included Item
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Policies */}
-          <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
-              <CardTitle className="text-amber-800">Policies & Information</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-6">
-              <div>
-                <Label htmlFor="childrenPolicy">Children Policy</Label>
-                <Textarea
-                  id="childrenPolicy"
-                  value={formData.childrenPolicy}
-                  onChange={(e) => setFormData(prev => ({ ...prev, childrenPolicy: e.target.value }))}
-                  placeholder="e.g., From 0 to 01 years: Free tour. From 2 to 5 years: Pay 25%..."
-                  className="border-amber-200 focus:border-amber-400"
-                  rows={2}
-                />
-              </div>
-              <div>
-                <Label htmlFor="cancellationPolicy">Cancellation Policy</Label>
-                <Textarea
-                  id="cancellationPolicy"
-                  value={formData.cancellationPolicy}
-                  onChange={(e) => setFormData(prev => ({ ...prev, cancellationPolicy: e.target.value }))}
-                  placeholder="e.g., No cancellation fees up to 15 days before arrival..."
-                  className="border-amber-200 focus:border-amber-400"
-                  rows={2}
-                />
-              </div>
-              <div>
-                <Label htmlFor="observations">Observations & Notes</Label>
-                <Textarea
-                  id="observations"
-                  value={formData.observations}
-                  onChange={(e) => setFormData(prev => ({ ...prev, observations: e.target.value }))}
-                  placeholder="e.g., Prices are for low season departure. 20% supplement during high season..."
-                  className="border-amber-200 focus:border-amber-400"
-                  rows={2}
-                />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Settings */}
-          <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
-              <CardTitle className="text-amber-800">Settings</CardTitle>
-            </CardHeader>
-            <CardContent className="p-6 space-y-4">
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="isActive"
-                  checked={formData.isActive}
-                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, isActive: !!checked }))}
-                />
-                <Label htmlFor="isActive">Active (visible to public)</Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="featured"
-                  checked={formData.featured}
-                  onCheckedChange={(checked) => setFormData(prev => ({ ...prev, featured: !!checked }))}
-                />
-                <Label htmlFor="featured">Featured journey</Label>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Submit */}
-          <div className="flex gap-4">
+          {/* Submit Button */}
+          <div className="flex justify-center mt-12">
             <Button
               type="submit"
               disabled={loading}
-              className="bg-amber-600 hover:bg-amber-700 text-black flex-1"
+              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-12 py-4 text-lg font-bold rounded-lg shadow-lg"
             >
               {loading ? (
-                <>Creating...</>
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                  Creating Sacred Journey...
+                </>
               ) : (
                 <>
-                  <Save className="w-4 h-4 mr-2" />
-                  Create Royal Journey
+                  <Crown className="w-5 h-5 mr-3" />
+                  Create Sacred Journey
                 </>
               )}
             </Button>
-            <Button
-              type="button"
-              variant="outline"
-              onClick={() => window.location.href = '/admin/itineraries'}
-              className="border-amber-300 text-amber-800 hover:bg-amber-50"
-            >
-              Cancel
-            </Button>
           </div>
         </form>
+
+        {/* Media Library Selector */}
+        {showMediaPicker && (
+          <MediaLibrarySelector
+            onSelect={(url) => {
+              if (showMediaPicker === 'mainImage') {
+                setFormData(prev => ({ ...prev, mainImageUrl: url }));
+              } else if (showMediaPicker === 'heroImage') {
+                setFormData(prev => ({ ...prev, heroImageUrl: url }));
+              } else if (showMediaPicker === 'video') {
+                setFormData(prev => ({ ...prev, videoUrl: url }));
+              }
+              setShowMediaPicker(null);
+            }}
+            onClose={() => setShowMediaPicker(null)}
+            currentValue=""
+            accept={showMediaPicker === 'video' ? 'video/*' : 'image/*'}
+          />
+        )}
       </div>
     </div>
   );

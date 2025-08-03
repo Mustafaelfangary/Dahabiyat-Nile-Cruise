@@ -145,42 +145,43 @@ export default function MediaLibrarySelector({
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-2xl max-w-6xl w-full max-h-[95vh] sm:max-h-[90vh] overflow-hidden relative transform transition-transform duration-200 scale-100 mx-2 sm:mx-4"
+        className="bg-white rounded-lg shadow-xl w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl flex flex-col overflow-hidden relative"
         onClick={(e) => e.stopPropagation()}
+        style={{
+          height: 'auto',
+          maxHeight: '85vh',
+          minHeight: '400px'
+        }}
       >
         {/* Header */}
-        <div className="flex justify-between items-center p-4 sm:p-6 border-b-2 border-yellow-500 bg-gradient-to-r from-slate-800 to-slate-700">
-          <h2 className="text-lg sm:text-2xl font-bold text-white flex items-center gap-2 sm:gap-3">
-            <span className="text-2xl sm:text-3xl">📱</span>
-            <span className="hidden sm:inline">Media Library</span>
-            <span className="sm:hidden">Media</span>
+        <div className="flex justify-between items-center p-4 border-b border-yellow-500 bg-slate-800 flex-shrink-0">
+          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <span className="text-xl">📱</span>
+            <span>Media Library</span>
           </h2>
           <button
             onClick={onClose}
-            className="text-white hover:text-yellow-400 text-lg sm:text-xl font-bold px-3 sm:px-4 py-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-all duration-200"
+            className="text-white hover:text-yellow-400 text-lg font-bold px-3 py-2 rounded hover:bg-slate-700 transition-colors"
           >
-            <span className="sm:hidden">✕</span>
-            <span className="hidden sm:inline">✕ Close</span>
+            ✕
           </button>
         </div>
 
-        <div className="p-3 sm:p-6 overflow-y-auto max-h-[calc(95vh-200px)] sm:max-h-[calc(90vh-200px)]">
+        <div className="flex-1 p-4 overflow-y-auto min-h-0">
           {/* Upload Section */}
-          <div className="mb-6 sm:mb-8 p-4 sm:p-6 bg-gradient-to-r from-blue-50 to-yellow-50 rounded-lg border border-yellow-200">
-            <h3 className="text-lg sm:text-xl font-semibold text-slate-800 mb-3 sm:mb-4 flex items-center gap-2 sm:gap-3">
-              <span className="text-xl sm:text-2xl">📤</span>
-              <span className="hidden sm:inline">Upload New Media</span>
-              <span className="sm:hidden">Upload</span>
-            </h3>
+          <div className="mb-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Upload New Media
+            </label>
             <input
               type="file"
               accept={accept}
               onChange={handleFileUpload}
               disabled={uploading}
-              className="w-full p-4 border-2 border-yellow-400 rounded-lg bg-white text-slate-700 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:font-semibold hover:file:bg-yellow-600 transition-all duration-200"
+              className="w-full p-3 text-sm border border-yellow-400 rounded-lg bg-white file:mr-2 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:text-sm file:font-medium hover:file:bg-yellow-600 transition-colors"
             />
             {uploading && (
-              <p className="mt-3 text-slate-600 flex items-center gap-2">
+              <p className="mt-2 text-sm flex items-center gap-2 text-yellow-700">
                 <span className="animate-spin">⏳</span>
                 Uploading...
               </p>
@@ -188,25 +189,21 @@ export default function MediaLibrarySelector({
           </div>
 
           {/* Media Grid */}
-          <div className="mb-6">
-            <h3 className="text-xl font-semibold text-slate-800 mb-6 flex items-center gap-3">
-              <span className="text-2xl">🖼️</span>
-              Select Media
-            </h3>
-            
+          <div className="mb-4">
+            <h3 className="text-sm font-medium text-gray-700 mb-3">Select Media</h3>
             {loading ? (
-              <div className="text-center py-12">
-                <div className="animate-spin text-4xl mb-4">⏳</div>
-                <p className="text-slate-600 text-lg">Loading media...</p>
+              <div className="text-center py-8">
+                <div className="animate-spin text-2xl mb-3">⏳</div>
+                <p className="text-sm text-gray-600">Loading media library...</p>
               </div>
             ) : mediaItems.length === 0 ? (
-              <div className="text-center py-12 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">
-                <div className="text-6xl mb-4">📁</div>
-                <p className="text-gray-600 text-lg">No media files found.</p>
-                <p className="text-gray-500">Upload some files to get started.</p>
+              <div className="text-center py-8 bg-gray-50 rounded-lg border border-dashed border-gray-300">
+                <div className="text-4xl mb-3">📁</div>
+                <p className="text-sm text-gray-600">No media files found</p>
+                <p className="text-xs text-gray-500 mt-1">Upload your first file above</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-4 max-h-96 overflow-y-auto p-2">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-h-96 overflow-y-auto">
                 {mediaItems.map((item) => (
                   <div
                     key={item.id}
@@ -215,8 +212,8 @@ export default function MediaLibrarySelector({
                       setSelectedItem(item.url);
                     }}
                     className={`group cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-200 hover:shadow-lg ${
-                      selectedItem === item.url 
-                        ? 'border-yellow-500 ring-2 ring-yellow-200 shadow-lg' 
+                      selectedItem === item.url
+                        ? 'border-yellow-500 ring-2 ring-yellow-200 shadow-lg'
                         : 'border-gray-200 hover:border-yellow-300'
                     }`}
                   >
@@ -224,18 +221,18 @@ export default function MediaLibrarySelector({
                       <img
                         src={item.url}
                         alt={item.name}
-                        className="w-full h-32 object-cover group-hover:scale-105 transition-transform duration-200"
+                        className="w-full h-24 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-32 bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors duration-200">
-                        <span className="text-4xl">📄</span>
+                      <div className="w-full h-24 bg-gray-100 flex items-center justify-center">
+                        <span className="text-2xl">📄</span>
                       </div>
                     )}
-                    <div className="p-3 bg-white">
-                      <div className="text-sm font-semibold text-slate-800 truncate mb-1">
-                        {item.name}
+                    <div className="p-2 bg-white">
+                      <div className="text-xs font-medium text-slate-800 truncate" title={item.name}>
+                        {item.name.length > 12 ? item.name.substring(0, 12) + '...' : item.name}
                       </div>
-                      <div className="text-xs text-slate-500">
+                      <div className="text-xs text-slate-500 mt-1">
                         {formatFileSize(item.size)}
                       </div>
                     </div>
@@ -247,40 +244,24 @@ export default function MediaLibrarySelector({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-6 border-t-2 border-yellow-500 bg-gray-50 gap-3 sm:gap-0">
-          <div className="text-slate-600 text-xs sm:text-sm w-full sm:w-auto">
-            {selectedItem ? (
-              <span className="flex items-center gap-2">
-                <span className="text-green-600">✓</span>
-                <span className="hidden sm:inline">Selected:</span>
-                <span className="font-medium text-slate-800 truncate max-w-[200px] sm:max-w-xs">{selectedItem.split('/').pop()}</span>
-              </span>
-            ) : (
-              <span className="flex items-center gap-2">
-                <span className="text-gray-400">○</span>
-                <span className="hidden sm:inline">No media selected</span>
-                <span className="sm:hidden">Select an image</span>
-              </span>
-            )}
-          </div>
-          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
+        <div className="flex-shrink-0 p-4 border-t border-yellow-500 bg-gray-50">
+          <div className="flex gap-3 w-full">
             <button
               onClick={onClose}
-              className="flex-1 sm:flex-none px-4 sm:px-6 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors duration-200 font-medium text-sm sm:text-base"
+              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleSelect}
               disabled={!selectedItem}
-              className={`flex-1 sm:flex-none px-4 sm:px-6 py-2 rounded-lg font-medium transition-all duration-200 text-sm sm:text-base ${
+              className={`flex-1 px-6 py-3 rounded-lg text-sm font-medium transition-colors ${
                 selectedItem
-                  ? 'bg-gradient-to-r from-yellow-500 to-yellow-600 text-white hover:from-yellow-600 hover:to-yellow-700 shadow-lg'
+                  ? 'bg-yellow-500 text-white hover:bg-yellow-600 shadow-md'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >
-              <span className="hidden sm:inline">Select Media</span>
-              <span className="sm:hidden">Select</span>
+              {selectedItem ? 'Select Media' : 'Choose a file'}
             </button>
           </div>
         </div>

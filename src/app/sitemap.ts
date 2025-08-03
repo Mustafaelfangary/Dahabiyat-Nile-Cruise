@@ -70,72 +70,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.8,
     }));
 
-    // Add static package pages since dynamic ones are commented out
-    const staticPackagePages: MetadataRoute.Sitemap = [
-      {
-        url: `${baseUrl}/packages/luxury-nile-experience`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/classic-egypt-explorer`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/cultural-discovery`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/adventure-explorer`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/royal-heritage`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/family-heritage`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-    ];
+    // Static package pages removed - now using dynamic package generation
+    const staticPackagePages: MetadataRoute.Sitemap = [];
 
     return [...staticPages, ...dahabiyaPages, ...staticPackagePages];
   } catch (error) {
     console.error('Error generating sitemap:', error);
 
-    // Return static pages with fallback package pages if database query fails
-    const fallbackPackagePages: MetadataRoute.Sitemap = [
-      {
-        url: `${baseUrl}/packages/luxury-nile-experience`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/classic-egypt-explorer`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-      {
-        url: `${baseUrl}/packages/cultural-discovery`,
-        lastModified: new Date(),
-        changeFrequency: 'weekly' as const,
-        priority: 0.8,
-      },
-    ];
-
-    return [...staticPages, ...fallbackPackagePages];
+    // Return only static pages if database query fails
+    return staticPages;
   }
 }

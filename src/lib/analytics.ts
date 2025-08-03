@@ -214,15 +214,49 @@ export class Analytics {
   }
 
   private trackPerformanceMetrics() {
-    // Track Core Web Vitals
-    if ('web-vitals' in window) {
-      import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
-        getCLS((metric) => this.trackWebVital(metric));
-        getFID((metric) => this.trackWebVital(metric));
-        getFCP((metric) => this.trackWebVital(metric));
-        getLCP((metric) => this.trackWebVital(metric));
-        getTTFB((metric) => this.trackWebVital(metric));
-      });
+    // Track Core Web Vitals using native Performance API
+    if ('PerformanceObserver' in window) {
+      try {
+        // Track Largest Contentful Paint (LCP)
+        const lcpObserver = new PerformanceObserver((list) => {
+          const entries = list.getEntries();
+          const lastEntry = entries[entries.length - 1];
+          this.trackWebVital({
+            name: 'LCP',
+            value: lastEntry.startTime,
+            id: 'lcp-' + Date.now()
+          });
+        });
+        lcpObserver.observe({ type: 'largest-contentful-paint', buffered: true });
+
+        // Track First Input Delay (FID)
+        const fidObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            this.trackWebVital({
+              name: 'FID',
+              value: entry.processingStart - entry.startTime,
+              id: 'fid-' + Date.now()
+            });
+          }
+        });
+        fidObserver.observe({ type: 'first-input', buffered: true });
+
+        // Track First Contentful Paint (FCP)
+        const fcpObserver = new PerformanceObserver((list) => {
+          for (const entry of list.getEntries()) {
+            if (entry.name === 'first-contentful-paint') {
+              this.trackWebVital({
+                name: 'FCP',
+                value: entry.startTime,
+                id: 'fcp-' + Date.now()
+              });
+            }
+          }
+        });
+        fcpObserver.observe({ type: 'paint', buffered: true });
+      } catch (error) {
+        console.warn('PerformanceObserver not supported:', error);
+      }
     }
 
     // Track custom performance metrics

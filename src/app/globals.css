@@ -2193,7 +2193,19 @@ img.no-zoom:hover,
   /* Video Hero Fixes */
   video {
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center 25% !important;
+  }
+
+  /* Specific hero video positioning to prevent cropping */
+  .hero-video {
+    object-fit: cover !important;
+    object-position: center 15% !important;
+    transform: scale(1.1) !important;
+    height: 110% !important;
+    width: 110% !important;
+    top: -5% !important;
+    left: -5% !important;
+    position: absolute !important;
   }
 
   /* Enhanced Button Sizing */
@@ -2333,7 +2345,7 @@ img.no-zoom:hover,
   /* Video Hero Improvements */
   video {
     object-fit: cover !important;
-    object-position: center center !important;
+    object-position: center 25% !important;
   }
 
   /* Enhanced Touch Targets */

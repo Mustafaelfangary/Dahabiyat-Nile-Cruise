@@ -324,11 +324,11 @@ export default function ItinerariesManagementPage() {
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => window.location.href = `/itineraries/${itinerary.slug}`}
-                    className="flex-1"
+                    onClick={() => window.location.href = `/admin/itineraries/${itinerary.id}/edit`}
+                    className="flex-1 text-amber-600 hover:text-amber-700 border-amber-300 hover:bg-amber-50"
                   >
-                    <Eye className="w-4 h-4 mr-1" />
-                    View
+                    <Edit className="w-4 h-4 mr-1" />
+                    Edit
                   </Button>
                   <Button
                     variant="outline"
