@@ -4,6 +4,8 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
+import { useContent } from '@/hooks/useContent';
 import { 
   Settings, 
   Users, 
@@ -47,6 +49,12 @@ export default function MobileAdminLayout({
   const { data: session, status } = useSession();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { getContent } = useContent();
+
+  // Get dynamic logo from database, fallback to static
+  const getMobileLogo = () => {
+    return getContent('navbar_logo', '/images/logo.png');
+  };
 
   // Redirect if not admin
   useEffect(() => {
@@ -89,6 +97,23 @@ export default function MobileAdminLayout({
                 <ArrowLeft className="w-5 h-5" />
               </Button>
             )}
+
+            {/* Logo */}
+            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gradient-to-br from-egyptian-gold to-amber-500 p-1">
+              <Image
+                src={getMobileLogo()}
+                alt="Admin Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-contain rounded-md"
+                onError={(e) => {
+                  // Fallback to static logo if dynamic fails
+                  const target = e.target as HTMLImageElement;
+                  target.src = '/images/logo.png';
+                }}
+              />
+            </div>
+
             <div>
               <h1 className="font-bold text-lg text-slate-800">{title}</h1>
               <p className="text-xs text-slate-500">Mobile Admin</p>
@@ -136,9 +161,26 @@ export default function MobileAdminLayout({
               {/* Sidebar Header */}
               <div className="bg-gradient-to-r from-blue-600 to-indigo-600 p-6 text-white">
                 <div className="flex items-center justify-between">
-                  <div>
-                    <h2 className="text-xl font-bold">Admin Panel</h2>
-                    <p className="text-blue-100 text-sm mt-1">Dahabiyat Nile Cruise</p>
+                  <div className="flex items-center space-x-3">
+                    {/* Logo in Sidebar */}
+                    <div className="w-10 h-10 rounded-lg overflow-hidden bg-white/20 p-1">
+                      <Image
+                        src={getMobileLogo()}
+                        alt="Admin Logo"
+                        width={40}
+                        height={40}
+                        className="w-full h-full object-contain rounded-md"
+                        onError={(e) => {
+                          // Fallback to static logo if dynamic fails
+                          const target = e.target as HTMLImageElement;
+                          target.src = '/images/logo.png';
+                        }}
+                      />
+                    </div>
+                    <div>
+                      <h2 className="text-xl font-bold">Admin Panel</h2>
+                      <p className="text-blue-100 text-sm mt-1">Dahabiyat Nile Cruise</p>
+                    </div>
                   </div>
                   <Button
                     variant="ghost"

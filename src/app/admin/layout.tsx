@@ -2,6 +2,8 @@
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
+import { SessionProvider } from 'next-auth/react';
+import { AdminHeader } from '@/components/admin/AdminHeader';
 import '../globals.css';
 import '../../styles/admin.css';
 
@@ -21,9 +23,14 @@ export default function AdminLayout({
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="admin-layout">
-        {children}
-      </div>
+      <SessionProvider>
+        <div className="admin-layout min-h-screen bg-slate-50">
+          <AdminHeader />
+          <div className="admin-content">
+            {children}
+          </div>
+        </div>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }
