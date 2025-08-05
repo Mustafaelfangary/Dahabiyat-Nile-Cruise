@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MapPin, Plus, Edit, Trash2, Eye, Calendar, Users, Star, Download } from 'lucide-react';
+import { MapPin, Plus, Edit, Trash2, Eye, Calendar, Users, Star, Download, RefreshCw, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Itinerary {

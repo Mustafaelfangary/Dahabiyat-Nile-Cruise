@@ -2461,3 +2461,61 @@ img.no-zoom:hover,
     border: 1px solid rgba(212, 175, 55, 0.3) !important;
   }
 }
+
+/* Scrollbar Hide Utility for Cross-Browser Support */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Responsive Tab Fixes */
+.admin-tabs-mobile {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.admin-tabs-mobile::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth scrolling for tab containers */
+.tab-scroll-container {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Admin Panel Tab Responsive Fixes */
+@media (max-width: 1024px) {
+  .admin-tabs-container {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .admin-tabs-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .admin-tabs-list {
+    min-width: max-content;
+    width: auto;
+  }
+}
+
+/* Mobile Admin Tab Improvements */
+@media (max-width: 768px) {
+  .admin-tab-trigger {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  .admin-tab-badge {
+    font-size: 0.625rem;
+    padding: 0.125rem 0.375rem;
+  }
+}

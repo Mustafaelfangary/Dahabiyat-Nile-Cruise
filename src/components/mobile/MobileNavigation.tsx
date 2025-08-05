@@ -81,6 +81,11 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
   const { getContent } = useContent({ page: 'global_media' });
 
+  // Get dynamic mobile logo
+  const getMobileLogo = () => {
+    return getContent('navbar_logo', '/images/logo.png');
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -294,7 +299,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
           {/* Dynamic Logo + Site Name */}
           <Link href="/" className="flex items-center space-x-2" onClick={onToggle}>
             <Image
-              src="/images/logo.png"
+              src={getMobileLogo()}
               alt="Site Logo"
               width={64}
               height={64}

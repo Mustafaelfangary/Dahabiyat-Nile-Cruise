@@ -84,6 +84,11 @@ export default function Navbar() {
   const { getContent } = useContent({ page: 'global_media' });
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
 
+  // Get dynamic logo from database
+  const getNavbarLogo = () => {
+    return getContent('navbar_logo', '/images/logo.png');
+  };
+
   // Check if we're on the homepage
   const isHomepage = pathname === '/';
 
@@ -312,7 +317,7 @@ export default function Navbar() {
             flexShrink: 0
           }}>
             <Image
-              src="/images/logo.png"
+              src={getNavbarLogo()}
               alt="Site Logo"
               width={56}
               height={56}

@@ -224,7 +224,7 @@ export function generateOrganizationSchema() {
     name: defaultSEO.siteName,
     description: defaultSEO.defaultDescription,
     url: defaultSEO.siteUrl,
-    logo: `${defaultSEO.siteUrl}/images/logo.png`,
+    logo: `${defaultSEO.siteUrl}/images/logo.png`, // TODO: Make this dynamic from database
     image: `${defaultSEO.siteUrl}${defaultSEO.defaultImage}`,
     telephone: '+20-123-456-7890',
     email: 'info@cleopatra-dahabiyat.com',

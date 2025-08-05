@@ -38,7 +38,7 @@ export default function FAQPage() {
           {/* Hieroglyphic Egypt at top */}
           <div className="text-center mb-8">
             <div className="text-4xl font-bold text-white mb-2">
-              𓂋𓏤𓈖𓇋𓆎𓏏𓂻
+              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
             </div>
           </div>
 

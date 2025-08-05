@@ -5,10 +5,10 @@ import Link from 'next/link';
 import { Container, Typography, Box, CircularProgress } from '@mui/material';
 import { DahabiyaList } from '@/components/dahabiyas';
 
-import { usePageContent } from '@/hooks/usePageContent';
+import { useContent } from '@/hooks/useContent';
 
 export default function DahabiyasPage() {
-  const { getContentValue, loading: contentLoading } = usePageContent('dahabiyas');
+  const { getContent, loading: contentLoading } = useContent({ page: 'dahabiyas' });
 
   // Show loading state while content is being fetched
   if (contentLoading) {
@@ -29,11 +29,11 @@ export default function DahabiyasPage() {
       {/* Enhanced Pharaonic Hero Section */}
       <div className="relative overflow-hidden min-h-screen">
         {/* Hero Background Image with Enhanced Effects */}
-        {getContentValue('dahabiyas_hero_background_image') && (
+        {getContent('dahabiyas_hero_background_image') && (
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 animate-slow-zoom"
             style={{
-              backgroundImage: `url("${getContentValue('dahabiyas_hero_background_image', '/images/dahabiya-hero-bg.jpg')}")`,
+              backgroundImage: `url("${getContent('dahabiyas_hero_background_image') || '/images/dahabiya-hero-bg.jpg'}")`,
               filter: 'brightness(1.2) contrast(1.3) saturate(1.4)',
             }}
           ></div>
@@ -67,7 +67,7 @@ export default function DahabiyasPage() {
                     textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
                   }}
                 >
-                  {getContentValue('dahabiyas_hero_hieroglyphic_title', '𓂋𓏤𓈖𓇋𓆎𓏏𓂻')}
+                  {getContent('dahabiyas_hero_title') || 'Our Dahabiyas'}
                 </Typography>
                 <div className="w-32 h-1 bg-egyptian-gold mx-auto mb-6 rounded-full"></div>
               </div>
@@ -87,7 +87,7 @@ export default function DahabiyasPage() {
                   textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
                 }}
               >
-                {getContentValue('dahabiyas_hero_main_title', 'Dahabiyas 𓂋𓏤𓈖𓇋𓆎𓏏𓂻')}
+                {getContent('dahabiyas_hero_subtitle') || 'Luxury Dahabiyas'}
               </Typography>
 
               {/* Subtitle */}
@@ -101,7 +101,7 @@ export default function DahabiyasPage() {
                   fontSize: '1.5rem'
                 }}
               >
-                {getContentValue('dahabiyas_hero_subtitle', 'Journey Through Time on the Eternal Waters of the Nile')}
+                {getContent('dahabiyas_hero_description') || 'Journey Through Time on the Eternal Waters of the Nile'}
               </Typography>
 
               {/* Description */}
@@ -114,7 +114,7 @@ export default function DahabiyasPage() {
                   fontSize: '1.2rem'
                 }}
               >
-                {getContentValue('dahabiyas_hero_description', 'Discover our magnificent fleet of traditional sailing vessels, each a floating palace crafted to honor the ancient pharaonic legacy while providing unparalleled luxury on the waters of the Nile River.')}
+                {getContent('dahabiyas_description') || 'Discover our magnificent fleet of traditional sailing vessels, each a floating palace crafted to honor the ancient pharaonic legacy while providing unparalleled luxury on the waters of the Nile River.'}
               </Typography>
 
               {/* Decorative Elements */}
@@ -191,14 +191,14 @@ export default function DahabiyasPage() {
                   className="text-egyptian-gold font-bold mb-4"
                   style={{ fontFamily: 'serif' }}
                 >
-                  {getContentValue('dahabiyas_cta_title', 'Begin Your Journey')}
+                  {getContent('dahabiyas_cta_title') || 'Begin Your Journey'}
                 </Typography>
 
                 <Typography
                   variant="h6"
                   className="text-amber-200 mb-8 max-w-3xl mx-auto leading-relaxed"
                 >
-                  {getContentValue('dahabiyas_cta_description', 'Choose from our magnificent fleet of traditional dahabiyas and embark on an unforgettable voyage through the timeless waters of the Nile River, where ancient mysteries await.')}
+                  {getContent('dahabiyas_cta_description') || 'Choose from our magnificent fleet of traditional dahabiyas and embark on an unforgettable voyage through the timeless waters of the Nile River.'}
                 </Typography>
 
                 {/* Action Buttons */}
@@ -210,10 +210,10 @@ export default function DahabiyasPage() {
                         <Typography className="text-2xl">𓊪</Typography>
                         <div>
                           <Typography variant="h6" className="font-bold">
-                            {getContentValue('dahabiyas_cta_book_dahabiya_title', 'Book Any Dahabiya')}
+                            {getContent('dahabiyas_cta_book_title') || 'Book Any Dahabiya'}
                           </Typography>
                           <Typography variant="caption" className="opacity-80">
-                            {getContentValue('dahabiyas_cta_book_dahabiya_subtitle', 'Choose your perfect vessel')}
+                            {getContent('dahabiyas_cta_book_subtitle') || 'Choose your perfect vessel'}
                           </Typography>
                         </div>
                         <Typography className="text-2xl">𓊪</Typography>
@@ -228,10 +228,10 @@ export default function DahabiyasPage() {
                         <Typography className="text-2xl">𓇳</Typography>
                         <div>
                           <Typography variant="h6" className="font-bold">
-                            {getContentValue('dahabiyas_cta_packages_title', 'Packages')}
+                            {getContent('dahabiyas_cta_packages_title') || 'Packages'}
                           </Typography>
                           <Typography variant="caption" className="opacity-80">
-                            {getContentValue('dahabiyas_cta_packages_subtitle', 'Complete journey experiences')}
+                            {getContent('dahabiyas_cta_packages_subtitle') || 'Complete journey experiences'}
                           </Typography>
                         </div>
                         <Typography className="text-2xl">𓇳</Typography>
@@ -247,10 +247,10 @@ export default function DahabiyasPage() {
                       <Typography className="text-egyptian-gold text-2xl">𓊪</Typography>
                     </div>
                     <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
-                      {getContentValue('dahabiyas_feature_instant_booking_title', 'Instant Booking')}
+                      {getContent('dahabiyas_feature_1_title') || 'Instant Booking'}
                     </Typography>
                     <Typography variant="body2" className="text-amber-200">
-                      {getContentValue('dahabiyas_feature_instant_booking_description', 'Reserve your journey with immediate confirmation')}
+                      {getContent('dahabiyas_feature_1_description') || 'Reserve your journey with immediate confirmation'}
                     </Typography>
                   </div>
 
@@ -259,10 +259,10 @@ export default function DahabiyasPage() {
                       <Typography className="text-egyptian-gold text-2xl">𓇳</Typography>
                     </div>
                     <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
-                      {getContentValue('dahabiyas_feature_best_prices_title', 'Best Prices')}
+                      {getContent('dahabiyas_feature_2_title') || 'Best Prices'}
                     </Typography>
                     <Typography variant="body2" className="text-amber-200">
-                      {getContentValue('dahabiyas_feature_best_prices_description', 'Guaranteed lowest rates for authentic Nile experiences')}
+                      {getContent('dahabiyas_feature_2_description') || 'Guaranteed lowest rates for authentic Nile experiences'}
                     </Typography>
                   </div>
 
@@ -271,10 +271,10 @@ export default function DahabiyasPage() {
                       <Typography className="text-egyptian-gold text-2xl">𓈖</Typography>
                     </div>
                     <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
-                      {getContentValue('dahabiyas_feature_expert_support_title', 'Expert Support')}
+                      {getContent('dahabiyas_feature_3_title') || 'Expert Support'}
                     </Typography>
                     <Typography variant="body2" className="text-amber-200">
-                      {getContentValue('dahabiyas_feature_expert_support_description', '24/7 assistance from our pharaonic travel specialists')}
+                      {getContent('dahabiyas_feature_3_description') || '24/7 assistance from our pharaonic travel specialists'}
                     </Typography>
                   </div>
                 </div>

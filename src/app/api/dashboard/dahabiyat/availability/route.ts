@@ -13,16 +13,29 @@ export async function GET(request: NextRequest) {
 
     const searchParams = request.nextUrl.searchParams;
     const dahabiyaId = searchParams.get('dahabiyaId');
-    const month = parseInt(searchParams.get('month') || '0');
-    const year = parseInt(searchParams.get('year') || '2025');
 
     if (!dahabiyaId) {
       return NextResponse.json({ error: 'Missing dahabiyaId' }, { status: 400 });
     }
 
-    // Get availability dates for the specified month
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+    // Handle both parameter formats: month/year OR startDate/endDate
+    let startDate: Date;
+    let endDate: Date;
+
+    const startDateParam = searchParams.get('startDate');
+    const endDateParam = searchParams.get('endDate');
+
+    if (startDateParam && endDateParam) {
+      // Use provided date range
+      startDate = new Date(startDateParam);
+      endDate = new Date(endDateParam);
+    } else {
+      // Use month/year parameters (fallback)
+      const month = parseInt(searchParams.get('month') || '0');
+      const year = parseInt(searchParams.get('year') || '2025');
+      startDate = new Date(year, month, 1);
+      endDate = new Date(year, month + 1, 0);
+    }
 
     const availabilityDates = await prisma.availabilityDate.findMany({
       where: {
@@ -35,7 +48,7 @@ export async function GET(request: NextRequest) {
       orderBy: { date: 'asc' }
     });
 
-    return NextResponse.json({ availabilityDates });
+    return NextResponse.json(availabilityDates);
 
   } catch (error) {
     console.error('Error fetching availability:', error);
@@ -57,7 +70,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { dahabiyaId, dates } = body;
 
+    console.log('📅 Received POST request:', { dahabiyaId, datesCount: dates?.length, sampleDates: dates?.slice(0, 2) });
+
     if (!dahabiyaId || !dates || !Array.isArray(dates)) {
+      console.error('❌ Invalid request data:', { dahabiyaId, dates: typeof dates, isArray: Array.isArray(dates) });
       return NextResponse.json(
         { error: 'Missing required fields: dahabiyaId and dates array' },
         { status: 400 }
@@ -74,20 +90,22 @@ export async function POST(request: NextRequest) {
     }
 
     // Create availability dates
+    console.log('📅 Creating dates in database...');
     const createdDates = await Promise.all(
-      dates.map(async (dateInfo: { date: string; price: number }) => {
+      dates.map(async (dateInfo: { date: string; price: number; available?: boolean }) => {
         try {
+          console.log('📅 Creating date:', dateInfo);
           return await prisma.availabilityDate.create({
             data: {
               dahabiyaId,
               date: new Date(dateInfo.date),
               price: dateInfo.price,
-              available: true
+              available: dateInfo.available !== undefined ? dateInfo.available : true
             }
           });
         } catch (error) {
           // Handle duplicate dates gracefully
-          console.warn(`Date ${dateInfo.date} already exists for dahabiya ${dahabiyaId}`);
+          console.warn(`Date ${dateInfo.date} already exists for dahabiya ${dahabiyaId}:`, error);
           return null;
         }
       })

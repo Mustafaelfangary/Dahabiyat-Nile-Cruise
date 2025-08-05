@@ -157,23 +157,7 @@ export default function AuthErrorPage() {
           </CardContent>
         </Card>
 
-        {/* Debug Information (only in development) */}
-        {process.env.NODE_ENV === 'development' && (
-          <Card className="bg-gray-50 border-gray-200">
-            <CardHeader>
-              <CardTitle className="text-sm font-medium text-gray-700">
-                Debug Information
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-xs text-gray-600 space-y-1">
-                <p><strong>Error Code:</strong> {error}</p>
-                <p><strong>URL:</strong> {window.location.href}</p>
-                <p><strong>Timestamp:</strong> {new Date().toISOString()}</p>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+
       </div>
     </div>
   );

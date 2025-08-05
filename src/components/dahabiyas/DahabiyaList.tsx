@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Box, CircularProgress, Alert, Pagination } from '@mui/material';
 import DahabiyaCard from './DahabiyaCard';
-import { usePageContent } from '@/hooks/usePageContent';
+import { useContent } from '@/hooks/useContent';
 
 interface Dahabiya {
   id: string;
@@ -50,7 +50,7 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const { getContentValue } = usePageContent('dahabiyas');
+  const { getContent } = useContent({ page: 'dahabiyas' });
 
   const fetchDahabiyas = async (page: number) => {
     try {
@@ -97,7 +97,7 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
           </div>
         </div>
         <Typography variant="h6" className="mt-4 text-hieroglyph-brown">
-          {getContentValue('dahabiyas_loading_text', 'Loading Vessels...')}
+          {getContent('dahabiyas_loading_text') || 'Loading Vessels...'}
         </Typography>
       </Box>
     );
@@ -120,12 +120,12 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
       <Box textAlign="center" py={12} className="bg-gradient-to-b from-amber-50 to-orange-50 rounded-lg border-2 border-egyptian-gold/20">
         <Typography className="text-egyptian-gold text-6xl mb-4">𓊪</Typography>
         <Typography variant="h4" className="text-hieroglyph-brown font-bold mb-4" style={{ fontFamily: 'serif' }}>
-          {getContentValue('dahabiyas_empty_title', 'No Vessels Found')}
+          {getContent('dahabiyas_empty_title') || 'No Vessels Found'}
         </Typography>
         <Typography variant="body1" className="text-amber-700 max-w-md mx-auto">
           {activeOnly
-            ? getContentValue('dahabiyas_empty_description_active', 'The fleet is currently preparing for their next journey. Please check back soon for available vessels.')
-            : getContentValue('dahabiyas_empty_description_all', 'No dahabiyas have been blessed and added to our collection yet.')
+            ? (getContent('dahabiyas_empty_description_active') || 'The fleet is currently preparing for their next journey. Please check back soon for available vessels.')
+            : (getContent('dahabiyas_empty_description_all') || 'No dahabiyas have been blessed and added to our collection yet.')
           }
         </Typography>
         <div className="flex justify-center items-center gap-4 mt-6">
@@ -143,10 +143,10 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
       <Box mb={6} textAlign="center">
         <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-lg p-4 border-2 border-egyptian-gold/20">
           <Typography variant="h5" className="text-hieroglyph-brown font-bold mb-2" style={{ fontFamily: 'serif' }}>
-            {getContentValue('dahabiyas_fleet_title', 'Fleet Collection')}
+            {getContent('dahabiyas_fleet_title') || 'Fleet Collection'}
           </Typography>
           <Typography variant="h6" className="text-amber-700">
-            {getContentValue('dahabiyas_fleet_description', 'Showing')} {data.dahabiyas.length} of {data.total} divine vessels
+            {getContent('dahabiyas_fleet_description') || 'Showing'} {data.dahabiyas.length} of {data.total} divine vessels
           </Typography>
           <div className="flex justify-center items-center gap-2 mt-2">
             <div className="w-8 h-0.5 bg-egyptian-gold"></div>

@@ -38,16 +38,9 @@ const UniversalVideo = React.memo(function UniversalVideo({
       setIsLoading(false);
       return;
     }
-
-    if (process.env.NODE_ENV === 'development') {
-      console.log('UniversalVideo: Loading video from:', src);
-    }
   }, [src]);
 
   const handleLoadedData = () => {
-    if (process.env.NODE_ENV === 'development') {
-      console.log('UniversalVideo: Video loaded successfully');
-    }
     setIsLoading(false);
     setError(null);
     if (onLoad) onLoad();

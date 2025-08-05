@@ -3,7 +3,7 @@
  * Contact form and information for customer inquiries
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -11,13 +11,16 @@ import {
   TextInput,
   Alert,
   Linking,
+  RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../contexts/ThemeContext';
 import { Button, Card, Heading1, Heading2, BodyText, AccentText } from '../components/ui';
 import HieroglyphicText from '../components/HieroglyphicText';
-import { apiService } from '../services/apiService';
+import LoadingSpinner from '../components/ui/LoadingSpinner';
+import HieroglyphicTopBanner from '../components/HieroglyphicTopBanner';
+import { APP_CONSTANTS } from '../constants/AppConstants';
 
 interface ContactFormData {
   name: string;
@@ -25,6 +28,16 @@ interface ContactFormData {
   phone: string;
   subject: string;
   message: string;
+}
+
+interface ContactContent {
+  heroTitle: string;
+  heroSubtitle: string;
+  companyName: string;
+  address: string;
+  phone: string;
+  email: string;
+  whatsappNumber: string;
 }
 
 const ContactScreen: React.FC = () => {
@@ -37,7 +50,103 @@ const ContactScreen: React.FC = () => {
     subject: '',
     message: '',
   });
+  const [content, setContent] = useState<ContactContent>({
+    heroTitle: 'Royal Advisors',
+    heroSubtitle: 'Reach out to our sacred council for guidance',
+    companyName: 'Cleopatra Dahabiyat',
+    address: 'Luxor, Egypt',
+    phone: '+20 123 456 789',
+    email: 'info@cleopatradarabiyat.com',
+    whatsappNumber: '+201234567890'
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contentLoading, setContentLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    fetchContactContent();
+  }, []);
+
+  const fetchContactContent = async () => {
+    try {
+      // Try to fetch from content sync API
+      const response = await fetch(`${APP_CONSTANTS.API_BASE_URL}/api/mobile-content-sync.json`);
+      if (response.ok) {
+        const data = await response.json();
+        const contentData = data.content || {};
+
+        setContent({
+          heroTitle: contentData['contact_hero_title']?.value || content.heroTitle,
+          heroSubtitle: contentData['contact_hero_subtitle']?.value || content.heroSubtitle,
+          companyName: contentData['footer-company-name']?.value || content.companyName,
+          address: contentData['footer-address']?.value || content.address,
+          phone: contentData['footer-phone']?.value || content.phone,
+          email: contentData['footer-email']?.value || content.email,
+          whatsappNumber: contentData['whatsapp_phone']?.value || content.whatsappNumber
+        });
+      } else {
+        // Fallback to direct API calls
+        const [contactResponse, globalResponse] = await Promise.all([
+          fetch(`${APP_CONSTANTS.API_BASE_URL}/api/website-content/contact`),
+          fetch(`${APP_CONSTANTS.API_BASE_URL}/api/website-content/global_media`)
+        ]);
+
+        if (contactResponse.ok) {
+          const contactData = await contactResponse.json();
+          const fields = contactData.fields || [];
+
+          const updatedContent = { ...content };
+          fields.forEach((field: any) => {
+            switch (field.key) {
+              case 'contact_hero_title':
+                updatedContent.heroTitle = field.value || updatedContent.heroTitle;
+                break;
+              case 'contact_hero_subtitle':
+                updatedContent.heroSubtitle = field.value || updatedContent.heroSubtitle;
+                break;
+            }
+          });
+
+          setContent(updatedContent);
+        }
+
+        if (globalResponse.ok) {
+          const globalData = await globalResponse.json();
+          const fields = globalData.fields || [];
+
+          const updatedContent = { ...content };
+          fields.forEach((field: any) => {
+            switch (field.key) {
+              case 'footer-company-name':
+                updatedContent.companyName = field.value || updatedContent.companyName;
+                break;
+              case 'footer-address':
+                updatedContent.address = field.value || updatedContent.address;
+                break;
+              case 'footer-phone':
+                updatedContent.phone = field.value || updatedContent.phone;
+                break;
+              case 'footer-email':
+                updatedContent.email = field.value || updatedContent.email;
+                break;
+            }
+          });
+
+          setContent(updatedContent);
+        }
+      }
+    } catch (error) {
+      console.log('Using fallback contact content:', error);
+    } finally {
+      setContentLoading(false);
+    }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    await fetchContactContent();
+    setRefreshing(false);
+  };
 
   const handleInputChange = (field: keyof ContactFormData, value: string) => {
     setFormData(prev => ({
@@ -82,22 +191,33 @@ const ContactScreen: React.FC = () => {
   };
 
   const handlePhoneCall = () => {
-    Linking.openURL('tel:+201234567890');
+    Linking.openURL(`tel:${content.phone}`);
   };
 
   const handleEmail = () => {
-    Linking.openURL('mailto:info@dahabiyat.com');
+    Linking.openURL(`mailto:${content.email}`);
   };
 
   const handleWhatsApp = () => {
-    Linking.openURL('whatsapp://send?phone=201234567890');
+    const phone = content.whatsappNumber.replace(/\s+/g, '').replace('+', '');
+    Linking.openURL(`whatsapp://send?phone=${phone}`);
   };
+
+  if (contentLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: colors.background.primary }]}>
+      {/* Hieroglyphic Top Banner */}
+      <HieroglyphicTopBanner variant="default" animated={true} />
+
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
       >
         {/* Header */}
         <View style={styles.header}>
@@ -108,9 +228,9 @@ const ContactScreen: React.FC = () => {
             animationType="pulse"
             style={styles.headerHieroglyphs}
           />
-          <Heading1 style={styles.title}>Royal Advisors</Heading1>
+          <Heading1 style={styles.title}>{content.heroTitle}</Heading1>
           <BodyText style={styles.subtitle}>
-            Reach out to our sacred council for guidance
+            {content.heroSubtitle}
           </BodyText>
         </View>
 

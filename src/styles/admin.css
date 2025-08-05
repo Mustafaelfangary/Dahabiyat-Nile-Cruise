@@ -256,6 +256,26 @@
   line-height: 1.4;
 }
 
+/* Scrollbar Hide Utility */
+.scrollbar-hide {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
+
+/* Responsive Tab Fixes */
+.admin-tabs-mobile {
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.admin-tabs-mobile::-webkit-scrollbar {
+  display: none;
+}
+
 /* Table Styles */
 .admin-table {
   width: 100%;

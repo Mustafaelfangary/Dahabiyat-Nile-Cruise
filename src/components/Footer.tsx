@@ -34,6 +34,8 @@ function ContactDeveloperModal() {
     return contentValue || fallback;
   };
 
+
+
   // WhatsApp handler
   const handleWhatsApp = () => {
     const phone = get('footer_developer_phone', '+201234567890').replace(/\s+/g, '').replace('+', '');
@@ -132,6 +134,11 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
   const { getContent: getGlobalContent } = useContent({ page: 'global_media' });
   const { data: session } = useSession();
 
+  // Get dynamic footer logo
+  const getFooterLogo = () => {
+    return getGlobalContent('footer_logo', '/images/logo.png');
+  };
+
   // Helper to get a setting value with priority: footerSettings > content > settings > fallback
   const get = (key: string, fallback = '') => {
     // For developer-related keys, check global_media content first
@@ -185,7 +192,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
           <div className="text-center mb-12">
             <div className="flex items-center justify-center mb-6">
               <Image
-                src="/images/logo.png"
+                src={getFooterLogo()}
                 alt="Site Logo"
                 width={120}
                 height={120}
@@ -353,34 +360,21 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
             <HieroglyphicDivider />
           </div>
 
-          {/* Developer Branding Box */}
-          <div className="flex justify-center mb-8">
-            <div className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl p-6 shadow-lg border border-gray-100 max-w-md">
-              <div className="flex items-center justify-center space-x-4">
-                {/* Developer Logo */}
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-white shadow-md flex-shrink-0">
-                  <Image
-                    src={get('footer_developer_logo', '/images/logo-white.png')}
-                    alt="Developer Logo"
-                    width={48}
-                    height={48}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-
-                {/* Developer Text and Buttons */}
-                <div className="text-center">
-                  <p className="text-gray-700 text-sm font-medium mb-3">
-                    {get('footer_developer_branding_text', 'crafted with love in the land of the Pharaohs by Just X')}
-                  </p>
-
-                  {/* Contact Developer Modal */}
-                  <div className="flex justify-center">
-                    <ContactDeveloperModal />
-                  </div>
-                </div>
-              </div>
+          {/* Developer Contact Section */}
+          <div className="flex justify-center items-center gap-3 mb-8">
+            {/* Developer Logo */}
+            <div className="w-8 h-8 rounded-full overflow-hidden bg-white shadow-sm flex-shrink-0">
+              <Image
+                src={get('footer_developer_logo', '/images/logo-white.png')}
+                alt="Developer Logo"
+                width={32}
+                height={32}
+                className="w-full h-full object-cover"
+              />
             </div>
+
+            {/* Contact Developer Button */}
+            <ContactDeveloperModal />
           </div>
 
           {/* Modern Bottom Section */}

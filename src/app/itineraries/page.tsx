@@ -133,7 +133,7 @@ export default function ItinerariesPage() {
                 backgroundClip: 'text',
                 textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
               }}>
-                <span style={{ color: '#FFE4B5' }}>𓂋𓏤𓈖𓇋𓆎𓏏𓂻</span> {getSettingValue('itineraries_hero_title', 'Itineraries')}
+                <span style={{ color: '#FFE4B5' }}>𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span> {getSettingValue('itineraries_hero_title', 'Itineraries')}
               </h1>
               <p className="text-xl md:text-2xl mb-4 leading-relaxed" style={{
                 color: '#FFE4B5',
@@ -199,8 +199,25 @@ export default function ItinerariesPage() {
             <AnimatedSection animation="fade-up">
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">𓂀</div>
-                <h3 className="text-2xl font-bold text-amber-800 mb-4">{getSettingValue('itineraries_empty_title', 'No Journeys Found')}</h3>
-                <p className="text-amber-600">{getSettingValue('itineraries_empty_description', 'Our pharaonic scholars are crafting new itineraries. Please check back soon for extraordinary journeys.')}</p>
+                {itineraries.length === 0 ? (
+                  <>
+                    <h3 className="text-2xl font-bold text-amber-800 mb-4">
+                      {getSettingValue('itineraries_no_itineraries_title', 'There are no itineraries yet')}
+                    </h3>
+                    <p className="text-amber-600">
+                      {getSettingValue('itineraries_no_itineraries_description', 'Our pharaonic scholars are crafting extraordinary journeys. Please check back soon for amazing adventures along the Nile.')}
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <h3 className="text-2xl font-bold text-amber-800 mb-4">
+                      {getSettingValue('itineraries_empty_title', 'No Journeys Found')}
+                    </h3>
+                    <p className="text-amber-600">
+                      {getSettingValue('itineraries_empty_description', 'No active journeys match your current filter. Try selecting a different category or check back later.')}
+                    </p>
+                  </>
+                )}
               </div>
             </AnimatedSection>
           ) : (

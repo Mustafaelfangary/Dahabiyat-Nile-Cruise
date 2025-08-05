@@ -149,15 +149,7 @@ export default function OptimizedHeroVideo({
         </div>
       )}
 
-      {/* Debug info in development */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="absolute top-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded text-xs z-20">
-          <div>Video: {src}</div>
-          <div>Loaded: {isLoaded ? '✅' : '❌'}</div>
-          <div>Playing: {isPlaying ? '▶️' : '⏸️'}</div>
-          <div>Error: {hasError ? '❌' : '✅'}</div>
-        </div>
-      )}
+
     </>
   );
 }

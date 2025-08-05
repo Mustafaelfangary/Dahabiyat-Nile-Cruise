@@ -144,7 +144,7 @@ export default function PackagesPage() {
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
           <EgyptHieroglyphic className="mx-auto mb-6" size="4rem" />
-          <p className="pharaonic-text-brown font-bold text-xl">{getContent('packages_loading_text', 'Loading Packages...')}</p>
+          <p className="pharaonic-text-brown font-bold text-xl">{getContent('packages_loading_text') || 'Loading Packages...'}</p>
         </div>
       </div>
     );
@@ -155,7 +155,7 @@ export default function PackagesPage() {
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
           <div className="text-text-secondary text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-text-primary font-bold text-xl">{getContent('packages_error_text', '𓂀 Content Loading Error:')} {error} 𓏏</p>
+          <p className="text-text-primary font-bold text-xl">Content Loading Error: {error}</p>
         </div>
       </div>
     );
@@ -169,9 +169,9 @@ export default function PackagesPage() {
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
               <PackageIcon className="w-8 h-8 text-egyptian-gold" />
-              {getContent('packages_title', 'Royal Packages')}
+              {getContent('packages_hero_title') || 'Royal Packages'}
             </h1>
-            <p className="text-gray-600">{getContent('packages_subtitle', 'Discover our curated collection of luxury Nile experiences')}</p>
+            <p className="text-gray-600">{getContent('packages_hero_subtitle') || 'Discover our curated collection of luxury Nile experiences'}</p>
           </div>
           <div className="flex items-center gap-2">
             <Button

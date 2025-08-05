@@ -148,20 +148,6 @@ export default function HomePage() {
 
   return (
     <div className="pharaonic-container">
-      {/* Development Debug Panel */}
-      {process.env.NODE_ENV === 'development' && (
-        <div className="fixed top-4 left-4 bg-black bg-opacity-80 text-white p-4 rounded-lg z-50 max-w-sm">
-          <h3 className="font-bold mb-2">🔧 Debug Panel</h3>
-          <div className="text-xs space-y-1">
-            <div>Video URL: {get('hero_video_url', 'NOT_SET')}</div>
-            <div>Poster: {get('hero_video_poster', 'NOT_SET')}</div>
-            <div>Loading: {loading ? '⏳' : '✅'}</div>
-            <div>Error: {error || 'None'}</div>
-            <div>Video Loaded: {videoLoaded ? '✅' : '❌'}</div>
-            <div>Video Error: {videoError ? '❌' : '✅'}</div>
-          </div>
-        </div>
-      )}
 
       {/* 1. Editable Video Hero Section - Full area touching navbar */}
       <section
@@ -384,8 +370,9 @@ export default function HomePage() {
                       <span className="ml-1 text-xs text-gray-400">(127)</span>
                     </div>
                     <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
-                      <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-3 sm:px-4 py-2 text-xs sm:text-sm hover:from-egyptian-amber hover:to-orange-600 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 group/btn">
-                        <span className="group-hover/btn:mr-1 transition-all duration-300">{get('view_details_text', 'View Details')}</span>
+                      <Button className="bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown px-2 sm:px-3 py-1 text-xs hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                        <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
+                        <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                         <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                       </Button>
                     </Link>
@@ -567,9 +554,9 @@ export default function HomePage() {
                       <span className="ml-1 text-xs text-gray-400">(89)</span>
                     </div>
                     <Link href={`/packages/${pkg.id}`}>
-                      <Button className="bg-gradient-to-r from-emerald-500 to-teal-600 text-white px-3 sm:px-4 py-2 text-xs sm:text-sm hover:from-emerald-600 hover:to-teal-700 rounded-lg font-semibold shadow-md hover:shadow-lg transition-all duration-300 group/btn">
-                        <span className="group-hover/btn:mr-1 transition-all duration-300">{get('view_details_text', 'View Package')}</span>
-                        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
+                      <Button className="bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown px-2 sm:px-3 py-1 text-xs hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                        <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
+                        <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                       </Button>
                     </Link>
                   </div>

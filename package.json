@@ -21,6 +21,8 @@
     "cleanup:complete": "tsx scripts/complete-cleanup.ts",
     "reset:migrations": "tsx scripts/reset-migrations.ts",
     "fresh:start": "npm run reset:migrations && npm run cleanup:complete",
+    "sync:content": "node scripts/sync-content-across-platforms.js",
+    "sync:mobile": "npm run sync:content && echo 'Content synchronized across all platforms!'",
     "postinstall": "prisma generate"
   },
   "dependencies": {

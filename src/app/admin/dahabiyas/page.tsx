@@ -86,13 +86,6 @@ export default function AdminDahabiyasPage() {
           </div>
           <div className="flex gap-2">
             <Button
-              onClick={() => window.open('/api/admin/debug', '_blank')}
-              variant="outline"
-              className="border-blue-200 text-blue-600 hover:bg-blue-50"
-            >
-              🔍 Debug Info
-            </Button>
-            <Button
               onClick={() => window.location.reload()}
               variant="outline"
             >

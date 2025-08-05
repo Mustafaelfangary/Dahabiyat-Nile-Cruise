@@ -146,9 +146,9 @@ export default function ItineraryDetailPage() {
           <AnimatedSection animation="fade-up">
             <div className="max-w-4xl mx-auto text-center">
               <div className="flex items-center justify-center gap-4 mb-6">
-                <span className="text-amber-200 text-2xl">𓂋𓏤𓈖𓇋𓆎𓏏𓂻</span>
+                <span className="text-amber-200 text-2xl">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                 <h1 className="text-4xl md:text-6xl font-bold">{itinerary.name}</h1>
-                <span className="text-amber-200 text-2xl">𓂋𓏤𓈖𓇋𓆎𓏏𓂻</span>
+                <span className="text-amber-200 text-2xl">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
               </div>
               
               <p className="text-xl md:text-2xl mb-8 text-amber-100 leading-relaxed">

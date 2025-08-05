@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { Card, CardContent, Typography, Chip, Box } from '@mui/material';
 import { Users, DollarSign, Star, MapPin, Calendar, Anchor, Award, Play } from 'lucide-react';
 import QuickBookingWidget from '@/components/booking/QuickBookingWidget';
-import { usePageContent } from '@/hooks/usePageContent';
+import { useContent } from '@/hooks/useContent';
 
 interface Dahabiya {
   id: string;
@@ -43,7 +43,7 @@ interface DahabiyaCardProps {
 
 export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
   const [showQuickBooking, setShowQuickBooking] = useState(false);
-  const { getContentValue } = usePageContent('dahabiyas');
+  const { getContent } = useContent({ page: 'dahabiyas' });
   const router = useRouter();
 
   const formatPrice = (price: number) => {
@@ -120,7 +120,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
             {dahabiya.isFeatured && (
               <div className="relative">
                 <Chip
-                  label={getContentValue('dahabiyas_card_featured_label', 'Featured')}
+                  label={getContent('dahabiyas_card_featured_label') || 'Featured'}
                   size="small"
                   className="bg-gradient-to-r from-yellow-400 to-amber-500 text-hieroglyph-brown font-bold shadow-lg"
                   icon={<Award className="w-3 h-3" />}
@@ -236,7 +236,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           {dahabiya.features.length > 0 && (
             <Box className="mb-4">
               <Typography variant="subtitle2" className="text-hieroglyph-brown font-bold mb-2 text-center">
-                {getContentValue('dahabiyas_card_features_title', 'Premium Features')}
+                {getContent('dahabiyas_card_features_title') || 'Premium Features'}
               </Typography>
               <div className="flex flex-wrap gap-1 justify-center">
                 {dahabiya.features.slice(0, 3).map((feature, index) => (
@@ -273,7 +273,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
             >
               <div className="flex items-center justify-center gap-2">
                 <Typography variant="body2" className="font-bold">
-                  {getContentValue('dahabiyas_card_quick_book_text', 'Quick Book')}
+                  {getContent('dahabiyas_card_quick_book_text') || 'Quick Book'}
                 </Typography>
                 <Typography className="text-lg">𓊪</Typography>
               </div>
@@ -282,20 +282,20 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               </Typography>
             </div>
 
-            {/* Full Booking Button */}
+            {/* Pharaonic View Details Button */}
             <div
-              className="bg-gradient-to-r from-amber-100 to-orange-100 text-hieroglyph-brown px-6 py-2 rounded-full font-medium shadow-md hover:shadow-lg transition-all duration-300 transform hover:scale-105 border border-egyptian-gold/30 text-center cursor-pointer"
+              className="bg-gradient-to-r from-egyptian-gold/20 to-amber-400/20 text-hieroglyph-brown px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-egyptian-gold/40 hover:border-egyptian-gold/60 text-center cursor-pointer backdrop-blur-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 // Navigate to the dahabiya detail page which has the unified booking form
                 router.push(`/dahabiyas/${dahabiya.slug || dahabiya.id}`);
               }}
             >
-              <div className="flex items-center justify-center gap-2">
-                <Typography variant="body2" className="font-medium">
-                  {getContentValue('dahabiyas_card_full_booking_text', 'View & Book')}
+              <div className="flex items-center justify-center gap-1.5">
+                <Typography variant="caption" className="font-bold text-xs">
+                  {getContent('dahabiyas_card_full_booking_text') || 'View Details'}
                 </Typography>
-                <Typography className="text-sm">𓇳</Typography>
+                <Typography className="text-xs text-egyptian-gold">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</Typography>
               </div>
             </div>
           </div>

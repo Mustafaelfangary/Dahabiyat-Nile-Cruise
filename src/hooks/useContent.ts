@@ -41,6 +41,15 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
   const page = useMemo(() => options.page, [options.page]);
   const section = useMemo(() => options.section, [options.section]);
 
+  // Emergency safety check - ensure content is always an array
+  const safeContent = useMemo(() => {
+    if (!Array.isArray(content)) {
+      console.error(`🚨 CRITICAL: content is not an array for page ${page}:`, typeof content, content);
+      return [];
+    }
+    return content;
+  }, [content, page]);
+
   const fetchContent = useCallback(async () => {
     try {
       setLoading(true);
@@ -140,8 +149,10 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
           updatedAt: item.updatedAt || new Date().toISOString(),
         }));
 
-        console.log(`✅ Processed ${blocks.length} content blocks for ${sectionName}:`, blocks);
-        setContent(blocks);
+        // Ensure blocks is always an array before setting
+        const validBlocks = Array.isArray(blocks) ? blocks : [];
+        console.log(`✅ Processed ${validBlocks.length} content blocks for ${sectionName}:`, validBlocks);
+        setContent(validBlocks);
       }
     } catch (err) {
       console.error('Error fetching content:', err);
@@ -197,34 +208,46 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
   }, [fetchContent]);
 
   const getContent = useCallback((key: string, fallback = ''): string => {
-    const block = content.find(c => c.key === key);
+    try {
+      // Use safeContent instead of content directly
+      const block = safeContent.find(c => c && c.key === key);
 
-    if (key.includes('hero_video')) {
-      console.log(`🎥 Getting content for ${key}:`, {
-        found: !!block,
-        content: block?.content,
-        mediaUrl: block?.mediaUrl,
-        fallback,
-        allKeys: content.map(c => c.key)
-      });
-    }
+      if (key.includes('hero_video')) {
+        console.log(`🎥 Getting content for ${key}:`, {
+          found: !!block,
+          content: block?.content,
+          mediaUrl: block?.mediaUrl,
+          fallback,
+          allKeys: safeContent.map(c => c.key)
+        });
+      }
 
-    if (!block) {
-      console.log(`⚠️ Content not found for key: ${key}, using fallback: ${fallback}`);
+      if (!block) {
+        console.warn(`⚠️ Content not found for key: ${key}, using fallback: ${fallback}`);
+        return fallback;
+      }
+
+      const result = block.content || block.mediaUrl || fallback;
+      if (key.includes('hero_video')) {
+        console.log(`🎥 Returning for ${key}:`, result);
+      }
+
+      return result;
+    } catch (error) {
+      console.error(`🚨 CRITICAL ERROR in getContent for key ${key}:`, error);
+      console.error(`🚨 safeContent type:`, typeof safeContent, 'isArray:', Array.isArray(safeContent));
       return fallback;
     }
-
-    const result = block.content || block.mediaUrl || fallback;
-    if (key.includes('hero_video')) {
-      console.log(`🎥 Returning for ${key}:`, result);
-    }
-
-    return result;
-  }, [content]);
+  }, [safeContent]);
 
   const getContentBlock = useCallback((key: string): ContentBlock | undefined => {
-    return content.find(c => c.key === key);
-  }, [content]);
+    try {
+      return safeContent.find(c => c && c.key === key);
+    } catch (error) {
+      console.error(`🚨 CRITICAL ERROR in getContentBlock for key ${key}:`, error);
+      return undefined;
+    }
+  }, [safeContent]);
 
   const refetch = useCallback(() => {
     fetchContent();
@@ -245,10 +268,19 @@ export function useSettings() {
   const { content, loading, error, getContent, refetch } = useContent();
   
   // Convert content blocks to settings object for backward compatibility
-  const settings = content.reduce((acc, block) => {
-    acc[block.key] = block.content || block.mediaUrl || '';
-    return acc;
-  }, {} as Record<string, string>);
+  const settings = useMemo(() => {
+    try {
+      return safeContent.reduce((acc, block) => {
+        if (block && block.key) {
+          acc[block.key] = block.content || block.mediaUrl || '';
+        }
+        return acc;
+      }, {} as Record<string, string>);
+    } catch (error) {
+      console.error(`🚨 CRITICAL ERROR in settings conversion for page ${page}:`, error);
+      return {};
+    }
+  }, [safeContent, page]);
 
   return {
     settings,

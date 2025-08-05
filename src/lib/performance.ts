@@ -208,10 +208,7 @@ export function trackWebVitals(metric: any) {
     });
   }
   
-  // Log to console in development
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Web Vital:', metric);
-  }
+
 }
 
 // Compression utilities

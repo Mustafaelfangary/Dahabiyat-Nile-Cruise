@@ -140,16 +140,15 @@ export default function MediaLibrarySelector({
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex items-center justify-center p-4 transition-opacity duration-200"
+      className="fixed inset-0 bg-black bg-opacity-80 z-[9999] flex items-start justify-center pt-4 pb-4 px-2 sm:px-4 transition-opacity duration-200 overflow-y-auto"
       style={{ zIndex: 9999 }}
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-lg shadow-xl w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl flex flex-col overflow-hidden relative"
+        className="bg-white rounded-lg shadow-xl w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-4xl flex flex-col overflow-hidden relative my-auto"
         onClick={(e) => e.stopPropagation()}
         style={{
-          height: 'auto',
-          maxHeight: '85vh',
+          maxHeight: 'calc(100vh - 2rem)',
           minHeight: '400px'
         }}
       >
@@ -167,9 +166,9 @@ export default function MediaLibrarySelector({
           </button>
         </div>
 
-        <div className="flex-1 p-4 overflow-y-auto min-h-0">
+        <div className="flex-1 p-3 sm:p-4 overflow-y-auto" style={{ minHeight: 0, maxHeight: 'calc(100vh - 200px)' }}>
           {/* Upload Section */}
-          <div className="mb-4 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+          <div className="mb-4 p-3 sm:p-4 bg-yellow-50 rounded-lg border border-yellow-200">
             <label className="block text-sm font-medium text-gray-700 mb-2">
               Upload New Media
             </label>
@@ -178,7 +177,7 @@ export default function MediaLibrarySelector({
               accept={accept}
               onChange={handleFileUpload}
               disabled={uploading}
-              className="w-full p-3 text-sm border border-yellow-400 rounded-lg bg-white file:mr-2 file:py-2 file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:text-sm file:font-medium hover:file:bg-yellow-600 transition-colors"
+              className="w-full p-2 sm:p-3 text-sm border border-yellow-400 rounded-lg bg-white file:mr-2 file:py-1 file:px-2 sm:file:py-2 sm:file:px-4 file:rounded-lg file:border-0 file:bg-yellow-500 file:text-white file:text-sm file:font-medium hover:file:bg-yellow-600 transition-colors"
             />
             {uploading && (
               <p className="mt-2 text-sm flex items-center gap-2 text-yellow-700">
@@ -203,7 +202,7 @@ export default function MediaLibrarySelector({
                 <p className="text-xs text-gray-500 mt-1">Upload your first file above</p>
               </div>
             ) : (
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 max-h-96 overflow-y-auto">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-3">
                 {mediaItems.map((item) => (
                   <div
                     key={item.id}
@@ -221,16 +220,16 @@ export default function MediaLibrarySelector({
                       <img
                         src={item.url}
                         alt={item.name}
-                        className="w-full h-24 object-cover"
+                        className="w-full h-16 sm:h-20 md:h-24 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-24 bg-gray-100 flex items-center justify-center">
-                        <span className="text-2xl">📄</span>
+                      <div className="w-full h-16 sm:h-20 md:h-24 bg-gray-100 flex items-center justify-center">
+                        <span className="text-lg sm:text-xl md:text-2xl">📄</span>
                       </div>
                     )}
-                    <div className="p-2 bg-white">
+                    <div className="p-1 sm:p-2 bg-white">
                       <div className="text-xs font-medium text-slate-800 truncate" title={item.name}>
-                        {item.name.length > 12 ? item.name.substring(0, 12) + '...' : item.name}
+                        {item.name.length > 10 ? item.name.substring(0, 10) + '...' : item.name}
                       </div>
                       <div className="text-xs text-slate-500 mt-1">
                         {formatFileSize(item.size)}
@@ -244,18 +243,18 @@ export default function MediaLibrarySelector({
         </div>
 
         {/* Action Buttons */}
-        <div className="flex-shrink-0 p-4 border-t border-yellow-500 bg-gray-50">
-          <div className="flex gap-3 w-full">
+        <div className="flex-shrink-0 p-3 sm:p-4 border-t border-yellow-500 bg-gray-50">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 w-full">
             <button
               onClick={onClose}
-              className="flex-1 px-6 py-3 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
+              className="flex-1 px-4 sm:px-6 py-2 sm:py-3 border border-gray-300 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 transition-colors"
             >
               Cancel
             </button>
             <button
               onClick={handleSelect}
               disabled={!selectedItem}
-              className={`flex-1 px-6 py-3 rounded-lg text-sm font-medium transition-colors ${
+              className={`flex-1 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm font-medium transition-colors ${
                 selectedItem
                   ? 'bg-yellow-500 text-white hover:bg-yellow-600 shadow-md'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'

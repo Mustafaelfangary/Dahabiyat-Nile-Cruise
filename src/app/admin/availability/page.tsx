@@ -106,6 +106,8 @@ export default function AvailabilityManagement() {
   const fetchAvailability = async () => {
     if (!selectedDahabiya) return;
 
+    console.log('🔄 Fetching availability for:', { selectedDahabiya, currentMonth, currentYear });
+
     try {
       const startDate = new Date(currentYear, currentMonth, 1).toISOString().split('T')[0];
       const endDate = new Date(currentYear, currentMonth + 1, 0).toISOString().split('T')[0];
@@ -116,7 +118,10 @@ export default function AvailabilityManagement() {
 
       if (response.ok) {
         const data = await response.json();
+        console.log('📅 Fetched availability data:', { count: data.length, sampleData: data.slice(0, 3) });
         setAvailabilityDates(data);
+      } else {
+        console.error('❌ Failed to fetch availability:', response.status);
       }
     } catch (error) {
       console.error('Error fetching availability:', error);
@@ -186,7 +191,7 @@ export default function AvailabilityManagement() {
       }
 
       if (dates.length > 0) {
-        console.log('🗓️ Creating availability dates:', { dahabiyaId: selectedDahabiya, dates: dates.length });
+        console.log('🗓️ Creating availability dates:', { dahabiyaId: selectedDahabiya, dates: dates.length, sampleDates: dates.slice(0, 3) });
 
         const response = await fetch('/api/dashboard/dahabiyat/availability', {
           method: 'POST',
@@ -195,13 +200,14 @@ export default function AvailabilityManagement() {
         });
 
         const result = await response.json();
+        console.log('📅 API Response:', { status: response.status, result });
 
         if (response.ok) {
           toast.success(`✅ Created ${result.createdDates?.length || dates.length} availability dates for ${new Date(currentYear, currentMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}`);
           fetchAvailability();
         } else {
+          console.error('❌ API Error:', result);
           toast.error(`❌ Failed to create dates: ${result.error || 'Unknown error'}`);
-          console.error('Availability creation error:', result);
         }
       } else {
         toast.info(`ℹ️ All dates for ${new Date(currentYear, currentMonth).toLocaleDateString('en-US', { month: 'long', year: 'numeric' })} already exist`);
@@ -219,6 +225,15 @@ export default function AvailabilityManagement() {
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
     const days = [];
 
+    console.log('📅 getDaysInMonth called:', {
+      availabilityDatesCount: availabilityDates.length,
+      sampleAvailabilityDates: availabilityDates.slice(0, 2).map(d => ({
+        originalDate: d.date,
+        convertedDate: new Date(d.date).toISOString().split('T')[0],
+        available: d.available
+      }))
+    });
+
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
       days.push(null);
@@ -227,7 +242,21 @@ export default function AvailabilityManagement() {
     // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(currentYear, currentMonth, day).toISOString().split('T')[0];
-      const availabilityDate = availabilityDates.find(d => d.date === date);
+      const availabilityDate = availabilityDates.find(d => {
+        // Convert database date to simple date string for comparison
+        const dbDate = new Date(d.date).toISOString().split('T')[0];
+        return dbDate === date;
+      });
+
+      if (day <= 3) { // Log first 3 days for debugging
+        console.log(`📅 Day ${day}:`, {
+          lookingFor: date,
+          availabilityDate: !!availabilityDate,
+          firstDbDate: availabilityDates[0]?.date,
+          firstDbDateConverted: availabilityDates[0] ? new Date(availabilityDates[0].date).toISOString().split('T')[0] : 'none'
+        });
+      }
+
       days.push({ day, date, availability: availabilityDate });
     }
 
@@ -489,10 +518,21 @@ export default function AvailabilityManagement() {
                             variant={dayData.availability.available ? "contained" : "outlined"}
                             onClick={() => dayData.availability && toggleAvailability(dayData.availability.id, dayData.availability.available)}
                             disabled={saving}
-                            className={dayData.availability.available
-                              ? "bg-green-500 hover:bg-green-600 text-white text-xs"
-                              : "border-red-500 text-red-500 hover:bg-red-50 text-xs"
-                            }
+                            className="text-xs"
+                            sx={dayData.availability.available ? {
+                              backgroundColor: '#10b981',
+                              color: 'white',
+                              '&:hover': {
+                                backgroundColor: '#059669'
+                              }
+                            } : {
+                              borderColor: '#ef4444',
+                              color: '#ef4444',
+                              '&:hover': {
+                                backgroundColor: '#fef2f2',
+                                borderColor: '#dc2626'
+                              }
+                            }}
                             startIcon={dayData.availability.available ? <Check size={12} /> : <X size={12} />}
                           >
                             {dayData.availability.available ? 'Available' : 'Blocked'}

@@ -223,9 +223,10 @@ const BookingsList: React.FC<BookingsListProps> = ({
                 {/* Actions */}
                 <div className="flex gap-2 mt-4">
                   <Link href={`/bookings/${booking.id}`}>
-                    <Button variant="outline" size="sm">
-                      <Eye className="w-4 h-4 mr-2" />
-                      View Details
+                    <Button variant="outline" size="sm" className="border-egyptian-gold/40 text-hieroglyph-brown hover:bg-egyptian-gold/10 text-xs">
+                      <Eye className="w-3 h-3 mr-1" />
+                      <span className="text-xs">View Details</span>
+                      <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                     </Button>
                   </Link>
                   {booking.status === 'COMPLETED' && (

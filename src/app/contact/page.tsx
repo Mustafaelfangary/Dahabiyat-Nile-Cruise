@@ -32,13 +32,15 @@ export default function ContactPage() {
   const { getContent, loading, error } = useContent({ page: 'contact' });
   const [activeTab, setActiveTab] = useState('whatsapp');
   const [isEditing, setIsEditing] = useState(false);
-  const [socialLinks, setSocialLinks] = useState({
+  const initialSocialLinks = {
     whatsapp: '+20 123 456 7890',
     telegram: '@cleopatra_dahabiyat',
     youtube: 'Cleopatra Dahabiyat',
     tripadvisor: 'Cleopatra-Dahabiyat-Luxor'
-  });
-  const [tempLinks, setTempLinks] = useState(socialLinks);
+  };
+
+  const [socialLinks, setSocialLinks] = useState(initialSocialLinks);
+  const [tempLinks, setTempLinks] = useState(initialSocialLinks);
 
   const handleSave = () => {
     setSocialLinks(tempLinks);
@@ -65,7 +67,7 @@ export default function ContactPage() {
           <RoyalCrown className="w-16 h-16 text-egyptian-gold mx-auto mb-6 animate-pulse" />
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-egyptian-gold mx-auto mb-6"></div>
           <div className="text-egyptian-gold text-3xl mb-4">𓇳 𓊪 𓈖 𓂀 𓏏 𓇯 𓊃</div>
-          <p className="pharaonic-text-brown font-bold text-xl">{getContent('contact_loading_text', '𓈖 Loading Contact Portal... 𓊪')}</p>
+          <p className="pharaonic-text-brown font-bold text-xl">{getContent('contact_loading_text') || 'Loading Contact Page...'}</p>
         </div>
       </div>
     );
@@ -76,7 +78,7 @@ export default function ContactPage() {
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
           <div className="text-text-secondary text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-text-primary font-bold text-xl">{getContent('contact_error_text', '𓂀 Contact Loading Error:')} {error} 𓏏</p>
+          <p className="text-text-primary font-bold text-xl">Contact Loading Error: {error}</p>
         </div>
       </div>
     );
@@ -99,7 +101,7 @@ export default function ContactPage() {
             <div className="text-center text-text-primary">
               <div className="mb-8">
                 <h1 className="text-5xl md:text-7xl font-heading font-bold bg-gradient-to-r from-egyptian-gold via-hieroglyph-brown to-sunset-orange bg-clip-text text-transparent mb-6">
-                  {getContent('contact_hero_title', '𓇳 Contact Us 𓇳')}
+                  {getContent('contact_hero_title') || 'Contact Us'}
                 </h1>
                 <div className="flex items-center justify-center gap-2 mb-4">
                   <span className="text-egyptian-gold text-2xl">𓈖</span>
@@ -111,7 +113,7 @@ export default function ContactPage() {
               </div>
 
               <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-text-primary admin-text-justify">
-                {getContent('contact_hero_subtitle', 'Connect with our team to plan your perfect Nile journey. Our expert travel consultants are here to help you create unforgettable memories along the eternal Nile River, ensuring every detail of your pharaonic adventure is perfectly crafted.')}
+                {getContent('contact_hero_subtitle') || 'Connect with our team to plan your perfect Nile journey. Our expert travel consultants are here to help you create unforgettable memories along the eternal Nile River.'}
               </p>
             </div>
           </AnimatedSection>
@@ -355,10 +357,10 @@ export default function ContactPage() {
               <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <Phone className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
-                  {getContent('contact_phone_title', '𓊪 Call Us 𓊪')}
+                  {getContent('contact_phone_title') || 'Call Us'}
                 </h3>
                 <p className="text-text-primary text-lg font-semibold">
-                  {getContent('contact_phone', '+20 123 456 7890')}
+                  {getContent('contact_phone') || '+20 123 456 7890'}
                 </p>
               </PharaohCard>
             </AnimatedSection>
@@ -368,10 +370,10 @@ export default function ContactPage() {
               <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <Mail className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
-                  {getContent('contact_email_title', '𓇳 Email Us 𓇳')}
+                  {getContent('contact_email_title') || 'Email Us'}
                 </h3>
                 <p className="text-text-primary text-lg font-semibold">
-                  {getContent('contact_email', 'info@cleopatra-dahabiyat.com')}
+                  {getContent('contact_email') || 'info@cleopatra-dahabiyat.com'}
                 </p>
               </PharaohCard>
             </AnimatedSection>
@@ -381,10 +383,10 @@ export default function ContactPage() {
               <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
                 <MapPin className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
-                  {getContent('contact_location_title', '𓊪 Visit Us 𓊪')}
+                  {getContent('contact_location_title') || 'Visit Us'}
                 </h3>
                 <p className="text-text-primary text-lg font-semibold">
-                  {getContent('contact_address', 'Luxor, Egypt')}
+                  {getContent('contact_address') || 'Luxor, Egypt'}
                 </p>
               </PharaohCard>
             </AnimatedSection>

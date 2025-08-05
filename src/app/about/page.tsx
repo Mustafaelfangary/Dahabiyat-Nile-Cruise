@@ -37,7 +37,7 @@ export default function AboutPage() {
           <RoyalCrown className="w-16 h-16 text-egyptian-gold mx-auto mb-6 animate-pulse" />
           <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-egyptian-gold mx-auto mb-6"></div>
           <div className="text-egyptian-gold text-3xl mb-4">𓇳 𓊪 𓈖 𓂀 𓏏 𓇯 𓊃</div>
-          <p className="pharaonic-text-brown font-bold text-xl">{getContent('about_loading_text', '𓈖 Loading About Portal... 𓊪')}</p>
+          <p className="pharaonic-text-brown font-bold text-xl">{getContent('about_loading_text') || 'Loading About Page...'}</p>
         </div>
       </div>
     );
@@ -48,7 +48,7 @@ export default function AboutPage() {
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
           <div className="text-egyptian-gold text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-text-primary font-bold text-xl">{getContent('about_error_text', '𓂀 Content Loading Error:')} {error} 𓏏</p>
+          <p className="text-text-primary font-bold text-xl">Content Loading Error: {error}</p>
         </div>
       </div>
     );
@@ -69,17 +69,17 @@ export default function AboutPage() {
               <div className="text-center mb-8">
                 <EgyptHieroglyphic className="mx-auto mb-4" size="3rem" />
                 <div className="text-4xl font-bold text-gray-800 mb-2">
-                  𓂋𓏤𓈖𓇋𓆎𓏏𓂻
+                  𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
                 </div>
-                <p className="text-gray-600 text-sm">{getContent('about_egypt_label', 'Egypt')}</p>
+                <p className="text-gray-600 text-sm">{getContent('about_egypt_label') || 'Egypt'}</p>
               </div>
 
               <div className="text-center text-text-primary">
                 <h1 className="text-5xl md:text-7xl font-heading font-bold bg-gradient-to-r from-egyptian-gold via-hieroglyph-brown to-sunset-orange bg-clip-text text-transparent mb-8">
-                  {getContent('about_hero_title', 'About Us')}
+                  {getContent('about_hero_title') || 'About Us'}
                 </h1>
                 <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-text-primary">
-                  {getContent('about_hero_subtitle', 'Discover the story behind Egypt\'s premier Dahabiya cruise experience')}
+                  {getContent('about_hero_subtitle') || 'Discover the story behind Egypt\'s premier Dahabiya cruise experience'}
                 </p>
               </div>
             </AnimatedSection>
@@ -92,11 +92,11 @@ export default function AboutPage() {
             <AnimatedSection animation="fade-in">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-amber-800 mb-6">
-                  {getContent('about_our_story_section_title', 'Our Story')}
+                  {getContent('about_story_title') || 'Our Story'}
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
                 <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-                  {getContent('about_story', 'We are dedicated to providing authentic Egyptian experiences through our traditional Dahabiya cruises that connect you with the timeless beauty of the Nile River.')}
+                  {getContent('about_story_content') || 'We are dedicated to providing authentic Egyptian experiences through our traditional Dahabiya cruises that connect you with the timeless beauty of the Nile River.'}
                 </p>
               </div>
 
@@ -105,30 +105,30 @@ export default function AboutPage() {
                   <div>
                     <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
                       <Target className="w-6 h-6 text-amber-600" />
-                      {getContent('about_mission_title', 'Our Mission')}
+                      {getContent('about_mission_title') || 'Our Mission'}
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
-                      {getContent('about_mission', 'To provide authentic, luxury Nile experiences that honor Egypt\'s ancient heritage while delivering modern comfort and exceptional service.')}
+                      {getContent('about_mission_content') || 'To provide authentic, luxury Nile experiences that honor Egypt\'s ancient heritage while delivering modern comfort and exceptional service.'}
                     </p>
                   </div>
 
                   <div>
                     <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
                       <Compass className="w-6 h-6 text-amber-600" />
-                      {getContent('about_vision_title', 'Our Vision')}
+                      {getContent('about_vision_title') || 'Our Vision'}
                     </h3>
                     <p className="text-gray-700 leading-relaxed">
-                      {getContent('about_vision', 'To be the premier provider of traditional Dahabiya cruises, preserving Egypt\'s maritime heritage for future generations.')}
+                      {getContent('about_vision_content') || 'To be the premier provider of traditional Dahabiya cruises, preserving Egypt\'s maritime heritage for future generations.'}
                     </p>
                   </div>
 
                   <div>
                     <h3 className="text-2xl font-bold text-amber-800 mb-4 flex items-center gap-2">
                       <Heart className="w-6 h-6 text-amber-600" />
-                      {getContent('about_values_title', 'Our Values')}
+                      {getContent('about_values_title') || 'Our Values'}
                     </h3>
                     <div className="space-y-2">
-                      {getContent('about_values', 'Authenticity,Excellence,Heritage,Sustainability').split(',').map((value, index) => (
+                      {(getContent('about_values') || 'Authenticity,Excellence,Heritage,Sustainability').split(',').map((value, index) => (
                         <div key={index} className="flex items-center gap-2">
                           <Star className="w-4 h-4 text-amber-500" />
                           <span className="text-gray-700">{value.trim()}</span>
@@ -140,7 +140,7 @@ export default function AboutPage() {
 
                 <div className="relative">
                   <Image
-                    src={getContent('about_story_image', '/images/about/our-story.jpg')}
+                    src={getContent('about_story_image') || '/images/about/our-story.jpg'}
                     alt="Our Story"
                     width={600}
                     height={400}
@@ -161,11 +161,11 @@ export default function AboutPage() {
             <AnimatedSection animation="fade-in">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-amber-800 mb-6">
-                  {getContent('about_team_title', 'Our Leadership Team')}
+                  {getContent('about_team_title') || 'Our Leadership Team'}
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                  {getContent('about_team_description', 'Meet the passionate leaders who bring decades of experience to create unforgettable Nile journeys.')}
+                  {getContent('about_team_description') || 'Meet the passionate leaders who bring decades of experience to create unforgettable Nile journeys.'}
                 </p>
               </div>
 
@@ -175,8 +175,8 @@ export default function AboutPage() {
                     <CardContent className="p-8">
                       <div className="relative mb-6">
                         <Avatar
-                          src={getContent(`about_circle_${index}`, `/images/about/team-${index}.jpg`)}
-                          alt={getContent(`about_circle_name_${index}`, `Team Member ${index}`)}
+                          src={getContent(`about_team_member_${index}_image`) || `/images/about/team-${index}.jpg`}
+                          alt={getContent(`about_team_member_${index}_name`) || `Team Member ${index}`}
                           sx={{
                             width: 120,
                             height: 120,
@@ -191,15 +191,15 @@ export default function AboutPage() {
                       </div>
 
                       <h3 className="text-xl font-bold text-amber-800 mb-2">
-                        {getContent(`about_circle_name_${index}`, `Team Member ${index}`)}
+                        {getContent(`about_team_member_${index}_name`) || `Team Member ${index}`}
                       </h3>
 
                       <p className="text-amber-600 font-semibold mb-4">
-                        {getContent(`about_circle_title_${index}`, 'Position')}
+                        {getContent(`about_team_member_${index}_title`) || 'Position'}
                       </p>
 
                       <p className="text-gray-600 text-sm leading-relaxed">
-                        {getContent(`about_circle_description_${index}`, 'Dedicated professional with extensive experience in luxury travel and Egyptian heritage.')}
+                        {getContent(`about_team_member_${index}_description`) || 'Dedicated professional with extensive experience in luxury travel and Egyptian heritage.'}
                       </p>
                     </CardContent>
                   </Card>
@@ -217,26 +217,26 @@ export default function AboutPage() {
                 {[
                   {
                     icon: Users,
-                    number: getContent('about_stat_guests', '10,000+'),
-                    label: getContent('about_stat_guests_label', 'Happy Guests'),
+                    number: getContent('about_stat_guests') || '10,000+',
+                    label: getContent('about_stat_guests_label') || 'Happy Guests',
                     color: 'text-blue-600'
                   },
                   {
                     icon: Award,
-                    number: getContent('about_stat_years', '15+'),
-                    label: getContent('about_stat_years_label', 'Years Experience'),
+                    number: getContent('about_stat_years') || '15+',
+                    label: getContent('about_stat_years_label') || 'Years Experience',
                     color: 'text-amber-600'
                   },
                   {
                     icon: Shield,
-                    number: getContent('about_stat_safety', '100%'),
-                    label: getContent('about_stat_safety_label', 'Safety Record'),
+                    number: getContent('about_stat_safety') || '100%',
+                    label: getContent('about_stat_safety_label') || 'Safety Record',
                     color: 'text-green-600'
                   },
                   {
                     icon: Globe,
-                    number: getContent('about_stat_countries', '50+'),
-                    label: getContent('about_stat_countries_label', 'Countries Served'),
+                    number: getContent('about_stat_countries') || '50+',
+                    label: getContent('about_stat_countries_label') || 'Countries Served',
                     color: 'text-purple-600'
                   }
                 ].map((stat, index) => (
@@ -263,11 +263,11 @@ export default function AboutPage() {
             <AnimatedSection animation="fade-in">
               <div className="text-center mb-16">
                 <h2 className="text-4xl font-bold text-amber-800 mb-6">
-                  {getContent('about_contact_title', 'Get in Touch')}
+                  {getContent('about_contact_title') || 'Get in Touch'}
                 </h2>
                 <div className="w-24 h-1 bg-gradient-to-r from-amber-600 to-orange-500 mx-auto mb-8"></div>
                 <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-                  {getContent('about_contact_description', 'Ready to embark on your Nile adventure? Contact our team to start planning your journey.')}
+                  {getContent('about_contact_description') || 'Ready to embark on your Nile adventure? Contact our team to start planning your journey.'}
                 </p>
               </div>
 
@@ -277,7 +277,7 @@ export default function AboutPage() {
                     <Phone className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-amber-800 mb-2">Phone</h3>
                     <p className="text-gray-700">
-                      {getContent('about_contact_phone', '+201001538358')}
+                      {getContent('about_contact_phone') || '+201001538358'}
                     </p>
                   </CardContent>
                 </Card>
@@ -287,7 +287,7 @@ export default function AboutPage() {
                     <Mail className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-amber-800 mb-2">Email</h3>
                     <p className="text-gray-700">
-                      {getContent('about_contact_email', 'info@cleopatradahabiya.com')}
+                      {getContent('about_contact_email') || 'info@cleopatradahabiya.com'}
                     </p>
                   </CardContent>
                 </Card>
@@ -297,7 +297,7 @@ export default function AboutPage() {
                     <MapPin className="w-12 h-12 text-amber-600 mx-auto mb-4" />
                     <h3 className="text-xl font-bold text-amber-800 mb-2">Address</h3>
                     <p className="text-gray-700">
-                      {getContent('about_contact_address', 'Luxor, Egypt')}
+                      {getContent('about_contact_address') || 'Luxor, Egypt'}
                     </p>
                   </CardContent>
                 </Card>

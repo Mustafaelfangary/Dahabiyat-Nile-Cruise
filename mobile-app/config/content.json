@@ -1,0 +1,28 @@
+{
+  "lastUpdated": "2025-08-05T11:26:48.540Z",
+  "apiEndpoint": "https://your-domain.com",
+  "content": {
+    "developer": {
+      "name": "Just X Development",
+      "company": "Just X",
+      "phone": "+20 1200958713",
+      "email": "just-x1@outlook.com",
+      "website": "https://justx.com",
+      "brandingText": "crafted with love in the land of the Pharaohs by Just X",
+      "logo": "/images/94cb4d03-c000-4b5a-9f74-94a6ff0b1668.webp"
+    },
+    "itineraries": {
+      "heroTitle": "Discover Egypt",
+      "heroSubtitle": "Discover Ancient Egypt Through Carefully Crafted Journeys",
+      "heroDescription": "Explore our collection of meticulously planned itineraries",
+      "emptyStateTitle": "There are no itineraries yet",
+      "emptyStateDescription": "Our pharaonic scholars are crafting extraordinary journeys"
+    },
+    "company": {
+      "name": "Cleopatra Dahabiyat",
+      "address": "Luxor, Egypt",
+      "phone": "+20 123 456 789",
+      "email": "info@cleopatradarabiyat.com"
+    }
+  }
+}

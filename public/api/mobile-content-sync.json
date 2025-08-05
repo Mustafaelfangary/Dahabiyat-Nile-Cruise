@@ -1,0 +1,112 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2025-08-05T11:26:48.593Z",
+  "platform": "mobile",
+  "content": {
+    "footer_developer_name": {
+      "value": "Just X Development",
+      "type": "TEXT",
+      "title": "Developer Name"
+    },
+    "footer_developer_company": {
+      "value": "Just X",
+      "type": "TEXT",
+      "title": "Developer Company"
+    },
+    "footer_developer_phone": {
+      "value": "+20 1200958713",
+      "type": "TEXT",
+      "title": "Developer Phone"
+    },
+    "footer_developer_email": {
+      "value": "just-x1@outlook.com",
+      "type": "TEXT",
+      "title": "Developer Email"
+    },
+    "footer_developer_website": {
+      "value": "https://justx.com",
+      "type": "TEXT",
+      "title": "Developer Website"
+    },
+    "footer_developer_logo": {
+      "value": "/images/94cb4d03-c000-4b5a-9f74-94a6ff0b1668.webp",
+      "type": "IMAGE",
+      "title": "Developer Logo"
+    },
+    "footer_developer_branding_text": {
+      "value": "crafted with love in the land of the Pharaohs by Just X",
+      "type": "TEXT",
+      "title": "Developer Branding Text"
+    },
+    "footer_developer_contact_text": {
+      "value": "Contact Developer",
+      "type": "TEXT",
+      "title": "Contact Button Text"
+    },
+    "footer_developer_contact_modal_title": {
+      "value": "Contact Developer",
+      "type": "TEXT",
+      "title": "Contact Modal Title"
+    },
+    "itineraries_hero_title": {
+      "value": "Discover Egypt",
+      "type": "TEXT",
+      "title": "Hero Title"
+    },
+    "site_logo": {
+      "value": "/images/3439be6e-0ef1-483d-b01b-23426d8f0181.webp",
+      "type": "IMAGE",
+      "title": "Site Logo"
+    },
+    "hero_title": {
+      "value": "Discover the Timeless Beauty of the Nile",
+      "type": "TEXT",
+      "title": "Hero Title"
+    },
+    "hero_subtitle": {
+      "value": "Experience authentic Egyptian hospitality aboard our traditional dahabiyat",
+      "type": "TEXT",
+      "title": "Hero Subtitle"
+    },
+    "hero_video_poster": {
+      "value": "/images/hero-poster.jpg",
+      "type": "IMAGE",
+      "title": "Hero Video Poster"
+    },
+    "contact_hero_title": {
+      "value": "Get in Touch",
+      "type": "TEXT",
+      "title": "Contact Hero Title"
+    },
+    "contact_hero_subtitle": {
+      "value": "We're here to help plan your perfect Nile journey",
+      "type": "TEXT",
+      "title": "Contact Hero Subtitle"
+    },
+    "dahabiyas_hero_title": {
+      "value": "Our Luxury Fleet",
+      "type": "TEXT",
+      "title": "Dahabiyas Hero Title"
+    },
+    "dahabiyas_hero_subtitle": {
+      "value": "Choose from our collection of traditional dahabiyat",
+      "type": "TEXT",
+      "title": "Dahabiyas Hero Subtitle"
+    },
+    "packages_hero_title": {
+      "value": "Our Packages",
+      "type": "TEXT",
+      "title": "Packages Hero Title"
+    },
+    "packages_hero_subtitle": {
+      "value": "Curated experiences for every type of traveler",
+      "type": "TEXT",
+      "title": "Packages Hero Subtitle"
+    },
+    "hero_video_url": {
+      "value": "/videos/61e304cc-7995-412b-a180-6af4e6c04470.mp4",
+      "type": "VIDEO",
+      "title": "Hero Video URL"
+    }
+  }
+}

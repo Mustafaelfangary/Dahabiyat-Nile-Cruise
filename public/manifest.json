@@ -1,15 +1,19 @@
 {
   "name": "Dahabiyat",
   "short_name": "Dahabiyat",
-  "description": "Luxury Nile cruises aboard traditional dahabiya boats",
+  "description": "Experience authentic Egyptian hospitality aboard our traditional dahabiyat",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a365d",
   "icons": [],
   "orientation": "portrait",
-  "categories": ["travel", "tourism", "cruises"],
+  "categories": [
+    "travel",
+    "tourism",
+    "cruises"
+  ],
   "lang": "en",
   "dir": "ltr",
   "prefer_related_applications": false
-} 
+}

@@ -3,7 +3,7 @@
  * Enhanced developer contact modal with improved styling and WhatsApp integration
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   StyleSheet,
@@ -34,9 +34,9 @@ interface DeveloperInfo {
 
 const ContactDeveloperScreen: React.FC = () => {
   const { colors } = useTheme();
-  
-  // Developer information - in a real app, this would come from API/settings
-  const [developerInfo] = useState<DeveloperInfo>({
+
+  // Developer information - synchronized with web admin panel
+  const [developerInfo, setDeveloperInfo] = useState<DeveloperInfo>({
     name: 'Just X Development',
     company: 'Just X',
     phone: '+201200958713',
@@ -44,6 +44,73 @@ const ContactDeveloperScreen: React.FC = () => {
     website: 'https://justx.com',
     brandingText: 'Crafted with love in the land of the Pharaohs by Just X'
   });
+  const [loading, setLoading] = useState(true);
+
+  // Fetch developer settings from API or use constants (synchronized with web admin)
+  useEffect(() => {
+    const fetchDeveloperSettings = async () => {
+      try {
+        // Try to fetch from content sync API first
+        const response = await fetch('https://your-domain.com/api/mobile-content-sync.json');
+        if (response.ok) {
+          const data = await response.json();
+          const content = data.content || {};
+
+          // Map API response to developer info
+          const updatedInfo = {
+            name: content['footer_developer_name']?.value || developerInfo.name,
+            company: content['footer_developer_company']?.value || developerInfo.company,
+            phone: content['footer_developer_phone']?.value || developerInfo.phone,
+            email: content['footer_developer_email']?.value || developerInfo.email,
+            website: content['footer_developer_website']?.value || developerInfo.website,
+            brandingText: content['footer_developer_branding_text']?.value || developerInfo.brandingText
+          };
+
+          setDeveloperInfo(updatedInfo);
+        } else {
+          // Fallback to direct API call
+          const fallbackResponse = await fetch('https://your-domain.com/api/website-content/global_media');
+          if (fallbackResponse.ok) {
+            const data = await fallbackResponse.json();
+            const fields = data.fields || [];
+
+            const updatedInfo = { ...developerInfo };
+            fields.forEach((field: any) => {
+              switch (field.key) {
+                case 'footer_developer_name':
+                  updatedInfo.name = field.value || updatedInfo.name;
+                  break;
+                case 'footer_developer_company':
+                  updatedInfo.company = field.value || updatedInfo.company;
+                  break;
+                case 'footer_developer_phone':
+                  updatedInfo.phone = field.value || updatedInfo.phone;
+                  break;
+                case 'footer_developer_email':
+                  updatedInfo.email = field.value || updatedInfo.email;
+                  break;
+                case 'footer_developer_website':
+                  updatedInfo.website = field.value || updatedInfo.website;
+                  break;
+                case 'footer_developer_branding_text':
+                  updatedInfo.brandingText = field.value || updatedInfo.brandingText;
+                  break;
+              }
+            });
+
+            setDeveloperInfo(updatedInfo);
+          }
+        }
+      } catch (error) {
+        console.log('Using fallback developer settings:', error);
+        // Keep default values if API fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDeveloperSettings();
+  }, []);
 
   const handleWhatsApp = () => {
     const phone = developerInfo.phone.replace(/\s+/g, '').replace('+', '');

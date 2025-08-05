@@ -868,15 +868,7 @@ export default function AdminDashboard() {
                       WhatsApp
                       <span className="text-xs text-slate-500 mt-1">Configure WhatsApp button</span>
                     </Button>
-                    <Button
-                      onClick={() => window.open('/admin/developer-settings', '_blank')}
-                      variant="outline"
-                      className="h-20 flex-col"
-                    >
-                      <Code size={24} className="mb-2 text-blue-600" />
-                      Developer
-                      <span className="text-xs text-slate-500 mt-1">Developer contact & branding</span>
-                    </Button>
+
                     <Button
                       onClick={() => window.open('/admin/email-templates', '_blank')}
                       variant="outline"

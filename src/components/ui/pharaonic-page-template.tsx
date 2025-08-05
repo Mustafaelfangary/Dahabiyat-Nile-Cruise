@@ -165,7 +165,7 @@ export function PharaonicPageTemplate({
             {/* Hieroglyphic Egypt at top */}
             <div className="text-center mb-8">
               <div className="text-4xl font-bold mb-2">
-                <span className="text-blue-600">𓂋</span><span className="text-emerald-600">𓏤</span><span className="text-blue-600">𓈖</span><span className="text-emerald-600">𓇋</span><span className="text-blue-600">𓆎</span><span className="text-emerald-600">𓏏</span><span className="text-blue-600">𓂻</span>
+                <span className="text-blue-600">𓎢</span><span className="text-emerald-600">𓃭</span><span className="text-blue-600">𓅂</span><span className="text-emerald-600">𓅱</span><span className="text-blue-600">𓊪</span><span className="text-emerald-600">𓄿</span><span className="text-blue-600">𓏏</span><span className="text-emerald-600">𓂋</span><span className="text-blue-600">𓄿</span>
               </div>
             </div>
 

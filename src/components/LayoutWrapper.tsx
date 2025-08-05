@@ -6,6 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MobileNavigation from '@/components/mobile/MobileNavigation';
 import AutoZoomProvider from '@/components/ui/AutoZoomProvider';
+import HieroglyphicTopBanner from '@/components/ui/HieroglyphicTopBanner';
 
 interface LayoutWrapperProps {
   children: React.ReactNode;
@@ -51,6 +52,14 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <AutoZoomProvider enabled={!isAdmin}>
+      {/* Hieroglyphic Top Banner - appears on all pages except admin */}
+      {showNavbar && (
+        <HieroglyphicTopBanner
+          variant={isMobile ? 'minimal' : 'default'}
+          animated={true}
+        />
+      )}
+
       {showNavbar && (
         <>
           {isMobile ? (
@@ -65,10 +74,10 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
       )}
       <main
         className={`transition-all duration-300 ${
-          isMobile && showNavbar ? 'pt-16' : ''
+          isMobile && showNavbar ? 'pt-32' : ''
         }`}
         style={{
-          paddingTop: showNavbar && !isMobile ? (scrolled ? '4rem' : '5rem') : '0'
+          paddingTop: showNavbar && !isMobile ? (scrolled ? '8rem' : '9rem') : '0'
         }}
       >
         {children}
