@@ -26,7 +26,61 @@ export class AvailabilityService {
     guests,
   }: AvailabilityCheck): Promise<AvailabilityResult> {
     try {
-      // Get the dahabiya with its details
+      console.log('🔍 Checking availability for:', { dahabiyaId, startDate, endDate, guests });
+
+      // STEP 1: Check availability dates from admin panel
+      const availabilityDates = await prisma.availabilityDate.findMany({
+        where: {
+          dahabiyaId,
+          date: {
+            gte: startDate,
+            lte: endDate
+          }
+        }
+      });
+
+      console.log('📅 Found availability dates:', availabilityDates.length);
+
+      // Check if all dates in the range are marked as available
+      const dateRange = [];
+      const currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        dateRange.push(new Date(currentDate).toISOString().split('T')[0]);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      console.log('📅 Date range to check:', dateRange);
+
+      // Check if all dates are available
+      const unavailableDates = [];
+      for (const dateStr of dateRange) {
+        const availabilityDate = availabilityDates.find(ad =>
+          new Date(ad.date).toISOString().split('T')[0] === dateStr
+        );
+
+        if (!availabilityDate) {
+          console.log('❌ No availability data for date:', dateStr);
+          unavailableDates.push(dateStr);
+        } else if (!availabilityDate.available) {
+          console.log('❌ Date marked as blocked:', dateStr);
+          unavailableDates.push(dateStr);
+        } else {
+          console.log('✅ Date available:', dateStr);
+        }
+      }
+
+      if (unavailableDates.length > 0) {
+        console.log('❌ Unavailable dates found:', unavailableDates);
+        return {
+          isAvailable: false,
+          availableCabins: [],
+          totalPrice: 0,
+        };
+      }
+
+      console.log('✅ All dates are available, checking dahabiya details...');
+
+      // STEP 2: Get the dahabiya with its details
       const dahabiya = await prisma.dahabiya.findUnique({
         where: { id: dahabiyaId },
         include: {
