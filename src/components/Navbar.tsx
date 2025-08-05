@@ -211,13 +211,31 @@ export default function Navbar() {
       .catch(err => console.log('Using fallback itinerary items'));
   }, []);
 
-  // Packages dropdown items
-  const packagesItems = [
+  useEffect(() => {
+    // Fetch actual packages from API
+    fetch('/api/packages?limit=10')
+      .then(res => res.json())
+      .then(data => {
+        if (data && Array.isArray(data.packages)) {
+          const items = data.packages.map((pkg: any, index: number) => ({
+            href: `/packages/${pkg.slug || pkg.id}`,
+            label: `${['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${pkg.name}`,
+            hieroglyph: ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
+          }));
+          setPackagesItems(items);
+        }
+      })
+      .catch(err => console.log('Using fallback package items'));
+  }, []);
+
+  // Dynamic packages dropdown items
+  const [packagesItems, setPackagesItems] = useState([
+    // Fallback items while loading
     { href: "/packages/luxury-nile-cruise", label: "𓇳 Luxury Nile Cruise", hieroglyph: "𓇳" },
     { href: "/packages/classic-egypt-explorer", label: "𓊪 Classic Egypt Explorer", hieroglyph: "𓊪" },
     { href: "/packages/adventure-explorer", label: "𓈖 Adventure Explorer", hieroglyph: "𓈖" },
     { href: "/packages/cultural-discovery", label: "𓂀 Cultural Discovery", hieroglyph: "𓂀" },
-  ];
+  ]);
 
   const navLinks = [
     { href: "/dahabiyas", label: `𓊪 ${t('dahabiyat')} 𓊪`, hieroglyph: "𓊪", hasDropdown: true, dropdownItems: dahabiyatItems },
