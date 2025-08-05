@@ -46,6 +46,7 @@ export default function AvailabilityManagement() {
   const [availabilityDates, setAvailabilityDates] = useState<AvailabilityDate[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [savingDateId, setSavingDateId] = useState<string | null>(null);
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [viewMode, setViewMode] = useState<'dahabiya' | 'package'>('dahabiya');
@@ -145,6 +146,9 @@ export default function AvailabilityManagement() {
 
   const toggleAvailability = async (dateId: string, currentAvailable: boolean) => {
     setSaving(true);
+    setSavingDateId(dateId);
+    console.log('🔄 Toggling availability:', { dateId, currentAvailable, newValue: !currentAvailable });
+
     try {
       const response = await fetch('/api/dashboard/dahabiyat/availability', {
         method: 'PATCH',
@@ -152,17 +156,30 @@ export default function AvailabilityManagement() {
         body: JSON.stringify({ id: dateId, available: !currentAvailable })
       });
 
+      const result = await response.json();
+      console.log('📡 API Response:', result);
+
       if (response.ok) {
-        setAvailabilityDates(prev => 
-          prev.map(date => 
+        // Update local state
+        setAvailabilityDates(prev =>
+          prev.map(date =>
             date.id === dateId ? { ...date, available: !currentAvailable } : date
           )
         );
+
+        // Show success message
+        toast.success(`Date ${!currentAvailable ? 'marked as available' : 'blocked'} successfully`);
+        console.log('✅ Availability updated successfully');
+      } else {
+        toast.error(result.error || 'Failed to update availability');
+        console.error('❌ API Error:', result);
       }
     } catch (error) {
-      console.error('Error updating availability:', error);
+      console.error('❌ Network Error updating availability:', error);
+      toast.error('Network error. Please try again.');
     } finally {
       setSaving(false);
+      setSavingDateId(null);
     }
   };
 
@@ -225,14 +242,10 @@ export default function AvailabilityManagement() {
     const firstDay = new Date(currentYear, currentMonth, 1).getDay();
     const days = [];
 
-    console.log('📅 getDaysInMonth called:', {
-      availabilityDatesCount: availabilityDates.length,
-      sampleAvailabilityDates: availabilityDates.slice(0, 2).map(d => ({
-        originalDate: d.date,
-        convertedDate: new Date(d.date).toISOString().split('T')[0],
-        available: d.available
-      }))
-    });
+    // Debug: Log availability data
+    if (availabilityDates.length > 0) {
+      console.log('📅 Calendar loaded with', availabilityDates.length, 'availability dates');
+    }
 
     // Add empty cells for days before the first day of the month
     for (let i = 0; i < firstDay; i++) {
@@ -248,13 +261,9 @@ export default function AvailabilityManagement() {
         return dbDate === date;
       });
 
-      if (day <= 3) { // Log first 3 days for debugging
-        console.log(`📅 Day ${day}:`, {
-          lookingFor: date,
-          availabilityDate: !!availabilityDate,
-          firstDbDate: availabilityDates[0]?.date,
-          firstDbDateConverted: availabilityDates[0] ? new Date(availabilityDates[0].date).toISOString().split('T')[0] : 'none'
-        });
+      // Debug: Log first few days for troubleshooting
+      if (day <= 2 && availabilityDate) {
+        console.log(`📅 Day ${day} matched:`, { date, available: availabilityDate.available });
       }
 
       days.push({ day, date, availability: availabilityDate });
@@ -506,43 +515,51 @@ export default function AvailabilityManagement() {
 
                 {/* Calendar days */}
                 {getDaysInMonth().map((dayData, index) => (
-                  <div key={index} className="min-h-[100px] p-2 border rounded bg-white">
+                  <div key={index} className={`
+                    min-h-[100px] p-2 border rounded transition-all duration-200
+                    ${dayData ? 'bg-white hover:bg-slate-50 shadow-sm hover:shadow-md' : 'bg-slate-100'}
+                    ${dayData?.availability?.available ? 'border-green-200 bg-green-50/30' :
+                      dayData?.availability ? 'border-red-200 bg-red-50/30' : 'border-slate-200'}
+                  `}>
                     {dayData && (
                       <>
-                        <div className="font-bold text-text-primary mb-2">
+                        <div className="font-bold text-slate-700 mb-2 text-sm">
                           {dayData.day}
                         </div>
                         {dayData.availability ? (
-                          <Button
-                            size="small"
-                            variant={dayData.availability.available ? "contained" : "outlined"}
+                          <button
                             onClick={() => dayData.availability && toggleAvailability(dayData.availability.id, dayData.availability.available)}
-                            disabled={saving}
-                            className="text-xs"
-                            sx={dayData.availability.available ? {
-                              backgroundColor: '#10b981',
-                              color: 'white',
-                              '&:hover': {
-                                backgroundColor: '#059669'
+                            disabled={savingDateId === dayData.availability.id}
+                            className={`
+                              w-full px-2 py-1 text-xs font-medium rounded-md transition-all duration-200 flex items-center justify-center gap-1
+                              ${dayData.availability.available
+                                ? 'bg-green-500 hover:bg-green-600 text-white shadow-md hover:shadow-lg'
+                                : 'bg-red-500 hover:bg-red-600 text-white shadow-md hover:shadow-lg'
                               }
-                            } : {
-                              borderColor: '#ef4444',
-                              color: '#ef4444',
-                              '&:hover': {
-                                backgroundColor: '#fef2f2',
-                                borderColor: '#dc2626'
-                              }
-                            }}
-                            startIcon={dayData.availability.available ? <Check size={12} /> : <X size={12} />}
+                              ${savingDateId === dayData.availability.id ? 'opacity-50 cursor-not-allowed animate-pulse' : 'cursor-pointer'}
+                            `}
                           >
-                            {dayData.availability.available ? 'Available' : 'Blocked'}
-                          </Button>
+                            {savingDateId === dayData.availability.id ? (
+                              <>
+                                <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin"></div>
+                                Updating...
+                              </>
+                            ) : dayData.availability.available ? (
+                              <>
+                                <Check size={12} />
+                                Available
+                              </>
+                            ) : (
+                              <>
+                                <X size={12} />
+                                Blocked
+                              </>
+                            )}
+                          </button>
                         ) : (
-                          <Chip
-                            label="Not Set"
-                            size="small"
-                            className="bg-gray-200 text-gray-600"
-                          />
+                          <div className="w-full px-2 py-1 text-xs font-medium rounded-md bg-slate-200 text-slate-600 text-center border border-slate-300">
+                            Not Set
+                          </div>
                         )}
                       </>
                     )}
