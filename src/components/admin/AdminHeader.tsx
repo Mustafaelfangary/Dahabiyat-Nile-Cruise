@@ -25,14 +25,14 @@ export function AdminHeader() {
   };
 
   return (
-    <div className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-50">
+    <div className="bg-white border-b border-blue-200 shadow-sm sticky top-16 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Left Side - Logo and Title */}
           <div className="flex items-center space-x-4">
             {/* Logo */}
             <Link href="/admin" className="flex items-center space-x-3">
-              <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-gradient-to-br from-egyptian-gold to-amber-500 p-1">
+              <div className="relative w-10 h-10 rounded-lg overflow-hidden bg-gradient-to-br from-ocean-blue to-blue-500 p-1">
                 <Image
                   src={getAdminLogo()}
                   alt="Admin Logo"
@@ -47,17 +47,17 @@ export function AdminHeader() {
                 />
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-lg font-bold text-slate-800">
+                <h1 className="text-lg font-bold text-black">
                   Admin Panel
                 </h1>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-blue-600">
                   Dahabiyat Nile Cruise
                 </p>
               </div>
             </Link>
 
-            {/* Pharaonic Separator */}
-            <div className="hidden md:block text-egyptian-gold text-lg">
+            {/* Ocean Blue Separator */}
+            <div className="hidden md:block text-ocean-blue text-lg">
               𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
             </div>
           </div>
@@ -67,21 +67,21 @@ export function AdminHeader() {
             {/* Quick Navigation */}
             <div className="hidden md:flex items-center space-x-2">
               <Link href="/">
-                <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-black hover:bg-blue-50">
                   <Home className="w-4 h-4 mr-2" />
                   Site
                 </Button>
               </Link>
-              
+
               <Link href="/admin">
-                <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-black hover:bg-blue-50">
                   <LayoutDashboard className="w-4 h-4 mr-2" />
                   Dashboard
                 </Button>
               </Link>
 
               <Link href="/admin/settings">
-                <Button variant="ghost" size="sm" className="text-slate-600 hover:text-slate-800">
+                <Button variant="ghost" size="sm" className="text-blue-600 hover:text-black hover:bg-blue-50">
                   <Settings className="w-4 h-4 mr-2" />
                   Settings
                 </Button>
@@ -93,17 +93,17 @@ export function AdminHeader() {
               <div className="flex items-center space-x-3">
                 {/* User Info */}
                 <div className="hidden sm:block text-right">
-                  <p className="text-sm font-medium text-slate-800 flex items-center">
-                    <Crown className="w-4 h-4 mr-1 text-egyptian-gold" />
+                  <p className="text-sm font-medium text-black flex items-center">
+                    <Crown className="w-4 h-4 mr-1 text-ocean-blue" />
                     {session.user?.name}
                   </p>
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-blue-600">
                     {session.user?.role || 'Admin'}
                   </p>
                 </div>
 
                 {/* User Avatar */}
-                <div className="w-8 h-8 bg-gradient-to-br from-egyptian-gold to-amber-500 rounded-full flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-br from-ocean-blue to-blue-500 rounded-full flex items-center justify-center">
                   {session.user?.image ? (
                     <Image
                       src={session.user.image}
@@ -122,7 +122,7 @@ export function AdminHeader() {
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="text-slate-600 hover:text-red-600 hover:bg-red-50"
+                  className="text-blue-600 hover:text-red-600 hover:bg-red-50"
                 >
                   <LogOut className="w-4 h-4" />
                   <span className="hidden sm:inline ml-2">Logout</span>

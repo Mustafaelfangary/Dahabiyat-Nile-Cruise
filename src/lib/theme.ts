@@ -4,24 +4,24 @@ import { createTheme } from '@mui/material/styles';
 export const theme = createTheme({
   palette: {
     primary: {
-      main: 'hsl(45, 100%, 51%)', // Egyptian Amber
-      dark: 'hsl(45, 100%, 41%)',
-      light: 'hsl(45, 100%, 61%)',
-      contrastText: 'hsl(30, 25%, 15%)',
+      main: 'hsl(200, 100%, 50%)', // Ocean Blue
+      dark: 'hsl(200, 100%, 40%)',
+      light: 'hsl(200, 100%, 60%)',
+      contrastText: 'hsl(0, 0%, 100%)',
     },
     secondary: {
-      main: 'hsl(25, 100%, 60%)', // Desert Orange
-      dark: 'hsl(25, 100%, 50%)',
-      light: 'hsl(25, 100%, 70%)',
+      main: 'hsl(240, 100%, 50%)', // Blue
+      dark: 'hsl(240, 100%, 40%)',
+      light: 'hsl(240, 100%, 60%)',
       contrastText: 'hsl(0, 0%, 100%)',
     },
     background: {
-      default: 'hsl(45, 50%, 98%)', // Papyrus
-      paper: 'hsl(45, 50%, 98%)',
+      default: 'hsl(0, 0%, 100%)', // White
+      paper: 'hsl(0, 0%, 100%)',
     },
     text: {
-      primary: 'hsl(30, 25%, 15%)', // Hieroglyph Brown
-      secondary: 'hsl(30, 20%, 45%)',
+      primary: 'hsl(0, 0%, 0%)', // Black
+      secondary: 'hsl(220, 20%, 45%)',
     },
   },
   typography: {

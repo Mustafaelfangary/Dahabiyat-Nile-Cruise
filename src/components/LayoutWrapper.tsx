@@ -52,13 +52,11 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <AutoZoomProvider enabled={!isAdmin}>
-      {/* Hieroglyphic Top Banner - appears on all pages except admin */}
-      {showNavbar && (
-        <HieroglyphicTopBanner
-          variant={isMobile ? 'minimal' : 'default'}
-          animated={true}
-        />
-      )}
+      {/* Hieroglyphic Top Banner - appears on ALL pages */}
+      <HieroglyphicTopBanner
+        variant={isMobile ? 'minimal' : isAdmin ? 'elegant' : 'default'}
+        animated={true}
+      />
 
       {showNavbar && (
         <>

@@ -288,10 +288,10 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                 variant="contained"
                 fullWidth
                 size="large"
-                className="bg-gradient-to-r from-egyptian-gold to-amber-400 text-hieroglyph-brown hover:from-amber-400 hover:to-egyptian-gold font-bold py-3 shadow-lg"
+                className="bg-gradient-to-r from-ocean-blue to-blue-400 text-white hover:from-blue-400 hover:to-ocean-blue font-bold py-3 shadow-lg"
                 startIcon={<Crown />}
               >
-                Complete Sacred Booking
+                Complete Royal Booking
               </Button>
             </Link>
 
@@ -300,7 +300,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
               <Button
                 variant="outlined"
                 onClick={onClose}
-                className="flex-1 border-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/10"
+                className="flex-1 border-ocean-blue text-black hover:bg-ocean-blue/10"
               >
                 Continue Browsing
               </Button>
@@ -308,7 +308,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                 <Button
                   variant="outlined"
                   fullWidth
-                  className="border-amber-400 text-amber-700 hover:bg-amber-50"
+                  className="border-blue-400 text-blue-700 hover:bg-blue-50"
                 >
                   View Details
                 </Button>

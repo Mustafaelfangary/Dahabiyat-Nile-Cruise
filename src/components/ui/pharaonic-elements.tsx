@@ -189,8 +189,8 @@ export const PharaohButton = ({ children, onClick, className = "", variant = "pr
   const baseClasses = "relative px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg";
   
   const variants = {
-    primary: "bg-gradient-to-r from-egyptian-gold via-egyptian-amber to-egyptian-gold text-black shadow-egyptian-gold/50 hover:shadow-egyptian-gold/70",
-    secondary: "bg-gradient-to-r from-sunset-orange via-orange-500 to-sunset-orange text-black shadow-sunset-orange/50 hover:shadow-sunset-orange/70"
+    primary: "bg-gradient-to-r from-ocean-blue via-blue-500 to-ocean-blue text-white shadow-ocean-blue/50 hover:shadow-ocean-blue/70",
+    secondary: "bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white shadow-blue-500/50 hover:shadow-blue-500/70"
   };
   
   return (

@@ -87,15 +87,15 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
       <Card
         className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative"
         style={{
-          background: 'linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)',
-          border: '2px solid #D4AF37',
+          background: 'linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%)',
+          border: '2px solid #0080ff',
           borderRadius: '12px',
-          boxShadow: '0 4px 20px rgba(212, 175, 55, 0.2)',
+          boxShadow: '0 4px 20px rgba(0, 128, 255, 0.2)',
         }}
       >
-        {/* Pharaonic Border Pattern */}
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
-        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+        {/* Ocean Blue Border Pattern */}
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue"></div>
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue"></div>
 
         {/* Floating Hieroglyphic Elements */}
         <div className="absolute top-2 right-2 text-egyptian-gold opacity-20 text-lg z-10">𓊪</div>
@@ -122,14 +122,14 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                 <Chip
                   label={getContent('dahabiyas_card_featured_label') || 'Featured'}
                   size="small"
-                  className="bg-gradient-to-r from-yellow-400 to-amber-500 text-hieroglyph-brown font-bold shadow-lg"
+                  className="bg-gradient-to-r from-blue-400 to-ocean-blue text-white font-bold shadow-lg"
                   icon={<Award className="w-3 h-3" />}
                   style={{
-                    border: '1px solid #D4AF37',
+                    border: '1px solid #0080ff',
                     animation: 'pulse 2s infinite',
                   }}
                 />
-                <div className="absolute -top-1 -right-1 w-3 h-3 bg-egyptian-gold rounded-full animate-ping"></div>
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-ocean-blue rounded-full animate-ping"></div>
               </div>
             )}
             <Chip
@@ -137,8 +137,8 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               size="small"
               className={getCategoryColor(dahabiya.category)}
               style={{
-                border: '1px solid #D4AF37',
-                boxShadow: '0 2px 8px rgba(212, 175, 55, 0.3)',
+                border: '1px solid #0080ff',
+                boxShadow: '0 2px 8px rgba(0, 128, 255, 0.3)',
               }}
             />
           </div>
@@ -264,7 +264,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           <div className="flex flex-col gap-3">
             {/* Quick Book Button */}
             <div
-              className="bg-gradient-to-r from-egyptian-gold to-amber-400 text-hieroglyph-brown px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-amber-600 text-center cursor-pointer"
+              className="bg-gradient-to-r from-ocean-blue to-blue-400 text-white px-6 py-3 rounded-full font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border border-blue-600 text-center cursor-pointer"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -282,9 +282,9 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               </Typography>
             </div>
 
-            {/* Pharaonic View Details Button */}
+            {/* Ocean Blue View Details Button */}
             <div
-              className="bg-gradient-to-r from-egyptian-gold/20 to-amber-400/20 text-hieroglyph-brown px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-egyptian-gold/40 hover:border-egyptian-gold/60 text-center cursor-pointer backdrop-blur-sm"
+              className="bg-gradient-to-r from-ocean-blue/20 to-blue-400/20 text-black px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-ocean-blue/40 hover:border-ocean-blue/60 text-center cursor-pointer backdrop-blur-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 // Navigate to the dahabiya detail page which has the unified booking form
@@ -295,16 +295,16 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                 <Typography variant="caption" className="font-bold text-xs">
                   {getContent('dahabiyas_card_full_booking_text') || 'View Details'}
                 </Typography>
-                <Typography className="text-xs text-egyptian-gold">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</Typography>
+                <Typography className="text-xs text-ocean-blue">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</Typography>
               </div>
             </div>
           </div>
 
           {/* Bottom Decorative Element */}
           <div className="flex justify-center items-center gap-2 mt-4">
-            <div className="w-6 h-0.5 bg-egyptian-gold"></div>
-            <Typography className="text-egyptian-gold text-sm">𓇳</Typography>
-            <div className="w-6 h-0.5 bg-egyptian-gold"></div>
+            <div className="w-6 h-0.5 bg-ocean-blue"></div>
+            <Typography className="text-ocean-blue text-sm">𓇳</Typography>
+            <div className="w-6 h-0.5 bg-ocean-blue"></div>
           </div>
         </CardContent>
 

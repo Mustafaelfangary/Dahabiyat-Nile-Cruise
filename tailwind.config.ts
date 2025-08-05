@@ -64,15 +64,20 @@ const config: Config = {
         'rose-pink': 'hsl(var(--rose-pink))',
         'sky-cyan': 'hsl(var(--sky-cyan))',
 
-        // Egyptian theme colors
-        'egyptian-gold': '#D4AF37',
-        'egyptian-amber': '#FFBF00',
-        'desert-sand': '#F4E4BC',
-        'pharaoh-blue': '#1E3A8A',
-        'papyrus': '#F7F3E9',
-        'hieroglyph-brown': '#8B4513',
-        'nile-blue': '#006994',
-        'sunset-orange': '#FF8C00',
+        // Ocean Blue theme colors
+        'ocean-blue': '#0080ff',
+        'ocean-blue-dark': '#0066cc',
+        'ocean-blue-light': '#3399ff',
+        'ocean-blue-lighter': '#66b3ff',
+        'ocean-blue-lightest': '#99ccff',
+        'deep-blue': '#003d7a',
+        'navy-blue': '#001f3f',
+        'sky-blue': '#87ceeb',
+        'powder-blue': '#b0e0e6',
+
+        // Keep some Egyptian colors for hieroglyphics
+        'egyptian-gold': '#0080ff', // Changed to ocean blue
+        'nile-blue': '#0080ff',
 
         // Clean text colors
         'text-primary': 'hsl(var(--text-primary))',

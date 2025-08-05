@@ -4,73 +4,73 @@
 
 @layer base {
   :root {
-    /* Admin Panel Pharaonic Theme - Applied to Entire Website */
-    --background: 45 50% 98%;
-    --foreground: 30 25% 15%;
-    --card: 45 50% 98%;
-    --card-foreground: 30 25% 15%;
-    --popover: 45 50% 98%;
-    --popover-foreground: 30 25% 15%;
+    /* New Ocean Blue Theme - Black, White, Blue, Ocean Blue */
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
 
-    /* Pharaonic Gold Colors - From Admin Panel */
-    --primary: 45 100% 51%;
-    --primary-foreground: 30 25% 15%;
-    --primary-dark: 45 100% 41%;
-    --primary-light: 45 100% 61%;
-    --primary-muted: 45 100% 95%;
+    /* Primary Colors - Ocean Blue */
+    --primary: 200 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --primary-dark: 200 100% 40%;
+    --primary-light: 200 100% 60%;
+    --primary-muted: 200 100% 95%;
 
-    /* Admin Panel Pharaonic Variables */
-    --pharaonic-gold: #d4af37;
-    --pharaonic-dark-gold: #b8941f;
-    --pharaonic-light-gold: #f4e4a6;
-    --pharaonic-amber: #fbbf24;
-    --pharaonic-orange: #f97316;
-    --pharaonic-brown: #92400e;
-    --pharaonic-dark-brown: #451a03;
-    --pharaonic-cream: #fef3c7;
-    --pharaonic-sand: #fef7ed;
+    /* Ocean Blue Color Palette */
+    --ocean-blue: #0080ff;
+    --ocean-blue-dark: #0066cc;
+    --ocean-blue-light: #3399ff;
+    --ocean-blue-lighter: #66b3ff;
+    --ocean-blue-lightest: #99ccff;
+    --deep-blue: #003d7a;
+    --navy-blue: #001f3f;
+    --sky-blue: #87ceeb;
+    --powder-blue: #b0e0e6;
 
-    /* Secondary Colors - Desert Orange */
-    --secondary: 25 100% 60%;
+    /* Secondary Colors - Blue */
+    --secondary: 240 100% 50%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-dark: 25 100% 50%;
-    --secondary-light: 25 100% 70%;
-    --secondary-muted: 25 100% 95%;
+    --secondary-dark: 240 100% 40%;
+    --secondary-light: 240 100% 60%;
+    --secondary-muted: 240 100% 95%;
 
-    /* Accent Colors - Pharaonic Red */
-    --accent: 0 75% 55%;
+    /* Accent Colors - Deep Blue */
+    --accent: 220 100% 30%;
     --accent-foreground: 0 0% 100%;
 
-    /* Tertiary Colors - Nile Blue */
-    --tertiary: 200 85% 45%;
+    /* Tertiary Colors - Ocean Blue */
+    --tertiary: 200 100% 50%;
     --tertiary-foreground: 0 0% 100%;
-    --tertiary-dark: 200 85% 35%;
-    --tertiary-light: 200 85% 55%;
+    --tertiary-dark: 200 100% 40%;
+    --tertiary-light: 200 100% 60%;
 
-    /* Neutral Colors - Egyptian Sand */
-    --muted: 45 30% 94%;
-    --muted-foreground: 30 20% 45%;
-    --border: 45 25% 88%;
-    --input: 45 30% 94%;
-    --ring: 45 100% 51%;
+    /* Neutral Colors - Blue/White/Black */
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 20% 45%;
+    --border: 220 25% 88%;
+    --input: 220 30% 94%;
+    --ring: 200 100% 50%;
 
-    /* Egyptian Palette Colors */
-    --egyptian-gold: 200 85% 45%;
-    --coral-bright: 25 100% 60%;
-    --mint-green: 120 40% 45%;
-    --lavender-purple: 280 50% 55%;
-    --sunshine-yellow: 45 100% 60%;
-    --rose-pink: 350 70% 60%;
-    --sky-cyan: 190 80% 55%;
+    /* Ocean Blue Palette Colors */
+    --egyptian-gold: 200 100% 50%;
+    --coral-bright: 200 100% 60%;
+    --mint-green: 200 40% 45%;
+    --lavender-purple: 220 50% 55%;
+    --sunshine-yellow: 200 100% 60%;
+    --rose-pink: 200 70% 60%;
+    --sky-cyan: 200 80% 55%;
 
-    /* Egyptian Text Colors */
-    --text-primary: 30 25% 15%;
-    --text-secondary: 30 20% 45%;
-    --text-accent: 45 100% 45%;
+    /* Ocean Blue Text Colors */
+    --text-primary: 0 0% 0%;
+    --text-secondary: 220 20% 45%;
+    --text-accent: 200 100% 50%;
     --text-gradient: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(25, 100%, 60%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 100%
     );
 
     /* Pharaonic Profile Enhancements */
@@ -143,9 +143,11 @@
   body {
     background: linear-gradient(
       135deg,
-      var(--pharaonic-sand) 0%,
-      var(--pharaonic-cream) 50%,
-      #fef3c7 100%
+      #ffffff 0%,
+      #f0f8ff 25%,
+      #e6f3ff 50%,
+      #cce7ff 75%,
+      #b3daff 100%
     );
     color: hsl(var(--foreground));
     font-feature-settings: "rlig" 1, "calt" 1;

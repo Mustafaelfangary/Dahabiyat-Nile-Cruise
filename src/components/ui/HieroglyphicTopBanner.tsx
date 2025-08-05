@@ -18,25 +18,25 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
 
   const bannerVariants = {
     default: {
-      background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 25%, #FFA500 50%, #FF8C00 75%, #D4AF37 100%)',
+      background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 25%, #003d7a 50%, #001f3f 75%, #0080ff 100%)',
       textColor: 'text-white',
       shadow: 'shadow-lg',
       padding: 'py-3 px-4',
-      border: 'border-b-2 border-amber-600/30'
+      border: 'border-b-2 border-blue-600/30'
     },
     minimal: {
-      background: 'bg-gradient-to-r from-amber-50 to-orange-50',
-      textColor: 'text-amber-800',
+      background: 'bg-gradient-to-r from-blue-50 to-sky-50',
+      textColor: 'text-blue-800',
       shadow: 'shadow-sm',
       padding: 'py-2 px-4',
-      border: 'border-b border-amber-200'
+      border: 'border-b border-blue-200'
     },
     elegant: {
-      background: 'bg-gradient-to-r from-amber-900/90 via-orange-800/90 to-amber-900/90',
-      textColor: 'text-amber-100',
+      background: 'bg-gradient-to-r from-blue-900/90 via-ocean-800/90 to-blue-900/90',
+      textColor: 'text-blue-100',
       shadow: 'shadow-xl',
       padding: 'py-4 px-6',
-      border: 'border-b-4 border-amber-400/50'
+      border: 'border-b-4 border-blue-400/50'
     }
   };
 
