@@ -33,11 +33,13 @@ export async function GET(request: NextRequest) {
 
     const response = NextResponse.json(content);
 
-    // Add cache-busting headers
-    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    // Add aggressive cache-busting headers
+    response.headers.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
     response.headers.set('Pragma', 'no-cache');
     response.headers.set('Expires', '0');
     response.headers.set('Surrogate-Control', 'no-store');
+    response.headers.set('ETag', `"${Date.now()}"`);
+    response.headers.set('Last-Modified', new Date().toUTCString());
 
     return response;
   } catch (error) {

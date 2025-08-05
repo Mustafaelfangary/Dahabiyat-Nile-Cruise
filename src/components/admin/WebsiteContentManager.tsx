@@ -45,6 +45,7 @@ export default function WebsiteContentManager() {
     { id: 'packages', label: 'Packages Page', icon: Package },
     { id: 'dahabiyas', label: 'Dahabiyas Page', icon: Package },
     { id: 'itineraries', label: 'Itineraries Page', icon: Package },
+    { id: 'blog', label: 'Blog Page', icon: Package },
     { id: 'global_media', label: 'Logo & Media', icon: Image },
     { id: 'footer', label: 'Footer & General', icon: Settings }
   ];
@@ -60,19 +61,45 @@ export default function WebsiteContentManager() {
 
       for (const section of contentSections) {
         try {
-          const response = await fetch(`/api/website-content?page=${section.id}`);
+          console.log(`🔍 Loading content for section: ${section.id}`);
+          const response = await fetch(`/api/website-content?page=${section.id}&t=${Date.now()}`, {
+            cache: 'no-store',
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+              'Pragma': 'no-cache',
+              'Expires': '0'
+            }
+          });
+
           if (response.ok) {
             const data = await response.json();
-            contentData[section.id] = Array.isArray(data) ? data : [];
+            console.log(`📊 Raw data for ${section.id}:`, data.length, 'items');
+            console.log(`📋 First item:`, data[0]);
+
+            // Transform WebsiteContent objects to ContentField format
+            const transformedData = Array.isArray(data) ? data.map((item: any) => ({
+              key: item.key,
+              title: item.title || item.key,
+              content: item.content || item.mediaUrl || '',
+              contentType: item.contentType || 'TEXT',
+              section: item.section || 'general',
+              page: item.page || section.id,
+              order: item.order || 0
+            })) : [];
+
+            console.log(`✅ Transformed data for ${section.id}:`, transformedData.length, 'items');
+            contentData[section.id] = transformedData;
           } else {
+            console.error(`❌ Failed to load ${section.id}: ${response.status} ${response.statusText}`);
             contentData[section.id] = [];
           }
         } catch (error) {
-          console.warn(`Failed to load ${section.id} content:`, error);
+          console.error(`❌ Error loading ${section.id} content:`, error);
           contentData[section.id] = [];
         }
       }
 
+      console.log('🎯 Final content data:', contentData);
       setContent(contentData);
     } catch (error) {
       console.error('Error loading content:', error);

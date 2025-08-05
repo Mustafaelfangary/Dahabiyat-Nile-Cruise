@@ -5,14 +5,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
-import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw } from 'lucide-react';
+import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock } from 'lucide-react';
 import {
   EgyptHieroglyphic,
   HieroglyphicDivider,
   FloatingEgyptianElements,
   EgyptianBorder,
   EGYPTIAN_CROWN_SYMBOLS,
-  PharaohButton
+  PharaohButton,
+  PharaonicCard
 } from '@/components/ui/pharaonic-elements';
 import ShareYourMemories from '@/components/homepage/ShareYourMemories';
 import FeaturedReviews from '@/components/homepage/FeaturedReviews';
@@ -22,8 +23,10 @@ export default function HomePage() {
   const { getContent, loading, error } = useContent({ page: 'homepage' });
   const [dahabiyat, setDahabiyat] = useState([]);
   const [packages, setPackages] = useState([]);
+  const [blogs, setBlogs] = useState([]);
   const [featuredDahabiyat, setFeaturedDahabiyat] = useState([]);
   const [featuredPackages, setFeaturedPackages] = useState([]);
+  const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [videoError, setVideoError] = useState(false);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
@@ -95,6 +98,18 @@ export default function HomePage() {
         const packagesData = await packagesResponse.json();
         console.log('✅ Regular packages:', packagesData.packages?.length || 0);
         setPackages(packagesData.packages || []);
+      }
+
+      // Fetch featured blogs
+      const blogsResponse = await fetch(`/api/blogs${timestamp}`, cacheControl);
+      if (blogsResponse.ok) {
+        const blogsData = await blogsResponse.json();
+        const publishedBlogs = blogsData.filter((blog: any) => blog.isPublished);
+        const featuredBlogsData = publishedBlogs.filter((blog: any) => blog.featured);
+        console.log('✅ Featured blogs:', featuredBlogsData.length);
+        console.log('✅ Total blogs:', publishedBlogs.length);
+        setBlogs(publishedBlogs);
+        setFeaturedBlogs(featuredBlogsData);
       }
     } catch (error) {
       console.error('❌ Error fetching homepage data:', error);
@@ -880,7 +895,108 @@ export default function HomePage() {
         </Container>
       </section>
 
-      {/* 8. Additional Business Sections */}
+      {/* 8. Featured Blog Posts Section */}
+      {featuredBlogs.length > 0 && (
+        <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50 relative overflow-hidden">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-5">
+            <div className="absolute top-10 left-10 text-6xl text-egyptian-gold animate-pulse">𓇳</div>
+            <div className="absolute top-20 right-20 text-4xl text-sunset-orange animate-pulse">𓊪</div>
+            <div className="absolute bottom-20 left-20 text-5xl text-egyptian-gold animate-pulse">𓈖</div>
+            <div className="absolute bottom-10 right-10 text-6xl text-sunset-orange animate-pulse">𓂀</div>
+          </div>
+
+          <Container maxWidth="lg">
+            <div className="text-center mb-16">
+              {/* Hieroglyphic Section Divider */}
+              <div className="mb-8">
+                <HieroglyphicDivider />
+              </div>
+
+              <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
+                <span className="text-egyptian-gold mr-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
+                {get('blog_section_title', 'Stories from the Nile')}
+                <span className="text-egyptian-gold ml-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                <span className="text-emerald-600 mr-2">𓊪</span>
+                {get('blog_section_subtitle', 'Discover the magic of Egypt through the eyes of our travelers and guides')}
+                <span className="text-emerald-600 ml-2">𓊪</span>
+              </p>
+            </div>
+
+            {/* Featured Blog Posts Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+              {featuredBlogs.slice(0, 3).map((blog: any, index: number) => (
+                <div key={blog.id} className="group">
+                  <PharaonicCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer">
+                    <Link href={`/blog/${blog.slug}`}>
+                      <div className="relative overflow-hidden">
+                        <Image
+                          src={blog.mainImageUrl || '/images/default-blog.jpg'}
+                          alt={blog.title}
+                          width={400}
+                          height={250}
+                          className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                        />
+                        <div className="absolute top-4 left-4">
+                          <div className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-3 py-1.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm">
+                            <span className="mr-1">⭐</span>
+                            Featured
+                          </div>
+                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      </div>
+
+                      <div className="p-6">
+                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-egyptian-gold transition-colors line-clamp-2">
+                          {blog.title}
+                        </h3>
+                        <p className="text-gray-600 mb-4 line-clamp-3">
+                          {blog.excerpt}
+                        </p>
+
+                        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
+                          <div className="flex items-center">
+                            <User className="w-4 h-4 mr-1" />
+                            {blog.author}
+                          </div>
+                          {blog.readTime && (
+                            <div className="flex items-center">
+                              <Clock className="w-4 h-4 mr-1" />
+                              {blog.readTime} min read
+                            </div>
+                          )}
+                        </div>
+
+                        <Button className="w-full bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                          <span className="group-hover/btn:mr-1 transition-all duration-300">Read Story</span>
+                          <span className="text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                          <ChevronRight className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
+                        </Button>
+                      </div>
+                    </Link>
+                  </PharaonicCard>
+                </div>
+              ))}
+            </div>
+
+            {/* View All Blogs Button */}
+            <div className="text-center">
+              <Link href="/blog">
+                <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-8 py-4 text-lg hover:from-egyptian-amber hover:to-orange-600 rounded-full">
+                  <span className="mr-2">𓇳</span>
+                  {get('blog_view_all_text', 'Read All Stories')}
+                  <span className="mx-2">𓇳</span>
+                  <ChevronRight className="w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+      )}
+
+      {/* 9. Additional Business Sections */}
 
       {/* Safety & Certifications */}
       <section className="py-20 bg-gradient-to-b from-orange-50 to-amber-50 relative">
