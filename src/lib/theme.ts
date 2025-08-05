@@ -75,16 +75,16 @@ export const theme = createTheme({
           },
         },
         contained: {
-          background: 'linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(25, 100%, 60%) 100%)',
+          background: 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)',
           '&:hover': {
-            background: 'linear-gradient(135deg, hsl(45, 100%, 41%) 0%, hsl(25, 100%, 50%) 100%)',
+            background: 'linear-gradient(135deg, hsl(200, 100%, 40%) 0%, hsl(220, 100%, 50%) 100%)',
           },
         },
         outlined: {
           borderWidth: '2px',
           '&:hover': {
             borderWidth: '2px',
-            backgroundColor: 'hsl(45, 100%, 51%, 0.05)',
+            backgroundColor: 'hsl(200, 100%, 50%, 0.05)',
           },
         },
       },

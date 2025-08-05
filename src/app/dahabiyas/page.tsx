@@ -25,7 +25,7 @@ export default function DahabiyasPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-50">
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-sky-50">
       {/* Enhanced Pharaonic Hero Section */}
       <div className="relative overflow-hidden min-h-screen">
         {/* Hero Background Image with Enhanced Effects */}
@@ -60,16 +60,16 @@ export default function DahabiyasPage() {
                   className="font-bold mb-4 tracking-wider"
                   style={{
                     fontFamily: 'serif',
-                    background: 'linear-gradient(45deg, #FFD700, #FF8C00, #FF6347, #FFD700)',
+                    background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
                     WebkitBackgroundClip: 'text',
                     WebkitTextFillColor: 'transparent',
                     backgroundClip: 'text',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
                   }}
                 >
-                  {getContent('dahabiyas_hero_title') || 'Our Dahabiyas'}
+                  {getContent('dahabiyas_hero_title') || 'Our Luxury Fleet'}
                 </Typography>
-                <div className="w-32 h-1 bg-egyptian-gold mx-auto mb-6 rounded-full"></div>
+                <div className="w-32 h-1 bg-ocean-blue mx-auto mb-6 rounded-full"></div>
               </div>
 
               {/* Main Title */}
@@ -80,14 +80,14 @@ export default function DahabiyasPage() {
                 style={{
                   fontSize: 'clamp(2.5rem, 5vw, 4rem)',
                   fontFamily: 'serif',
-                  background: 'linear-gradient(45deg, #FFD700, #FF4500, #FF1493, #00CED1, #FFD700)',
+                  background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
                   backgroundClip: 'text',
                   textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
                 }}
               >
-                {getContent('dahabiyas_hero_subtitle') || 'Luxury Dahabiyas'}
+                {getContent('dahabiyas_hero_subtitle') || 'Choose from our collection of traditional dahabiyat'}
               </Typography>
 
               {/* Subtitle */}
@@ -109,19 +109,19 @@ export default function DahabiyasPage() {
                 variant="h6"
                 className="max-w-3xl mx-auto leading-relaxed"
                 style={{
-                  color: '#F0E68C',
+                  color: '#ffffff',
                   textShadow: '2px 2px 4px rgba(0,0,0,0.4)',
                   fontSize: '1.2rem'
                 }}
               >
-                {getContent('dahabiyas_description') || 'Discover our magnificent fleet of traditional sailing vessels, each a floating palace crafted to honor the ancient pharaonic legacy while providing unparalleled luxury on the waters of the Nile River.'}
+                {getContent('dahabiyas_description') || 'Journey Through Time on the Eternal Waters of the Nile - Each of our dahabiyat offers a unique experience...'}
               </Typography>
 
               {/* Decorative Elements */}
               <div className="mt-12 flex justify-center items-center gap-8">
-                <div className="w-16 h-0.5 bg-egyptian-gold"></div>
-                <Typography className="text-egyptian-gold text-4xl">𓇳</Typography>
-                <div className="w-16 h-0.5 bg-egyptian-gold"></div>
+                <div className="w-16 h-0.5 bg-ocean-blue"></div>
+                <Typography className="text-ocean-blue text-4xl">𓇳</Typography>
+                <div className="w-16 h-0.5 bg-ocean-blue"></div>
               </div>
             </Box>
           </Container>
@@ -147,14 +147,14 @@ export default function DahabiyasPage() {
           <Box textAlign="center" className="mb-16">
             <Typography
               variant="h3"
-              className="text-hieroglyph-brown font-bold mb-4"
+              className="text-black font-bold mb-4"
               style={{ fontFamily: 'serif' }}
             >
               Our Fleet
             </Typography>
             <Typography
               variant="h6"
-              className="text-amber-700 max-w-2xl mx-auto mb-8"
+              className="text-blue-700 max-w-2xl mx-auto mb-8"
             >
               Each vessel in our collection tells a story of ancient grandeur,
               modern luxury, and timeless elegance on the waters of eternity.
@@ -162,9 +162,9 @@ export default function DahabiyasPage() {
 
             {/* Decorative Divider */}
             <div className="flex justify-center items-center gap-4 mb-8">
-              <div className="w-12 h-0.5 bg-egyptian-gold"></div>
-              <Typography className="text-egyptian-gold text-2xl">𓊪</Typography>
-              <div className="w-12 h-0.5 bg-egyptian-gold"></div>
+              <div className="w-12 h-0.5 bg-ocean-blue"></div>
+              <Typography className="text-ocean-blue text-2xl">𓊪</Typography>
+              <div className="w-12 h-0.5 bg-ocean-blue"></div>
             </div>
           </Box>
 

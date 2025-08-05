@@ -61,10 +61,10 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'LUXURY': return 'bg-purple-100 text-purple-800 border-purple-200';
-      case 'DELUXE': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'PREMIUM': return 'bg-green-100 text-green-800 border-green-200';
-      case 'BOUTIQUE': return 'bg-orange-100 text-orange-800 border-orange-200';
+      case 'LUXURY': return 'bg-blue-100 text-blue-800 border-blue-200';
+      case 'DELUXE': return 'bg-ocean-blue/10 text-ocean-blue border-ocean-blue/20';
+      case 'PREMIUM': return 'bg-blue-50 text-blue-700 border-blue-100';
+      case 'BOUTIQUE': return 'bg-sky-100 text-sky-800 border-sky-200';
       default: return 'bg-gray-100 text-gray-800 border-gray-200';
     }
   };
@@ -75,7 +75,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
         key={i}
         className={`w-4 h-4 ${
           i < Math.floor(rating)
-            ? 'text-yellow-400 fill-current'
+            ? 'text-ocean-blue fill-current'
             : 'text-gray-300'
         }`}
       />
@@ -180,19 +180,19 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           </div>
         </div>
 
-        <CardContent className="p-6 bg-gradient-to-b from-amber-50 to-orange-50">
+        <CardContent className="p-6 bg-gradient-to-b from-blue-50 to-sky-50">
           {/* Decorative Divider */}
           <div className="flex justify-center items-center gap-2 mb-4">
-            <div className="w-8 h-0.5 bg-egyptian-gold"></div>
-            <Typography className="text-egyptian-gold text-lg">𓇳</Typography>
-            <div className="w-8 h-0.5 bg-egyptian-gold"></div>
+            <div className="w-8 h-0.5 bg-ocean-blue"></div>
+            <Typography className="text-ocean-blue text-lg">𓇳</Typography>
+            <div className="w-8 h-0.5 bg-ocean-blue"></div>
           </div>
 
           {/* Enhanced Title */}
           <Typography
             variant="h5"
             component="h3"
-            className="font-bold text-hieroglyph-brown mb-3 group-hover:text-egyptian-gold transition-colors text-center"
+            className="font-bold text-black mb-3 group-hover:text-ocean-blue transition-colors text-center"
             style={{ fontFamily: 'serif' }}
           >
             {dahabiya.name}

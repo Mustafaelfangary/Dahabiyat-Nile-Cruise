@@ -370,8 +370,8 @@ export const PharaonicButton = ({ children, className = "", variant = "primary",
   const baseClasses = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden";
 
   const variants = {
-    primary: "bg-gradient-to-r from-egyptian-gold via-egyptian-amber to-egyptian-gold text-hieroglyph-brown shadow-lg shadow-egyptian-gold/30 hover:shadow-egyptian-gold/50 border-2 border-egyptian-gold/50",
-    secondary: "bg-gradient-to-r from-sunset-orange via-orange-500 to-sunset-orange text-white shadow-lg shadow-sunset-orange/30 hover:shadow-sunset-orange/50 border-2 border-sunset-orange/50"
+    primary: "bg-gradient-to-r from-ocean-blue via-blue-500 to-ocean-blue text-white shadow-lg shadow-ocean-blue/30 hover:shadow-ocean-blue/50 border-2 border-ocean-blue/50",
+    secondary: "bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600 text-white shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 border-2 border-blue-500/50"
   };
 
   return (

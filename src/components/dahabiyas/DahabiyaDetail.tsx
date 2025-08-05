@@ -313,10 +313,10 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               </Typography>
 
               {/* Category Badge */}
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-egyptian-gold to-egyptian-amber text-hieroglyph-brown px-8 py-3 rounded-full font-bold mb-6 shadow-egyptian-lg border-2 border-white/20 backdrop-blur-sm">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-ocean-blue to-blue-400 text-white px-8 py-3 rounded-full font-bold mb-6 shadow-lg border-2 border-white/20 backdrop-blur-sm">
                 <Crown size={18} className="drop-shadow-sm" />
                 <span className="text-lg tracking-wide">{categoryInfo.label.toUpperCase()} CATEGORY</span>
-                {dahabiya.isFeatured && <Star size={18} className="text-yellow-700 drop-shadow-sm" />}
+                {dahabiya.isFeatured && <Star size={18} className="text-white drop-shadow-sm" />}
               </div>
 
               {/* Title */}
@@ -388,11 +388,11 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   label={`From ${formatPrice(dahabiya.pricePerDay)}/day`}
                   className="font-bold px-8 py-4 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300"
                   style={{
-                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 30%, #FFA500 70%, #FF8C00 100%)',
+                    background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 30%, #3399ff 70%, #0080ff 100%)',
                     color: '#FFFFFF',
                     border: '3px solid rgba(255, 255, 255, 0.9)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                    boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 215, 0, 0.3)',
+                    boxShadow: '0 12px 35px rgba(0, 128, 255, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 0 30px rgba(0, 128, 255, 0.3)',
                     fontSize: '1.1rem',
                     fontWeight: 'bold'
                   }}

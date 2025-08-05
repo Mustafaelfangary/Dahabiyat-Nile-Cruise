@@ -265,36 +265,36 @@ export default function Navbar() {
           : '1px solid rgba(212, 175, 55, 0.2)'
       };
     } else {
-      // Other pages: Pharaonic cream background with gold accents
+      // Other pages: Ocean blue theme background
       return {
-        background: 'rgba(254, 247, 237, 0.98)',  // Pharaonic sand
+        background: 'rgba(255, 255, 255, 0.98)',  // White background
         backdropFilter: 'blur(20px)',
-        boxShadow: '0 2px 20px rgba(212, 175, 55, 0.2)',
-        borderBottom: '1px solid rgba(212, 175, 55, 0.3)'
+        boxShadow: '0 2px 20px rgba(0, 128, 255, 0.2)',
+        borderBottom: '1px solid rgba(0, 128, 255, 0.3)'
       };
     }
   };
 
-  // Egyptian text colors for papyrus background
+  // Ocean blue text colors
   const getTextColor = (isLogo = false) => {
-    // Rich brown colors on papyrus background
-    return 'hsl(30, 25%, 15%)';  // Hieroglyph brown
+    // Black text on white background
+    return 'hsl(0, 0%, 0%)';  // Black
   };
 
-  // Egyptian link colors for papyrus background
+  // Ocean blue link colors
   const getLinkColor = () => {
-    // Egyptian gold for links
-    return 'hsl(45, 100%, 51%)';  // Egyptian amber
+    // Ocean blue for links
+    return 'hsl(200, 100%, 50%)';  // Ocean blue
   };
 
-  // Egyptian hover colors based on page and scroll state
+  // Ocean blue hover colors based on page and scroll state
   const getHoverColor = () => {
     if (isHomepage) {
       return scrolled
-        ? 'linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(25, 100%, 60%) 100%)'  // Gold to orange
-        : 'linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(25, 100%, 60%) 100%)';
+        ? 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)'  // Ocean blue to blue
+        : 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)';
     } else {
-      return 'linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(25, 100%, 60%) 100%)';  // Consistent Egyptian gradient
+      return 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)';  // Consistent ocean blue gradient
     }
   };
 
@@ -408,9 +408,9 @@ export default function Navbar() {
                     <DropdownMenuContent
                       align="start"
                       style={{
-                        background: 'rgba(254, 247, 237, 0.98)',
+                        background: 'rgba(255, 255, 255, 0.98)',
                         backdropFilter: 'blur(20px)',
-                        border: '1px solid rgba(212, 175, 55, 0.2)',
+                        border: '1px solid rgba(0, 128, 255, 0.2)',
                         borderRadius: '12px',
                         padding: '8px',
                         minWidth: '250px',
@@ -431,8 +431,8 @@ export default function Navbar() {
                           textDecoration: 'none',
                           fontSize: '14px',
                           fontWeight: '600',
-                          backgroundColor: 'rgba(212, 175, 55, 0.1)',
-                          border: '1px solid rgba(212, 175, 55, 0.2)'
+                          backgroundColor: 'rgba(0, 128, 255, 0.1)',
+                          border: '1px solid rgba(0, 128, 255, 0.2)'
                         }}>
                           <span style={{ fontSize: '16px' }}>
                             {link.href === '/dahabiyas' ? '🚢' :
@@ -448,7 +448,7 @@ export default function Navbar() {
                       {/* Divider */}
                       <div style={{
                         height: '1px',
-                        background: 'linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent)',
+                        background: 'linear-gradient(90deg, transparent, rgba(0, 128, 255, 0.3), transparent)',
                         margin: '8px 0'
                       }} />
 
@@ -484,9 +484,9 @@ export default function Navbar() {
                       borderRadius: '0.375rem',
                       textDecoration: 'none',
                       transition: 'all 0.3s ease',
-                      background: link.special ? 'linear-gradient(135deg, hsl(45, 100%, 51%) 0%, hsl(25, 100%, 60%) 100%)' : 'transparent',
+                      background: link.special ? 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)' : 'transparent',
                       color: link.special ? 'white' : getTextColor(),
-                      boxShadow: link.special ? '0 2px 8px rgba(212, 175, 55, 0.3)' : 'none',
+                      boxShadow: link.special ? '0 2px 8px rgba(0, 128, 255, 0.3)' : 'none',
                       whiteSpace: 'nowrap',
                       display: 'inline-block',
                       minWidth: 'fit-content'
@@ -496,10 +496,10 @@ export default function Navbar() {
                         e.currentTarget.style.background = getHoverColor();
                         e.currentTarget.style.color = 'white';
                         e.currentTarget.style.transform = 'translateY(-1px)';
-                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(212, 175, 55, 0.3)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 128, 255, 0.3)';
                       } else {
                         e.currentTarget.style.transform = 'translateY(-1px) scale(1.05)';
-                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(212, 175, 55, 0.4)';
+                        e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 128, 255, 0.4)';
                       }
                     }}
                     onMouseLeave={(e) => {
@@ -510,7 +510,7 @@ export default function Navbar() {
                         e.currentTarget.style.boxShadow = 'none';
                       } else {
                         e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(212, 175, 55, 0.3)';
+                        e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 128, 255, 0.3)';
                       }
                     }}
                   >

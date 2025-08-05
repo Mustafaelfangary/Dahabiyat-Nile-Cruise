@@ -141,16 +141,16 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
     <Box>
       {/* Enhanced Results Summary */}
       <Box mb={6} textAlign="center">
-        <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-lg p-4 border-2 border-egyptian-gold/20">
-          <Typography variant="h5" className="text-hieroglyph-brown font-bold mb-2" style={{ fontFamily: 'serif' }}>
+        <div className="bg-gradient-to-r from-blue-100 to-sky-100 rounded-lg p-4 border-2 border-ocean-blue/20">
+          <Typography variant="h5" className="text-black font-bold mb-2" style={{ fontFamily: 'serif' }}>
             {getContent('dahabiyas_fleet_title') || 'Fleet Collection'}
           </Typography>
-          <Typography variant="h6" className="text-amber-700">
+          <Typography variant="h6" className="text-blue-700">
             {getContent('dahabiyas_fleet_description') || 'Showing'} {data.dahabiyas.length} of {data.total} divine vessels
           </Typography>
           <div className="flex justify-center items-center gap-2 mt-2">
-            <div className="w-8 h-0.5 bg-egyptian-gold"></div>
-            <Typography className="text-egyptian-gold text-lg">𓊪</Typography>
+            <div className="w-8 h-0.5 bg-ocean-blue"></div>
+            <Typography className="text-ocean-blue text-lg">𓊪</Typography>
             <div className="w-8 h-0.5 bg-egyptian-gold"></div>
           </div>
         </div>

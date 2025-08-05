@@ -63,7 +63,7 @@ export default function MobileOptimizedLayout({ children }: MobileOptimizedLayou
     };
   }, [isMobile, isLandscape, isSmallScreen]);
 
-  // Mobile-specific styles with Egyptian theme
+  // Mobile-specific styles with Ocean Blue theme
   const mobileStyles = isMobile ? {
     fontSize: '14px',
     lineHeight: '1.4',
@@ -71,10 +71,10 @@ export default function MobileOptimizedLayout({ children }: MobileOptimizedLayou
     WebkitOverflowScrolling: 'touch',
     WebkitTapHighlightColor: 'transparent',
     backgroundColor: pathname === '/'
-      ? 'linear-gradient(to bottom, #fef7cd, #fed7aa, #fb923c)'
+      ? 'linear-gradient(to bottom, #ffffff, #f0f8ff, #e6f3ff)'
       : pathname.startsWith('/admin')
       ? 'linear-gradient(to bottom right, #f8fafc, #e0f2fe, #dbeafe)'
-      : '#fefbf3',
+      : '#ffffff',
   } : {};
 
   return (
