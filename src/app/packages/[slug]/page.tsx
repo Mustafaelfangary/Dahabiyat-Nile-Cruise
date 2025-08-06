@@ -101,8 +101,8 @@ export default function IndividualPackagePage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Royal Journey 𓇳</div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-ocean-blue mx-auto mb-4"></div>
+          <div className="text-ocean-blue text-2xl font-bold">𓇳 Loading Royal Journey 𓇳</div>
         </div>
       </div>
     );
@@ -112,8 +112,8 @@ export default function IndividualPackagePage() {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-amber-800 font-bold text-xl">Royal Journey Not Found 𓏏</p>
+          <div className="text-ocean-blue text-4xl mb-4">𓇳 𓊪 𓈖</div>
+          <p className="text-ocean-blue font-bold text-xl">Royal Journey Not Found 𓏏</p>
           <Link href="/packages">
             <PharaohButton variant="primary" className="mt-4">
               Return to Packages
@@ -145,14 +145,14 @@ export default function IndividualPackagePage() {
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-orange-800/30 to-amber-900/40"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/40 via-navy-blue/30 to-deep-blue/40"></div>
 
-          {/* Animated golden particles */}
+          {/* Animated blue particles */}
           <div className="absolute inset-0">
             {[...Array(20)].map((_, i) => (
               <div
                 key={i}
-                className="absolute w-2 h-2 bg-amber-400/30 rounded-full animate-pulse"
+                className="absolute w-2 h-2 bg-ocean-blue/30 rounded-full animate-pulse"
                 style={{
                   left: `${Math.random() * 100}%`,
                   top: `${Math.random() * 100}%`,
@@ -169,7 +169,7 @@ export default function IndividualPackagePage() {
             <div className="text-center text-white">
               {/* Hieroglyphic Egypt at top */}
               <div className="text-center mb-8">
-                <div className="text-5xl font-bold text-amber-300 mb-4 drop-shadow-lg">
+                <div className="text-5xl font-bold text-blue-300 mb-4 drop-shadow-lg">
                   𓇳 𓈖 𓊪 𓏏 𓇳
                 </div>
                 <HieroglyphicDivider />
@@ -181,39 +181,39 @@ export default function IndividualPackagePage() {
               </div>
 
               {/* Main Title */}
-              <HieroglyphicText 
+              <HieroglyphicText
                 text={packageData.name}
-                className="text-5xl md:text-7xl font-bold mb-6 text-amber-100 drop-shadow-2xl"
+                className="text-5xl md:text-7xl font-bold mb-6 text-blue-100 drop-shadow-2xl"
               />
 
               {/* Subtitle */}
-              <Typography 
-                variant="h4" 
-                className="text-2xl md:text-3xl mb-8 text-amber-200 font-light drop-shadow-lg"
+              <Typography
+                variant="h4"
+                className="text-2xl md:text-3xl mb-8 text-blue-200 font-light drop-shadow-lg"
               >
                 𓊪 Royal Egyptian Adventure 𓊪
               </Typography>
 
               {/* Key Stats */}
               <div className="flex flex-wrap justify-center gap-6 mb-8">
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-amber-400/30">
-                  <Clock className="w-5 h-5 text-amber-300 mr-2" />
-                  <span className="text-amber-100 font-medium">{packageData.durationDays} Days</span>
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-400/30">
+                  <Clock className="w-5 h-5 text-blue-300 mr-2" />
+                  <span className="text-blue-100 font-medium">{packageData.durationDays} Days</span>
                 </div>
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-amber-400/30">
-                  <Users className="w-5 h-5 text-amber-300 mr-2" />
-                  <span className="text-amber-100 font-medium">Up to {packageData.maxGuests || 'N/A'} Guests</span>
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-400/30">
+                  <Users className="w-5 h-5 text-blue-300 mr-2" />
+                  <span className="text-blue-100 font-medium">Up to {packageData.maxGuests || 'N/A'} Guests</span>
                 </div>
-                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-amber-400/30">
-                  <Star className="w-5 h-5 text-amber-300 mr-2" />
-                  <span className="text-amber-100 font-medium">{averageRating.toFixed(1)} Rating</span>
+                <div className="flex items-center bg-black/20 backdrop-blur-sm rounded-full px-6 py-3 border border-blue-400/30">
+                  <Star className="w-5 h-5 text-blue-300 mr-2" />
+                  <span className="text-blue-100 font-medium">{averageRating.toFixed(1)} Rating</span>
                 </div>
               </div>
 
               {/* Description in Enhanced Container */}
               <div className="max-w-4xl mx-auto mb-12">
-                <div className="bg-black/20 backdrop-blur-sm border border-amber-400/30 rounded-2xl p-8 shadow-2xl">
-                  <p className="text-xl md:text-2xl leading-relaxed text-amber-50 font-light">
+                <div className="bg-black/20 backdrop-blur-sm border border-blue-400/30 rounded-2xl p-8 shadow-2xl">
+                  <p className="text-xl md:text-2xl leading-relaxed text-blue-50 font-light">
                     {packageData.description}
                   </p>
                 </div>
@@ -221,10 +221,10 @@ export default function IndividualPackagePage() {
 
               {/* Price Display */}
               <div className="mb-8">
-                <div className="bg-black/30 backdrop-blur-sm border border-amber-400/50 rounded-2xl p-6 inline-block">
-                  <div className="text-amber-200 text-lg mb-2">Starting from</div>
-                  <div className="text-amber-100 text-4xl font-bold">${packageData.price}</div>
-                  <div className="text-amber-300 text-sm">per person</div>
+                <div className="bg-black/30 backdrop-blur-sm border border-blue-400/50 rounded-2xl p-6 inline-block">
+                  <div className="text-blue-200 text-lg mb-2">Starting from</div>
+                  <div className="text-blue-100 text-4xl font-bold">${packageData.price}</div>
+                  <div className="text-blue-300 text-sm">per person</div>
                 </div>
               </div>
 
@@ -261,16 +261,16 @@ export default function IndividualPackagePage() {
       </section>
 
       {/* Package Details Section */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-blue-50/30 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="text-center mb-16">
-              <HieroglyphicText 
+              <HieroglyphicText
                 text="Royal Journey Details"
-                className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
+                className="text-4xl md:text-5xl font-bold text-ocean-blue mb-4"
               />
               <HieroglyphicDivider />
-              <p className="text-xl text-amber-700 max-w-3xl mx-auto">
+              <p className="text-xl text-ocean-blue-dark max-w-3xl mx-auto">
                 Discover the magnificent details of this pharaonic adventure
               </p>
             </div>
@@ -281,17 +281,17 @@ export default function IndividualPackagePage() {
                 <PharaohCard className="h-full">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-6">
-                      <Crown className="w-8 h-8 text-amber-600 mr-3" />
-                      <Typography variant="h5" className="font-bold text-amber-800">
+                      <Crown className="w-8 h-8 text-ocean-blue mr-3" />
+                      <Typography variant="h5" className="font-bold text-ocean-blue">
                         Journey Highlights
                       </Typography>
                     </div>
-                    
+
                     <div className="space-y-3">
                       {packageData.highlights.map((highlight, index) => (
                         <div key={index} className="flex items-start">
-                          <Star className="w-5 h-5 text-amber-600 mr-3 mt-0.5 flex-shrink-0" />
-                          <span className="text-amber-700">{highlight}</span>
+                          <Star className="w-5 h-5 text-ocean-blue mr-3 mt-0.5 flex-shrink-0" />
+                          <span className="text-ocean-blue-dark">{highlight}</span>
                         </div>
                       ))}
                     </div>
@@ -304,33 +304,33 @@ export default function IndividualPackagePage() {
                 <PharaohCard className="h-full">
                   <CardContent className="p-8">
                     <div className="flex items-center mb-6">
-                      <Shield className="w-8 h-8 text-amber-600 mr-3" />
-                      <Typography variant="h5" className="font-bold text-amber-800">
+                      <Shield className="w-8 h-8 text-ocean-blue mr-3" />
+                      <Typography variant="h5" className="font-bold text-ocean-blue">
                         What's Included
                       </Typography>
                     </div>
-                    
+
                     <div className="space-y-4">
                       <div>
-                        <h4 className="text-amber-700 font-semibold mb-2">Included:</h4>
+                        <h4 className="text-ocean-blue-dark font-semibold mb-2">Included:</h4>
                         <div className="space-y-2">
                           {packageData.included.map((item, index) => (
                             <div key={index} className="flex items-start">
                               <div className="w-2 h-2 bg-green-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                              <span className="text-amber-700 text-sm">{item}</span>
+                              <span className="text-ocean-blue-dark text-sm">{item}</span>
                             </div>
                           ))}
                         </div>
                       </div>
-                      
+
                       {packageData.excluded.length > 0 && (
                         <div>
-                          <h4 className="text-amber-700 font-semibold mb-2">Not Included:</h4>
+                          <h4 className="text-ocean-blue-dark font-semibold mb-2">Not Included:</h4>
                           <div className="space-y-2">
                             {packageData.excluded.map((item, index) => (
                               <div key={index} className="flex items-start">
                                 <div className="w-2 h-2 bg-red-500 rounded-full mr-3 mt-2 flex-shrink-0"></div>
-                                <span className="text-amber-700 text-sm">{item}</span>
+                                <span className="text-ocean-blue-dark text-sm">{item}</span>
                               </div>
                             ))}
                           </div>
@@ -346,16 +346,16 @@ export default function IndividualPackagePage() {
       </section>
 
       {/* Booking Section */}
-      <section id="booking-section" className="py-20 bg-gradient-to-b from-amber-50/30 to-slate-50 relative">
+      <section id="booking-section" className="py-20 bg-gradient-to-b from-blue-50/30 to-slate-50 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="fade-in">
             <div className="text-center mb-16">
               <HieroglyphicText
                 text="Book Your Royal Adventure"
-                className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
+                className="text-4xl md:text-5xl font-bold text-ocean-blue mb-4"
               />
               <HieroglyphicDivider />
-              <p className="text-xl text-amber-700 max-w-3xl mx-auto">
+              <p className="text-xl text-ocean-blue-dark max-w-3xl mx-auto">
                 Reserve your place on this magnificent pharaonic journey
               </p>
             </div>

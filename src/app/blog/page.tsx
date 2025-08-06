@@ -76,10 +76,10 @@ export default function BlogListingPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-sky-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Royal Blogs 𓇳</div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-ocean-blue mx-auto mb-4"></div>
+          <div className="text-ocean-blue-dark text-2xl font-bold">𓇳 Loading Royal Blogs 𓇳</div>
         </div>
       </div>
     );
@@ -87,23 +87,23 @@ export default function BlogListingPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-sky-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-amber-800 font-bold text-xl">Failed to Load Blogs 𓏏</p>
+          <div className="text-ocean-blue-dark text-4xl mb-4">𓇳 𓊪 𓈖</div>
+          <p className="text-ocean-blue-dark font-bold text-xl">Failed to Load Blogs 𓏏</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-sky-50 relative overflow-hidden">
       {/* Egyptian Pattern Background */}
       <EgyptianPatternBackground className="opacity-5" />
       <FloatingEgyptianElements />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-ocean-blue-dark via-deep-blue to-navy-blue overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/blog-hero-bg.jpg"
@@ -118,7 +118,7 @@ export default function BlogListingPage() {
             <div className="text-center text-white">
               {/* Hieroglyphic Egypt at top */}
               <div className="text-center mb-8">
-                <div className="text-5xl font-bold text-amber-300 mb-4 drop-shadow-lg">
+                <div className="text-5xl font-bold text-sky-blue mb-4 drop-shadow-lg">
                   𓇳 𓈖 𓊪 𓏏 𓇳
                 </div>
                 <HieroglyphicDivider />
@@ -130,23 +130,23 @@ export default function BlogListingPage() {
               </div>
 
               {/* Main Title */}
-              <HieroglyphicText 
+              <HieroglyphicText
                 text="Royal Blogs"
-                className="text-5xl md:text-7xl font-bold mb-6 text-amber-100 drop-shadow-2xl"
+                className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl"
               />
 
               {/* Subtitle */}
-              <Typography 
-                variant="h4" 
-                className="text-2xl md:text-3xl mb-8 text-amber-200 font-light drop-shadow-lg"
+              <Typography
+                variant="h4"
+                className="text-2xl md:text-3xl mb-8 text-sky-blue font-light drop-shadow-lg"
               >
                 𓊪 Tales from the Land of Pharaohs 𓊪
               </Typography>
 
               {/* Description */}
               <div className="max-w-4xl mx-auto mb-12">
-                <div className="bg-black/20 backdrop-blur-sm border border-amber-400/30 rounded-2xl p-8 shadow-2xl">
-                  <p className="text-xl md:text-2xl leading-relaxed text-amber-50 font-light">
+                <div className="bg-black/20 backdrop-blur-sm border border-sky-blue/30 rounded-2xl p-8 shadow-2xl">
+                  <p className="text-xl md:text-2xl leading-relaxed text-white font-light">
                     Discover the secrets of ancient Egypt, travel tips for your Nile journey, and stories from the heart of pharaonic civilization
                   </p>
                 </div>
@@ -158,16 +158,16 @@ export default function BlogListingPage() {
 
       {/* Featured Posts Section */}
       {featuredPosts.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+        <section className="py-20 bg-gradient-to-b from-slate-50 to-blue-50/30 relative">
           <Container maxWidth="lg">
             <AnimatedSection animation="slide-up">
               <div className="text-center mb-16">
-                <HieroglyphicText 
+                <HieroglyphicText
                   text="Featured Blogs"
-                  className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
+                  className="text-4xl md:text-5xl font-bold text-ocean-blue-dark mb-4"
                 />
                 <HieroglyphicDivider />
-                <p className="text-xl text-amber-700 max-w-3xl mx-auto">
+                <p className="text-xl text-ocean-blue max-w-3xl mx-auto">
                   Our most treasured stories from the land of the pharaohs
                 </p>
               </div>
@@ -189,13 +189,13 @@ export default function BlogListingPage() {
                             <div className="absolute top-4 left-4">
                               <Chip
                                 label="Featured"
-                                className="bg-amber-500 text-white font-bold"
+                                className="bg-ocean-blue text-white font-bold"
                               />
                             </div>
                           </div>
-                          
+
                           <CardContent className="p-6">
-                            <div className="flex items-center gap-4 text-sm text-amber-600 mb-3">
+                            <div className="flex items-center gap-4 text-sm text-ocean-blue mb-3">
                               <div className="flex items-center">
                                 <Calendar className="w-4 h-4 mr-1" />
                                 {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
@@ -207,26 +207,26 @@ export default function BlogListingPage() {
                                 </div>
                               )}
                             </div>
-                            
-                            <Typography variant="h5" className="font-bold text-amber-800 mb-3 group-hover:text-amber-600 transition-colors">
+
+                            <Typography variant="h5" className="font-bold text-ocean-blue-dark mb-3 group-hover:text-ocean-blue transition-colors">
                               {post.title}
                             </Typography>
-                            
-                            <Typography variant="body2" className="text-amber-700 mb-4 line-clamp-3">
+
+                            <Typography variant="body2" className="text-gray-700 mb-4 line-clamp-3">
                               {post.excerpt || post.content.substring(0, 150) + '...'}
                             </Typography>
-                            
+
                             <div className="flex items-center justify-between">
-                              <div className="flex items-center text-sm text-amber-600">
+                              <div className="flex items-center text-sm text-ocean-blue">
                                 <User className="w-4 h-4 mr-1" />
                                 {post.author}
                               </div>
-                              
+
                               {post.category && (
                                 <Chip
                                   label={post.category}
                                   size="small"
-                                  className="bg-amber-100 text-amber-800"
+                                  className="bg-blue-100 text-ocean-blue-dark"
                                 />
                               )}
                             </div>
@@ -244,16 +244,16 @@ export default function BlogListingPage() {
       )}
 
       {/* All Posts Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50/30 to-slate-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50/30 to-slate-50 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="text-center mb-16">
-              <HieroglyphicText 
+              <HieroglyphicText
                 text="All Blogs"
-                className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
+                className="text-4xl md:text-5xl font-bold text-ocean-blue-dark mb-4"
               />
               <HieroglyphicDivider />
-              <p className="text-xl text-amber-700 max-w-3xl mx-auto">
+              <p className="text-xl text-ocean-blue max-w-3xl mx-auto">
                 Explore all our stories and insights about Egypt
               </p>
             </div>
@@ -276,14 +276,14 @@ export default function BlogListingPage() {
                             <div className="absolute top-4 left-4">
                               <Chip
                                 label="Featured"
-                                className="bg-amber-500 text-white font-bold"
+                                className="bg-ocean-blue text-white font-bold"
                               />
                             </div>
                           )}
                         </div>
-                        
+
                         <CardContent className="p-6">
-                          <div className="flex items-center gap-4 text-sm text-amber-600 mb-3">
+                          <div className="flex items-center gap-4 text-sm text-ocean-blue mb-3">
                             <div className="flex items-center">
                               <Calendar className="w-4 h-4 mr-1" />
                               {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
@@ -295,30 +295,30 @@ export default function BlogListingPage() {
                               </div>
                             )}
                           </div>
-                          
-                          <Typography variant="h6" className="font-bold text-amber-800 mb-3 group-hover:text-amber-600 transition-colors">
+
+                          <Typography variant="h6" className="font-bold text-ocean-blue-dark mb-3 group-hover:text-ocean-blue transition-colors">
                             {post.title}
                           </Typography>
-                          
-                          <Typography variant="body2" className="text-amber-700 mb-4 line-clamp-2">
+
+                          <Typography variant="body2" className="text-gray-700 mb-4 line-clamp-2">
                             {post.excerpt || post.content.substring(0, 100) + '...'}
                           </Typography>
-                          
+
                           <div className="flex items-center justify-between">
-                            <div className="flex items-center text-sm text-amber-600">
+                            <div className="flex items-center text-sm text-ocean-blue">
                               <User className="w-4 h-4 mr-1" />
                               {post.author}
                             </div>
-                            
+
                             {post.category && (
                               <Chip
                                 label={post.category}
                                 size="small"
-                                className="bg-amber-100 text-amber-800"
+                                className="bg-blue-100 text-ocean-blue-dark"
                               />
                             )}
                           </div>
-                          
+
                           {post.tags.length > 0 && (
                             <div className="mt-3 flex flex-wrap gap-1">
                               {post.tags.slice(0, 3).map((tag, tagIndex) => (
@@ -326,7 +326,7 @@ export default function BlogListingPage() {
                                   key={tagIndex}
                                   label={tag}
                                   size="small"
-                                  className="bg-amber-50 text-amber-700 text-xs"
+                                  className="bg-blue-50 text-ocean-blue text-xs"
                                 />
                               ))}
                             </div>
@@ -342,11 +342,11 @@ export default function BlogListingPage() {
 
             {posts.length === 0 && (
               <div className="text-center py-20">
-                <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
-                <Typography variant="h5" className="text-amber-800 font-bold mb-4">
+                <div className="text-ocean-blue-dark text-4xl mb-4">𓇳 𓊪 𓈖</div>
+                <Typography variant="h5" className="text-ocean-blue-dark font-bold mb-4">
                   No Blogs Yet
                 </Typography>
-                <Typography variant="body1" className="text-amber-700">
+                <Typography variant="body1" className="text-ocean-blue">
                   Our scribes are working on new stories. Check back soon!
                 </Typography>
               </div>

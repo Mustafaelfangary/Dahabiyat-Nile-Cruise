@@ -254,20 +254,8 @@ async function main() {
     { key: 'home_how_3_title', value: 'Enjoy', group: 'homepage', description: 'How it works step 3 title', type: 'text' },
     { key: 'home_how_3_desc', value: 'Experience the Nile and create memories.', group: 'homepage', description: 'How it works step 3 description', type: 'text' },
     { key: 'home_how_3_icon', value: '/images/icons/enjoy.png', group: 'homepage', description: 'How it works step 3 icon', type: 'image' },
-    // Blog Section (3 posts)
-    { key: 'home_blog_section_title', value: 'From The Blog', group: 'homepage', description: 'Blog section title', type: 'text' },
-    { key: 'home_blog_1_title', value: 'Why Sail Down the Nile on a Dahabiya Boat is Great!', group: 'homepage', description: 'Blog 1 title', type: 'text' },
-    { key: 'home_blog_1_date', value: '28 Sep 2020', group: 'homepage', description: 'Blog 1 date', type: 'text' },
-    { key: 'home_blog_1_excerpt', value: 'Discover why a Dahabiya cruise is a unique and magical way to experience Egypt.', group: 'homepage', description: 'Blog 1 excerpt', type: 'textarea' },
-    { key: 'home_blog_1_image', value: '/images/blogs/blog1.jpg', group: 'homepage', description: 'Blog 1 image', type: 'image' },
-    { key: 'home_blog_2_title', value: 'Foods on Board Dahabiya', group: 'homepage', description: 'Blog 2 title', type: 'text' },
-    { key: 'home_blog_2_date', value: '12 Oct 2020', group: 'homepage', description: 'Blog 2 date', type: 'text' },
-    { key: 'home_blog_2_excerpt', value: 'A look at the delicious cuisine served on our cruises.', group: 'homepage', description: 'Blog 2 excerpt', type: 'textarea' },
-    { key: 'home_blog_2_image', value: '/images/blogs/blog2.jpg', group: 'homepage', description: 'Blog 2 image', type: 'image' },
-    { key: 'home_blog_3_title', value: 'The First Sailing Trip on Royal Cleopatra Dahabiya 2021 post Corona', group: 'homepage', description: 'Blog 3 title', type: 'text' },
-    { key: 'home_blog_3_date', value: '21 Oct 2020', group: 'homepage', description: 'Blog 3 date', type: 'text' },
-    { key: 'home_blog_3_excerpt', value: 'A story from our first post-pandemic cruise.', group: 'homepage', description: 'Blog 3 excerpt', type: 'textarea' },
-    { key: 'home_blog_3_image', value: '/images/blogs/blog3.jpg', group: 'homepage', description: 'Blog 3 image', type: 'image' },
+    // Blog Section - Now fully dynamic through admin panel
+    // Blog posts are managed through /admin/blogs and displayed dynamically
     // Contact/Support Section
     { key: 'home_contact_title', value: 'Need Help?', group: 'homepage', description: 'Contact section title', type: 'text' },
     { key: 'home_contact_text', value: 'Call & WhatsApp or Email us for any inquiries.', group: 'homepage', description: 'Contact section text', type: 'textarea' },

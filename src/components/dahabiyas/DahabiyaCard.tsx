@@ -61,11 +61,11 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'LUXURY': return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'DELUXE': return 'bg-ocean-blue/10 text-ocean-blue border-ocean-blue/20';
-      case 'PREMIUM': return 'bg-blue-50 text-blue-700 border-blue-100';
-      case 'BOUTIQUE': return 'bg-sky-100 text-sky-800 border-sky-200';
-      default: return 'bg-gray-100 text-gray-800 border-gray-200';
+      case 'LUXURY': return 'bg-ocean-blue text-white border-ocean-blue';
+      case 'DELUXE': return 'bg-blue-600 text-white border-blue-600';
+      case 'PREMIUM': return 'bg-blue-700 text-white border-blue-700';
+      case 'BOUTIQUE': return 'bg-sky-600 text-white border-sky-600';
+      default: return 'bg-gray-600 text-white border-gray-600';
     }
   };
 

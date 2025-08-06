@@ -21,11 +21,12 @@ export async function POST(req: Request) {
     const body = await req.json();
     console.log("Received booking request:", body);
 
-    // Prepare booking data for unified service
+    // Determine booking type and prepare data
+    const bookingType = body.packageId ? 'PACKAGE' : 'DAHABIYA';
     const bookingData = {
-      type: 'DAHABIYA' as const,
+      type: bookingType as 'DAHABIYA' | 'PACKAGE',
       dahabiyaId: body.dahabiyaId,
-      cabinId: body.cabinId,
+      packageId: body.packageId,
       startDate: body.startDate,
       endDate: body.endDate,
       guests: Number(body.guests) || 0,
@@ -34,29 +35,59 @@ export async function POST(req: Request) {
       guestDetails: body.guestDetails,
     };
 
-    // Check availability using the AvailabilityService
-    const availability = await AvailabilityService.checkAvailability({
-      dahabiyaId: bookingData.dahabiyaId!,
-      startDate: new Date(bookingData.startDate),
-      endDate: new Date(bookingData.endDate),
-      guests: bookingData.guests,
-    });
+    // Check availability based on booking type
+    if (bookingType === 'DAHABIYA' && bookingData.dahabiyaId) {
+      const availability = await AvailabilityService.checkAvailability({
+        dahabiyaId: bookingData.dahabiyaId,
+        startDate: new Date(bookingData.startDate),
+        endDate: new Date(bookingData.endDate),
+        guests: bookingData.guests,
+      });
 
-    if (!availability.isAvailable) {
-      return NextResponse.json(
-        { error: "Selected dates are not available" },
-        { status: 400 }
-      );
-    }
-
-    // If cabinId is provided, verify it's in the available cabins
-    if (bookingData.cabinId) {
-      const selectedCabin = availability.availableCabins.find(
-        cabin => cabin.id === bookingData.cabinId
-      );
-      if (!selectedCabin) {
+      if (!availability.isAvailable) {
         return NextResponse.json(
-          { error: "Selected cabin is not available" },
+          { error: "Selected dates are not available for this dahabiya" },
+          { status: 400 }
+        );
+      }
+    } else if (bookingType === 'PACKAGE' && bookingData.packageId) {
+      // Check package availability
+      const packageData = await prisma.package.findUnique({
+        where: { id: bookingData.packageId }
+      });
+
+      if (!packageData) {
+        return NextResponse.json(
+          { error: "Package not found" },
+          { status: 404 }
+        );
+      }
+
+      // Check for conflicting package bookings
+      const conflictingBookings = await prisma.booking.count({
+        where: {
+          packageId: bookingData.packageId,
+          status: { in: ['PENDING', 'CONFIRMED'] },
+          OR: [
+            {
+              startDate: { lte: new Date(bookingData.startDate) },
+              endDate: { gt: new Date(bookingData.startDate) }
+            },
+            {
+              startDate: { lt: new Date(bookingData.endDate) },
+              endDate: { gte: new Date(bookingData.endDate) }
+            },
+            {
+              startDate: { gte: new Date(bookingData.startDate) },
+              endDate: { lte: new Date(bookingData.endDate) }
+            }
+          ]
+        }
+      });
+
+      if (conflictingBookings > 0) {
+        return NextResponse.json(
+          { error: "Selected dates are not available for this package" },
           { status: 400 }
         );
       }

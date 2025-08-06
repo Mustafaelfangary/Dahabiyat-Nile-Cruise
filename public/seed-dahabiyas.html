@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seed Dahabiyas</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #0080ff;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background-color: #0066cc;
+        }
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            white-space: pre-wrap;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .loading {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌱 Seed Database with Dahabiyas</h1>
+        <p>This will add sample dahabiyas to the database for testing the booking system.</p>
+        
+        <button id="seedBtn" onclick="seedDahabiyas()">
+            🚀 Seed Dahabiyas
+        </button>
+        
+        <button onclick="testBookingSystem()" style="background-color: #28a745;">
+            🧪 Test Booking System
+        </button>
+        
+        <div id="result"></div>
+    </div>
+
+    <script>
+        async function seedDahabiyas() {
+            const btn = document.getElementById('seedBtn');
+            const result = document.getElementById('result');
+            
+            btn.disabled = true;
+            btn.textContent = '🔄 Seeding...';
+            
+            result.className = 'result loading';
+            result.textContent = 'Creating sample dahabiyas...';
+            
+            try {
+                const response = await fetch('/api/admin/seed-dahabiyas', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    result.className = 'result success';
+                    result.textContent = `✅ Success!\n\n${data.message}\n\nCreated dahabiyas:\n${data.dahabiyas?.map(d => `- ${d.name} ($${d.pricePerDay}/day, ${d.capacity} guests)`).join('\n') || 'Details not available'}`;
+                } else {
+                    result.className = 'result error';
+                    result.textContent = `❌ Error: ${data.error}\n\nDetails: ${data.details || 'No additional details'}`;
+                }
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Network Error: ${error.message}`;
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🚀 Seed Dahabiyas';
+            }
+        }
+        
+        async function testBookingSystem() {
+            const result = document.getElementById('result');
+            
+            result.className = 'result loading';
+            result.textContent = 'Testing booking system...';
+            
+            try {
+                // Test dahabiyas API
+                const dahabiyasResponse = await fetch('/api/dahabiyas?active=true&limit=5');
+                const dahabiyas = await dahabiyasResponse.json();
+                
+                if (dahabiyas.length === 0) {
+                    result.className = 'result error';
+                    result.textContent = '❌ No dahabiyas found. Please seed the database first.';
+                    return;
+                }
+                
+                // Test availability API
+                const testDahabiya = dahabiyas[0];
+                const startDate = new Date();
+                startDate.setDate(startDate.getDate() + 7);
+                const endDate = new Date(startDate);
+                endDate.setDate(endDate.getDate() + 5);
+                
+                const availabilityResponse = await fetch('/api/availability/check', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        dahabiyaId: testDahabiya.id,
+                        startDate: startDate.toISOString(),
+                        endDate: endDate.toISOString(),
+                        guests: 4
+                    })
+                });
+                
+                const availability = await availabilityResponse.json();
+                
+                result.className = 'result success';
+                result.textContent = `✅ Booking System Test Results:
+
+📊 Database Status:
+- Found ${dahabiyas.length} dahabiyas
+- Test dahabiya: ${testDahabiya.name}
+
+🔍 Availability Check:
+- Available: ${availability.isAvailable ? 'Yes' : 'No'}
+- Total Price: $${availability.totalPrice || 'N/A'}
+- Message: ${availability.message || 'No message'}
+
+🎉 Booking system is ${availability.isAvailable ? 'READY' : 'NEEDS ATTENTION'}!
+
+Next steps:
+1. Visit /booking to test the booking form
+2. Try different dates and guest numbers
+3. Complete a test booking`;
+                
+            } catch (error) {
+                result.className = 'result error';
+                result.textContent = `❌ Test Error: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>

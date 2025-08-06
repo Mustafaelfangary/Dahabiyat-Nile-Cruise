@@ -17,6 +17,7 @@ A React Native mobile application for Dahabiyat Nile Cruise featuring dynamic co
 - 🎁 Journey Packages
 - 🗺️ Itineraries
 - 🖼️ Gallery
+- 📚 Ancient Blogs
 - ⭐ Reviews
 - 📍 Map & Locations
 - ℹ️ About Us
@@ -48,13 +49,15 @@ A React Native mobile application for Dahabiyat Nile Cruise featuring dynamic co
 3. **PackagesScreen** - Journey packages
 4. **ItinerariesScreen** - Detailed itineraries
 5. **GalleryScreen** - Photo gallery
-6. **AboutScreen** - Company information
-7. **ContactScreen** - Contact information
-8. **SettingsScreen** - App settings
-9. **ProfileScreen** - User profile
-10. **LoyaltyProgramScreen** - Loyalty program details
-11. **BookingHistoryScreen** - User's booking history
-12. **WishlistScreen** - Saved items
+6. **BlogsScreen** - Ancient blogs listing with search and categories
+7. **BlogDetailScreen** - Individual blog post view with sharing
+8. **AboutScreen** - Company information
+9. **ContactScreen** - Contact information
+10. **SettingsScreen** - App settings
+11. **ProfileScreen** - User profile
+12. **LoyaltyProgramScreen** - Loyalty program details
+13. **BookingHistoryScreen** - User's booking history
+14. **WishlistScreen** - Saved items
 
 ## 🛠️ Technical Stack
 
@@ -81,6 +84,7 @@ AppStackNavigator (Stack)
 │       ├── Packages
 │       ├── Itineraries
 │       ├── Gallery
+│       ├── Blogs
 │       ├── About
 │       └── Contact
 └── Additional Screens (Stack)

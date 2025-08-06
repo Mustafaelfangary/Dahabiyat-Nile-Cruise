@@ -165,9 +165,9 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
   }
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
-      {/* Ocean blue background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-ocean-blue-lightest to-blue-100"></div>
+    <footer className="relative overflow-hidden bg-gradient-to-b from-deep-blue to-navy-blue">
+      {/* Dark blue background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-deep-blue via-navy-blue to-ocean-blue-dark"></div>
 
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">
@@ -206,15 +206,15 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
               <HieroglyphicDivider />
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">
-              <span className="text-egyptian-gold mr-3">𓇳</span>
+            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
+              <span className="text-blue-300 mr-3">𓇳</span>
               {get('footer-title', 'Cleopatra Dahabiyat')}
-              <span className="text-egyptian-gold ml-3">𓇳</span>
+              <span className="text-blue-300 ml-3">𓇳</span>
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto leading-relaxed">
-              <span className="text-sunset-orange mr-2">𓊪</span>
+            <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
+              <span className="text-blue-300 mr-2">𓊪</span>
               {get('footer-description', 'Experience the magic of the Nile with our luxury dahabiya cruises. Authentic Egyptian hospitality meets modern comfort.')}
-              <span className="text-sunset-orange ml-2">𓊪</span>
+              <span className="text-blue-300 ml-2">𓊪</span>
             </p>
           </div>
 
@@ -223,8 +223,8 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
 
             {/* Navigation */}
             <div>
-              <h3 className="text-gray-800 font-bold text-lg mb-4">
-                <span className="text-egyptian-gold mr-2">𓊪</span>
+              <h3 className="text-white font-bold text-lg mb-4">
+                <span className="text-blue-300 mr-2">𓊪</span>
                 {get('footer_quick_links_title', 'Quick Links')}
                 <span className="text-egyptian-gold ml-2">𓊪</span>
               </h3>
@@ -250,8 +250,8 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
 
             {/* Contact Info */}
             <div>
-              <h3 className="text-gray-800 font-bold text-lg mb-4">
-                <span className="text-egyptian-gold mr-2">𓇳</span>
+              <h3 className="text-white font-bold text-lg mb-4">
+                <span className="text-blue-300 mr-2">𓇳</span>
                 Contact Info
                 <span className="text-egyptian-gold ml-2">𓇳</span>
               </h3>
@@ -274,7 +274,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                   return (
                     <div key={index} className="flex items-center space-x-3">
                       <Icon className="w-5 h-5 text-egyptian-gold" />
-                      <span className="text-gray-600 font-medium">
+                      <span className="text-blue-100 font-medium">
                         {contact.text}
                       </span>
                     </div>
@@ -285,8 +285,8 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
 
             {/* Social Media */}
             <div>
-              <h3 className="text-gray-800 font-bold text-lg mb-4">
-                <span className="text-egyptian-gold mr-2">𓈖</span>
+              <h3 className="text-white font-bold text-lg mb-4">
+                <span className="text-blue-300 mr-2">𓈖</span>
                 {get('footer_follow_us_title', 'Follow Us')}
                 <span className="text-egyptian-gold ml-2">𓈖</span>
               </h3>
@@ -309,12 +309,12 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
 
             {/* Newsletter */}
             <div>
-              <h3 className="text-gray-800 font-bold text-lg mb-4">
-                <span className="text-egyptian-gold mr-2">𓂀</span>
+              <h3 className="text-white font-bold text-lg mb-4">
+                <span className="text-blue-300 mr-2">𓂀</span>
                 {get('footer_newsletter_title', 'Newsletter')}
-                <span className="text-egyptian-gold ml-2">𓂀</span>
+                <span className="text-blue-300 ml-2">𓂀</span>
               </h3>
-              <p className="text-gray-600 mb-4">
+              <p className="text-blue-100 mb-4">
                 {get('footer-newsletter-text', 'Subscribe to get updates on our latest offers and journeys.')}
               </p>
 
@@ -380,7 +380,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
           {/* Modern Bottom Section */}
           <div className="border-t border-gray-200 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              <p className="text-gray-600">
+              <p className="text-blue-100">
                 © {new Date().getFullYear()} {get('footer-company-name', 'Cleopatra Dahabiyat')}. All Rights Reserved.
               </p>
 

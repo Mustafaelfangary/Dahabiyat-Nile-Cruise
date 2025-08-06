@@ -9,13 +9,8 @@ export interface AvailabilityCheck {
 
 export interface AvailabilityResult {
   isAvailable: boolean;
-  availableCabins: {
-    id: string;
-    name: string;
-    price: number;
-    capacity: number;
-  }[];
   totalPrice: number;
+  message?: string;
 }
 
 export class AvailabilityService {
@@ -93,19 +88,6 @@ export class AvailabilityService {
       const dahabiya = await prisma.dahabiya.findUnique({
         where: { id: dahabiyaId },
         include: {
-          cabins: {
-            include: {
-              bookings: {
-                where: {
-                  AND: [
-                    { startDate: { lt: endDate } },
-                    { endDate: { gt: startDate } },
-                    { status: { in: ['CONFIRMED', 'PENDING'] } }
-                  ]
-                },
-              },
-            },
-          },
           bookings: {
             where: {
               AND: [
@@ -121,8 +103,8 @@ export class AvailabilityService {
       if (!dahabiya) {
         return {
           isAvailable: false,
-          availableCabins: [],
           totalPrice: 0,
+          message: 'Dahabiya not found',
         };
       }
 
@@ -135,49 +117,36 @@ export class AvailabilityService {
       if (dahabiya.capacity < guests) {
         return {
           isAvailable: false,
-          availableCabins: [],
           totalPrice: 0,
+          message: `Dahabiya capacity (${dahabiya.capacity}) is less than requested guests (${guests})`,
         };
       }
 
-      // If there are cabins, check cabin availability
-      if (dahabiya.cabins && dahabiya.cabins.length > 0) {
-        const availableCabins = dahabiya.cabins
-          .filter(cabin => {
-            const isBooked = cabin.bookings.length > 0;
-            return !isBooked && cabin.capacity >= guests;
-          })
-          .map(cabin => ({
-            id: cabin.id,
-            name: cabin.name,
-            price: Number(cabin.price),
-            capacity: cabin.capacity,
-          }));
+      // Check if dahabiya is already booked for the requested dates
+      const isBooked = dahabiya.bookings.length > 0;
 
-        const totalPrice = availableCabins.length > 0
-          ? availableCabins[0].price * nights
-          : Number(dahabiya.pricePerDay) * nights;
-
+      if (isBooked) {
         return {
-          isAvailable: availableCabins.length > 0,
-          availableCabins,
-          totalPrice,
-        };
-      } else {
-        // No specific cabins, check overall dahabiya availability
-        const isBooked = dahabiya.bookings.length > 0;
-        const totalPrice = Number(dahabiya.pricePerDay) * nights;
-
-        return {
-          isAvailable: !isBooked,
-          totalPrice: !isBooked ? totalPrice : 0,
+          isAvailable: false,
+          totalPrice: 0,
+          message: 'Dahabiya is already booked for the selected dates',
         };
       }
+
+      // Calculate total price
+      const totalPrice = Number(dahabiya.pricePerDay) * nights;
+
+      return {
+        isAvailable: true,
+        totalPrice,
+        message: 'Dahabiya is available for booking',
+      };
     } catch (error) {
       console.error('Error checking availability:', error);
       return {
         isAvailable: false,
         totalPrice: 0,
+        message: 'Error checking availability',
       };
     }
   }

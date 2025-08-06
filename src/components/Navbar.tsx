@@ -248,43 +248,33 @@ export default function Navbar() {
     { href: "/contact", label: `𓏏 ${t('contact')} 𓏏`, hieroglyph: "𓏏" },
   ];
 
-  // Pharaonic navbar styling - matching admin panel
+  // Dark blue navbar styling for all pages
   const getNavbarStyle = () => {
-    if (isHomepage) {
-      // Homepage: Pharaonic sand background with gold accents
-      return {
-        background: scrolled
-          ? 'rgba(254, 247, 237, 0.95)'  // Pharaonic sand
-          : 'rgba(254, 243, 199, 0.85)',  // Pharaonic cream
-        backdropFilter: scrolled ? 'blur(25px)' : 'blur(15px)',
-        boxShadow: scrolled
-          ? '0 2px 20px rgba(212, 175, 55, 0.2)'  // Egyptian gold shadow
-          : '0 2px 10px rgba(212, 175, 55, 0.1)',
-        borderBottom: scrolled
-          ? '1px solid rgba(212, 175, 55, 0.3)'  // Gold border
-          : '1px solid rgba(212, 175, 55, 0.2)'
-      };
-    } else {
-      // Other pages: Ocean blue theme background
-      return {
-        background: 'rgba(255, 255, 255, 0.98)',  // White background
-        backdropFilter: 'blur(20px)',
-        boxShadow: '0 2px 20px rgba(0, 128, 255, 0.2)',
-        borderBottom: '1px solid rgba(0, 128, 255, 0.3)'
-      };
-    }
+    // All pages: Dark blue background with white text
+    return {
+      background: scrolled
+        ? 'rgba(0, 61, 122, 0.98)'  // Deep blue
+        : 'rgba(0, 31, 63, 0.95)',  // Navy blue
+      backdropFilter: scrolled ? 'blur(25px)' : 'blur(20px)',
+      boxShadow: scrolled
+        ? '0 2px 20px rgba(0, 128, 255, 0.3)'  // Ocean blue shadow
+        : '0 2px 15px rgba(0, 128, 255, 0.2)',
+      borderBottom: scrolled
+        ? '1px solid rgba(0, 128, 255, 0.4)'  // Ocean blue border
+        : '1px solid rgba(0, 128, 255, 0.3)'
+    };
   };
 
-  // Ocean blue text colors
+  // White text colors for dark blue background
   const getTextColor = (isLogo = false) => {
-    // Black text on white background
-    return 'hsl(0, 0%, 0%)';  // Black
+    // White text on dark blue background
+    return 'hsl(0, 0%, 100%)';  // White
   };
 
-  // Ocean blue link colors
+  // White link colors for dark blue background
   const getLinkColor = () => {
-    // Ocean blue for links
-    return 'hsl(200, 100%, 50%)';  // Ocean blue
+    // White for links with hover effect
+    return 'hsl(0, 0%, 100%)';  // White
   };
 
   // Ocean blue hover colors based on page and scroll state
@@ -583,23 +573,16 @@ export default function Navbar() {
                 <DropdownMenuTrigger asChild>
                   <button
                     style={{
-                      background: isHomepage && !scrolled
-                        ? 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)'
-                        : 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%)',
+                      background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)',
                       backdropFilter: 'blur(15px)',
-                      border: isHomepage && !scrolled
-                        ? '2px solid rgba(255, 255, 255, 0.4)'
-                        : '2px solid transparent',
-                      borderImage: !isHomepage || scrolled
-                        ? 'linear-gradient(135deg, rgba(59, 130, 246, 0.4), rgba(147, 51, 234, 0.4)) 1'
-                        : 'none',
+                      border: '2px solid rgba(255, 255, 255, 0.3)',
                       borderRadius: '0.5rem',
                       padding: '0.25rem 0.5rem',
                       fontSize: '0.7rem',
                       fontWeight: 600,
-                      color: 'hsl(222.2, 84%, 4.9%)',
+                      color: 'white',
                       transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                      boxShadow: '0 4px 16px rgba(59, 130, 246, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)',
+                      boxShadow: '0 4px 16px rgba(0, 128, 255, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1)',
                       cursor: 'pointer',
                       display: 'flex',
                       alignItems: 'center'

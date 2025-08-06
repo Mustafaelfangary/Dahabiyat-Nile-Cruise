@@ -45,6 +45,27 @@ export interface Package {
   updatedAt: string;
 }
 
+export interface Blog {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  content: string;
+  mainImageUrl?: string;
+  heroImageUrl?: string;
+  author: string;
+  tags: string[];
+  category?: string;
+  isPublished: boolean;
+  featured: boolean;
+  publishedAt?: string;
+  readTime?: number;
+  seoTitle?: string;
+  seoDescription?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export interface ItineraryDay {
   id: string;
   dayNumber: number;
@@ -205,6 +226,20 @@ class ApiService {
       method: 'POST',
       body: JSON.stringify(data),
     });
+  }
+
+  // Blogs
+  async getBlogs(): Promise<Blog[]> {
+    return this.fetchWithErrorHandling<Blog[]>('/api/blogs');
+  }
+
+  async getBlogBySlug(slug: string): Promise<Blog> {
+    return this.fetchWithErrorHandling<Blog>(`/api/blogs/${slug}`);
+  }
+
+  async getFeaturedBlogs(): Promise<Blog[]> {
+    const blogs = await this.getBlogs();
+    return blogs.filter(blog => blog.featured);
   }
 
   // Utility methods

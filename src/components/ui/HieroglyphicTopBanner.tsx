@@ -25,15 +25,15 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
       border: 'border-b-2 border-blue-600/30'
     },
     minimal: {
-      background: 'bg-gradient-to-r from-blue-50 to-sky-50',
-      textColor: 'text-blue-800',
+      background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 50%, #0080ff 100%)',
+      textColor: 'text-white',
       shadow: 'shadow-sm',
       padding: 'py-2 px-4',
-      border: 'border-b border-blue-200'
+      border: 'border-b border-blue-300'
     },
     elegant: {
-      background: 'bg-gradient-to-r from-blue-900/90 via-ocean-800/90 to-blue-900/90',
-      textColor: 'text-blue-100',
+      background: 'linear-gradient(135deg, #003d7a 0%, #001f3f 25%, #0080ff 50%, #001f3f 75%, #003d7a 100%)',
+      textColor: 'text-white',
       shadow: 'shadow-xl',
       padding: 'py-4 px-6',
       border: 'border-b-4 border-blue-400/50'

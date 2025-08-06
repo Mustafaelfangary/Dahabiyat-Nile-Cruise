@@ -161,7 +161,7 @@ export function AdminUsersScreen() {
         <Card>
           <CardContent className="p-4">
             <div className="flex items-center gap-2">
-              <Edit className="w-5 h-5 text-orange-600" />
+              <Edit className="w-5 h-5 text-ocean-blue" />
               <div>
                 <p className="text-2xl font-bold">{roleStats.managers}</p>
                 <p className="text-sm text-gray-600">Managers</p>

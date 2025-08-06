@@ -5,7 +5,9 @@ import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { FileText, Plus, Edit, Trash2, Eye, Calendar, User, Tag, Clock, Star } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { FileText, Plus, Edit, Trash2, Eye, Calendar, User, Tag, Clock, Star, Search, Filter } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Blog {
@@ -29,13 +31,21 @@ interface Blog {
 export default function BlogsManagementPage() {
   const { data: session, status } = useSession();
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [statusFilter, setStatusFilter] = useState('all');
+  const [featuredFilter, setFeaturedFilter] = useState('all');
 
   useEffect(() => {
     if (status === 'authenticated') {
       fetchBlogs();
     }
   }, [status]);
+
+  useEffect(() => {
+    filterBlogs();
+  }, [blogs, searchTerm, statusFilter, featuredFilter]);
 
   const fetchBlogs = async () => {
     try {
@@ -52,6 +62,35 @@ export default function BlogsManagementPage() {
     } finally {
       setLoading(false);
     }
+  };
+
+  const filterBlogs = () => {
+    let filtered = blogs;
+
+    // Search filter
+    if (searchTerm) {
+      filtered = filtered.filter(blog =>
+        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.author.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    // Status filter
+    if (statusFilter !== 'all') {
+      filtered = filtered.filter(blog =>
+        statusFilter === 'published' ? blog.isPublished : !blog.isPublished
+      );
+    }
+
+    // Featured filter
+    if (featuredFilter !== 'all') {
+      filtered = filtered.filter(blog =>
+        featuredFilter === 'featured' ? blog.featured : !blog.featured
+      );
+    }
+
+    setFilteredBlogs(filtered);
   };
 
   const handleDelete = async (id: string) => {
@@ -136,8 +175,61 @@ export default function BlogsManagementPage() {
           </Button>
         </div>
 
+        {/* Search and Filter Controls */}
+        <Card className="mb-6">
+          <CardContent className="p-6">
+            <div className="flex flex-col md:flex-row gap-4">
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                  <Input
+                    placeholder="Search blogs by title, author, or tags..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </div>
+
+              <div className="flex gap-2">
+                <Select value={statusFilter} onValueChange={setStatusFilter}>
+                  <SelectTrigger className="w-40">
+                    <SelectValue placeholder="Status" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Status</SelectItem>
+                    <SelectItem value="published">Published</SelectItem>
+                    <SelectItem value="draft">Draft</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select value={featuredFilter} onValueChange={setFeaturedFilter}>
+                  <SelectTrigger className="w-40">
+                    <SelectValue placeholder="Featured" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="all">All Posts</SelectItem>
+                    <SelectItem value="featured">Featured</SelectItem>
+                    <SelectItem value="regular">Regular</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="mt-4 flex items-center justify-between text-sm text-gray-600">
+              <span>
+                Showing {filteredBlogs.length} of {blogs.length} blogs
+              </span>
+              <div className="flex gap-4">
+                <span>Published: {blogs.filter(b => b.isPublished).length}</span>
+                <span>Featured: {blogs.filter(b => b.featured).length}</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blogs.map((blog) => (
+          {filteredBlogs.map((blog) => (
             <Card key={blog.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-amber-400">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <img
@@ -150,7 +242,7 @@ export default function BlogsManagementPage() {
                 {/* Status Badges */}
                 <div className="absolute top-4 right-4 flex gap-2">
                   {blog.featured && (
-                    <Badge className="bg-amber-500 text-black">
+                    <Badge className="bg-ocean-blue text-white">
                       <Star className="w-3 h-3 mr-1" />
                       Featured
                     </Badge>
@@ -239,7 +331,7 @@ export default function BlogsManagementPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => togglePublished(blog.id, blog.isPublished)}
-                    className={blog.isPublished ? 'text-orange-600 hover:text-orange-700' : 'text-green-600 hover:text-green-700'}
+                    className={blog.isPublished ? 'text-ocean-blue hover:text-ocean-blue-dark' : 'text-green-600 hover:text-green-700'}
                   >
                     {blog.isPublished ? 'Unpublish' : 'Publish'}
                   </Button>
@@ -257,6 +349,7 @@ export default function BlogsManagementPage() {
           ))}
         </div>
 
+        {/* Empty States */}
         {blogs.length === 0 && (
           <div className="text-center py-16">
             <FileText className="w-16 h-16 text-amber-300 mx-auto mb-4" />
@@ -268,6 +361,25 @@ export default function BlogsManagementPage() {
             >
               <Plus className="w-4 h-4 mr-2" />
               Create First Blog
+            </Button>
+          </div>
+        )}
+
+        {blogs.length > 0 && filteredBlogs.length === 0 && (
+          <div className="text-center py-16">
+            <Search className="w-16 h-16 text-amber-300 mx-auto mb-4" />
+            <h3 className="text-xl font-bold text-amber-800 mb-4">No blogs match your filters</h3>
+            <p className="text-amber-600 mb-6">Try adjusting your search terms or filters.</p>
+            <Button
+              onClick={() => {
+                setSearchTerm('');
+                setStatusFilter('all');
+                setFeaturedFilter('all');
+              }}
+              variant="outline"
+              className="border-amber-600 text-amber-600 hover:bg-amber-50"
+            >
+              Clear Filters
             </Button>
           </div>
         )}

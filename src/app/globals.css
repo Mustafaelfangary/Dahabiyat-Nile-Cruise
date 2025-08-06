@@ -596,6 +596,109 @@
     }
   }
 
+  /* Global styling for DARK blue backgrounds - ensure white text for better clarity */
+  [class*="bg-blue-6"],
+  [class*="bg-blue-7"],
+  [class*="bg-blue-8"],
+  [class*="bg-blue-9"],
+  [class*="bg-ocean-blue"]:not([class*="bg-ocean-blue/"]),
+  [class*="bg-sky-6"],
+  [class*="bg-sky-7"],
+  [class*="bg-sky-8"],
+  [class*="bg-sky-9"],
+  [class*="bg-cyan-6"],
+  [class*="bg-cyan-7"],
+  [class*="bg-cyan-8"],
+  [class*="bg-cyan-9"],
+  [class*="from-blue-6"],
+  [class*="from-blue-7"],
+  [class*="from-blue-8"],
+  [class*="from-blue-9"],
+  [class*="from-ocean-blue"]:not([class*="from-ocean-blue/"]),
+  [class*="via-blue-6"],
+  [class*="via-blue-7"],
+  [class*="via-blue-8"],
+  [class*="via-blue-9"],
+  [class*="via-ocean-blue"]:not([class*="via-ocean-blue/"]),
+  [class*="to-blue-6"],
+  [class*="to-blue-7"],
+  [class*="to-blue-8"],
+  [class*="to-blue-9"],
+  [class*="to-ocean-blue"]:not([class*="to-ocean-blue/"]) {
+    /* Ensure white text on dark blue backgrounds */
+    color: white !important;
+
+    /* White text for all text elements inside dark blue backgrounds */
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, a {
+      color: white !important;
+    }
+
+    /* Exception for elements that explicitly set their own text color */
+    .text-black,
+    .text-gray-800,
+    .text-gray-900,
+    [class*="text-gray-8"],
+    [class*="text-gray-9"] {
+      color: inherit !important;
+    }
+  }
+
+  /* Global styling for PALE/LIGHT blue backgrounds - ensure black text for better clarity */
+  [class*="bg-blue-50"],
+  [class*="bg-blue-100"],
+  [class*="bg-blue-200"],
+  [class*="bg-blue-1"],
+  [class*="bg-blue-2"],
+  [class*="bg-sky-50"],
+  [class*="bg-sky-100"],
+  [class*="bg-sky-200"],
+  [class*="bg-sky-1"],
+  [class*="bg-sky-2"],
+  [class*="bg-cyan-50"],
+  [class*="bg-cyan-100"],
+  [class*="bg-cyan-200"],
+  [class*="bg-cyan-1"],
+  [class*="bg-cyan-2"],
+  [class*="bg-ocean-blue/"],
+  [class*="from-blue-50"],
+  [class*="from-blue-100"],
+  [class*="from-blue-1"],
+  [class*="from-blue-2"],
+  [class*="from-ocean-blue/"],
+  [class*="via-blue-50"],
+  [class*="via-blue-100"],
+  [class*="via-blue-1"],
+  [class*="via-blue-2"],
+  [class*="via-ocean-blue/"],
+  [class*="to-blue-50"],
+  [class*="to-blue-100"],
+  [class*="to-blue-1"],
+  [class*="to-blue-2"],
+  [class*="to-ocean-blue/"] {
+    /* Ensure black text on pale blue backgrounds */
+    color: black !important;
+
+    /* Black text for all text elements inside pale blue backgrounds */
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, a {
+      color: black !important;
+    }
+
+    /* Exception for elements that explicitly set their own text color */
+    .text-white,
+    .text-blue-600,
+    .text-blue-700,
+    .text-blue-800,
+    .text-blue-900,
+    [class*="text-blue-6"],
+    [class*="text-blue-7"],
+    [class*="text-blue-8"],
+    [class*="text-blue-9"] {
+      color: inherit !important;
+    }
+  }
+
   @media (min-width: 768px) {
     .card-title {
       font-size: 1.5rem;

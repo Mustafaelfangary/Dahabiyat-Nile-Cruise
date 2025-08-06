@@ -120,15 +120,15 @@ export default function GalleryPage() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'dahabiya':
-        return 'bg-blue-100 text-blue-800';
+        return 'bg-ocean-blue text-white';
       case 'package':
-        return 'bg-ocean-blue/10 text-ocean-blue';
+        return 'bg-blue-600 text-white';
       case 'destination':
-        return 'bg-sky-100 text-sky-800';
+        return 'bg-sky-600 text-white';
       case 'experience':
-        return 'bg-cyan-100 text-cyan-800';
+        return 'bg-cyan-600 text-white';
       default:
-        return 'bg-blue-50 text-blue-700';
+        return 'bg-blue-700 text-white';
     }
   };
 

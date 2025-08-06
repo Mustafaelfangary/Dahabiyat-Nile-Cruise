@@ -23,6 +23,8 @@ export { default as WishlistScreen } from './WishlistScreen';
 export { default as ItinerariesScreen } from './ItinerariesScreen';
 export { default as GalleryScreen } from './GalleryScreen';
 export { default as AboutScreen } from './AboutScreen';
+export { default as BlogsScreen } from './BlogsScreen';
+export { default as BlogDetailScreen } from './BlogDetailScreen';
 
 // Placeholder screens - to be implemented
 export const ReviewsScreen = () => null;

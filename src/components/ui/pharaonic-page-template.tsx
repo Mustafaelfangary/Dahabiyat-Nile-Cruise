@@ -180,10 +180,10 @@ export function PharaonicPageTemplate({
 
               {/* Type and Category Badges */}
               <div className="flex items-center justify-center space-x-4 mb-8">
-                <span className="px-6 py-3 bg-ocean-blue/90 text-ocean-blue rounded-full font-bold text-lg shadow-lg">
+                <span className="px-6 py-3 bg-ocean-blue text-white rounded-full font-bold text-lg shadow-lg">
                   {type}
                 </span>
-                <span className="px-6 py-3 bg-ocean-blue/90 text-ocean-blue rounded-full font-bold text-lg shadow-lg">
+                <span className="px-6 py-3 bg-ocean-blue text-white rounded-full font-bold text-lg shadow-lg">
                   {category}
                 </span>
               </div>

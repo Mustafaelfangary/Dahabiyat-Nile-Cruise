@@ -30,7 +30,7 @@ interface Blog {
 
 const PharaohButton = ({ children, className = '', ...props }: any) => (
   <Button
-    className={`relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
+    className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-deep-blue text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
   >
     <span className="relative z-10">{children}</span>
@@ -105,10 +105,10 @@ export default function BlogDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-amber-800 text-lg">Loading Ancient Blog...</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-ocean-blue-dark mx-auto mb-4"></div>
+          <p className="text-ocean-blue-dark text-lg">Loading Ancient Blog...</p>
         </div>
       </div>
     );
@@ -116,11 +116,11 @@ export default function BlogDetailPage() {
 
   if (!blog) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">𓂀</div>
-          <h1 className="text-2xl font-bold text-amber-800 mb-4">Blog Not Found</h1>
-          <p className="text-amber-600 mb-6">This ancient blog could not be found.</p>
+          <h1 className="text-2xl font-bold text-ocean-blue-dark mb-4">Blog Not Found</h1>
+          <p className="text-ocean-blue-dark mb-6">This ancient blog could not be found.</p>
           <PharaohButton onClick={() => window.location.href = '/blogs'}>
             ← Back to All Blogs
           </PharaohButton>
@@ -130,9 +130,9 @@ export default function BlogDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-blue-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-r from-ocean-blue-dark via-deep-blue to-navy-blue text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         {blog.heroImageUrl && (
           <div 
@@ -159,7 +159,7 @@ export default function BlogDetailPage() {
               {/* Category Badge */}
               {blog.category && (
                 <div className="mb-6">
-                  <span className="bg-white/20 text-amber-200 px-4 py-2 rounded-full text-sm font-semibold">
+                  <span className="bg-white/20 text-blue-200 px-4 py-2 rounded-full text-sm font-semibold">
                     {blog.category}
                   </span>
                 </div>
@@ -170,7 +170,7 @@ export default function BlogDetailPage() {
               </h1>
               
               {blog.excerpt && (
-                <p className="text-xl md:text-2xl mb-8 text-amber-100 leading-relaxed">
+                <p className="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
                   {blog.excerpt}
                 </p>
               )}
@@ -199,7 +199,7 @@ export default function BlogDetailPage() {
               {blog.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-8">
                   {blog.tags.map((tag, index) => (
-                    <span key={index} className="bg-amber-500/20 text-amber-200 px-3 py-1 rounded-full text-sm font-semibold">
+                    <span key={index} className="bg-ocean-blue/20 text-blue-200 px-3 py-1 rounded-full text-sm font-semibold">
                       #{tag}
                     </span>
                   ))}
@@ -211,7 +211,7 @@ export default function BlogDetailPage() {
                   <Share2 className="w-5 h-5 mr-2" />
                   Share Blog
                 </PharaohButton>
-                <PharaohButton className="bg-amber-500 hover:bg-amber-600 text-black">
+                <PharaohButton className="bg-ocean-blue hover:bg-ocean-blue-dark text-black">
                   <Heart className="w-5 h-5 mr-2" />
                   Save to Favorites
                 </PharaohButton>
@@ -230,7 +230,7 @@ export default function BlogDetailPage() {
                 <img
                   src={blog.mainImageUrl}
                   alt={blog.title}
-                  className="w-full h-96 object-cover rounded-lg shadow-2xl border-4 border-amber-200"
+                  className="w-full h-96 object-cover rounded-lg shadow-2xl border-4 border-blue-200"
                 />
               </div>
             </AnimatedSection>
@@ -243,10 +243,10 @@ export default function BlogDetailPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
             <AnimatedSection animation="fade-up">
-              <Card className="bg-white/90 backdrop-blur-sm border-2 border-amber-200 shadow-xl">
+              <Card className="bg-white/90 backdrop-blur-sm border-2 border-blue-200 shadow-xl">
                 <CardContent className="p-8 md:p-12">
                   <div 
-                    className="prose prose-lg max-w-none prose-headings:text-amber-800 prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-amber-600 prose-a:font-semibold prose-strong:text-amber-800 prose-blockquote:border-amber-300 prose-blockquote:bg-amber-50 prose-blockquote:p-4 prose-blockquote:rounded-lg"
+                    className="prose prose-lg max-w-none prose-headings:text-ocean-blue-dark prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-a:text-ocean-blue-dark prose-a:font-semibold prose-strong:text-ocean-blue-dark prose-blockquote:border-blue-300 prose-blockquote:bg-blue-50 prose-blockquote:p-4 prose-blockquote:rounded-lg"
                     dangerouslySetInnerHTML={{ __html: blog.content }}
                   />
                 </CardContent>
@@ -258,10 +258,10 @@ export default function BlogDetailPage() {
 
       {/* Related Blogs */}
       {relatedBlogs.length > 0 && (
-        <section className="py-16 bg-gradient-to-r from-amber-100 to-orange-100">
+        <section className="py-16 bg-gradient-to-r from-blue-100 to-blue-100">
           <div className="container mx-auto px-4">
             <AnimatedSection animation="fade-up">
-              <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
+              <h2 className="text-4xl font-bold text-center text-ocean-blue-dark mb-12">
                 📜 Related Blogs 📜
               </h2>
             </AnimatedSection>
@@ -269,7 +269,7 @@ export default function BlogDetailPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {relatedBlogs.map((relatedBlog, index) => (
                 <AnimatedSection key={relatedBlog.id} animation="fade-up" delay={index * 100}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-amber-200 hover:border-amber-400 overflow-hidden h-full">
+                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-ocean-blue overflow-hidden h-full">
                     <div className="relative h-48 overflow-hidden">
                       <img
                         src={relatedBlog.mainImageUrl || '/images/default-blog.jpg'}
@@ -285,7 +285,7 @@ export default function BlogDetailPage() {
                     </div>
 
                     <CardContent className="p-6 flex flex-col h-full">
-                      <h3 className="text-lg font-bold text-amber-800 mb-3 group-hover:text-amber-600 transition-colors line-clamp-2">
+                      <h3 className="text-lg font-bold text-ocean-blue-dark mb-3 group-hover:text-ocean-blue-dark transition-colors line-clamp-2">
                         {relatedBlog.title}
                       </h3>
                       
@@ -324,19 +324,19 @@ export default function BlogDetailPage() {
       )}
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-ocean-blue-dark via-deep-blue to-navy-blue text-white">
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection animation="fade-up">
             <h2 className="text-4xl font-bold mb-6">
               Discover More Ancient Blogs
             </h2>
-            <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto">
+            <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
               Explore our collection of blogs and immerse yourself in the timeless stories 
               and secrets of ancient Egypt.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
               <PharaohButton 
-                className="bg-white text-amber-800 hover:bg-amber-50"
+                className="bg-white text-ocean-blue-dark hover:bg-blue-50"
                 onClick={() => window.location.href = '/blogs'}
               >
                 <BookOpen className="w-5 h-5 mr-2" />

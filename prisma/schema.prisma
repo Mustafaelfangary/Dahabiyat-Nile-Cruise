@@ -241,15 +241,13 @@ model Booking {
   createdAt        DateTime          @default(now())
   updatedAt        DateTime          @updatedAt
   specialRequests  String?
-  // cabinId          String?  // REMOVED: related to deleted Cabin model
-  // dahabiyaId       String?  // REMOVED: related to deleted Dahabiya model
-  packageId        String?           // Added for package bookings
+  dahabiyaId       String?           // Re-enabled for dahabiya bookings
+  packageId        String?           // For package bookings
   promotionId      String?
-  type             String?           // Added to distinguish booking types (DAHABIYA, PACKAGE)
-  bookingReference String?           // Added for unique booking references
+  type             String?           // To distinguish booking types (DAHABIYA, PACKAGE)
+  bookingReference String?           // Unique booking references
   bookedExcursions BookedExcursion[]
-  // cabin            Cabin?            @relation(fields: [cabinId], references: [id])  // REMOVED
-  // dahabiya         Dahabiya?         @relation(fields: [dahabiyaId], references: [id])  // REMOVED
+  dahabiya         Dahabiya?         @relation(fields: [dahabiyaId], references: [id])
   package          Package?          @relation(fields: [packageId], references: [id])
   promotion        Promotion?        @relation(fields: [promotionId], references: [id])
   user             User              @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -789,6 +787,7 @@ model Dahabiya {
   availabilityDates AvailabilityDate[]
   itineraries       DahabiyaItinerary[]
   pdfDocuments      PDFDocument[]
+  bookings          Booking[]
 
   // Timestamps
   createdAt   DateTime @default(now())

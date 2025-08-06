@@ -28,6 +28,8 @@ import {
   MapScreen,
   ContactScreen,
   AdminScreen,
+  BlogsScreen,
+  BlogDetailScreen,
 } from '../screens';
 
 // Additional Screens
@@ -202,6 +204,18 @@ const AppStackNavigator: React.FC = () => {
             name="About"
             component={AboutScreen}
             options={{ title: 'About Us' }}
+          />
+
+          <Stack.Screen
+            name="Blogs"
+            component={BlogsScreen}
+            options={{ title: 'Ancient Blogs' }}
+          />
+
+          <Stack.Screen
+            name="BlogDetail"
+            component={BlogDetailScreen}
+            options={{ title: 'Blog Post', headerShown: false }}
           />
 
           <Stack.Screen

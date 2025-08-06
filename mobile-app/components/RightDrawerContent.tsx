@@ -70,6 +70,11 @@ const RightDrawerContent: React.FC<any> = (props) => {
       screen: 'Gallery',
     },
     {
+      icon: 'book-outline',
+      label: 'Ancient Blogs',
+      screen: 'Blogs',
+    },
+    {
       icon: 'star-outline',
       label: 'Reviews',
       screen: 'Reviews',
