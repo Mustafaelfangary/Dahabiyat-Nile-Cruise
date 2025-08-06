@@ -64,10 +64,10 @@ export default function ContactPage() {
     return (
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
-          <RoyalCrown className="w-16 h-16 text-egyptian-gold mx-auto mb-6 animate-pulse" />
-          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-egyptian-gold mx-auto mb-6"></div>
-          <div className="text-egyptian-gold text-3xl mb-4">𓇳 𓊪 𓈖 𓂀 𓏏 𓇯 𓊃</div>
-          <p className="pharaonic-text-brown font-bold text-xl">{getContent('contact_loading_text') || 'Loading Contact Page...'}</p>
+          <RoyalCrown className="w-16 h-16 text-ocean-blue mx-auto mb-6 animate-pulse" />
+          <div className="animate-spin rounded-full h-32 w-32 border-b-4 border-ocean-blue mx-auto mb-6"></div>
+          <div className="text-ocean-blue text-3xl mb-4">𓇳 𓊪 𓈖 𓂀 𓏏 𓇯 𓊃</div>
+          <p className="text-ocean-blue-dark font-bold text-xl">{getContent('contact_loading_text') || 'Loading Contact Page...'}</p>
         </div>
       </div>
     );
@@ -100,15 +100,15 @@ export default function ContactPage() {
 
             <div className="text-center text-text-primary">
               <div className="mb-8">
-                <h1 className="text-5xl md:text-7xl font-heading font-bold bg-gradient-to-r from-egyptian-gold via-hieroglyph-brown to-sunset-orange bg-clip-text text-transparent mb-6">
+                <h1 className="text-5xl md:text-7xl font-heading font-bold bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue bg-clip-text text-transparent mb-6">
                   {getContent('contact_hero_title') || 'Contact Us'}
                 </h1>
                 <div className="flex items-center justify-center gap-2 mb-4">
-                  <span className="text-egyptian-gold text-2xl">𓈖</span>
-                  <span className="text-sunset-orange text-2xl">𓂀</span>
-                  <span className="text-egyptian-gold text-2xl">𓏏</span>
-                  <span className="text-sunset-orange text-2xl">𓇯</span>
-                  <span className="text-egyptian-gold text-2xl">𓊃</span>
+                  <span className="text-ocean-blue text-2xl">𓈖</span>
+                  <span className="text-blue-300 text-2xl">𓂀</span>
+                  <span className="text-ocean-blue text-2xl">𓏏</span>
+                  <span className="text-blue-300 text-2xl">𓇯</span>
+                  <span className="text-ocean-blue text-2xl">𓊃</span>
                 </div>
               </div>
 
@@ -125,7 +125,7 @@ export default function ContactPage() {
         <Container maxWidth="xl">
           <AnimatedSection animation="fade-in">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-heading font-bold bg-gradient-to-r from-egyptian-gold via-hieroglyph-brown to-sunset-orange bg-clip-text text-transparent mb-6">
+              <h2 className="text-4xl md:text-5xl font-heading font-bold bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue bg-clip-text text-transparent mb-6">
                 Get in touch with our Egypt travel experts
               </h2>
               <HieroglyphicDivider className="mx-auto mb-8" />
@@ -135,7 +135,7 @@ export default function ContactPage() {
           {/* Enhanced Social Media Tabs */}
           <AnimatedSection animation="slide-up" delay={200}>
             <div className="max-w-4xl mx-auto">
-              <div className="bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm rounded-3xl border-2 border-egyptian-gold/30 shadow-2xl overflow-hidden">
+              <div className="bg-gradient-to-br from-ocean-blue/10 via-white/95 to-blue-300/10 backdrop-blur-sm rounded-3xl border-2 border-ocean-blue/30 shadow-2xl overflow-hidden">
                 <div className="p-8">
                   {/* Edit Button - Only show for admin users */}
                   {session?.user?.role === 'ADMIN' && (
@@ -143,7 +143,7 @@ export default function ContactPage() {
                       {!isEditing ? (
                         <Button
                           onClick={() => setIsEditing(true)}
-                          className="bg-egyptian-gold hover:bg-egyptian-gold/80 text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
+                          className="bg-ocean-blue hover:bg-ocean-blue-dark text-white px-6 py-2 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl"
                         >
                           <Edit3 className="w-4 h-4 mr-2" />
                           Edit Links
@@ -170,7 +170,7 @@ export default function ContactPage() {
                   )}
 
                   <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-                    <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-egyptian-gold/20 to-sunset-orange/20 rounded-2xl p-1 mb-8 gap-0.5">
+                    <TabsList className="grid w-full grid-cols-4 bg-gradient-to-r from-ocean-blue/20 to-blue-300/20 rounded-2xl p-1 mb-8 gap-0.5">
                       <TabsTrigger
                         value="whatsapp"
                         className="data-[state=active]:bg-green-500 data-[state=active]:text-white rounded-lg transition-all duration-300 font-medium flex items-center justify-center text-center px-0.5 py-2 min-h-[2.5rem] text-xs"
@@ -354,8 +354,8 @@ export default function ContactPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Phone */}
             <AnimatedSection animation="slide-up">
-              <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <Phone className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
+              <PharaohCard className="text-center h-full bg-gradient-to-br from-ocean-blue/10 via-white/95 to-blue-300/10 backdrop-blur-sm border-2 border-ocean-blue/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Phone className="w-12 h-12 text-ocean-blue mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
                   {getContent('contact_phone_title') || 'Call Us'}
                 </h3>
@@ -367,8 +367,8 @@ export default function ContactPage() {
 
             {/* Email */}
             <AnimatedSection animation="slide-up" delay={200}>
-              <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <Mail className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
+              <PharaohCard className="text-center h-full bg-gradient-to-br from-ocean-blue/10 via-white/95 to-blue-300/10 backdrop-blur-sm border-2 border-ocean-blue/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <Mail className="w-12 h-12 text-ocean-blue mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
                   {getContent('contact_email_title') || 'Email Us'}
                 </h3>
@@ -380,8 +380,8 @@ export default function ContactPage() {
 
             {/* Location */}
             <AnimatedSection animation="slide-up" delay={400}>
-              <PharaohCard className="text-center h-full bg-gradient-to-br from-egyptian-gold/10 via-white/95 to-sunset-orange/10 backdrop-blur-sm border-2 border-egyptian-gold/30 shadow-xl hover:shadow-2xl transition-all duration-300">
-                <MapPin className="w-12 h-12 text-egyptian-gold mx-auto mb-4" />
+              <PharaohCard className="text-center h-full bg-gradient-to-br from-ocean-blue/10 via-white/95 to-blue-300/10 backdrop-blur-sm border-2 border-ocean-blue/30 shadow-xl hover:shadow-2xl transition-all duration-300">
+                <MapPin className="w-12 h-12 text-ocean-blue mx-auto mb-4" />
                 <h3 className="text-2xl font-heading font-bold text-text-primary mb-4">
                   {getContent('contact_location_title') || 'Visit Us'}
                 </h3>

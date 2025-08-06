@@ -135,20 +135,20 @@ export default function TailorMadePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
       {/* Hieroglyphic Header */}
-      <section className="py-8 bg-gradient-to-r from-amber-50 to-orange-50">
+      <section className="py-8 bg-gradient-to-r from-blue-50 to-ocean-blue-lightest">
         <Container maxWidth="lg">
           <div className="text-center">
             <div className="text-4xl font-bold mb-2">
-              <span className="text-egyptian-gold">𓂋</span><span className="text-sunset-orange">𓏤</span><span className="text-egyptian-gold">𓈖</span><span className="text-sunset-orange">𓇋</span><span className="text-egyptian-gold">𓆎</span><span className="text-sunset-orange">𓏏</span><span className="text-egyptian-gold">𓂻</span>
+              <span className="text-ocean-blue">𓂋</span><span className="text-blue-300">𓏤</span><span className="text-ocean-blue">𓈖</span><span className="text-blue-300">𓇋</span><span className="text-ocean-blue">𓆎</span><span className="text-blue-300">𓏏</span><span className="text-ocean-blue">𓂻</span>
             </div>
           </div>
         </Container>
       </section>
 
       {/* Hero Section */}
-      <section className="relative h-screen bg-gradient-to-r from-egyptian-gold to-sunset-orange overflow-hidden">
+      <section className="relative h-screen bg-gradient-to-r from-ocean-blue to-deep-blue overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={getContent('tailor_made_hero_image', '/images/tailor-made-hero.jpg')}
@@ -190,7 +190,7 @@ export default function TailorMadePage() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-amber-50">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
@@ -203,7 +203,7 @@ export default function TailorMadePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-ocean-blue to-deep-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 1
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Consultation</h3>
@@ -211,7 +211,7 @@ export default function TailorMadePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-sunset-orange to-egyptian-amber text-hieroglyph-brown rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-deep-blue to-navy-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 2
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Design</h3>
@@ -219,7 +219,7 @@ export default function TailorMadePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-egyptian-amber to-egyptian-gold text-hieroglyph-brown rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-navy-blue to-ocean-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 3
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Refinement</h3>
@@ -227,7 +227,7 @@ export default function TailorMadePage() {
             </div>
 
             <div className="text-center">
-              <div className="w-16 h-16 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-r from-ocean-blue to-deep-blue text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                 4
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Experience</h3>
@@ -238,7 +238,7 @@ export default function TailorMadePage() {
       </section>
 
       {/* Features Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
@@ -250,25 +250,25 @@ export default function TailorMadePage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-egyptian-gold/20">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-egyptian-gold" />
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-ocean-blue/20">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Heart className="w-8 h-8 text-ocean-blue" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Personalized Journey</h3>
               <p className="text-gray-600 text-center">Design your perfect expedition with our expert consultants. Choose your destinations, activities, and pace.</p>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-egyptian-gold/20">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Shield className="w-8 h-8 text-sunset-orange" />
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-ocean-blue/20">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Shield className="w-8 h-8 text-ocean-blue" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Expert Guidance</h3>
               <p className="text-gray-600 text-center">Our specialists possess deep knowledge and expertise to guide you to hidden treasures and authentic experiences.</p>
             </div>
 
-            <div className="bg-white p-8 rounded-xl shadow-lg border border-egyptian-gold/20">
-              <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Clock className="w-8 h-8 text-egyptian-amber" />
+            <div className="bg-white p-8 rounded-xl shadow-lg border border-ocean-blue/20">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Clock className="w-8 h-8 text-ocean-blue" />
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-4 text-center">Flexible Itinerary</h3>
               <p className="text-gray-600 text-center">Adapt your journey as you discover new wonders. Change destinations, extend stays, or add experiences along the way.</p>
@@ -278,7 +278,7 @@ export default function TailorMadePage() {
       </section>
 
       {/* Contact Form Section */}
-      <section id="planning-form" className="py-20 bg-gradient-to-b from-orange-50 to-amber-50">
+      <section id="planning-form" className="py-20 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
         <Container maxWidth="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             <div>
@@ -448,7 +448,7 @@ export default function TailorMadePage() {
       </section>
 
       {/* Call to Action Section */}
-      <section className="py-20 bg-gradient-to-r from-egyptian-gold to-sunset-orange">
+      <section className="py-20 bg-gradient-to-r from-ocean-blue to-deep-blue">
         <Container maxWidth="lg">
           <div className="text-center text-white">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -459,19 +459,19 @@ export default function TailorMadePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-white text-egyptian-gold px-8 py-4 text-lg hover:bg-amber-50 rounded-full">
+              <Button className="bg-white text-ocean-blue px-8 py-4 text-lg hover:bg-blue-50 rounded-full">
                 <Heart className="w-5 h-5 mr-2" />
                 Save for Later
               </Button>
               <Button
                 onClick={scrollToForm}
-                className="bg-sunset-orange text-white px-8 py-4 text-lg hover:bg-orange-600 rounded-full"
+                className="bg-deep-blue text-white px-8 py-4 text-lg hover:bg-navy-blue rounded-full"
               >
                 Start Planning Now
                 <ChevronRight className="w-5 h-5 ml-2" />
               </Button>
               <Link href="/contact">
-                <Button className="bg-transparent border-2 border-white text-white px-8 py-4 text-lg hover:bg-white hover:text-egyptian-gold rounded-full">
+                <Button className="bg-transparent border-2 border-white text-white px-8 py-4 text-lg hover:bg-white hover:text-ocean-blue rounded-full">
                   Contact Expert
                 </Button>
               </Link>

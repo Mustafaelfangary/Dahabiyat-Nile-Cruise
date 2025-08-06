@@ -30,7 +30,7 @@ interface Itinerary {
 
 const PharaohButton = ({ children, className = '', ...props }: any) => (
   <Button
-    className={`relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
+    className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-navy-blue text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
   >
     <span className="relative z-10">{children}</span>
@@ -91,19 +91,19 @@ export default function ItinerariesPage() {
 
   if (loading || contentLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-amber-800 text-lg">{getSettingValue('itineraries_loading_text', 'Loading Journeys...')}</p>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-ocean-blue mx-auto mb-4"></div>
+          <p className="text-ocean-blue text-lg">{getSettingValue('itineraries_loading_text', 'Loading Journeys...')}</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white overflow-hidden min-h-screen">
+      <section className="relative py-20 bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue text-white overflow-hidden min-h-screen">
         {/* Hero Background Image with Enhanced Effects */}
         {getSettingValue('itineraries_hero_background_image') && (
           <div
@@ -116,7 +116,7 @@ export default function ItinerariesPage() {
         )}
 
         {/* Enhanced Multi-layer Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 via-transparent to-red-900/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/30 via-transparent to-navy-blue/40"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
         <div className="absolute inset-0 bg-[url('/images/hieroglyphic-pattern.png')] opacity-10 animate-pulse"></div>
@@ -152,7 +152,7 @@ export default function ItinerariesPage() {
                   <Play className="w-5 h-5 mr-2" />
                   {getSettingValue('itineraries_hero_cta_text', 'Explore Journeys')}
                 </PharaohButton>
-                <PharaohButton className="bg-amber-500 hover:bg-amber-600 text-black">
+                <PharaohButton className="bg-ocean-blue hover:bg-ocean-blue-dark text-white">
                   <Download className="w-5 h-5 mr-2" />
                   Download Brochure
                 </PharaohButton>
@@ -163,7 +163,7 @@ export default function ItinerariesPage() {
       </section>
 
       {/* Filter Section */}
-      <section className="py-12 bg-white/80 backdrop-blur-sm border-b border-amber-200">
+      <section className="py-12 bg-white/80 backdrop-blur-sm border-b border-blue-200">
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fade-up" delay={200}>
             <div className="flex flex-wrap justify-center gap-4">
@@ -178,9 +178,9 @@ export default function ItinerariesPage() {
                   variant={filter === key ? 'primary' : 'outline'}
                   onClick={() => setFilter(key)}
                   className={`${
-                    filter === key 
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-black border-amber-400' 
-                      : 'border-amber-300 text-amber-800 hover:bg-amber-50'
+                    filter === key
+                      ? 'bg-gradient-to-r from-ocean-blue to-deep-blue text-white border-ocean-blue'
+                      : 'border-blue-300 text-ocean-blue hover:bg-blue-50'
                   } font-semibold py-2 px-6 rounded-full transition-all duration-300`}
                 >
                   <Icon className="w-4 h-4 mr-2" />
@@ -201,19 +201,19 @@ export default function ItinerariesPage() {
                 <div className="text-6xl mb-4">𓂀</div>
                 {itineraries.length === 0 ? (
                   <>
-                    <h3 className="text-2xl font-bold text-amber-800 mb-4">
+                    <h3 className="text-2xl font-bold text-ocean-blue mb-4">
                       {getSettingValue('itineraries_no_itineraries_title', 'There are no itineraries yet')}
                     </h3>
-                    <p className="text-amber-600">
+                    <p className="text-ocean-blue-dark">
                       {getSettingValue('itineraries_no_itineraries_description', 'Our pharaonic scholars are crafting extraordinary journeys. Please check back soon for amazing adventures along the Nile.')}
                     </p>
                   </>
                 ) : (
                   <>
-                    <h3 className="text-2xl font-bold text-amber-800 mb-4">
+                    <h3 className="text-2xl font-bold text-ocean-blue mb-4">
                       {getSettingValue('itineraries_empty_title', 'No Journeys Found')}
                     </h3>
-                    <p className="text-amber-600">
+                    <p className="text-ocean-blue-dark">
                       {getSettingValue('itineraries_empty_description', 'No active journeys match your current filter. Try selecting a different category or check back later.')}
                     </p>
                   </>
