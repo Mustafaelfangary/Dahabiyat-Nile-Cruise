@@ -55,7 +55,7 @@ export default function BlogsManagementPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this blog post?')) return;
+    if (!confirm('Are you sure you want to delete this blog?')) return;
 
     try {
       const response = await fetch(`/api/admin/blogs/${id}`, {
@@ -104,7 +104,7 @@ export default function BlogsManagementPage() {
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-amber-800 text-lg">Loading Ancient Chronicles...</p>
+          <p className="text-amber-800 text-lg">Loading Blogs...</p>
         </div>
       </div>
     );
@@ -261,13 +261,13 @@ export default function BlogsManagementPage() {
           <div className="text-center py-16">
             <FileText className="w-16 h-16 text-amber-300 mx-auto mb-4" />
             <h3 className="text-xl font-bold text-amber-800 mb-4">No Blog Posts Found</h3>
-            <p className="text-amber-600 mb-6">Start creating your first ancient chronicle.</p>
+            <p className="text-amber-600 mb-6">Start creating your first blog.</p>
             <Button
               onClick={() => window.location.href = '/admin/blogs/new'}
               className="bg-amber-600 hover:bg-amber-700 text-black"
             >
               <Plus className="w-4 h-4 mr-2" />
-              Create First Blog Post
+              Create First Blog
             </Button>
           </div>
         )}

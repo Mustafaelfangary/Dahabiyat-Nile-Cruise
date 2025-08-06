@@ -179,7 +179,7 @@ export default function MobileAdminLayout({
                     </div>
                     <div>
                       <h2 className="text-xl font-bold">Admin Panel</h2>
-                      <p className="text-blue-100 text-sm mt-1">Dahabiyat Nile Cruise</p>
+                      <p className="text-blue-100 text-sm mt-1">Dahabiyat</p>
                     </div>
                   </div>
                   <Button

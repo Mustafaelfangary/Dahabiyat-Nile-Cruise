@@ -23,7 +23,7 @@ export function SiteNamePreview() {
   useEffect(() => {
     // Load current values from content system
     setFormData({
-      siteName: getContent('site_name', 'Dahabiyat Nile Cruise'),
+      siteName: getContent('site_name', 'Dahabiyat'),
       siteTagline: getContent('site_tagline', 'Luxury Nile River Cruises in Egypt'),
       siteDescription: getContent('site_description', 'Experience the magic of ancient Egypt aboard our luxury dahabiyas.')
     });

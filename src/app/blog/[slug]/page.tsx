@@ -83,7 +83,7 @@ export default function IndividualBlogPostPage() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Chronicle 𓇳</div>
+          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Blog 𓇳</div>
         </div>
       </div>
     );
@@ -94,10 +94,10 @@ export default function IndividualBlogPostPage() {
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-amber-800 font-bold text-xl">Chronicle Not Found 𓏏</p>
+          <p className="text-amber-800 font-bold text-xl">Blog Not Found 𓏏</p>
           <Link href="/blog">
             <PharaohButton variant="primary" className="mt-4">
-              Return to Chronicles
+              Return to Blogs
             </PharaohButton>
           </Link>
         </div>
@@ -130,7 +130,7 @@ export default function IndividualBlogPostPage() {
                 <Link href="/blog">
                   <PharaohButton variant="secondary" className="inline-flex items-center">
                     <ArrowLeft className="w-4 h-4 mr-2" />
-                    Back to Chronicles
+                    Back to Blogs
                   </PharaohButton>
                 </Link>
               </div>
@@ -279,7 +279,7 @@ export default function IndividualBlogPostPage() {
                   <Link href="/blog">
                     <PharaohButton variant="primary">
                       <ArrowLeft className="w-4 h-4 mr-2" />
-                      Back to All Chronicles
+                      Back to All Blogs
                     </PharaohButton>
                   </Link>
                 </div>

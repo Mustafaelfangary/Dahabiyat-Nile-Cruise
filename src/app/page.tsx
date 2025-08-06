@@ -168,10 +168,10 @@ export default function HomePage() {
       <section
         className="relative w-full overflow-hidden"
         style={{
-          marginTop: '0', // No margin - touch navbar directly
-          height: '85vh', // Much larger height to show more video content
-          minHeight: '700px', // Much larger minimum height
-          maxHeight: '1000px' // Larger maximum height for better video display
+          marginTop: '-80px', // Negative margin to overlap with navbar
+          height: '70vh', // Reduced height to not take up the full first page
+          minHeight: '500px', // Reduced minimum height
+          maxHeight: '800px' // Reduced maximum height
         }}
       >
         {/* Fallback background - only shows if video fails */}

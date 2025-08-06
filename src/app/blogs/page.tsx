@@ -109,7 +109,7 @@ export default function BlogsPage() {
           <AnimatedSection animation="fade-up">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="text-6xl md:text-7xl font-bold mb-6 text-shadow-lg">
-                <span className="text-amber-200">𓆎𓅓𓏏𓊖</span> Ancient Chronicles
+                <span className="text-amber-200">𓆎𓅓𓏏𓊖</span> Ancient Blogs
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-amber-100 leading-relaxed">
                 Discover the secrets of the pharaohs, explore hidden treasures, and immerse yourself 
@@ -178,7 +178,7 @@ export default function BlogsPage() {
           <div className="container mx-auto px-4">
             <AnimatedSection animation="fade-up">
               <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
-                ⭐ Featured Chronicles ⭐
+                ⭐ Featured Blogs ⭐
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {featuredBlogs.slice(0, 3).map((blog, index) => (
@@ -236,7 +236,7 @@ export default function BlogsPage() {
         <div className="container mx-auto px-4">
           <AnimatedSection animation="fade-up">
             <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
-              📜 All Chronicles 📜
+              📜 All Blogs 📜
             </h2>
           </AnimatedSection>
 
@@ -244,7 +244,7 @@ export default function BlogsPage() {
             <AnimatedSection animation="fade-up">
               <div className="text-center py-16">
                 <div className="text-6xl mb-4">𓂀</div>
-                <h3 className="text-2xl font-bold text-amber-800 mb-4">No Chronicles Found</h3>
+                <h3 className="text-2xl font-bold text-amber-800 mb-4">No Blogs Found</h3>
                 <p className="text-amber-600">
                   {searchTerm ? 'Try adjusting your search terms.' : 'Ancient stories are being written. Please check back soon.'}
                 </p>
@@ -340,7 +340,7 @@ export default function BlogsPage() {
               Stay Connected to Ancient Wisdom
             </h2>
             <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto">
-              Subscribe to receive the latest chronicles, travel insights, and exclusive stories 
+              Subscribe to receive the latest blogs, travel insights, and exclusive stories 
               from the land of the pharaohs delivered to your inbox.
             </p>
             <div className="flex flex-wrap justify-center gap-4">

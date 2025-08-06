@@ -20,18 +20,18 @@ async function getDynamicSiteName(): Promise<string> {
     const response = await fetch('/api/website-content?page=homepage&key=site_name');
     if (response.ok) {
       const data = await response.json();
-      return data.content || 'Dahabiyat Nile Cruise';
+      return data.content || 'Dahabiyat';
     }
   } catch (error) {
     console.warn('Failed to fetch dynamic site name:', error);
   }
-  return 'Dahabiyat Nile Cruise';
+  return 'Dahabiyat';
 }
 
 const defaultSEO = {
-  siteName: 'Dahabiyat Nile Cruise', // This will be overridden by dynamic content when available
+  siteName: 'Dahabiyat', // This will be overridden by dynamic content when available
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://dahabiyatnilecruise.com',
-  defaultTitle: 'Dahabiyat Nile Cruise - Luxury Nile River Cruises in Egypt',
+  defaultTitle: 'Dahabiyat - Luxury Nile River Cruises in Egypt',
   defaultDescription: 'Experience the magic of ancient Egypt aboard our luxury dahabiyas. Sail the eternal Nile in pharaonic style with personalized service, gourmet cuisine, and unforgettable adventures.',
   defaultImage: '/images/hero/dahabiyat-nile-cruise-hero.jpg',
   defaultKeywords: [

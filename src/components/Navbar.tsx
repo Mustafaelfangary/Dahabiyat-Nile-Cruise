@@ -77,7 +77,7 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [settings, setSettings] = useState({ siteName: 'Dahabiyat Nile Cruise' });
+  const [settings, setSettings] = useState({ siteName: 'Dahabiyat' });
   const { language, setLanguage } = useLanguage();
   const t = useTranslation();
   const pathname = usePathname();
@@ -113,11 +113,11 @@ export default function Navbar() {
         fetch('/api/settings?group=general', { cache: 'no-store' })
           .then(res => res.json())
           .then(settingsData => {
-            const siteName = settingsData?.site_name || 'Dahabiyat Nile Cruise';
+            const siteName = settingsData?.site_name || 'Dahabiyat';
             setSettings({ siteName });
           })
           .catch(() => {
-            setSettings({ siteName: 'Dahabiyat Nile Cruise' });
+            setSettings({ siteName: 'Dahabiyat' });
           });
       }
     };
@@ -242,7 +242,7 @@ export default function Navbar() {
     { href: "/packages", label: `𓇳 ${t('packages')} 𓇳`, hieroglyph: "𓇳", hasDropdown: true, dropdownItems: packagesItems },
     { href: "/itineraries", label: "𓋖 Itineraries 𓋖", hieroglyph: "𓋖", hasDropdown: true, dropdownItems: itineraryItems },
     { href: "/gallery-new", label: "𓂀 Gallery 𓂀", hieroglyph: "𓂀" },
-    { href: "/blogs", label: "📜 Chronicles 📜", hieroglyph: "𓂋" },
+    { href: "/blogs", label: "📜 Blogs 📜", hieroglyph: "𓂋" },
     { href: "/tailor-made", label: "𓈖 Tailor-Made 𓈖", special: true, hieroglyph: "𓈖", singleLine: true },
     { href: "/about", label: `𓂀 ${t('about')} 𓂀`, hieroglyph: "𓂀" },
     { href: "/contact", label: `𓏏 ${t('contact')} 𓏏`, hieroglyph: "𓏏" },

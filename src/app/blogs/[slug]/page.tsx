@@ -108,7 +108,7 @@ export default function BlogDetailPage() {
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <p className="text-amber-800 text-lg">Loading Ancient Chronicle...</p>
+          <p className="text-amber-800 text-lg">Loading Ancient Blog...</p>
         </div>
       </div>
     );
@@ -119,10 +119,10 @@ export default function BlogDetailPage() {
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">𓂀</div>
-          <h1 className="text-2xl font-bold text-amber-800 mb-4">Chronicle Not Found</h1>
-          <p className="text-amber-600 mb-6">This ancient chronicle could not be found.</p>
+          <h1 className="text-2xl font-bold text-amber-800 mb-4">Blog Not Found</h1>
+          <p className="text-amber-600 mb-6">This ancient blog could not be found.</p>
           <PharaohButton onClick={() => window.location.href = '/blogs'}>
-            ← Back to All Chronicles
+            ← Back to All Blogs
           </PharaohButton>
         </div>
       </div>
@@ -152,7 +152,7 @@ export default function BlogDetailPage() {
                   onClick={() => window.location.href = '/blogs'}
                 >
                   <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Chronicles
+                  Back to Blogs
                 </PharaohButton>
               </div>
 
@@ -209,7 +209,7 @@ export default function BlogDetailPage() {
               <div className="flex flex-wrap gap-4">
                 <PharaohButton className="bg-white/20 hover:bg-white/30 text-white border border-white/30">
                   <Share2 className="w-5 h-5 mr-2" />
-                  Share Chronicle
+                  Share Blog
                 </PharaohButton>
                 <PharaohButton className="bg-amber-500 hover:bg-amber-600 text-black">
                   <Heart className="w-5 h-5 mr-2" />
@@ -262,7 +262,7 @@ export default function BlogDetailPage() {
           <div className="container mx-auto px-4">
             <AnimatedSection animation="fade-up">
               <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
-                📜 Related Chronicles 📜
+                📜 Related Blogs 📜
               </h2>
             </AnimatedSection>
 
@@ -311,7 +311,7 @@ export default function BlogDetailPage() {
                         className="w-full text-sm mt-auto"
                         onClick={() => window.location.href = `/blogs/${relatedBlog.slug || relatedBlog.id}`}
                       >
-                        Read Chronicle
+                        Read Blog
                         <ChevronRight className="w-4 h-4 ml-1" />
                       </PharaohButton>
                     </CardContent>
@@ -328,10 +328,10 @@ export default function BlogDetailPage() {
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection animation="fade-up">
             <h2 className="text-4xl font-bold mb-6">
-              Discover More Ancient Wisdom
+              Discover More Ancient Blogs
             </h2>
             <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto">
-              Explore our collection of chronicles and immerse yourself in the timeless stories 
+              Explore our collection of blogs and immerse yourself in the timeless stories 
               and secrets of ancient Egypt.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
@@ -340,7 +340,7 @@ export default function BlogDetailPage() {
                 onClick={() => window.location.href = '/blogs'}
               >
                 <BookOpen className="w-5 h-5 mr-2" />
-                All Chronicles
+                All Blogs
               </PharaohButton>
               <PharaohButton 
                 className="bg-transparent border-2 border-white text-white hover:bg-white/10"

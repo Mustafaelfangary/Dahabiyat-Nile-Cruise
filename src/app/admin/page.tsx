@@ -641,9 +641,9 @@ export default function AdminDashboard() {
                 <CardContent className="p-6">
                   <h3 className="text-lg font-semibold text-slate-800 mb-4 flex items-center gap-2">
                     <FileText size={20} />
-                    Ancient Chronicles & Blogs
+                    Blogs
                   </h3>
-                  <p className="text-slate-600 mb-4">Create and manage your blog posts and ancient chronicles.</p>
+                  <p className="text-slate-600 mb-4">Create and manage your blog posts.</p>
                   <div className="flex gap-4 mb-4">
                     <Button
                       onClick={() => window.open('/admin/blogs', '_blank')}

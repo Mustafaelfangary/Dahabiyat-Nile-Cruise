@@ -51,7 +51,7 @@ export function AdminHeader() {
                   Admin Panel
                 </h1>
                 <p className="text-xs text-blue-600">
-                  Dahabiyat Nile Cruise
+                  Dahabiyat
                 </p>
               </div>
             </Link>

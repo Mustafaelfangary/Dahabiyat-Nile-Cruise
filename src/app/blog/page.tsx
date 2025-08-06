@@ -79,7 +79,7 @@ export default function BlogListingPage() {
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Royal Chronicles 𓇳</div>
+          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Royal Blogs 𓇳</div>
         </div>
       </div>
     );
@@ -90,7 +90,7 @@ export default function BlogListingPage() {
       <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-amber-800 font-bold text-xl">Failed to Load Chronicles 𓏏</p>
+          <p className="text-amber-800 font-bold text-xl">Failed to Load Blogs 𓏏</p>
         </div>
       </div>
     );
@@ -107,7 +107,7 @@ export default function BlogListingPage() {
         <div className="absolute inset-0">
           <Image
             src="/images/blog-hero-bg.jpg"
-            alt="Egyptian Chronicles Background"
+            alt="Egyptian Blogs Background"
             fill
             className="object-cover opacity-30"
           />
@@ -131,7 +131,7 @@ export default function BlogListingPage() {
 
               {/* Main Title */}
               <HieroglyphicText 
-                text="Royal Chronicles"
+                text="Royal Blogs"
                 className="text-5xl md:text-7xl font-bold mb-6 text-amber-100 drop-shadow-2xl"
               />
 
@@ -163,7 +163,7 @@ export default function BlogListingPage() {
             <AnimatedSection animation="slide-up">
               <div className="text-center mb-16">
                 <HieroglyphicText 
-                  text="Featured Chronicles"
+                  text="Featured Blogs"
                   className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
                 />
                 <HieroglyphicDivider />
@@ -249,7 +249,7 @@ export default function BlogListingPage() {
           <AnimatedSection animation="slide-up">
             <div className="text-center mb-16">
               <HieroglyphicText 
-                text="All Chronicles"
+                text="All Blogs"
                 className="text-4xl md:text-5xl font-bold text-amber-800 mb-4"
               />
               <HieroglyphicDivider />
@@ -344,7 +344,7 @@ export default function BlogListingPage() {
               <div className="text-center py-20">
                 <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
                 <Typography variant="h5" className="text-amber-800 font-bold mb-4">
-                  No Chronicles Yet
+                  No Blogs Yet
                 </Typography>
                 <Typography variant="body1" className="text-amber-700">
                   Our scribes are working on new stories. Check back soon!

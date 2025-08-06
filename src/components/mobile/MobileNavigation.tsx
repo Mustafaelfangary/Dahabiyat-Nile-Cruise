@@ -75,7 +75,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
   const [dahabiyatItems, setDahabiyatItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
   const [packagesItems, setPackagesItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
   const [itineraryItems, setItineraryItems] = useState<Array<{href: string, label: string, hieroglyph: string}>>([]);
-  const [settings, setSettings] = useState({ siteName: 'Dahabiyat Nile Cruise' });
+  const [settings, setSettings] = useState({ siteName: 'Dahabiyat' });
   const [currentLanguage, setCurrentLanguage] = useState('en');
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
@@ -107,11 +107,11 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
         fetch('/api/settings?group=general', { cache: 'no-store' })
           .then(res => res.json())
           .then(settingsData => {
-            const siteName = settingsData?.site_name || 'Dahabiyat Nile Cruise';
+            const siteName = settingsData?.site_name || 'Dahabiyat';
             setSettings({ siteName });
           })
           .catch(() => {
-            setSettings({ siteName: 'Dahabiyat Nile Cruise' });
+            setSettings({ siteName: 'Dahabiyat' });
           });
       }
     };
@@ -265,7 +265,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       dropdownItems: itineraryItems
     },
     { href: '/gallery-new', label: 'Gallery', icon: Camera, hieroglyph: '𓂀' },
-    { href: '/blogs', label: 'Chronicles', icon: BookOpen, hieroglyph: '𓂋' },
+    { href: '/blogs', label: 'Blogs', icon: BookOpen, hieroglyph: '𓂋' },
     { href: '/tailor-made', label: 'Tailor-Made', icon: Heart, hieroglyph: '𓈖' },
     { href: '/about', label: 'About', icon: Info, hieroglyph: '𓂀' },
     { href: '/contact', label: 'Contact', icon: Phone, hieroglyph: '𓏏' },
@@ -352,7 +352,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                   <div>
                     <h2 className="text-xl font-bold flex items-center gap-2">
                       <span className="text-2xl">𓇳</span>
-                      Dahabiyat Nile Cruise
+                      Dahabiyat
                     </h2>
                     <p className="text-hieroglyph-brown/80 text-sm mt-1">Royal Nile Adventures</p>
                   </div>
