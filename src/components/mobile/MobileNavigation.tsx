@@ -148,11 +148,15 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.dahabiyas)) {
-          const items = data.dahabiyas.map((boat: any, index: number) => ({
-            href: `/dahabiyas/${boat.slug || generateSlugFromName(boat.name)}`,
-            label: `${['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${boat.name}`,
-            hieroglyph: ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
-          }));
+          const hieroglyphs = ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'];
+          const items = data.dahabiyas.map((boat: any, index: number) => {
+            const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓇳';
+            return {
+              href: `/dahabiyas/${boat.slug || generateSlugFromName(boat.name)}`,
+              label: `${hieroglyph} ${boat.name}`,
+              hieroglyph: hieroglyph
+            };
+          });
           setDahabiyatItems(items);
         }
       })
@@ -171,11 +175,15 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.packages)) {
-          const items = data.packages.map((pkg: any, index: number) => ({
-            href: `/packages/${pkg.slug || pkg.id}`,
-            label: `${['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${pkg.name}`,
-            hieroglyph: ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
-          }));
+          const hieroglyphs = ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'];
+          const items = data.packages.map((pkg: any, index: number) => {
+            const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓇳';
+            return {
+              href: `/packages/${pkg.slug || pkg.id}`,
+              label: `${hieroglyph} ${pkg.name}`,
+              hieroglyph: hieroglyph
+            };
+          });
           setPackagesItems(items);
         }
       })
@@ -194,11 +202,15 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data)) {
-          const items = data.map((itinerary: any, index: number) => ({
-            href: `/itineraries/${itinerary.slug || itinerary.id}`,
-            label: `${['𓋖', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${itinerary.name}`,
-            hieroglyph: ['𓋖', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
-          }));
+          const hieroglyphs = ['𓋖', '𓊪', '𓈖', '𓂀', '𓏏'];
+          const items = data.map((itinerary: any, index: number) => {
+            const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓋖';
+            return {
+              href: `/itineraries/${itinerary.slug || itinerary.id}`,
+              label: `${hieroglyph} ${itinerary.name}`,
+              hieroglyph: hieroglyph
+            };
+          });
           setItineraryItems(items);
         }
       })
