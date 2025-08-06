@@ -1,8 +1,8 @@
-# Dahabiyat Nile Cruise Mobile App
+# Dahabiyat Mobile App - Production Ready
 
-## 🌊 Ocean Blue Theme - Version 2.0
+## 🌊 Ocean Blue Theme - Version 3.0
 
-A redesigned React Native mobile app for Dahabiyat Nile Cruise with a new navigation structure and Ocean Blue theme.
+A React Native mobile application for Dahabiyat Nile Cruise featuring dynamic content integration with **https://dahabiyatnilecruise.com** and ocean blue theme.
 
 ## 📱 New Navigation Structure
 

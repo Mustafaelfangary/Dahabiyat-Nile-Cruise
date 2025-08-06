@@ -3,7 +3,7 @@
  * Handles all API calls to the backend server
  */
 
-import { APP_CONSTANTS } from '../constants/AppConstants';
+import { API_URL, API_ENDPOINTS, APP_CONFIG, DEBUG_MODE } from '../config/environment';
 
 export interface Dahabiya {
   id: string;
@@ -93,37 +93,51 @@ class ApiService {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = APP_CONSTANTS.API_BASE_URL;
+    this.baseURL = API_URL;
+    if (DEBUG_MODE) {
+      console.log(`🔧 ApiService initialized with baseURL: ${this.baseURL}`);
+    }
   }
 
   private async fetchWithErrorHandling<T>(url: string, options?: RequestInit): Promise<T> {
     try {
-      const response = await fetch(`${this.baseURL}${url}`, {
+      const fullUrl = `${this.baseURL}${url}`;
+      console.log(`🌐 API Request: ${fullUrl}`);
+
+      const response = await fetch(fullUrl, {
         headers: {
           'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'User-Agent': 'DahabiyatMobileApp/3.0.0',
           ...options?.headers,
         },
         ...options,
       });
 
+      console.log(`📊 API Response: ${response.status} ${response.statusText}`);
+
       if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+        const errorText = await response.text();
+        console.error(`❌ API Error Response: ${errorText}`);
+        throw new Error(`HTTP error! status: ${response.status} - ${errorText}`);
       }
 
-      return await response.json();
+      const data = await response.json();
+      console.log(`✅ API Success for ${url}`);
+      return data;
     } catch (error) {
-      console.error(`API Error for ${url}:`, error);
+      console.error(`❌ API Error for ${url}:`, error);
       throw error;
     }
   }
 
   // Dahabiyas
   async getDahabiyas(): Promise<Dahabiya[]> {
-    return this.fetchWithErrorHandling<Dahabiya[]>('/api/dashboard/dahabiyat');
+    return this.fetchWithErrorHandling<Dahabiya[]>(API_ENDPOINTS.DAHABIYAS);
   }
 
   async getDahabiya(id: string): Promise<Dahabiya> {
-    return this.fetchWithErrorHandling<Dahabiya>(`/api/dahabiyas/${id}`);
+    return this.fetchWithErrorHandling<Dahabiya>(API_ENDPOINTS.DAHABIYA_DETAIL(id));
   }
 
   async getFeaturedDahabiyas(): Promise<Dahabiya[]> {
@@ -133,12 +147,12 @@ class ApiService {
 
   // Packages
   async getPackages(featured = false): Promise<{ packages: Package[]; total: number; pages: number }> {
-    const url = featured ? '/api/packages?featured=true' : '/api/packages';
+    const url = featured ? `${API_ENDPOINTS.PACKAGES}?featured=true` : API_ENDPOINTS.PACKAGES;
     return this.fetchWithErrorHandling<{ packages: Package[]; total: number; pages: number }>(url);
   }
 
   async getPackage(id: string): Promise<Package> {
-    return this.fetchWithErrorHandling<Package>(`/api/packages/${id}`);
+    return this.fetchWithErrorHandling<Package>(API_ENDPOINTS.PACKAGE_DETAIL(id));
   }
 
   async getFeaturedPackages(): Promise<Package[]> {
@@ -148,17 +162,17 @@ class ApiService {
 
   // Gallery
   async getGalleryImages(): Promise<any[]> {
-    return this.fetchWithErrorHandling<any[]>('/api/gallery');
+    return this.fetchWithErrorHandling<any[]>(API_ENDPOINTS.GALLERY);
   }
 
   // Website Content
   async getWebsiteContent(): Promise<WebsiteContent> {
-    return this.fetchWithErrorHandling<WebsiteContent>('/api/website-content');
+    return this.fetchWithErrorHandling<WebsiteContent>(API_ENDPOINTS.WEBSITE_CONTENT);
   }
 
   // Bookings (requires authentication)
   async getUserBookings(token: string): Promise<Booking[]> {
-    return this.fetchWithErrorHandling<Booking[]>('/api/user/bookings', {
+    return this.fetchWithErrorHandling<Booking[]>(API_ENDPOINTS.USER_BOOKINGS, {
       headers: {
         'Authorization': `Bearer ${token}`,
       },
@@ -166,7 +180,7 @@ class ApiService {
   }
 
   async createBooking(bookingData: any, token?: string): Promise<Booking> {
-    return this.fetchWithErrorHandling<Booking>('/api/bookings', {
+    return this.fetchWithErrorHandling<Booking>(API_ENDPOINTS.BOOKINGS, {
       method: 'POST',
       headers: {
         'Authorization': token ? `Bearer ${token}` : '',
@@ -187,7 +201,7 @@ class ApiService {
     availableCabins: any[];
     message: string;
   }> {
-    return this.fetchWithErrorHandling('/api/availability', {
+    return this.fetchWithErrorHandling(API_ENDPOINTS.AVAILABILITY, {
       method: 'POST',
       body: JSON.stringify(data),
     });
@@ -195,15 +209,18 @@ class ApiService {
 
   // Utility methods
   getImageUrl(imagePath: string): string {
-    if (!imagePath) return `${this.baseURL}/images/default-placeholder.svg`;
+    if (!imagePath) return `${this.baseURL}${API_ENDPOINTS.IMAGES}/default-placeholder.svg`;
     if (imagePath.startsWith('http')) return imagePath;
     return `${this.baseURL}${imagePath}`;
   }
 
   getLogo(type: 'navbar' | 'footer' | 'site' = 'navbar'): string {
-    // Default logo path
-    const defaultLogo = `${this.baseURL}/images/logo.png`;
-    return defaultLogo;
+    // Production logo path
+    const logoPath = `${this.baseURL}${API_ENDPOINTS.LOGO}`;
+    if (DEBUG_MODE) {
+      console.log(`🎨 Logo URL: ${logoPath}`);
+    }
+    return logoPath;
   }
 }
 

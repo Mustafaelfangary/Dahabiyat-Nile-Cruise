@@ -31,7 +31,13 @@
       "statusBar": {
         "backgroundColor": "#0080ff",
         "barStyle": "light-content"
-      }
+      },
+      "permissions": [
+        "INTERNET",
+        "ACCESS_NETWORK_STATE"
+      ],
+      "usesCleartextTraffic": false,
+      "allowBackup": true
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -42,6 +48,18 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "runtimeVersion": "exposdk:51.0.0"
+    "runtimeVersion": "exposdk:51.0.0",
+    "extra": {
+      "apiUrl": "https://dahabiyatnilecruise.com",
+      "websiteUrl": "https://dahabiyatnilecruise.com"
+    },
+    "plugins": [
+      [
+        "expo-linking",
+        {
+          "scheme": "dahabiyat"
+        }
+      ]
+    ]
   }
 }
