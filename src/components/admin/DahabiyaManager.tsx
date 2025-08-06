@@ -395,10 +395,12 @@ const DahabiyaManager = () => {
                     label={dahabiya.category}
                     size="small"
                     style={{
-                      backgroundColor: dahabiya.category === 'LUXURY' ? '#FFD700' :
-                                     dahabiya.category === 'DELUXE' ? '#C0C0C0' :
-                                     dahabiya.category === 'PREMIUM' ? '#CD7F32' : '#90EE90',
-                      color: 'black'
+                      backgroundColor: dahabiya.category === 'LUXURY' ? '#e3f2fd' :
+                                     dahabiya.category === 'DELUXE' ? '#f3e5f5' :
+                                     dahabiya.category === 'PREMIUM' ? '#e0e7ff' : '#e1f5fe',
+                      color: dahabiya.category === 'LUXURY' ? '#1976d2' :
+                             dahabiya.category === 'DELUXE' ? '#7b1fa2' :
+                             dahabiya.category === 'PREMIUM' ? '#6366f1' : '#0277bd'
                     }}
                   />
                 </TableCell>

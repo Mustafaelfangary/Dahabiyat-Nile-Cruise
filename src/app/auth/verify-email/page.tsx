@@ -112,7 +112,7 @@ export default function VerifyEmailPage() {
 
   if (isVerified) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 py-12 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-ocean-blue-lightest py-12 px-4">
         <Card className="w-full max-w-md mx-auto bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
           <CardContent className="p-8 text-center">
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -139,22 +139,22 @@ export default function VerifyEmailPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-50 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-ocean-blue-lightest py-12 px-4">
       <div className="w-full max-w-md space-y-6">
         {/* Back to Sign In */}
         <div className="text-center">
           <Link 
             href="/auth/signin"
-            className="inline-flex items-center text-amber-700 hover:text-amber-800 transition-colors"
+            className="inline-flex items-center text-ocean-blue hover:text-blue-800 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Sign In
           </Link>
         </div>
 
-        <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+        <Card className="bg-gradient-to-br from-blue-50 to-ocean-blue-lightest border-blue-200">
           <CardHeader className="text-center pb-4">
-            <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-r from-ocean-blue to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <Mail className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-2xl font-bold text-gray-800">
@@ -162,7 +162,7 @@ export default function VerifyEmailPage() {
             </CardTitle>
             <CardDescription className="text-gray-600">
               We've sent a 6-digit verification code to<br />
-              <strong className="text-amber-700">{email}</strong>
+              <strong className="text-ocean-blue">{email}</strong>
             </CardDescription>
           </CardHeader>
           
@@ -178,7 +178,7 @@ export default function VerifyEmailPage() {
                   placeholder="Enter 6-digit code"
                   value={code}
                   onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                  className="text-center text-2xl font-mono tracking-widest border-amber-200 focus:border-amber-400"
+                  className="text-center text-2xl font-mono tracking-widest border-blue-200 focus:border-blue-400"
                   maxLength={6}
                   required
                 />
@@ -187,7 +187,7 @@ export default function VerifyEmailPage() {
               <Button
                 type="submit"
                 disabled={isLoading || code.length !== 6}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
+                className="w-full bg-gradient-to-r from-ocean-blue to-blue-600 hover:from-blue-600 hover:to-ocean-blue text-white font-semibold py-3 rounded-lg transition-all duration-200 transform hover:scale-105"
               >
                 {isLoading ? (
                   <>
@@ -212,7 +212,7 @@ export default function VerifyEmailPage() {
                 variant="outline"
                 onClick={handleResendCode}
                 disabled={isResending}
-                className="border-amber-300 text-amber-700 hover:bg-amber-50"
+                className="border-blue-300 text-ocean-blue hover:bg-blue-50"
               >
                 {isResending ? (
                   <>
@@ -228,10 +228,10 @@ export default function VerifyEmailPage() {
               </Button>
             </div>
             
-            <div className="bg-amber-100 border border-amber-200 rounded-lg p-4">
+            <div className="bg-blue-100 border border-blue-200 rounded-lg p-4">
               <div className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-amber-600 mt-0.5" />
-                <div className="text-sm text-amber-800">
+                <Mail className="w-5 h-5 text-blue-600 mt-0.5" />
+                <div className="text-sm text-blue-800">
                   <p className="font-medium mb-1">Check your email</p>
                   <p>
                     The verification code expires in 15 minutes. 

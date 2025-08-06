@@ -27,7 +27,7 @@ export function HomeButton() {
   return (
     <button
       onClick={handleClick}
-      className="fixed bottom-40 right-6 z-50 w-12 h-12 bg-amber-600 hover:bg-amber-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
+      className="fixed bottom-40 right-6 z-50 w-12 h-12 bg-blue-600 hover:bg-blue-700 text-white rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg hover:shadow-xl"
       aria-label={session?.user?.role === 'ADMIN' ? 'Go to Admin Dashboard' : 'Go to Home'}
       style={{ marginBottom: '0.5rem' }}
     >

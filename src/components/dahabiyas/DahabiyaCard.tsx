@@ -153,8 +153,8 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               />
             )}
             {dahabiya.videoUrl && (
-              <div className="bg-gradient-to-r from-egyptian-gold to-amber-500 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300">
-                <Play className="w-4 h-4 text-hieroglyph-brown" />
+              <div className="bg-gradient-to-r from-ocean-blue to-blue-600 rounded-full p-3 shadow-lg hover:scale-110 transition-transform duration-300">
+                <Play className="w-4 h-4 text-white" />
               </div>
             )}
           </div>
@@ -173,7 +173,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           )}
 
           {/* Enhanced Price Display */}
-          <div className="absolute bottom-4 right-4 bg-gradient-to-r from-egyptian-gold to-amber-400 text-white px-4 py-2 rounded-full shadow-lg font-bold border border-amber-600">
+          <div className="absolute bottom-4 right-4 bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-4 py-2 rounded-full shadow-lg font-bold border border-blue-600">
             <Typography variant="body2" className="font-bold text-white" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
               {formatPrice(dahabiya.pricePerDay)}/day
             </Typography>
@@ -219,14 +219,14 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               </div>
             )}
             {dahabiya.length && (
-              <div className="flex items-center gap-2 text-hieroglyph-brown bg-amber-100 rounded-lg p-2">
-                <MapPin className="w-4 h-4 text-egyptian-gold" />
+              <div className="flex items-center gap-2 text-ocean-blue bg-blue-50 rounded-lg p-2">
+                <MapPin className="w-4 h-4 text-ocean-blue" />
                 <span className="font-medium">{dahabiya.length}m long</span>
               </div>
             )}
             {dahabiya.yearBuilt && (
-              <div className="flex items-center gap-2 text-hieroglyph-brown bg-amber-100 rounded-lg p-2">
-                <Calendar className="w-4 h-4 text-egyptian-gold" />
+              <div className="flex items-center gap-2 text-ocean-blue bg-blue-50 rounded-lg p-2">
+                <Calendar className="w-4 h-4 text-ocean-blue" />
                 <span className="font-medium">Built {dahabiya.yearBuilt}</span>
               </div>
             )}
@@ -277,7 +277,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                 </Typography>
                 <Typography className="text-lg">𓊪</Typography>
               </div>
-              <Typography variant="caption" className="block mt-1 opacity-90 text-hieroglyph-brown font-bold">
+              <Typography variant="caption" className="block mt-1 opacity-90 text-white font-bold">
                 From {formatPrice(dahabiya.pricePerDay)}/day
               </Typography>
             </div>

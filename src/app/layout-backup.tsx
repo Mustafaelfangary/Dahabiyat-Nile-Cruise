@@ -38,7 +38,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#D4AF37" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${inter.className} antialiased`}>
-        <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50">
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 via-ocean-blue-lightest/30 to-slate-50">
           {children}
         </div>
       </body>

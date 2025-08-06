@@ -18,17 +18,17 @@ export default function AdminDirectPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 p-8">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-ocean-blue-lightest to-blue-100 p-8">
       <div className="max-w-4xl mx-auto">
         <Card className="mb-8">
           <CardHeader className="text-center">
-            <div className="mx-auto mb-4 w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center">
-              <Crown className="w-8 h-8 text-amber-600" />
+            <div className="mx-auto mb-4 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+              <Crown className="w-8 h-8 text-blue-600" />
             </div>
-            <CardTitle className="text-3xl font-bold text-amber-900">
+            <CardTitle className="text-3xl font-bold text-ocean-blue">
               👑 Direct Admin Access 👑
             </CardTitle>
-            <p className="text-amber-700">
+            <p className="text-blue-700">
               Bypass middleware for testing admin functionality
             </p>
           </CardHeader>

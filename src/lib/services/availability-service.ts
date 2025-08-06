@@ -40,12 +40,19 @@ export class AvailabilityService {
       });
 
       console.log('📅 Found availability dates:', availabilityDates.length);
+      console.log('📅 Availability dates:', availabilityDates.map(ad => ({
+        date: new Date(ad.date.getTime() + ad.date.getTimezoneOffset() * 60000).toISOString().split('T')[0],
+        available: ad.available
+      })));
 
       // Check if all dates in the range are marked as available
       const dateRange = [];
-      const currentDate = new Date(startDate);
-      while (currentDate <= endDate) {
-        dateRange.push(new Date(currentDate).toISOString().split('T')[0]);
+      const currentDate = new Date(startDate.getTime());
+      const endDateTime = new Date(endDate.getTime());
+
+      // Include start date but exclude end date (standard booking practice)
+      while (currentDate < endDateTime) {
+        dateRange.push(new Date(currentDate.getTime()).toISOString().split('T')[0]);
         currentDate.setDate(currentDate.getDate() + 1);
       }
 
@@ -54,9 +61,11 @@ export class AvailabilityService {
       // Check if all dates are available
       const unavailableDates = [];
       for (const dateStr of dateRange) {
-        const availabilityDate = availabilityDates.find(ad =>
-          new Date(ad.date).toISOString().split('T')[0] === dateStr
-        );
+        const availabilityDate = availabilityDates.find(ad => {
+          // Fix date comparison - normalize both dates to YYYY-MM-DD format
+          const adDateStr = new Date(ad.date.getTime() + ad.date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
+          return adDateStr === dateStr;
+        });
 
         if (!availabilityDate) {
           console.log('❌ No availability data for date:', dateStr);
@@ -88,54 +97,22 @@ export class AvailabilityService {
             include: {
               bookings: {
                 where: {
-                  OR: [
-                    {
-                      AND: [
-                        { startDate: { lte: startDate } },
-                        { endDate: { gte: startDate } },
-                      ],
-                    },
-                    {
-                      AND: [
-                        { startDate: { lte: endDate } },
-                        { endDate: { gte: endDate } },
-                      ],
-                    },
-                    {
-                      AND: [
-                        { startDate: { gte: startDate } },
-                        { endDate: { lte: endDate } },
-                      ],
-                    },
-                  ],
-                  status: { in: ['CONFIRMED', 'PENDING'] },
+                  AND: [
+                    { startDate: { lt: endDate } },
+                    { endDate: { gt: startDate } },
+                    { status: { in: ['CONFIRMED', 'PENDING'] } }
+                  ]
                 },
               },
             },
           },
           bookings: {
             where: {
-              OR: [
-                {
-                  AND: [
-                    { startDate: { lte: startDate } },
-                    { endDate: { gte: startDate } },
-                  ],
-                },
-                {
-                  AND: [
-                    { startDate: { lte: endDate } },
-                    { endDate: { gte: endDate } },
-                  ],
-                },
-                {
-                  AND: [
-                    { startDate: { gte: startDate } },
-                    { endDate: { lte: endDate } },
-                  ],
-                },
-              ],
-              status: { in: ['CONFIRMED', 'PENDING'] },
+              AND: [
+                { startDate: { lt: endDate } },
+                { endDate: { gt: startDate } },
+                { status: { in: ['CONFIRMED', 'PENDING'] } }
+              ]
             },
           },
         },

@@ -117,7 +117,7 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       enabled: true,
       action: 'internal',
       description: 'Share your sacred travel memories with us',
-      color: 'bg-gradient-to-r from-orange-500 to-red-600'
+      color: 'bg-gradient-to-r from-ocean-blue to-blue-600'
     },
     {
       id: 'download-app',

@@ -162,13 +162,13 @@ export default function PackagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-ocean-blue/10">
       <div className="p-6">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <PackageIcon className="w-8 h-8 text-egyptian-gold" />
+              <PackageIcon className="w-8 h-8 text-ocean-blue" />
               {getContent('packages_hero_title') || 'Royal Packages'}
             </h1>
             <p className="text-gray-600">{getContent('packages_hero_subtitle') || 'Discover our curated collection of luxury Nile experiences'}</p>

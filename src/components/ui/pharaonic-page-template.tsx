@@ -328,9 +328,11 @@ export function PharaonicPageTemplate({
                     className="btn-egyptian"
                     size="large"
                     sx={{
-                      background: 'linear-gradient(135deg, hsl(43, 85%, 58%) 0%, hsl(43, 85%, 48%) 100%)',
+                      background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 100%)',
+                      color: 'white',
+                      fontWeight: 'bold',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, hsl(43, 85%, 48%) 0%, hsl(43, 85%, 58%) 100%)',
+                        background: 'linear-gradient(135deg, #0066cc 0%, #004499 100%)',
                         transform: 'translateY(-2px)'
                       }
                     }}
@@ -343,12 +345,12 @@ export function PharaonicPageTemplate({
                     variant="outlined"
                     size="large"
                     sx={{
-                      borderColor: 'hsl(43, 85%, 58%)',
-                      color: 'hsl(43, 85%, 58%)',
+                      borderColor: '#0080ff',
+                      color: '#0080ff',
                       '&:hover': {
-                        borderColor: 'hsl(43, 85%, 48%)',
-                        backgroundColor: 'hsl(43, 85%, 58%)',
-                        color: 'hsl(210, 85%, 25%)'
+                        borderColor: '#0066cc',
+                        backgroundColor: '#0080ff',
+                        color: 'white'
                       }
                     }}
                   >

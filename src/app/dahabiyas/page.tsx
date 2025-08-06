@@ -13,10 +13,10 @@ export default function DahabiyasPage() {
   // Show loading state while content is being fetched
   if (contentLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-yellow-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 flex items-center justify-center">
         <div className="text-center">
-          <CircularProgress size={60} className="text-egyptian-gold mb-4" />
-          <Typography variant="h6" className="text-hieroglyph-brown">
+          <CircularProgress size={60} className="text-blue-600 mb-4" />
+          <Typography variant="h6" className="text-gray-800">
             Loading Content...
           </Typography>
         </div>
@@ -40,7 +40,7 @@ export default function DahabiyasPage() {
         )}
 
         {/* Enhanced Multi-layer Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 via-transparent to-orange-900/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-blue-800/40"></div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
 
@@ -129,7 +129,7 @@ export default function DahabiyasPage() {
 
         {/* Bottom Wave */}
         <div className="absolute bottom-0 left-0 right-0">
-          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12 fill-amber-50">
+          <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-12 fill-blue-50">
             <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
             <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
             <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
@@ -140,7 +140,7 @@ export default function DahabiyasPage() {
       {/* Enhanced Main Content */}
       <div className="relative">
         {/* Decorative Border */}
-        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+        <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-600"></div>
 
         <Container maxWidth="lg" className="py-16">
           {/* Section Header */}
@@ -173,7 +173,7 @@ export default function DahabiyasPage() {
 
           {/* Enhanced Booking Call-to-Action Section */}
           <Box className="mt-20">
-            <div className="bg-gradient-to-br from-hieroglyph-brown via-amber-900 to-orange-900 rounded-2xl p-12 text-center relative overflow-hidden shadow-2xl">
+            <div className="bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-2xl p-12 text-center relative overflow-hidden shadow-2xl">
               {/* Background Pattern */}
               <div
                 className="absolute inset-0 opacity-10"
@@ -188,7 +188,7 @@ export default function DahabiyasPage() {
                 {/* Header */}
                 <Typography
                   variant="h3"
-                  className="text-egyptian-gold font-bold mb-4"
+                  className="text-white font-bold mb-4"
                   style={{ fontFamily: 'serif' }}
                 >
                   {getContent('dahabiyas_cta_title') || 'Begin Your Journey'}
@@ -196,7 +196,7 @@ export default function DahabiyasPage() {
 
                 <Typography
                   variant="h6"
-                  className="text-amber-200 mb-8 max-w-3xl mx-auto leading-relaxed"
+                  className="text-blue-100 mb-8 max-w-3xl mx-auto leading-relaxed"
                 >
                   {getContent('dahabiyas_cta_description') || 'Choose from our magnificent fleet of traditional dahabiyas and embark on an unforgettable voyage through the timeless waters of the Nile River.'}
                 </Typography>
@@ -205,7 +205,7 @@ export default function DahabiyasPage() {
                 <div className="flex flex-wrap justify-center gap-6">
                   {/* Book Any Dahabiya */}
                   <Link href="/packages">
-                    <button className="bg-gradient-to-r from-egyptian-gold to-amber-400 text-hieroglyph-brown px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-amber-500">
+                    <button className="bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-500">
                       <div className="flex items-center gap-3">
                         <Typography className="text-2xl">𓊪</Typography>
                         <div>
@@ -223,7 +223,7 @@ export default function DahabiyasPage() {
 
                   {/* Explore Packages */}
                   <Link href="/packages">
-                    <button className="bg-gradient-to-r from-amber-700 to-orange-700 text-egyptian-gold px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-egyptian-gold">
+                    <button className="bg-gradient-to-r from-blue-600 to-ocean-blue text-white px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-600">
                       <div className="flex items-center gap-3">
                         <Typography className="text-2xl">𓇳</Typography>
                         <div>
@@ -243,37 +243,37 @@ export default function DahabiyasPage() {
                 {/* Features */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
                   <div className="text-center">
-                    <div className="bg-egyptian-gold/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <Typography className="text-egyptian-gold text-2xl">𓊪</Typography>
+                    <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Typography className="text-white text-2xl">𓊪</Typography>
                     </div>
-                    <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
+                    <Typography variant="h6" className="text-white font-bold mb-2">
                       {getContent('dahabiyas_feature_1_title') || 'Instant Booking'}
                     </Typography>
-                    <Typography variant="body2" className="text-amber-200">
+                    <Typography variant="body2" className="text-blue-100">
                       {getContent('dahabiyas_feature_1_description') || 'Reserve your journey with immediate confirmation'}
                     </Typography>
                   </div>
 
                   <div className="text-center">
-                    <div className="bg-egyptian-gold/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <Typography className="text-egyptian-gold text-2xl">𓇳</Typography>
+                    <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Typography className="text-white text-2xl">𓇳</Typography>
                     </div>
-                    <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
+                    <Typography variant="h6" className="text-white font-bold mb-2">
                       {getContent('dahabiyas_feature_2_title') || 'Best Prices'}
                     </Typography>
-                    <Typography variant="body2" className="text-amber-200">
+                    <Typography variant="body2" className="text-blue-100">
                       {getContent('dahabiyas_feature_2_description') || 'Guaranteed lowest rates for authentic Nile experiences'}
                     </Typography>
                   </div>
 
                   <div className="text-center">
-                    <div className="bg-egyptian-gold/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
-                      <Typography className="text-egyptian-gold text-2xl">𓈖</Typography>
+                    <div className="bg-white/20 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <Typography className="text-white text-2xl">𓈖</Typography>
                     </div>
-                    <Typography variant="h6" className="text-egyptian-gold font-bold mb-2">
+                    <Typography variant="h6" className="text-white font-bold mb-2">
                       {getContent('dahabiyas_feature_3_title') || 'Expert Support'}
                     </Typography>
-                    <Typography variant="body2" className="text-amber-200">
+                    <Typography variant="body2" className="text-blue-100">
                       {getContent('dahabiyas_feature_3_description') || '24/7 assistance from our pharaonic travel specialists'}
                     </Typography>
                   </div>

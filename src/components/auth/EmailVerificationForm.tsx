@@ -103,9 +103,9 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
   }
 
   return (
-    <Card className="w-full max-w-md mx-auto bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+    <Card className="w-full max-w-md mx-auto bg-gradient-to-br from-blue-50 to-ocean-blue-lightest border-blue-200">
       <CardHeader className="text-center pb-4">
-        <div className="w-16 h-16 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center mx-auto mb-4">
+        <div className="w-16 h-16 bg-gradient-to-r from-ocean-blue to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
           <Mail className="w-8 h-8 text-white" />
         </div>
         <CardTitle className="text-2xl font-bold text-gray-800">
@@ -113,7 +113,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
         </CardTitle>
         <CardDescription className="text-gray-600">
           We've sent a 6-digit verification code to<br />
-          <strong className="text-amber-700">{email}</strong>
+          <strong className="text-ocean-blue">{email}</strong>
         </CardDescription>
       </CardHeader>
       
@@ -163,7 +163,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
             variant="outline"
             onClick={handleResendCode}
             disabled={isResending}
-            className="border-amber-200 text-amber-700 hover:bg-amber-50"
+            className="border-blue-200 text-ocean-blue hover:bg-blue-50"
           >
             {isResending ? (
               <>
@@ -179,10 +179,10 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
           </Button>
         </div>
         
-        <div className="bg-amber-100 border border-amber-200 rounded-lg p-4">
+        <div className="bg-blue-100 border border-blue-200 rounded-lg p-4">
           <div className="flex items-start gap-3">
-            <Mail className="w-5 h-5 text-amber-600 mt-0.5" />
-            <div className="text-sm text-amber-800">
+            <Mail className="w-5 h-5 text-blue-600 mt-0.5" />
+            <div className="text-sm text-blue-800">
               <p className="font-medium mb-1">Check your email</p>
               <p>
                 The verification code expires in 15 minutes. 

@@ -121,7 +121,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
       case 'DAHABIYA_BOOKING':
         return <Ship className="w-5 h-5 text-ocean-blue" />;
       case 'PACKAGE_BOOKING':
-        return <Package className="w-5 h-5 text-amber-600" />;
+        return <Package className="w-5 h-5 text-ocean-blue" />;
       case 'PAYMENT_RECEIVED':
         return <DollarSign className="w-5 h-5 text-green-500" />;
       case 'AVAILABILITY_UPDATED':

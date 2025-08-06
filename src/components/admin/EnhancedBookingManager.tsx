@@ -119,7 +119,7 @@ export default function EnhancedBookingManager() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'CONFIRMED': return 'bg-green-100 text-green-800';
-      case 'PENDING': return 'bg-yellow-100 text-yellow-800';
+      case 'PENDING': return 'bg-blue-100 text-blue-800';
       case 'CANCELLED': return 'bg-red-100 text-red-800';
       case 'COMPLETED': return 'bg-blue-100 text-blue-800';
       default: return 'bg-gray-100 text-gray-800';
@@ -129,8 +129,8 @@ export default function EnhancedBookingManager() {
   const getPaymentStatusColor = (status: string) => {
     switch (status) {
       case 'PAID': return 'bg-green-100 text-green-800';
-      case 'PARTIAL': return 'bg-yellow-100 text-yellow-800';
-      case 'PENDING': return 'bg-orange-100 text-orange-800';
+      case 'PARTIAL': return 'bg-blue-100 text-blue-800';
+      case 'PENDING': return 'bg-blue-100 text-blue-800';
       case 'REFUNDED': return 'bg-red-100 text-red-800';
       default: return 'bg-gray-100 text-gray-800';
     }
@@ -194,7 +194,7 @@ export default function EnhancedBookingManager() {
             <Download className="w-4 h-4" />
             Export
           </Button>
-          <Button className="flex items-center gap-2 bg-ocean-blue hover:bg-amber-600">
+          <Button className="flex items-center gap-2 bg-ocean-blue hover:bg-blue-600">
             <Bell className="w-4 h-4" />
             Notifications
           </Button>
@@ -312,7 +312,7 @@ export default function EnhancedBookingManager() {
                           {booking.bookingType === 'DAHABIYA' ? (
                             <Ship className="w-4 h-4 text-ocean-blue" />
                           ) : (
-                            <Package className="w-4 h-4 text-amber-600" />
+                            <Package className="w-4 h-4 text-ocean-blue" />
                           )}
                           <div>
                             <div className="font-medium">

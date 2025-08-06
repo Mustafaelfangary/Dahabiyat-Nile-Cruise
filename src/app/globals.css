@@ -73,11 +73,11 @@
       hsl(220, 100%, 60%) 100%
     );
 
-    /* Pharaonic Profile Enhancements */
-    --pharaonic-gold-glow: 0 0 20px rgba(212, 175, 55, 0.4),
-      0 0 40px rgba(255, 215, 0, 0.2);
-    --pharaonic-avatar-shadow: 0 8px 25px rgba(212, 175, 55, 0.4),
-      0 0 20px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    /* Ocean Blue Profile Enhancements */
+    --pharaonic-gold-glow: 0 0 20px rgba(0, 128, 255, 0.4),
+      0 0 40px rgba(0, 128, 255, 0.2);
+    --pharaonic-avatar-shadow: 0 8px 25px rgba(0, 128, 255, 0.4),
+      0 0 20px rgba(0, 128, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
     /* Status Colors - Egyptian Theme */
     --destructive: 0 75% 55%;
@@ -496,7 +496,7 @@
     font-weight: 700;
     text-align: center;
     font-family: "Playfair Display", serif;
-    color: #fbbf24; /* amber-400 - light gold */
+    color: #0080ff; /* ocean-blue */
     line-height: 1.3;
     padding: 0 1rem;
     word-wrap: break-word;
@@ -530,7 +530,7 @@
     margin: 0 auto 3rem auto;
     font-size: 1.125rem;
     text-align: center;
-    color: #fcd34d; /* amber-300 - light gold */
+    color: #3399ff; /* ocean-blue-light */
   }
 
   @media (min-width: 768px) {
@@ -804,8 +804,8 @@
   .egyptian-gold-gradient {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(45, 100%, 41%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 100%
     );
   }
 
@@ -842,19 +842,19 @@
   }
 
   .shadow-egyptian {
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 128, 255, 0.3);
   }
 
   .shadow-egyptian-lg {
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4);
   }
 
   .nile-gradient {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(25, 100%, 60%) 50%,
-      hsl(190, 80%, 55%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 50%,
+      hsl(240, 100%, 50%) 100%
     );
   }
 
@@ -869,9 +869,9 @@
   .sunset-gradient {
     background: linear-gradient(
       135deg,
-      hsl(25, 100%, 60%) 0%,
-      hsl(25, 100%, 70%) 50%,
-      hsl(0, 75%, 55%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 50%,
+      hsl(240, 100%, 50%) 100%
     );
   }
 
@@ -2460,7 +2460,7 @@ img.no-zoom:hover,
 
   .card {
     background-color: rgba(0, 0, 0, 0.8) !important;
-    border: 1px solid rgba(212, 175, 55, 0.3) !important;
+    border: 1px solid rgba(0, 128, 255, 0.3) !important;
   }
 }
 

@@ -94,16 +94,16 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
 
   const getMealIcon = (meal: string) => {
     const mealLower = meal.toLowerCase();
-    if (mealLower.includes('breakfast')) return <Sunrise className="w-4 h-4 text-orange-500" />;
-    if (mealLower.includes('lunch')) return <Sun className="w-4 h-4 text-yellow-500" />;
-    if (mealLower.includes('dinner')) return <Sunset className="w-4 h-4 text-purple-500" />;
+    if (mealLower.includes('breakfast')) return <Sunrise className="w-4 h-4 text-ocean-blue" />;
+    if (mealLower.includes('lunch')) return <Sun className="w-4 h-4 text-blue-500" />;
+    if (mealLower.includes('dinner')) return <Sunset className="w-4 h-4 text-ocean-blue-dark" />;
     return <Utensils className="w-4 h-4 text-gray-500" />;
   };
 
   const getTimeIcon = (dayNumber: number) => {
-    if (dayNumber === 1) return <Sunrise className="w-5 h-5 text-orange-500" />;
-    if (dayNumber <= 3) return <Sun className="w-5 h-5 text-yellow-500" />;
-    if (dayNumber <= 5) return <Sunset className="w-5 h-5 text-purple-500" />;
+    if (dayNumber === 1) return <Sunrise className="w-5 h-5 text-ocean-blue" />;
+    if (dayNumber <= 3) return <Sun className="w-5 h-5 text-blue-500" />;
+    if (dayNumber <= 5) return <Sunset className="w-5 h-5 text-ocean-blue-dark" />;
     return <Moon className="w-5 h-5 text-blue-500" />;
   };
 
@@ -345,9 +345,9 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
 
                           {/* Book This Itinerary Button */}
                           <div className="mt-6 text-center">
-                            <Button 
+                            <Button
                               size="lg"
-                              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3"
+                              className="bg-ocean-blue hover:bg-blue-600 text-white px-8 py-3"
                               onClick={() => {
                                 window.location.href = `/booking?itemId=${dahabiyaId}&type=dahabiya&itineraryId=${selectedItinerary.id}`;
                               }}

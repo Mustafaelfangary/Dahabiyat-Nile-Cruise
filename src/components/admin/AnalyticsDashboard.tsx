@@ -130,7 +130,7 @@ export default function AnalyticsDashboard() {
     return (
       <div className="p-6">
         <div className="flex items-center justify-center h-64">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-ocean-blue"></div>
         </div>
       </div>
     );
@@ -151,8 +151,8 @@ export default function AnalyticsDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-amber-800">Analytics Dashboard</h1>
-          <p className="text-amber-600">Monitor your website performance and user behavior</p>
+          <h1 className="text-3xl font-bold text-ocean-blue">Analytics Dashboard</h1>
+          <p className="text-blue-600">Monitor your website performance and user behavior</p>
         </div>
         
         <div className="flex items-center gap-4">
@@ -181,9 +181,9 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Total Users</p>
-                <p className="text-2xl font-bold text-amber-800">{formatNumber(data.overview.totalUsers)}</p>
+                <p className="text-2xl font-bold text-ocean-blue">{formatNumber(data.overview.totalUsers)}</p>
               </div>
-              <Users className="w-8 h-8 text-amber-600" />
+              <Users className="w-8 h-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
@@ -193,7 +193,7 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Active Users</p>
-                <p className="text-2xl font-bold text-amber-800">{formatNumber(data.overview.activeUsers)}</p>
+                <p className="text-2xl font-bold text-ocean-blue">{formatNumber(data.overview.activeUsers)}</p>
               </div>
               <Activity className="w-8 h-8 text-green-600" />
             </div>
@@ -205,7 +205,7 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Page Views</p>
-                <p className="text-2xl font-bold text-amber-800">{formatNumber(data.overview.pageViews)}</p>
+                <p className="text-2xl font-bold text-ocean-blue">{formatNumber(data.overview.pageViews)}</p>
               </div>
               <Eye className="w-8 h-8 text-blue-600" />
             </div>
@@ -217,7 +217,7 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Bookings</p>
-                <p className="text-2xl font-bold text-amber-800">{formatNumber(data.overview.totalBookings)}</p>
+                <p className="text-2xl font-bold text-ocean-blue">{formatNumber(data.overview.totalBookings)}</p>
               </div>
               <ShoppingCart className="w-8 h-8 text-purple-600" />
             </div>
@@ -229,7 +229,7 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Revenue</p>
-                <p className="text-2xl font-bold text-amber-800">{formatCurrency(data.overview.totalRevenue)}</p>
+                <p className="text-2xl font-bold text-ocean-blue">{formatCurrency(data.overview.totalRevenue)}</p>
               </div>
               <DollarSign className="w-8 h-8 text-green-600" />
             </div>
@@ -241,9 +241,9 @@ export default function AnalyticsDashboard() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-gray-600">Bounce Rate</p>
-                <p className="text-2xl font-bold text-amber-800">{data.overview.bounceRate.toFixed(1)}%</p>
+                <p className="text-2xl font-bold text-ocean-blue">{data.overview.bounceRate.toFixed(1)}%</p>
               </div>
-              <TrendingUp className="w-8 h-8 text-orange-600" />
+              <TrendingUp className="w-8 h-8 text-blue-600" />
             </div>
           </CardContent>
         </Card>
@@ -268,7 +268,7 @@ export default function AnalyticsDashboard() {
                     <p className="text-xs text-gray-500">{page.page}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-bold text-amber-800">{formatNumber(page.views)}</p>
+                    <p className="font-bold text-ocean-blue">{formatNumber(page.views)}</p>
                     <p className="text-xs text-gray-500">views</p>
                   </div>
                 </div>
@@ -296,13 +296,13 @@ export default function AnalyticsDashboard() {
                   <div key={step.step} className="space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="font-medium">{step.step}</span>
-                      <span className="font-bold text-amber-800">{formatNumber(step.count)}</span>
+                      <span className="font-bold text-ocean-blue">{formatNumber(step.count)}</span>
                     </div>
                     {!isLast && (
                       <div className="flex items-center gap-2">
                         <div className="flex-1 bg-gray-200 rounded-full h-2">
                           <div 
-                            className="bg-amber-600 h-2 rounded-full transition-all duration-300"
+                            className="bg-ocean-blue h-2 rounded-full transition-all duration-300"
                             style={{ width: `${conversionRate}%` }}
                           ></div>
                         </div>
@@ -326,9 +326,9 @@ export default function AnalyticsDashboard() {
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-4 bg-amber-50 rounded-lg">
-                <Clock className="w-8 h-8 text-amber-600 mx-auto mb-2" />
-                <p className="text-2xl font-bold text-amber-800">{formatTime(data.engagement.avgTimeOnPage)}</p>
+              <div className="text-center p-4 bg-blue-50 rounded-lg">
+                <Clock className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+                <p className="text-2xl font-bold text-ocean-blue">{formatTime(data.engagement.avgTimeOnPage)}</p>
                 <p className="text-sm text-gray-600">Avg. Time on Page</p>
               </div>
               
@@ -375,7 +375,7 @@ export default function AnalyticsDashboard() {
                   <div key={error.severity} className="flex items-center justify-between">
                     <span className={`px-2 py-1 rounded text-xs font-medium ${
                       error.severity === 'CRITICAL' ? 'bg-red-100 text-red-800' :
-                      error.severity === 'HIGH' ? 'bg-orange-100 text-orange-800' :
+                      error.severity === 'HIGH' ? 'bg-blue-100 text-blue-800' :
                       error.severity === 'MEDIUM' ? 'bg-yellow-100 text-yellow-800' :
                       'bg-gray-100 text-gray-800'
                     }`}>

@@ -154,7 +154,7 @@ export default function HomePage() {
     return (
       <div className="pharaonic-container flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-egyptian-gold mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="pharaonic-text-brown text-lg">{get('loading_text', 'Loading...')}</p>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function HomePage() {
       >
         {/* Fallback background - only shows if video fails */}
         {videoError && (
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900"></div>
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900"></div>
         )}
 
         {/* Fallback image when video fails */}
@@ -254,7 +254,7 @@ export default function HomePage() {
               </p>
               <div className="flex justify-center">
                 <Link href="/dahabiyas">
-                  <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-6 py-3 text-sm sm:text-base md:text-lg hover:from-egyptian-amber hover:to-orange-600 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 shadow-lg hover:shadow-xl">
+                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 text-sm sm:text-base md:text-lg hover:from-blue-700 hover:to-blue-800 rounded-full backdrop-blur-sm border border-white/20 transition-all duration-300 shadow-lg hover:shadow-xl">
                     <span className="mr-1">𓊪</span>
                     <span className="hidden sm:inline">{get('hero_video_cta_text', 'Explore Fleet')}</span>
                     <span className="sm:hidden">Explore</span>
@@ -279,7 +279,7 @@ export default function HomePage() {
       </section>
 
       {/* 2. Dahabiyat Cards Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             {/* Hieroglyphic Section Divider */}
@@ -289,14 +289,14 @@ export default function HomePage() {
 
             <div className="flex items-center justify-center mb-6">
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800">
-                <span className="text-egyptian-gold mr-3">{EGYPTIAN_CROWN_SYMBOLS.pschent}</span>
+                <span className="text-blue-600 mr-3">{EGYPTIAN_CROWN_SYMBOLS.pschent}</span>
                 {get('dahabiyat_section_title', 'Our Luxury Dahabiyat Nile Cruise Fleet')}
-                <span className="text-egyptian-gold ml-3">{EGYPTIAN_CROWN_SYMBOLS.pschent}</span>
+                <span className="text-blue-600 ml-3">{EGYPTIAN_CROWN_SYMBOLS.pschent}</span>
               </h2>
               <button
                 onClick={handleManualRefresh}
                 disabled={refreshing}
-                className="ml-4 p-2 text-egyptian-gold hover:text-egyptian-gold/80 transition-colors"
+                className="ml-4 p-2 text-blue-600 hover:text-blue-600/80 transition-colors"
                 title="Refresh dahabiyat data"
               >
                 <RefreshCw className={`w-6 h-6 ${refreshing ? 'animate-spin' : ''}`} />
@@ -309,7 +309,7 @@ export default function HomePage() {
             </p>
             {refreshing && (
               <div className="mt-4 text-center">
-                <span className="text-egyptian-gold text-sm">🔄 Refreshing dahabiyat data...</span>
+                <span className="text-blue-600 text-sm">🔄 Refreshing dahabiyat data...</span>
               </div>
             )}
 
@@ -323,7 +323,7 @@ export default function HomePage() {
           <div className="text-center mb-4">
             <span className="text-sm text-gray-500">
               {featuredDahabiyat.length > 0 ? (
-                <span className="text-egyptian-gold">✨ Showing {featuredDahabiyat.length} featured dahabiyat</span>
+                <span className="text-blue-600">✨ Showing {featuredDahabiyat.length} featured dahabiyat</span>
               ) : (
                 <span>📋 Showing {Math.min(dahabiyat.length, 4)} dahabiyat</span>
               )}
@@ -335,7 +335,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {(featuredDahabiyat.length > 0 ? featuredDahabiyat : dahabiyat.slice(0, 4)).map((dahabiya: any, index: number) => (
-              <div key={dahabiya.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-egyptian-gold/20">
+              <div key={dahabiya.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-200/20">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={dahabiya.mainImage || '/images/dahabiya-placeholder.jpg'}
@@ -347,7 +347,7 @@ export default function HomePage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                   {/* Capacity badge with enhanced design */}
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-sunset-orange text-hieroglyph-brown px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
+                  <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
                     <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
                     {dahabiya.capacity || 12} {get('guests_label', 'Guests')}
                   </div>
@@ -362,14 +362,14 @@ export default function HomePage() {
 
                   {/* Hover overlay with Egyptian symbols */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="text-egyptian-gold text-4xl sm:text-5xl animate-pulse">𓇳</div>
+                    <div className="text-blue-600 text-4xl sm:text-5xl animate-pulse">𓇳</div>
                   </div>
                 </div>
 
                 <div className="p-4 sm:p-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-egyptian-gold text-lg">𓊪</span>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-egyptian-gold transition-colors duration-300 line-clamp-1">
+                    <span className="text-blue-600 text-lg">𓊪</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
                       {dahabiya.name}
                     </h3>
                   </div>
@@ -385,9 +385,9 @@ export default function HomePage() {
                       <span className="ml-1 text-xs text-gray-400">(127)</span>
                     </div>
                     <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
-                      <Button className="bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown px-2 sm:px-3 py-1 text-xs hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                      <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
                         <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
-                        <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                        <span className="text-xs text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                         <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                       </Button>
                     </Link>
@@ -411,7 +411,7 @@ export default function HomePage() {
       </section>
 
       {/* 3. What is Dahabiya? Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -444,7 +444,7 @@ export default function HomePage() {
                 )}
                 <button
                   onClick={() => toggleSection('whatIs')}
-                  className="text-egyptian-gold hover:text-sunset-orange font-semibold flex items-center mt-4"
+                  className="text-blue-600 hover:text-blue-700 font-semibold flex items-center mt-4"
                 >
                   {expandedSections.whatIs ? get('read_less_text', 'Read Less') : get('read_more_text', 'Read More')}
                   <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expandedSections.whatIs ? 'rotate-90' : ''}`} />
@@ -487,7 +487,7 @@ export default function HomePage() {
       </section>
 
       {/* 4. Packages Section */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-amber-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             {/* Hieroglyphic Section Divider */}
@@ -501,9 +501,9 @@ export default function HomePage() {
               <span className="text-emerald-600 ml-3">{EGYPTIAN_CROWN_SYMBOLS.khepresh}</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              <span className="text-egyptian-gold mr-2">𓇳</span>
+              <span className="text-blue-600 mr-2">𓇳</span>
               {get('packages_section_subtitle', 'Choose from our carefully crafted packages, each designed to showcase the best of Egypt\'s ancient wonders and natural beauty')}
-              <span className="text-egyptian-gold ml-2">𓇳</span>
+              <span className="text-blue-600 ml-2">𓇳</span>
             </p>
 
             {/* Egyptian Border */}
@@ -514,7 +514,7 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {(featuredPackages.length > 0 ? featuredPackages : packages.slice(0, 4)).map((pkg: any, index: number) => (
-              <div key={pkg.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-egyptian-gold/20">
+              <div key={pkg.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-200/20">
                 <div className="relative aspect-[4/3] overflow-hidden">
                   <Image
                     src={pkg.mainImageUrl || '/images/package-placeholder.jpg'}
@@ -546,14 +546,14 @@ export default function HomePage() {
 
                   {/* Hover overlay with Egyptian symbols */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="text-egyptian-gold text-4xl sm:text-5xl animate-pulse">𓊪</div>
+                    <div className="text-blue-600 text-4xl sm:text-5xl animate-pulse">𓊪</div>
                   </div>
                 </div>
 
                 <div className="p-4 sm:p-6">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-egyptian-gold text-lg">𓇳</span>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-egyptian-gold transition-colors duration-300 line-clamp-1">
+                    <span className="text-blue-600 text-lg">𓇳</span>
+                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
                       {pkg.name}
                     </h3>
                   </div>
@@ -569,9 +569,9 @@ export default function HomePage() {
                       <span className="ml-1 text-xs text-gray-400">(89)</span>
                     </div>
                     <Link href={`/packages/${pkg.id}`}>
-                      <Button className="bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown px-2 sm:px-3 py-1 text-xs hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                      <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
                         <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
-                        <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                        <span className="text-xs text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                       </Button>
                     </Link>
                   </div>
@@ -582,7 +582,7 @@ export default function HomePage() {
 
           <div className="text-center mt-12">
             <Link href="/packages">
-              <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-8 py-4 text-lg hover:from-egyptian-amber hover:to-orange-600 rounded-full">
+              <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 text-lg hover:from-blue-700 hover:to-blue-800 rounded-full">
                 <span className="mr-2">𓇳</span>
                 {get('packages_view_all_text', 'View All Packages')}
                 <span className="mx-2">𓇳</span>
@@ -594,7 +594,7 @@ export default function HomePage() {
       </section>
 
       {/* 5. Why is Dahabiya different? Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -631,16 +631,16 @@ export default function HomePage() {
             <div>
               {/* Hieroglyphic Header */}
               <div className="mb-8">
-                <div className="text-2xl text-egyptian-gold mb-4">
+                <div className="text-2xl text-blue-600 mb-4">
                   𓇯 𓊪 𓈖 𓂀 𓏏 𓇳
                 </div>
                 <HieroglyphicDivider />
               </div>
 
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                <span className="text-egyptian-gold mr-3">𓇳</span>
+                <span className="text-blue-600 mr-3">𓇳</span>
                 {get('why_different_title', 'Why is Dahabiya different from regular Nile Cruises?')}
-                <span className="text-egyptian-gold ml-3">𓇳</span>
+                <span className="text-blue-600 ml-3">𓇳</span>
               </h2>
               <div className="text-gray-600 leading-relaxed">
                 <p className={`mb-4 ${!expandedSections.whyDifferent ? 'line-clamp-3' : ''}`}>
@@ -658,7 +658,7 @@ export default function HomePage() {
                 )}
                 <button
                   onClick={() => toggleSection('whyDifferent')}
-                  className="text-egyptian-gold hover:text-egyptian-gold font-semibold flex items-center mt-4"
+                  className="text-blue-600 hover:text-blue-700 font-semibold flex items-center mt-4"
                 >
                   {expandedSections.whyDifferent ? get('read_less_text', 'Read Less') : get('read_more_text', 'Read More')}
                   <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expandedSections.whyDifferent ? 'rotate-90' : ''}`} />
@@ -670,7 +670,7 @@ export default function HomePage() {
       </section>
 
       {/* 6. Share your memories Section */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100">
         <Container maxWidth="lg">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -704,7 +704,7 @@ export default function HomePage() {
                 )}
                 <button
                   onClick={() => toggleSection('shareMemories')}
-                  className="text-egyptian-gold hover:text-egyptian-gold font-semibold flex items-center mt-4"
+                  className="text-blue-600 hover:text-blue-700 font-semibold flex items-center mt-4"
                 >
                   {expandedSections.shareMemories ? get('read_less_text', 'Read Less') : get('read_more_text', 'Read More')}
                   <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expandedSections.shareMemories ? 'rotate-90' : ''}`} />
@@ -717,7 +717,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Link href="/testimonials">
-                  <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-white px-6 py-3 hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg">
+                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-lg">
                     Read Reviews
                   </Button>
                 </Link>
@@ -762,7 +762,7 @@ export default function HomePage() {
       <FeaturedReviews />
 
       {/* 7. Our Story Section */}
-      <section className="py-12 lg:py-20 bg-gradient-to-b from-amber-50 to-orange-50 relative">
+      <section className="py-12 lg:py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="our-story-section">
             {/* Content First */}
@@ -770,15 +770,15 @@ export default function HomePage() {
               {/* Hieroglyphic Header */}
               <div className="mb-6 lg:mb-8">
                 <div className="text-lg lg:text-2xl mb-4">
-                  <span className="text-egyptian-gold">𓇯</span> <span className="text-emerald-600">𓊪</span> <span className="text-egyptian-gold">𓈖</span> <span className="text-yellow-600">𓂀</span> <span className="text-emerald-600">𓏏</span> <span className="text-egyptian-gold">𓇳</span>
+                  <span className="text-blue-600">𓇯</span> <span className="text-emerald-600">𓊪</span> <span className="text-blue-600">𓈖</span> <span className="text-yellow-600">𓂀</span> <span className="text-emerald-600">𓏏</span> <span className="text-blue-600">𓇳</span>
                 </div>
                 <HieroglyphicDivider />
               </div>
 
               <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-800 mb-4 lg:mb-6 mobile-section-title">
-                <span className="text-egyptian-gold mr-2 lg:mr-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
+                <span className="text-blue-600 mr-2 lg:mr-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
                 {get('our_story_title', 'Our Story')}
-                <span className="text-egyptian-gold ml-2 lg:ml-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
+                <span className="text-blue-600 ml-2 lg:ml-3">{EGYPTIAN_CROWN_SYMBOLS.nemes}</span>
               </h2>
 
               <div className="text-gray-600 leading-relaxed text-sm lg:text-base mobile-text-wrap">
@@ -806,7 +806,7 @@ export default function HomePage() {
                 )}
                 <button
                   onClick={() => toggleSection('ourStory')}
-                  className="text-egyptian-gold hover:text-egyptian-gold font-semibold flex items-center justify-center lg:justify-start mt-4 mobile-button-text"
+                  className="text-blue-600 hover:text-blue-700 font-semibold flex items-center justify-center lg:justify-start mt-4 mobile-button-text"
                 >
                   {expandedSections.ourStory ? get('read_less_text', 'Read Less') : get('read_more_text', 'Read More')}
                   <ChevronRight className={`w-4 h-4 ml-1 transition-transform ${expandedSections.ourStory ? 'rotate-90' : ''}`} />
@@ -815,7 +815,7 @@ export default function HomePage() {
 
               <div className="mt-6 lg:mt-8 text-center lg:text-left">
                 <Link href="/about">
-                  <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-white px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg mobile-button-text">
+                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-lg mobile-button-text">
                     Learn More About Us
                   </Button>
                 </Link>
@@ -826,23 +826,23 @@ export default function HomePage() {
             <div className="founder-image-section mt-16 lg:mt-20 relative z-10">
               <div className="max-w-sm mx-auto">
                 {/* Decorative Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-100 via-orange-50 to-amber-100 rounded-2xl transform rotate-3 opacity-30"></div>
-                <div className="absolute inset-0 bg-gradient-to-tl from-amber-50 via-orange-100 to-amber-50 rounded-2xl transform -rotate-2 opacity-40"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 via-blue-50 to-blue-100 rounded-2xl transform rotate-3 opacity-30"></div>
+                <div className="absolute inset-0 bg-gradient-to-tl from-blue-50 via-blue-100 to-blue-50 rounded-2xl transform -rotate-2 opacity-40"></div>
 
                 {/* Main Content Card */}
-                <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-xl border border-amber-200/50">
+                <div className="relative bg-white/80 backdrop-blur-sm rounded-2xl p-6 lg:p-8 shadow-xl border border-blue-200/50">
                   {/* Egyptian Decorative Elements */}
-                  <div className="absolute top-3 left-3 text-amber-400 text-lg opacity-60">𓇳</div>
-                  <div className="absolute top-3 right-3 text-amber-400 text-lg opacity-60">𓊪</div>
-                  <div className="absolute bottom-3 left-3 text-amber-400 text-lg opacity-60">𓈖</div>
-                  <div className="absolute bottom-3 right-3 text-amber-400 text-lg opacity-60">𓂀</div>
+                  <div className="absolute top-3 left-3 text-blue-400 text-lg opacity-60">𓇳</div>
+                  <div className="absolute top-3 right-3 text-blue-400 text-lg opacity-60">𓊪</div>
+                  <div className="absolute bottom-3 left-3 text-blue-400 text-lg opacity-60">𓈖</div>
+                  <div className="absolute bottom-3 right-3 text-blue-400 text-lg opacity-60">𓂀</div>
 
                   <div className="flex flex-col items-center space-y-4">
                     {/* Enhanced Founder Image */}
                     <div className="relative">
                       <div className="w-20 h-20 sm:w-24 sm:h-24 lg:w-28 lg:h-28 relative">
                         {/* Decorative Ring */}
-                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-amber-400 via-orange-400 to-amber-500 p-1">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-blue-400 via-blue-500 to-blue-600 p-1">
                           <div className="w-full h-full rounded-full bg-white p-1">
                             <Image
                               src={get('founder_image', '/images/ashraf-elmasry.jpg')}
@@ -860,7 +860,7 @@ export default function HomePage() {
                         </div>
 
                         {/* Crown Icon */}
-                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-amber-400 to-orange-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
+                        <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                           <span className="text-white text-sm">👑</span>
                         </div>
                       </div>
@@ -871,15 +871,15 @@ export default function HomePage() {
                       <h3 className="font-bold text-gray-800 text-lg lg:text-xl leading-tight">
                         {get('founder_name', 'Ashraf El-Masry')}
                       </h3>
-                      <p className="text-amber-600 font-semibold text-sm lg:text-base">
+                      <p className="text-blue-600 font-semibold text-sm lg:text-base">
                         {get('founder_title', 'Founder & CEO')}
                       </p>
 
                       {/* Decorative Divider */}
                       <div className="flex items-center justify-center space-x-2 pt-2">
-                        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-amber-400"></div>
-                        <div className="w-2 h-2 bg-amber-400 rounded-full"></div>
-                        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-amber-400"></div>
+                        <div className="w-8 h-0.5 bg-gradient-to-r from-transparent to-blue-400"></div>
+                        <div className="w-2 h-2 bg-blue-400 rounded-full"></div>
+                        <div className="w-8 h-0.5 bg-gradient-to-l from-transparent to-blue-400"></div>
                       </div>
 
                       {/* Quote or Tagline */}
@@ -897,13 +897,13 @@ export default function HomePage() {
 
       {/* 8. Featured Blog Posts Section */}
       {featuredBlogs.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50 relative overflow-hidden">
+        <section className="py-20 bg-gradient-to-b from-slate-50 to-blue-50 relative overflow-hidden">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-10 left-10 text-6xl text-egyptian-gold animate-pulse">𓇳</div>
-            <div className="absolute top-20 right-20 text-4xl text-sunset-orange animate-pulse">𓊪</div>
-            <div className="absolute bottom-20 left-20 text-5xl text-egyptian-gold animate-pulse">𓈖</div>
-            <div className="absolute bottom-10 right-10 text-6xl text-sunset-orange animate-pulse">𓂀</div>
+            <div className="absolute top-10 left-10 text-6xl text-blue-600 animate-pulse">𓇳</div>
+            <div className="absolute top-20 right-20 text-4xl text-blue-700 animate-pulse">𓊪</div>
+            <div className="absolute bottom-20 left-20 text-5xl text-blue-600 animate-pulse">𓈖</div>
+            <div className="absolute bottom-10 right-10 text-6xl text-blue-700 animate-pulse">𓂀</div>
           </div>
 
           <Container maxWidth="lg">
@@ -914,9 +914,9 @@ export default function HomePage() {
               </div>
 
               <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-                <span className="text-egyptian-gold mr-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
+                <span className="text-blue-600 mr-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
                 {get('blog_section_title', 'Stories from the Nile')}
-                <span className="text-egyptian-gold ml-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
+                <span className="text-blue-600 ml-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
               </h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 <span className="text-emerald-600 mr-2">𓊪</span>
@@ -940,7 +940,7 @@ export default function HomePage() {
                           className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                         />
                         <div className="absolute top-4 left-4">
-                          <div className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-3 py-1.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm">
+                          <div className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-3 py-1.5 rounded-full text-xs font-bold shadow-lg backdrop-blur-sm">
                             <span className="mr-1">⭐</span>
                             Featured
                           </div>
@@ -949,7 +949,7 @@ export default function HomePage() {
                       </div>
 
                       <div className="p-6">
-                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-egyptian-gold transition-colors line-clamp-2">
+                        <h3 className="text-xl font-bold text-gray-800 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2">
                           {blog.title}
                         </h3>
                         <p className="text-gray-600 mb-4 line-clamp-3">
@@ -969,9 +969,9 @@ export default function HomePage() {
                           )}
                         </div>
 
-                        <Button className="w-full bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown hover:from-egyptian-gold hover:to-amber-500 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-egyptian-gold/30 backdrop-blur-sm">
+                        <Button className="w-full bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
                           <span className="group-hover/btn:mr-1 transition-all duration-300">Read Story</span>
-                          <span className="text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                          <span className="text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                         </Button>
                       </div>
@@ -984,7 +984,7 @@ export default function HomePage() {
             {/* View All Blogs Button */}
             <div className="text-center">
               <Link href="/blog">
-                <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown px-8 py-4 text-lg hover:from-egyptian-amber hover:to-orange-600 rounded-full">
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 text-lg hover:from-blue-700 hover:to-blue-800 rounded-full">
                   <span className="mr-2">𓇳</span>
                   {get('blog_view_all_text', 'Read All Stories')}
                   <span className="mx-2">𓇳</span>
@@ -999,7 +999,7 @@ export default function HomePage() {
       {/* 9. Additional Business Sections */}
 
       {/* Safety & Certifications */}
-      <section className="py-20 bg-gradient-to-b from-orange-50 to-amber-50 relative">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             {/* Hieroglyphic Section Divider */}
@@ -1008,9 +1008,9 @@ export default function HomePage() {
             </div>
 
             <h2 className="text-4xl md:text-5xl font-bold text-gray-800 mb-6">
-              <span className="text-egyptian-gold mr-3">{EGYPTIAN_CROWN_SYMBOLS.hedjet}</span>
+              <span className="text-blue-600 mr-3">{EGYPTIAN_CROWN_SYMBOLS.hedjet}</span>
               {get('safety_title', 'Your Safety is Our Priority')}
-              <span className="text-egyptian-gold ml-3">{EGYPTIAN_CROWN_SYMBOLS.hedjet}</span>
+              <span className="text-blue-600 ml-3">{EGYPTIAN_CROWN_SYMBOLS.hedjet}</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               <span className="text-emerald-600 mr-2">𓊪</span>
@@ -1026,8 +1026,8 @@ export default function HomePage() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center p-6">
-              <div className="w-16 h-16 bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-egyptian-gold text-2xl">🛡️</span>
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                <span className="text-white text-2xl">🛡️</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Certified Vessels</h3>
               <p className="text-gray-600">All our Dahabiyas are certified by Egyptian Maritime Authority and undergo regular safety inspections.</p>
@@ -1053,7 +1053,7 @@ export default function HomePage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-20 bg-gradient-to-b from-amber-50 to-orange-50">
+      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100">
         <Container maxWidth="lg">
           <div className="text-center text-gray-800">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
@@ -1064,12 +1064,12 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/booking">
-                <Button className="bg-gradient-to-r from-egyptian-gold to-sunset-orange text-white px-8 py-4 text-lg hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-full">
+                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 text-lg hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-full">
                   {get('cta_book_text', 'Book Your Journey')}
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button className="bg-transparent border-2 border-egyptian-gold text-egyptian-gold px-8 py-4 text-lg hover:bg-gradient-to-r from-egyptian-gold to-sunset-orange hover:text-white rounded-full">
+                <Button className="bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-4 text-lg hover:bg-gradient-to-r from-blue-600 to-blue-700 hover:text-white rounded-full">
                   {get('cta_contact_text', 'Contact Us')}
                 </Button>
               </Link>

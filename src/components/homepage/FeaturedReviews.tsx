@@ -92,13 +92,13 @@ export default function FeaturedReviews() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-amber-50 to-orange-50 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-10 left-10 text-6xl text-egyptian-gold animate-pulse">⭐</div>
-        <div className="absolute top-20 right-20 text-4xl text-sunset-orange animate-pulse">𓊪</div>
+        <div className="absolute top-20 right-20 text-4xl text-ocean-blue animate-pulse">𓊪</div>
         <div className="absolute bottom-20 left-20 text-5xl text-egyptian-gold animate-pulse">𓈖</div>
-        <div className="absolute bottom-10 right-10 text-6xl text-sunset-orange animate-pulse">𓂀</div>
+        <div className="absolute bottom-10 right-10 text-6xl text-ocean-blue animate-pulse">𓂀</div>
       </div>
 
       <Container maxWidth="lg">

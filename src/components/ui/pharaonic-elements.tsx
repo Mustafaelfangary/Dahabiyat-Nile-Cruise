@@ -67,7 +67,7 @@ export const PharaohCard = ({ children, className = "", title }: { children: Rea
                      backdrop-blur-sm overflow-hidden ${className}`}>
       {/* Golden Corner Decorations */}
       <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-egyptian-gold/30 to-transparent rounded-br-full"></div>
-      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-sunset-orange/30 to-transparent rounded-bl-full"></div>
+      <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-ocean-blue/30 to-transparent rounded-bl-full"></div>
       <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-egyptian-gold/30 to-transparent rounded-tr-full"></div>
       <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-egyptian-gold/30 to-transparent rounded-tl-full"></div>
       
@@ -462,13 +462,13 @@ export const PharaonicCrown = ({ className = "" }: { className?: string }) => (
         </defs>
       </svg>
     </div>
-    <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-egyptian-gold to-amber-600 rounded-full flex items-center justify-center shadow-lg">
+    <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-ocean-blue to-blue-600 rounded-full flex items-center justify-center shadow-lg">
       <span className="text-gold-text-dark text-sm font-bold">𓇳</span>
     </div>
     <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-gradient-to-br from-white0 to-egyptian-gold rounded-full flex items-center justify-center shadow-lg">
       <span className="text-gold-text-dark text-sm font-bold">𓊪</span>
     </div>
-    <div className="absolute top-1/2 -left-3 w-6 h-6 bg-gradient-to-br from-egyptian-gold to-amber-500 rounded-full flex items-center justify-center shadow-md">
+    <div className="absolute top-1/2 -left-3 w-6 h-6 bg-gradient-to-br from-ocean-blue to-blue-500 rounded-full flex items-center justify-center shadow-md">
       <span className="text-gold-text-dark text-xs font-bold">𓈖</span>
     </div>
     <div className="absolute top-1/2 -right-3 w-6 h-6 bg-gradient-to-br from-white0 to-egyptian-gold rounded-full flex items-center justify-center shadow-md">
@@ -518,7 +518,7 @@ export const EgyptHieroglyphicAlt = ({ className = "", size = "2rem" }: { classN
       {/* 𓊪 - Bread loaf */}
       <span className="text-emerald-600 animate-pulse" style={{ animationDelay: '0.3s' }}>𓊪</span>
       {/* 𓇳 - Sun disk */}
-      <span className="text-orange-500 animate-pulse" style={{ animationDelay: '0.6s' }}>𓇳</span>
+      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0.6s' }}>𓇳</span>
       {/* 𓏏 - Bread/Land */}
       <span className="text-egyptian-gold animate-pulse" style={{ animationDelay: '0.9s' }}>𓏏</span>
     </div>

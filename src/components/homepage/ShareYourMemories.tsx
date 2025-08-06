@@ -84,19 +84,19 @@ export default function ShareYourMemories() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="text-egyptian-gold text-5xl animate-pulse">𓇳</span>
+            <span className="text-blue-600 text-5xl animate-pulse">𓇳</span>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-text-primary">
               Share Your Memories
             </h2>
-            <span className="text-egyptian-gold text-5xl animate-pulse">𓇳</span>
+            <span className="text-blue-600 text-5xl animate-pulse">𓇳</span>
           </div>
-          
+
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-egyptian-gold text-xl">𓈖</span>
-            <span className="text-egyptian-gold text-xl">𓂀</span>
-            <span className="text-egyptian-gold text-xl">𓏏</span>
-            <span className="text-egyptian-gold text-xl">𓇯</span>
-            <span className="text-egyptian-gold text-xl">𓊃</span>
+            <span className="text-blue-600 text-xl">𓈖</span>
+            <span className="text-blue-600 text-xl">𓂀</span>
+            <span className="text-blue-600 text-xl">𓏏</span>
+            <span className="text-blue-600 text-xl">𓇯</span>
+            <span className="text-blue-600 text-xl">𓊃</span>
           </div>
           
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -105,7 +105,7 @@ export default function ShareYourMemories() {
           </p>
 
           <Link href="/profile">
-            <Button className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90 text-lg px-8 py-3">
+            <Button className="bg-blue-600 text-white hover:bg-blue-700 text-lg px-8 py-3">
               <Share2 className="w-5 h-5 mr-2" />
               Share Your Memory
               <ChevronRight className="w-5 h-5 ml-2" />
@@ -116,13 +116,13 @@ export default function ShareYourMemories() {
         {/* Memories Grid */}
         {memories.length === 0 ? (
           <div className="text-center py-16">
-            <div className="text-6xl text-egyptian-gold mb-4">𓈖</div>
-            <h3 className="text-2xl font-bold text-hieroglyph-brown mb-2">No Memories Yet</h3>
+            <div className="text-6xl text-blue-600 mb-4">𓈖</div>
+            <h3 className="text-2xl font-bold text-gray-800 mb-2">No Memories Yet</h3>
             <p className="text-gray-600 mb-6">
               Be the first to share your beautiful travel memories with our community!
             </p>
             <Link href="/profile">
-              <Button className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90">
+              <Button className="bg-blue-600 text-white hover:bg-blue-700">
                 <Camera className="w-4 h-4 mr-2" />
                 Share Your First Memory
               </Button>
@@ -225,24 +225,24 @@ export default function ShareYourMemories() {
 
             {/* Call to Action */}
             <div className="text-center">
-              <div className="bg-white/80 backdrop-blur-sm border border-egyptian-gold/30 rounded-2xl p-8 max-w-2xl mx-auto">
-                <div className="text-4xl text-egyptian-gold mb-4">𓊪</div>
-                <h3 className="text-2xl font-bold text-hieroglyph-brown mb-3">
+              <div className="bg-white/80 backdrop-blur-sm border border-blue-200/30 rounded-2xl p-8 max-w-2xl mx-auto">
+                <div className="text-4xl text-blue-600 mb-4">𓊪</div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-3">
                   Share Your Egyptian Adventure
                 </h3>
                 <p className="text-gray-600 mb-6">
-                  Have you experienced the magic of Egypt? Share your memories with our community 
+                  Have you experienced the magic of Egypt? Share your memories with our community
                   and inspire future travelers to discover the wonders of this ancient land.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <Link href="/profile">
-                    <Button className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90">
+                    <Button className="bg-blue-600 text-white hover:bg-blue-700">
                       <Camera className="w-4 h-4 mr-2" />
                       Share Your Memory
                     </Button>
                   </Link>
                   <Link href="/gallery-new">
-                    <Button variant="outline" className="border-egyptian-gold/30 text-hieroglyph-brown hover:bg-egyptian-gold/10">
+                    <Button variant="outline" className="border-blue-200/30 text-gray-800 hover:bg-blue-50">
                       <span className="mr-2">𓂀</span>
                       View Gallery
                     </Button>

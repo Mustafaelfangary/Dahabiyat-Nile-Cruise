@@ -250,7 +250,7 @@ export default function ItinerariesManagementPage() {
                 {/* Status Badges */}
                 <div className="absolute top-4 right-4 flex gap-2">
                   {itinerary.featured && (
-                    <Badge className="bg-amber-500 text-black">
+                    <Badge className="bg-ocean-blue text-white">
                       <Star className="w-3 h-3 mr-1" />
                       Featured
                     </Badge>

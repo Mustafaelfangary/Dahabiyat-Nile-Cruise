@@ -165,9 +165,9 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
   }
 
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-amber-50 to-orange-50">
-      {/* Egyptian papyrus background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100"></div>
+    <footer className="relative overflow-hidden bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
+      {/* Ocean blue background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-ocean-blue-lightest to-blue-100"></div>
 
       {/* Subtle pattern overlay */}
       <div className="absolute inset-0 opacity-5">

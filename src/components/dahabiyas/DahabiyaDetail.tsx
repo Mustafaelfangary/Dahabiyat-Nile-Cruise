@@ -183,9 +183,9 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
 
   const getCategoryStyle = (category?: string) => {
     switch (category) {
-      case 'LUXURY': return { bg: '#fef3c7', color: '#d97706', label: 'Luxury' };
+      case 'LUXURY': return { bg: '#e3f2fd', color: '#1976d2', label: 'Luxury' };
       case 'PREMIUM': return { bg: '#e0e7ff', color: '#6366f1', label: 'Premium' };
-      case 'BOUTIQUE': return { bg: '#fff3e0', color: '#f57c00', label: 'Boutique' };
+      case 'BOUTIQUE': return { bg: '#e1f5fe', color: '#0277bd', label: 'Boutique' };
       default: return { bg: '#f3e5f5', color: '#7b1fa2', label: 'Deluxe' };
     }
   };
@@ -343,12 +343,12 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                   variant="outlined"
                   style={{
-                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                    background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
                     backdropFilter: 'blur(15px)',
                     border: '2px solid rgba(255, 255, 255, 0.8)',
                     color: '#FFFFFF',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                    boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                    boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                   }}
                 />
                 {dahabiya.cabins && (
@@ -358,12 +358,12 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                     variant="outlined"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
                       backdropFilter: 'blur(15px)',
                       border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                     }}
                   />
                 )}
@@ -374,12 +374,12 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300"
                     variant="outlined"
                     style={{
-                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.9) 0%, rgba(255, 215, 0, 0.8) 50%, rgba(184, 134, 11, 0.9) 100%)',
+                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
                       backdropFilter: 'blur(15px)',
                       border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                     }}
                   />
                 )}
@@ -440,16 +440,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     }
                   }}
                   sx={{
-                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 25%, #FFA500 50%, #FF8C00 75%, #FF6347 100%)',
+                    background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 25%, #004499 50%, #003366 75%, #002244 100%)',
                     color: '#FFFFFF',
                     border: '3px solid rgba(255, 255, 255, 0.9)',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                    boxShadow: '0 15px 40px rgba(212, 175, 55, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.4), 0 0 40px rgba(255, 215, 0, 0.4)',
+                    boxShadow: '0 15px 40px rgba(0, 128, 255, 0.7), inset 0 3px 0 rgba(255, 255, 255, 0.4), 0 0 40px rgba(0, 128, 255, 0.4)',
                     fontSize: '1.2rem',
                     fontWeight: 'bold',
                     '&:hover': {
-                      background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 25%, #FF8C00 50%, #FF6347 75%, #DC143C 100%)',
-                      boxShadow: '0 20px 50px rgba(212, 175, 55, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.5), 0 0 50px rgba(255, 215, 0, 0.6)',
+                      background: 'linear-gradient(135deg, #0099ff 0%, #0080ff 25%, #0066cc 50%, #004499 75%, #003366 100%)',
+                      boxShadow: '0 20px 50px rgba(0, 128, 255, 0.8), inset 0 3px 0 rgba(255, 255, 255, 0.5), 0 0 50px rgba(0, 128, 255, 0.6)',
                       transform: 'scale(1.1) translateY(-2px)'
                     }
                   }}
@@ -1181,14 +1181,14 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                       </Typography>
                     </div>
 
-                    <div className="text-center p-4 bg-gradient-to-b from-orange-50 to-red-50 rounded-lg border border-orange-200">
-                      <div className="bg-orange-500/20 rounded-full p-3 w-fit mx-auto mb-3">
-                        <Sunset className="text-orange-600" size={24} />
+                    <div className="text-center p-4 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest rounded-lg border border-blue-200">
+                      <div className="bg-ocean-blue/20 rounded-full p-3 w-fit mx-auto mb-3">
+                        <Sunset className="text-ocean-blue" size={24} />
                       </div>
-                      <Typography variant="h6" className="text-orange-900 font-bold mb-2">
+                      <Typography variant="h6" className="text-ocean-blue font-bold mb-2">
                         Sunset Views
                       </Typography>
-                      <Typography variant="body2" className="text-orange-700">
+                      <Typography variant="body2" className="text-blue-700">
                         Witness breathtaking Nile sunsets
                       </Typography>
                     </div>

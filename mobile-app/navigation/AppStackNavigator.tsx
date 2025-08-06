@@ -32,6 +32,12 @@ import {
 
 // Additional Screens
 import ContactDeveloperScreen from '../screens/ContactDeveloperScreen';
+import LoyaltyProgramScreen from '../screens/LoyaltyProgramScreen';
+import WishlistScreen from '../screens/WishlistScreen';
+import ItinerariesScreen from '../screens/ItinerariesScreen';
+import AboutScreen from '../screens/AboutScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import ProfileScreen from '../screens/ProfileScreen';
 
 // Admin Screens
 import AdminPackagesScreen from '../screens/admin/AdminPackagesScreen';
@@ -115,15 +121,27 @@ const AppStackNavigator: React.FC = () => {
           />
 
           <Stack.Screen
+            name="DahabiyaList"
+            component={DahabiyaListScreen}
+            options={{ title: 'Our Dahabiyas', headerShown: false }}
+          />
+
+          <Stack.Screen
             name="Packages"
             component={PackagesScreen}
             options={{ title: 'Journey Packages' }}
           />
 
           <Stack.Screen
+            name="PackageList"
+            component={PackageListScreen}
+            options={{ title: 'Travel Packages', headerShown: false }}
+          />
+
+          <Stack.Screen
             name="Booking"
             component={BookingScreen}
-            options={{ title: 'Book Your Journey' }}
+            options={{ title: 'Book Your Journey', headerShown: false }}
           />
 
           <Stack.Screen
@@ -160,6 +178,42 @@ const AppStackNavigator: React.FC = () => {
             name="ContactDeveloper"
             component={ContactDeveloperScreen}
             options={{ title: 'Contact Developer' }}
+          />
+
+          <Stack.Screen
+            name="LoyaltyProgram"
+            component={LoyaltyProgramScreen}
+            options={{ title: 'Loyalty Program' }}
+          />
+
+          <Stack.Screen
+            name="Wishlist"
+            component={WishlistScreen}
+            options={{ title: 'My Wishlist' }}
+          />
+
+          <Stack.Screen
+            name="Itineraries"
+            component={ItinerariesScreen}
+            options={{ title: 'Itineraries' }}
+          />
+
+          <Stack.Screen
+            name="About"
+            component={AboutScreen}
+            options={{ title: 'About Us' }}
+          />
+
+          <Stack.Screen
+            name="Settings"
+            component={SettingsScreen}
+            options={{ title: 'Settings' }}
+          />
+
+          <Stack.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{ title: 'Profile' }}
           />
 
           <Stack.Screen

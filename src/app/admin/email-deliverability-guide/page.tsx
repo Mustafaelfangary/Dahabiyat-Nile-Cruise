@@ -30,11 +30,11 @@ export default function EmailDeliverabilityGuidePage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/20 to-orange-50/10 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-ocean-blue-lightest/10 p-6">
       <div className="max-w-6xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+          <div className="p-3 bg-gradient-to-r from-ocean-blue to-blue-600 rounded-lg">
             <Shield className="w-8 h-8 text-white" />
           </div>
           <div>
@@ -60,7 +60,7 @@ export default function EmailDeliverabilityGuidePage() {
             <Card>
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="w-5 h-5 text-amber-600" />
+                  <AlertTriangle className="w-5 h-5 text-blue-600" />
                   Why Emails Go to Spam
                 </CardTitle>
               </CardHeader>

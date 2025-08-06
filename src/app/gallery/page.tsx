@@ -120,24 +120,24 @@ export default function GalleryPage() {
   const getCategoryColor = (category: string) => {
     switch (category) {
       case 'dahabiya':
-        return 'bg-amber-100 text-amber-800';
+        return 'bg-blue-100 text-blue-800';
       case 'package':
-        return 'bg-orange-100 text-orange-800';
+        return 'bg-ocean-blue/10 text-ocean-blue';
       case 'destination':
-        return 'bg-yellow-100 text-yellow-800';
+        return 'bg-sky-100 text-sky-800';
       case 'experience':
-        return 'bg-red-100 text-red-800';
+        return 'bg-cyan-100 text-cyan-800';
       default:
-        return 'bg-amber-50 text-amber-700';
+        return 'bg-blue-50 text-blue-700';
     }
   };
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue/10 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
-          <div className="text-amber-800 text-2xl font-bold">𓇳 Loading Royal Gallery 𓇳</div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-ocean-blue mx-auto mb-4"></div>
+          <div className="text-ocean-blue text-2xl font-bold">𓇳 Loading Royal Gallery 𓇳</div>
         </div>
       </div>
     );

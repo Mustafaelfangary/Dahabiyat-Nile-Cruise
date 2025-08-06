@@ -75,11 +75,11 @@ export const exportBookingsToExcel = async (bookings: Booking[]) => {
 
   // Header styles by column index (1-based)
   const headerStyles = [
-    { fill: 'FFFF00', font: { color: '000000' } }, // Booking ID (yellow)
-    { fill: 'FFFF00', font: { color: '000000' } }, // Dahabiya (yellow)
-    { fill: 'FFFF00', font: { color: '000000' } }, // Customer Name (yellow)
-    { fill: 'FFFF00', font: { color: '000000' } }, // phone Number (yellow)
-    { fill: 'FFFF00', font: { color: '000000' } }, // Customer Email (yellow)
+    { fill: '0080FF', font: { color: 'FFFFFF' } }, // Booking ID (ocean blue)
+    { fill: '0080FF', font: { color: 'FFFFFF' } }, // Dahabiya (ocean blue)
+    { fill: '0080FF', font: { color: 'FFFFFF' } }, // Customer Name (ocean blue)
+    { fill: '0080FF', font: { color: 'FFFFFF' } }, // phone Number (ocean blue)
+    { fill: '0080FF', font: { color: 'FFFFFF' } }, // Customer Email (ocean blue)
     { fill: '00B050', font: { color: 'FFFFFF' } }, // Start Date (green)
     { fill: 'FF0000', font: { color: 'FFFFFF' } }, // End Date (red)
     { fill: 'B7B7B7', font: { color: '000000' } }, // Number of Guests (gray)

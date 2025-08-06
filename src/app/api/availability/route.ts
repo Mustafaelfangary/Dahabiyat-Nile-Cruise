@@ -6,7 +6,10 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const { dahabiyaId, startDate, endDate, guests } = body;
 
+    console.log('🔍 Availability API called with:', { dahabiyaId, startDate, endDate, guests });
+
     if (!dahabiyaId || !startDate || !endDate || !guests) {
+      console.log('❌ Missing required fields:', { dahabiyaId, startDate, endDate, guests });
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -20,12 +23,14 @@ export async function POST(request: NextRequest) {
       guests: parseInt(guests),
     });
 
+    console.log('📊 Availability result:', availability);
+
     // Add helpful messages
     const response = {
       ...availability,
       message: availability.isAvailable
-        ? `Great! We have ${availability.availableCabins.length} suite(s) available for your dates.`
-        : 'Sorry, no suites are available for your selected dates. Please try different dates.'
+        ? `Great! The dahabiya is available for your dates.`
+        : 'Sorry, the dahabiya is not available for your selected dates. Please try different dates.'
     };
 
     return NextResponse.json(response);
