@@ -1,12 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { sendEmail } from "@/lib/email";
-import { Status } from "@prisma/client";
-import { prisma } from "@/lib/prisma";
-import { AvailabilityService } from "@/lib/services/availability-service";
-import { UnifiedBookingService, bookingSchema } from "@/lib/services/unified-booking-service";
-import { z } from "zod";
+import { CleanBookingService } from "@/lib/services/clean-booking-service";
+import { CleanAvailabilityService } from "@/lib/services/clean-availability-service";
 
 export async function POST(req: Request) {
   try {
@@ -19,10 +15,19 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    console.log("Received booking request:", body);
+    console.log("📝 Received booking request:", body);
 
     // Determine booking type and prepare data
     const bookingType = body.packageId ? 'PACKAGE' : 'DAHABIYA';
+    const itemId = body.packageId || body.dahabiyaId;
+    
+    if (!itemId) {
+      return NextResponse.json(
+        { error: "Missing dahabiya or package ID" },
+        { status: 400 }
+      );
+    }
+
     const bookingData = {
       type: bookingType as 'DAHABIYA' | 'PACKAGE',
       dahabiyaId: body.dahabiyaId,
@@ -30,182 +35,48 @@ export async function POST(req: Request) {
       startDate: body.startDate,
       endDate: body.endDate,
       guests: Number(body.guests) || 0,
-      specialRequests: body.specialRequests,
+      specialRequests: body.specialRequests || '',
       totalPrice: Number(body.totalPrice) || 0,
-      guestDetails: body.guestDetails,
+      guestDetails: body.guestDetails || [],
     };
 
-    // Check availability based on booking type
-    if (bookingType === 'DAHABIYA' && bookingData.dahabiyaId) {
-      const availability = await AvailabilityService.checkAvailability({
-        dahabiyaId: bookingData.dahabiyaId,
-        startDate: new Date(bookingData.startDate),
-        endDate: new Date(bookingData.endDate),
-        guests: bookingData.guests,
-      });
-
-      if (!availability.isAvailable) {
-        return NextResponse.json(
-          { error: "Selected dates are not available for this dahabiya" },
-          { status: 400 }
-        );
-      }
-    } else if (bookingType === 'PACKAGE' && bookingData.packageId) {
-      // Check package availability
-      const packageData = await prisma.package.findUnique({
-        where: { id: bookingData.packageId }
-      });
-
-      if (!packageData) {
-        return NextResponse.json(
-          { error: "Package not found" },
-          { status: 404 }
-        );
-      }
-
-      // Check for conflicting package bookings
-      const conflictingBookings = await prisma.booking.count({
-        where: {
-          packageId: bookingData.packageId,
-          status: { in: ['PENDING', 'CONFIRMED'] },
-          OR: [
-            {
-              startDate: { lte: new Date(bookingData.startDate) },
-              endDate: { gt: new Date(bookingData.startDate) }
-            },
-            {
-              startDate: { lt: new Date(bookingData.endDate) },
-              endDate: { gte: new Date(bookingData.endDate) }
-            },
-            {
-              startDate: { gte: new Date(bookingData.startDate) },
-              endDate: { lte: new Date(bookingData.endDate) }
-            }
-          ]
-        }
-      });
-
-      if (conflictingBookings > 0) {
-        return NextResponse.json(
-          { error: "Selected dates are not available for this package" },
-          { status: 400 }
-        );
-      }
-    }
-
-    // Create the booking using unified service
-    const booking = await UnifiedBookingService.createBooking(session.user.id, bookingData);
-
-    // Fetch user data for email notifications
-    const user = await prisma.user.findUnique({
-      where: { id: session.user.id },
-      select: { id: true, name: true, email: true }
+    // Check availability using clean availability service
+    console.log("🔍 Checking availability...");
+    const availability = await CleanAvailabilityService.checkAvailability({
+      type: bookingType,
+      itemId,
+      startDate: new Date(bookingData.startDate),
+      endDate: new Date(bookingData.endDate),
+      guests: bookingData.guests,
     });
 
-    // Send confirmation email to customer and admin notification
-    try {
-      // Get email settings from dashboard
-      const emailSettingsResponse = await fetch(`${process.env.NEXTAUTH_URL || 'http://localhost:3001'}/api/website-content/email-notifications`);
-
-      // Multiple admin emails for booking notifications
-      let adminEmails = [
-        'info@dahabiyatnilecruise.com',
-        'bookings@dahabiyatnilecruise.com',
-        'manager@dahabiyatnilecruise.com'
-      ];
-
-      // Try to get admin emails from environment variables
-      if (process.env.ADMIN_BOOKING_EMAILS) {
-        adminEmails = process.env.ADMIN_BOOKING_EMAILS.split(',').map(email => email.trim());
-      }
-
-      let emailEnabled = true;
-      let customerNotifications = true;
-      let adminNotifications = true;
-
-      // Create in-app notification for all admins
-      const adminUsers = await prisma.user.findMany({
-        where: { role: 'ADMIN' },
-        select: { id: true }
-      });
-
-      for (const admin of adminUsers) {
-        await prisma.notification.create({
-          data: {
-            userId: admin.id,
-            type: 'BOOKING_CREATED',
-            title: 'New Dahabiya Booking',
-            message: `New dahabiya booking received. Booking ID: ${booking.id}. Total: $${Number(booking.totalPrice)}`,
-            read: false
-          }
-        });
-      }
-
-      if (emailSettingsResponse.ok) {
-        const emailData = await emailSettingsResponse.json();
-        const fields = emailData.fields || [];
-
-        emailEnabled = fields.find((f: any) => f.key === 'email_enabled')?.value === 'true';
-        const adminEmailSetting = fields.find((f: any) => f.key === 'admin_email')?.value;
-        if (adminEmailSetting) {
-          adminEmails = [adminEmailSetting];
-        }
-        customerNotifications = fields.find((f: any) => f.key === 'email_customer_notifications')?.value === 'true';
-        adminNotifications = fields.find((f: any) => f.key === 'email_admin_notifications')?.value === 'true';
-      }
-
-      if (emailEnabled) {
-        // Send customer confirmation email
-        if (customerNotifications && user?.email) {
-          await sendEmail({
-            to: user.email,
-            subject: '🏺 Booking Confirmation - Dahabiyat Nile Cruise',
-            template: 'booking-confirmation',
-            data: {
-              booking,
-              user: user,
-              dahabiya: null // Will need to fetch separately if needed
-            }
-          });
-        }
-
-        // Send admin notification emails to all admin addresses
-        if (adminNotifications && adminEmails.length > 0) {
-          // Send to each admin email
-          for (const adminEmail of adminEmails) {
-            try {
-              await sendEmail({
-                to: adminEmail,
-                subject: '🚨 New Dahabiya Booking Received',
-                template: 'admin-booking-notification',
-                data: {
-                  booking,
-                  user: user,
-                  dahabiya: null // Will need to fetch separately if needed
-                }
-              });
-              console.log(`Admin notification sent to: ${adminEmail}`);
-            } catch (emailError) {
-              console.error(`Failed to send admin notification to ${adminEmail}:`, emailError);
-              // Continue sending to other admins even if one fails
-            }
-          }
-        }
-      }
-    } catch (emailError) {
-      console.error('Failed to send booking emails:', emailError);
-      // Don't fail the booking if email fails
-    }
-
-    return NextResponse.json(booking);
-  } catch (error) {
-    console.error("Booking creation error:", error);
-    if (error instanceof z.ZodError) {
+    if (!availability.isAvailable) {
+      console.log("❌ Not available:", availability.message);
       return NextResponse.json(
-        { error: error.errors.map(e => e.message).join(", ") },
+        { error: availability.message },
         { status: 400 }
       );
     }
+
+    console.log("✅ Available! Total price:", availability.totalPrice);
+
+    // Create the booking using clean booking service
+    console.log("📝 Creating booking...");
+    const result = await CleanBookingService.createBooking(session.user.id, bookingData);
+
+    if (!result.success) {
+      console.log("❌ Booking creation failed:", result.error);
+      return NextResponse.json(
+        { error: result.error },
+        { status: 400 }
+      );
+    }
+
+    console.log("✅ Booking created successfully:", result.booking.bookingReference);
+    return NextResponse.json(result.booking);
+
+  } catch (error) {
+    console.error("❌ Booking creation error:", error);
     return NextResponse.json(
       { error: "Failed to create booking" },
       { status: 500 }
@@ -230,57 +101,20 @@ export async function GET(request: NextRequest) {
 
     if (getAllBookings && isAdmin) {
       // Admin can get all bookings
-      const bookings = await prisma.booking.findMany({
-        include: {
-          user: {
-            select: {
-              name: true,
-              email: true,
-            },
-          },
-          // dahabiya: {  // REMOVED: dahabiya relation removed
-          //   select: {
-          //     name: true,
-          //     mainImageUrl: true,
-          //   },
-          // },
-          package: {
-            select: {
-              name: true,
-              mainImageUrl: true,
-            },
-          },
-        },
-        orderBy: { createdAt: 'desc' },
-      });
+      console.log("📋 Admin fetching all bookings");
+      const bookings = await CleanBookingService.getAllBookings();
       return NextResponse.json({ bookings });
     } else {
       // Regular users get only their bookings
-      const bookings = await prisma.booking.findMany({
-        where: {
-          userId: session.user.id,
-        },
-        include: {
-          package: {
-            select: {
-              name: true,
-              mainImageUrl: true,
-            },
-          },
-        },
-        orderBy: {
-          createdAt: 'desc',
-        },
-      });
+      console.log("📋 User fetching their bookings");
+      const bookings = await CleanBookingService.getUserBookings(session.user.id);
       return NextResponse.json({ bookings });
     }
   } catch (error) {
-    console.error('Error fetching bookings:', error);
+    console.error('❌ Error fetching bookings:', error);
     return NextResponse.json(
       { error: 'Failed to fetch bookings' },
       { status: 500 }
     );
   }
 }
-
-

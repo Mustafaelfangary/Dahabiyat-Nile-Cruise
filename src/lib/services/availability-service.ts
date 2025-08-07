@@ -1,203 +1,416 @@
 import { prisma } from '@/lib/prisma';
 
 export interface AvailabilityCheck {
-  dahabiyaId: string;
+  type: 'DAHABIYA' | 'PACKAGE';
+  itemId: string;
   startDate: Date;
   endDate: Date;
   guests: number;
+  excludeBookingId?: string;
 }
 
 export interface AvailabilityResult {
   isAvailable: boolean;
+  message: string;
   totalPrice: number;
-  message?: string;
+  availableDates?: Date[];
+  conflictingBookings?: any[];
+  alternatives?: any[];
 }
 
-export class AvailabilityService {
+export class CleanAvailabilityService {
+  /**
+   * Check availability for dahabiya or package
+   */
   static async checkAvailability({
-    dahabiyaId,
+    type,
+    itemId,
     startDate,
     endDate,
     guests,
+    excludeBookingId
   }: AvailabilityCheck): Promise<AvailabilityResult> {
     try {
-      console.log('🔍 Checking availability for:', { dahabiyaId, startDate, endDate, guests });
+      console.log(`🔍 Checking ${type} availability:`, { itemId, startDate, endDate, guests });
 
-      // STEP 1: Check availability dates from admin panel
-      const availabilityDates = await prisma.availabilityDate.findMany({
+      // Validate dates
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      if (startDate < today) {
+        return {
+          isAvailable: false,
+          message: 'Start date cannot be in the past',
+          totalPrice: 0
+        };
+      }
+
+      if (startDate >= endDate) {
+        return {
+          isAvailable: false,
+          message: 'End date must be after start date',
+          totalPrice: 0
+        };
+      }
+
+      if (type === 'DAHABIYA') {
+        return await this.checkDahabiyaAvailability(itemId, startDate, endDate, guests, excludeBookingId);
+      } else {
+        return await this.checkPackageAvailability(itemId, startDate, endDate, guests, excludeBookingId);
+      }
+    } catch (error) {
+      console.error('Availability check error:', error);
+      return {
+        isAvailable: false,
+        message: 'Error checking availability',
+        totalPrice: 0
+      };
+    }
+  }
+
+  /**
+   * Check dahabiya availability
+   */
+  private static async checkDahabiyaAvailability(
+    dahabiyaId: string,
+    startDate: Date,
+    endDate: Date,
+    guests: number,
+    excludeBookingId?: string
+  ): Promise<AvailabilityResult> {
+    // Get dahabiya details
+    const dahabiya = await prisma.dahabiya.findUnique({
+      where: { id: dahabiyaId },
+      select: {
+        id: true,
+        name: true,
+        capacity: true,
+        pricePerDay: true,
+        isActive: true
+      }
+    });
+
+    if (!dahabiya) {
+      return {
+        isAvailable: false,
+        message: 'Dahabiya not found',
+        totalPrice: 0
+      };
+    }
+
+    if (!dahabiya.isActive) {
+      return {
+        isAvailable: false,
+        message: 'Dahabiya is not currently available',
+        totalPrice: 0
+      };
+    }
+
+    // Check capacity
+    if (guests > dahabiya.capacity) {
+      return {
+        isAvailable: false,
+        message: `Maximum ${dahabiya.capacity} guests allowed`,
+        totalPrice: 0
+      };
+    }
+
+    // Check for conflicting bookings
+    const whereClause: any = {
+      dahabiyaId,
+      status: { in: ['PENDING', 'CONFIRMED'] },
+      OR: [
+        {
+          startDate: { lte: startDate },
+          endDate: { gt: startDate }
+        },
+        {
+          startDate: { lt: endDate },
+          endDate: { gte: endDate }
+        },
+        {
+          startDate: { gte: startDate },
+          endDate: { lte: endDate }
+        }
+      ]
+    };
+
+    if (excludeBookingId) {
+      whereClause.id = { not: excludeBookingId };
+    }
+
+    const conflictingBookings = await prisma.booking.findMany({
+      where: whereClause,
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        status: true,
+        bookingReference: true
+      }
+    });
+
+    if (conflictingBookings.length > 0) {
+      return {
+        isAvailable: false,
+        message: 'Selected dates are not available',
+        totalPrice: 0,
+        conflictingBookings
+      };
+    }
+
+    // Check admin-set availability dates
+    const unavailableDates = await prisma.availabilityDate.findMany({
+      where: {
+        dahabiyaId,
+        date: {
+          gte: startDate,
+          lte: endDate
+        },
+        available: false
+      }
+    });
+
+    if (unavailableDates.length > 0) {
+      return {
+        isAvailable: false,
+        message: 'Some dates in the selected range are not available',
+        totalPrice: 0
+      };
+    }
+
+    // Calculate total price
+    const durationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    const totalPrice = durationDays * dahabiya.pricePerDay;
+
+    return {
+      isAvailable: true,
+      message: 'Available',
+      totalPrice
+    };
+  }
+
+  /**
+   * Check package availability
+   */
+  private static async checkPackageAvailability(
+    packageId: string,
+    startDate: Date,
+    endDate: Date,
+    guests: number,
+    excludeBookingId?: string
+  ): Promise<AvailabilityResult> {
+    // Get package details
+    const packageData = await prisma.package.findUnique({
+      where: { id: packageId },
+      select: {
+        id: true,
+        name: true,
+        maxGuests: true,
+        price: true,
+        isActive: true,
+        durationDays: true
+      }
+    });
+
+    if (!packageData) {
+      return {
+        isAvailable: false,
+        message: 'Package not found',
+        totalPrice: 0
+      };
+    }
+
+    if (!packageData.isActive) {
+      return {
+        isAvailable: false,
+        message: 'Package is not currently available',
+        totalPrice: 0
+      };
+    }
+
+    // Check capacity
+    if (guests > packageData.maxGuests) {
+      return {
+        isAvailable: false,
+        message: `Maximum ${packageData.maxGuests} guests allowed`,
+        totalPrice: 0
+      };
+    }
+
+    // Validate duration matches package
+    const requestedDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+    if (requestedDays !== packageData.durationDays) {
+      return {
+        isAvailable: false,
+        message: `This package requires exactly ${packageData.durationDays} days`,
+        totalPrice: 0
+      };
+    }
+
+    // Check for conflicting package bookings
+    const whereClause: any = {
+      packageId,
+      status: { in: ['PENDING', 'CONFIRMED'] },
+      OR: [
+        {
+          startDate: { lte: startDate },
+          endDate: { gt: startDate }
+        },
+        {
+          startDate: { lt: endDate },
+          endDate: { gte: endDate }
+        },
+        {
+          startDate: { gte: startDate },
+          endDate: { lte: endDate }
+        }
+      ]
+    };
+
+    if (excludeBookingId) {
+      whereClause.id = { not: excludeBookingId };
+    }
+
+    const conflictingBookings = await prisma.booking.findMany({
+      where: whereClause,
+      select: {
+        id: true,
+        startDate: true,
+        endDate: true,
+        status: true,
+        bookingReference: true
+      }
+    });
+
+    if (conflictingBookings.length > 0) {
+      return {
+        isAvailable: false,
+        message: 'Selected dates are not available for this package',
+        totalPrice: 0,
+        conflictingBookings
+      };
+    }
+
+    // Calculate total price (packages have fixed pricing)
+    const totalPrice = packageData.price * guests;
+
+    return {
+      isAvailable: true,
+      message: 'Available',
+      totalPrice
+    };
+  }
+
+  /**
+   * Get available dates for a dahabiya (for calendar display)
+   */
+  static async getAvailableDates(dahabiyaId: string, startMonth: Date, endMonth: Date) {
+    try {
+      // Get all bookings in the date range
+      const bookings = await prisma.booking.findMany({
+        where: {
+          dahabiyaId,
+          status: { in: ['PENDING', 'CONFIRMED'] },
+          startDate: { lte: endMonth },
+          endDate: { gte: startMonth }
+        },
+        select: {
+          startDate: true,
+          endDate: true
+        }
+      });
+
+      // Get admin-set unavailable dates
+      const unavailableDates = await prisma.availabilityDate.findMany({
         where: {
           dahabiyaId,
           date: {
-            gte: startDate,
-            lte: endDate
-          }
-        }
-      });
-
-      console.log('📅 Found availability dates:', availabilityDates.length);
-      console.log('📅 Availability dates:', availabilityDates.map(ad => ({
-        date: new Date(ad.date.getTime() + ad.date.getTimezoneOffset() * 60000).toISOString().split('T')[0],
-        available: ad.available
-      })));
-
-      // Check if all dates in the range are marked as available
-      const dateRange = [];
-      const currentDate = new Date(startDate.getTime());
-      const endDateTime = new Date(endDate.getTime());
-
-      // Include start date but exclude end date (standard booking practice)
-      while (currentDate < endDateTime) {
-        dateRange.push(new Date(currentDate.getTime()).toISOString().split('T')[0]);
-        currentDate.setDate(currentDate.getDate() + 1);
-      }
-
-      console.log('📅 Date range to check:', dateRange);
-
-      // Check if all dates are available
-      const unavailableDates = [];
-      for (const dateStr of dateRange) {
-        const availabilityDate = availabilityDates.find(ad => {
-          // Fix date comparison - normalize both dates to YYYY-MM-DD format
-          const adDateStr = new Date(ad.date.getTime() + ad.date.getTimezoneOffset() * 60000).toISOString().split('T')[0];
-          return adDateStr === dateStr;
-        });
-
-        if (!availabilityDate) {
-          console.log('❌ No availability data for date:', dateStr);
-          unavailableDates.push(dateStr);
-        } else if (!availabilityDate.available) {
-          console.log('❌ Date marked as blocked:', dateStr);
-          unavailableDates.push(dateStr);
-        } else {
-          console.log('✅ Date available:', dateStr);
-        }
-      }
-
-      if (unavailableDates.length > 0) {
-        console.log('❌ Unavailable dates found:', unavailableDates);
-        return {
-          isAvailable: false,
-          availableCabins: [],
-          totalPrice: 0,
-        };
-      }
-
-      console.log('✅ All dates are available, checking dahabiya details...');
-
-      // STEP 2: Get the dahabiya with its details
-      const dahabiya = await prisma.dahabiya.findUnique({
-        where: { id: dahabiyaId },
-        include: {
-          bookings: {
-            where: {
-              AND: [
-                { startDate: { lt: endDate } },
-                { endDate: { gt: startDate } },
-                { status: { in: ['CONFIRMED', 'PENDING'] } }
-              ]
-            },
+            gte: startMonth,
+            lte: endMonth
           },
+          available: false
         },
+        select: {
+          date: true
+        }
       });
 
-      if (!dahabiya) {
-        return {
-          isAvailable: false,
-          totalPrice: 0,
-          message: 'Dahabiya not found',
-        };
-      }
+      // Create array of unavailable dates
+      const unavailableDateSet = new Set();
 
-      // Calculate nights
-      const nights = Math.ceil(
-        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-      );
+      // Add booking dates
+      bookings.forEach(booking => {
+        const start = new Date(booking.startDate);
+        const end = new Date(booking.endDate);
+        
+        for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+          unavailableDateSet.add(d.toISOString().split('T')[0]);
+        }
+      });
 
-      // Check if dahabiya has capacity for guests
-      if (dahabiya.capacity < guests) {
-        return {
-          isAvailable: false,
-          totalPrice: 0,
-          message: `Dahabiya capacity (${dahabiya.capacity}) is less than requested guests (${guests})`,
-        };
-      }
-
-      // Check if dahabiya is already booked for the requested dates
-      const isBooked = dahabiya.bookings.length > 0;
-
-      if (isBooked) {
-        return {
-          isAvailable: false,
-          totalPrice: 0,
-          message: 'Dahabiya is already booked for the selected dates',
-        };
-      }
-
-      // Calculate total price
-      const totalPrice = Number(dahabiya.pricePerDay) * nights;
+      // Add admin-set unavailable dates
+      unavailableDates.forEach(date => {
+        unavailableDateSet.add(date.date.toISOString().split('T')[0]);
+      });
 
       return {
-        isAvailable: true,
-        totalPrice,
-        message: 'Dahabiya is available for booking',
+        success: true,
+        unavailableDates: Array.from(unavailableDateSet)
       };
     } catch (error) {
-      console.error('Error checking availability:', error);
+      console.error('Error getting available dates:', error);
       return {
-        isAvailable: false,
-        totalPrice: 0,
-        message: 'Error checking availability',
+        success: false,
+        error: 'Failed to get available dates'
       };
     }
   }
 
-  static async getAvailabilityCalendar(
-    dahabiyaId: string,
-    month: number,
-    year: number
+  /**
+   * Find alternative dates if requested dates are not available
+   */
+  static async findAlternatives(
+    type: 'DAHABIYA' | 'PACKAGE',
+    itemId: string,
+    preferredStartDate: Date,
+    duration: number,
+    guests: number
   ) {
-    const startDate = new Date(year, month, 1);
-    const endDate = new Date(year, month + 1, 0);
+    try {
+      const alternatives = [];
+      const searchRange = 30; // Search 30 days before and after preferred date
 
-    const bookings = await prisma.booking.findMany({
-      where: {
-        dahabiyaId,
-        OR: [
-          {
-            AND: [
-              { startDate: { lte: startDate } },
-              { endDate: { gte: startDate } },
-            ],
-          },
-          {
-            AND: [
-              { startDate: { lte: endDate } },
-              { endDate: { gte: endDate } },
-            ],
-          },
-        ],
-        status: 'CONFIRMED',
-      },
-      select: {
-        startDate: true,
-        endDate: true,
-        cabinId: true,
-      },
-    });
+      for (let offset = -searchRange; offset <= searchRange; offset += 7) {
+        if (alternatives.length >= 3) break; // Limit to 3 alternatives
 
-    const calendar: { [key: string]: boolean } = {};
-    const currentDate = new Date(startDate);
+        const testStartDate = new Date(preferredStartDate);
+        testStartDate.setDate(testStartDate.getDate() + offset);
+        
+        const testEndDate = new Date(testStartDate);
+        testEndDate.setDate(testEndDate.getDate() + duration);
 
-    while (currentDate <= endDate) {
-      const dateKey = currentDate.toISOString().split('T')[0];
-      const isBooked = bookings.some(
-        booking =>
-          currentDate >= booking.startDate && currentDate <= booking.endDate
-      );
-      calendar[dateKey] = !isBooked;
-      currentDate.setDate(currentDate.getDate() + 1);
+        const availability = await this.checkAvailability({
+          type,
+          itemId,
+          startDate: testStartDate,
+          endDate: testEndDate,
+          guests
+        });
+
+        if (availability.isAvailable) {
+          alternatives.push({
+            startDate: testStartDate,
+            endDate: testEndDate,
+            totalPrice: availability.totalPrice
+          });
+        }
+      }
+
+      return alternatives;
+    } catch (error) {
+      console.error('Error finding alternatives:', error);
+      return [];
     }
-
-    return calendar;
   }
-} 
+}
