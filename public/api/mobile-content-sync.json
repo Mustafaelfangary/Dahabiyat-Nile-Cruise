@@ -1,112 +1,132 @@
 {
   "version": "1.0.0",
-  "lastUpdated": "2025-08-05T11:26:48.593Z",
+  "lastUpdated": "2025-08-07T10:45:12.685Z",
   "platform": "mobile",
   "content": {
-    "footer_developer_name": {
-      "value": "Just X Development",
-      "type": "TEXT",
-      "title": "Developer Name"
-    },
-    "footer_developer_company": {
-      "value": "Just X",
-      "type": "TEXT",
-      "title": "Developer Company"
-    },
-    "footer_developer_phone": {
-      "value": "+20 1200958713",
-      "type": "TEXT",
-      "title": "Developer Phone"
-    },
-    "footer_developer_email": {
-      "value": "just-x1@outlook.com",
-      "type": "TEXT",
-      "title": "Developer Email"
-    },
-    "footer_developer_website": {
-      "value": "https://justx.com",
-      "type": "TEXT",
-      "title": "Developer Website"
-    },
-    "footer_developer_logo": {
-      "value": "/images/94cb4d03-c000-4b5a-9f74-94a6ff0b1668.webp",
-      "type": "IMAGE",
-      "title": "Developer Logo"
-    },
-    "footer_developer_branding_text": {
-      "value": "crafted with love in the land of the Pharaohs by Just X",
-      "type": "TEXT",
-      "title": "Developer Branding Text"
-    },
-    "footer_developer_contact_text": {
-      "value": "Contact Developer",
-      "type": "TEXT",
-      "title": "Contact Button Text"
-    },
-    "footer_developer_contact_modal_title": {
-      "value": "Contact Developer",
-      "type": "TEXT",
-      "title": "Contact Modal Title"
+    "packages_hero_description": {
+      "value": "From romantic getaways to family adventures, discover our carefully crafted packages that combine luxury, culture, and unforgettable experiences along the eternal Nile.",
+      "type": "TEXTAREA",
+      "title": "Packages Hero Description"
     },
     "itineraries_hero_title": {
-      "value": "Discover Egypt",
+      "value": "Discover Ancient Egypt",
       "type": "TEXT",
-      "title": "Hero Title"
+      "title": "Itineraries Hero Title"
+    },
+    "itineraries_hero_subtitle": {
+      "value": "Journey Through Time on the Eternal Nile",
+      "type": "TEXT",
+      "title": "Itineraries Hero Subtitle"
+    },
+    "itineraries_hero_description": {
+      "value": "Explore our carefully crafted itineraries that take you through 5000 years of Egyptian history. Each journey is designed to immerse you in the wonders of ancient civilization while enjoying modern luxury aboard our traditional dahabiyas.",
+      "type": "TEXTAREA",
+      "title": "Itineraries Hero Description"
+    },
+    "itineraries_hero_cta_text": {
+      "value": "Explore All Journeys",
+      "type": "TEXT",
+      "title": "Itineraries CTA Button Text"
+    },
+    "itineraries_no_itineraries_title": {
+      "value": "No Journeys Found",
+      "type": "TEXT",
+      "title": "No Itineraries Title"
+    },
+    "itineraries_no_itineraries_description": {
+      "value": "We couldn't find any itineraries matching your criteria. Please adjust your filters or contact us to create a custom journey just for you.",
+      "type": "TEXTAREA",
+      "title": "No Itineraries Description"
+    },
+    "itineraries_loading_text": {
+      "value": "Discovering your perfect journey...",
+      "type": "TEXT",
+      "title": "Loading Text"
     },
     "site_logo": {
-      "value": "/images/3439be6e-0ef1-483d-b01b-23426d8f0181.webp",
+      "value": "/images/eb31c0f1-1799-4b7f-85c5-8f62a55a6010.webp",
       "type": "IMAGE",
       "title": "Site Logo"
     },
-    "hero_title": {
-      "value": "Discover the Timeless Beauty of the Nile",
-      "type": "TEXT",
-      "title": "Hero Title"
-    },
-    "hero_subtitle": {
-      "value": "Experience authentic Egyptian hospitality aboard our traditional dahabiyat",
-      "type": "TEXT",
-      "title": "Hero Subtitle"
-    },
-    "hero_video_poster": {
-      "value": "/images/hero-poster.jpg",
-      "type": "IMAGE",
-      "title": "Hero Video Poster"
-    },
-    "contact_hero_title": {
-      "value": "Get in Touch",
-      "type": "TEXT",
-      "title": "Contact Hero Title"
-    },
-    "contact_hero_subtitle": {
-      "value": "We're here to help plan your perfect Nile journey",
-      "type": "TEXT",
-      "title": "Contact Hero Subtitle"
-    },
-    "dahabiyas_hero_title": {
-      "value": "Our Luxury Fleet",
-      "type": "TEXT",
-      "title": "Dahabiyas Hero Title"
-    },
-    "dahabiyas_hero_subtitle": {
-      "value": "Choose from our collection of traditional dahabiyat",
-      "type": "TEXT",
-      "title": "Dahabiyas Hero Subtitle"
-    },
     "packages_hero_title": {
-      "value": "Our Packages",
+      "value": "Our Luxury Packages",
       "type": "TEXT",
       "title": "Packages Hero Title"
     },
     "packages_hero_subtitle": {
-      "value": "Curated experiences for every type of traveler",
+      "value": "Curated Experiences for Every Type of Traveler",
       "type": "TEXT",
       "title": "Packages Hero Subtitle"
     },
+    "dahabiyas_hero_title": {
+      "value": "Our Magnificent Fleet",
+      "type": "TEXT",
+      "title": "Dahabiyas Hero Title"
+    },
+    "dahabiyas_hero_subtitle": {
+      "value": "Traditional Sailing Vessels with Modern Luxury",
+      "type": "TEXT",
+      "title": "Dahabiyas Hero Subtitle"
+    },
+    "dahabiyas_hero_description": {
+      "value": "Experience the timeless elegance of traditional Egyptian sailing boats, meticulously restored and equipped with modern amenities for the ultimate Nile journey.",
+      "type": "TEXTAREA",
+      "title": "Dahabiyas Hero Description"
+    },
+    "hero_video_poster": {
+      "value": "/images/hero-bg.jpg",
+      "type": "IMAGE",
+      "title": "Hero Video Poster"
+    },
     "hero_video_url": {
-      "value": "/videos/61e304cc-7995-412b-a180-6af4e6c04470.mp4",
+      "value": "/videos/home_hero_video.mp4",
       "type": "VIDEO",
       "title": "Hero Video URL"
+    },
+    "footer-address": {
+      "value": "Luxor, Egypt",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-phone": {
+      "value": "+20 123 456 789",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-email": {
+      "value": "info@cleopatradahabiyat.com",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-facebook": {
+      "value": "https://facebook.com/cleopatradahabiyat",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-twitter": {
+      "value": "https://twitter.com/cleopatradahabiyat",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-instagram": {
+      "value": "https://instagram.com/cleopatradahabiyat",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer_developer_logo": {
+      "value": "/images/logo-white.png",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer-company-name": {
+      "value": "Cleopatra Dahabiyat",
+      "type": "TEXT",
+      "title": null
+    },
+    "footer_developer_contact_text": {
+      "value": "Contact Developer",
+      "type": "TEXT",
+      "title": null
     }
   }
 }
