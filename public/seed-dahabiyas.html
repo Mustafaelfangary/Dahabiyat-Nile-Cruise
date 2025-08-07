@@ -135,7 +135,7 @@
                 const endDate = new Date(startDate);
                 endDate.setDate(endDate.getDate() + 5);
                 
-                const availabilityResponse = await fetch('/api/availability/check', {
+                const availabilityResponse = await fetch('/api/availability', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'

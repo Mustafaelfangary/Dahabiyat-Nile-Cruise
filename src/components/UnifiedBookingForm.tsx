@@ -111,7 +111,7 @@ export default function UnifiedBookingForm({
 
     try {
       setCheckingAvailability(true);
-      const response = await fetch('/api/availability/check', {
+      const response = await fetch('/api/availability', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
