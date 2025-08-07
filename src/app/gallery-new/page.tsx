@@ -109,20 +109,20 @@ export default function EnhancedGalleryPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl text-egyptian-gold animate-pulse mb-4">𓇳</div>
-          <div className="text-xl text-hieroglyph-brown">Loading Gallery...</div>
+          <div className="text-6xl text-ocean-blue animate-pulse mb-4">𓇳</div>
+          <div className="text-xl text-deep-blue">Loading Gallery...</div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
       {/* Hero Section */}
-      <section className="relative py-24 bg-gradient-to-r from-egyptian-gold to-sunset-orange overflow-hidden">
-        <div className="absolute inset-0 bg-hieroglyph-brown/20"></div>
+      <section className="relative py-24 bg-gradient-to-r from-ocean-blue to-deep-blue overflow-hidden">
+        <div className="absolute inset-0 bg-deep-blue/20"></div>
         <Container maxWidth="lg">
           <div className="relative z-10 text-center text-white">
             <div className="text-6xl font-bold mb-4">
@@ -147,19 +147,19 @@ export default function EnhancedGalleryPage() {
       </section>
 
       {/* Controls Section */}
-      <section className="py-8 bg-white/80 backdrop-blur-sm border-b border-egyptian-gold/20">
+      <section className="py-8 bg-white/80 backdrop-blur-sm border-b border-ocean-blue/20">
         <Container maxWidth="lg">
           <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
             {/* Search */}
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-hieroglyph-brown w-5 h-5" />
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-deep-blue w-5 h-5" />
               <Input
                 id="gallery-search"
                 name="search"
                 placeholder="Search images..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-10 border-egyptian-gold/30 focus:border-egyptian-gold"
+                className="pl-10 border-ocean-blue/30 focus:border-ocean-blue"
               />
             </div>
 
@@ -169,8 +169,8 @@ export default function EnhancedGalleryPage() {
                 variant={selectedCategory === 'all' ? 'primary' : 'outline'}
                 onClick={() => setSelectedCategory('all')}
                 className={selectedCategory === 'all' 
-                  ? 'bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90' 
-                  : 'border-egyptian-gold/30 text-hieroglyph-brown hover:bg-egyptian-gold/10'
+                  ? 'bg-ocean-blue text-deep-blue hover:bg-ocean-blue/90' 
+                  : 'border-ocean-blue/30 text-deep-blue hover:bg-ocean-blue/10'
                 }
               >
                 <span className="mr-2">𓇳</span>
@@ -182,8 +182,8 @@ export default function EnhancedGalleryPage() {
                   variant={selectedCategory === category.id ? 'primary' : 'outline'}
                   onClick={() => setSelectedCategory(category.id)}
                   className={selectedCategory === category.id 
-                    ? 'bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-gold/90' 
-                    : 'border-egyptian-gold/30 text-hieroglyph-brown hover:bg-egyptian-gold/10'
+                    ? 'bg-ocean-blue text-deep-blue hover:bg-ocean-blue/90' 
+                    : 'border-ocean-blue/30 text-deep-blue hover:bg-ocean-blue/10'
                   }
                 >
                   <span className="mr-2">{category.hieroglyph || '𓊪'}</span>
@@ -199,8 +199,8 @@ export default function EnhancedGalleryPage() {
                 size="sm"
                 onClick={() => setViewMode('grid')}
                 className={viewMode === 'grid' 
-                  ? 'bg-egyptian-gold text-hieroglyph-brown' 
-                  : 'border-egyptian-gold/30 text-hieroglyph-brown'
+                  ? 'bg-ocean-blue text-deep-blue' 
+                  : 'border-ocean-blue/30 text-deep-blue'
                 }
               >
                 <Grid className="w-4 h-4" />
@@ -210,8 +210,8 @@ export default function EnhancedGalleryPage() {
                 size="sm"
                 onClick={() => setViewMode('masonry')}
                 className={viewMode === 'masonry' 
-                  ? 'bg-egyptian-gold text-hieroglyph-brown' 
-                  : 'border-egyptian-gold/30 text-hieroglyph-brown'
+                  ? 'bg-ocean-blue text-deep-blue' 
+                  : 'border-ocean-blue/30 text-deep-blue'
                 }
               >
                 <List className="w-4 h-4" />
@@ -226,8 +226,8 @@ export default function EnhancedGalleryPage() {
         <Container maxWidth="lg">
           {filteredImages.length === 0 ? (
             <div className="text-center py-20">
-              <div className="text-6xl text-egyptian-gold mb-4">𓈖</div>
-              <h3 className="text-2xl font-bold text-hieroglyph-brown mb-2">No Images Found</h3>
+              <div className="text-6xl text-ocean-blue mb-4">𓈖</div>
+              <h3 className="text-2xl font-bold text-deep-blue mb-2">No Images Found</h3>
               <p className="text-gray-600">Try adjusting your search or category filter.</p>
             </div>
           ) : (
@@ -244,7 +244,7 @@ export default function EnhancedGalleryPage() {
                   transition={{ delay: index * 0.1 }}
                   className={viewMode === 'masonry' ? 'break-inside-avoid mb-6' : ''}
                 >
-                  <PharaonicCard className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/95 backdrop-blur-sm border border-egyptian-gold/30">
+                  <PharaonicCard className="group cursor-pointer overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/95 backdrop-blur-sm border border-ocean-blue/30">
                     <div className="relative aspect-square overflow-hidden" onClick={() => openLightbox(image)}>
                       <Image
                         src={image.url}
@@ -255,7 +255,7 @@ export default function EnhancedGalleryPage() {
                       />
                       
                       {/* Hover Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-egyptian-gold/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-ocean-blue/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
                           <div className="flex items-center justify-between text-white">
                             <div className="flex items-center gap-2">
@@ -270,7 +270,7 @@ export default function EnhancedGalleryPage() {
                       {/* Featured Badge */}
                       {image.isFeatured && (
                         <div className="absolute top-2 right-2">
-                          <Badge className="bg-egyptian-gold text-hieroglyph-brown">
+                          <Badge className="bg-ocean-blue text-deep-blue">
                             <span className="mr-1">𓇳</span>
                             Featured
                           </Badge>
@@ -282,13 +282,13 @@ export default function EnhancedGalleryPage() {
                     {(image.title || image.description) && (
                       <CardContent className="p-4">
                         {image.title && (
-                          <h3 className="font-bold text-hieroglyph-brown mb-2">{image.title}</h3>
+                          <h3 className="font-bold text-deep-blue mb-2">{image.title}</h3>
                         )}
                         {image.description && (
                           <p className="text-sm text-gray-600 mb-3">{image.description}</p>
                         )}
                         <div className="flex items-center justify-between">
-                          <Badge variant="outline" className="border-egyptian-gold/30 text-hieroglyph-brown">
+                          <Badge variant="outline" className="border-ocean-blue/30 text-deep-blue">
                             <span className="mr-1">{image.category.hieroglyph || '𓊪'}</span>
                             {image.category.name}
                           </Badge>
@@ -323,7 +323,7 @@ export default function EnhancedGalleryPage() {
             {/* Close Button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-4 right-4 z-[10000] bg-egyptian-gold/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-egyptian-gold/40 transition-all duration-200"
+              className="absolute top-4 right-4 z-[10000] bg-ocean-blue/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-ocean-blue/40 transition-all duration-200"
             >
               <X className="w-6 h-6" />
             </button>
@@ -333,13 +333,13 @@ export default function EnhancedGalleryPage() {
               <>
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('prev'); }}
-                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-[10000] bg-egyptian-gold/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-egyptian-gold/40 transition-all duration-200"
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 z-[10000] bg-ocean-blue/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-ocean-blue/40 transition-all duration-200"
                 >
                   <ChevronLeft className="w-6 h-6" />
                 </button>
                 <button
                   onClick={(e) => { e.stopPropagation(); navigateImage('next'); }}
-                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-[10000] bg-egyptian-gold/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-egyptian-gold/40 transition-all duration-200"
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 z-[10000] bg-ocean-blue/20 backdrop-blur-sm text-white p-3 rounded-full hover:bg-ocean-blue/40 transition-all duration-200"
                 >
                   <ChevronRight className="w-6 h-6" />
                 </button>
@@ -347,10 +347,10 @@ export default function EnhancedGalleryPage() {
             )}
 
             {/* Egyptian decorative elements */}
-            <div className="absolute top-4 left-4 text-egyptian-gold text-2xl animate-pulse">𓇳</div>
-            <div className="absolute top-4 right-20 text-egyptian-gold text-2xl animate-pulse">𓊪</div>
-            <div className="absolute bottom-4 left-4 text-egyptian-gold text-2xl animate-pulse">𓈖</div>
-            <div className="absolute bottom-4 right-4 text-egyptian-gold text-2xl animate-pulse">𓂀</div>
+            <div className="absolute top-4 left-4 text-ocean-blue text-2xl animate-pulse">𓇳</div>
+            <div className="absolute top-4 right-20 text-ocean-blue text-2xl animate-pulse">𓊪</div>
+            <div className="absolute bottom-4 left-4 text-ocean-blue text-2xl animate-pulse">𓈖</div>
+            <div className="absolute bottom-4 right-4 text-ocean-blue text-2xl animate-pulse">𓂀</div>
 
             {/* Image Container */}
             <motion.div
@@ -373,14 +373,14 @@ export default function EnhancedGalleryPage() {
 
             {/* Image Info */}
             {(selectedImage.title || selectedImage.description) && (
-              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-hieroglyph-brown/80 backdrop-blur-sm text-white px-6 py-3 rounded-lg max-w-md text-center">
+              <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-deep-blue/80 backdrop-blur-sm text-white px-6 py-3 rounded-lg max-w-md text-center">
                 {selectedImage.title && (
                   <h3 className="font-bold mb-1">{selectedImage.title}</h3>
                 )}
                 {selectedImage.description && (
                   <p className="text-sm opacity-90">{selectedImage.description}</p>
                 )}
-                <div className="flex items-center justify-center gap-2 mt-2 text-egyptian-gold">
+                <div className="flex items-center justify-center gap-2 mt-2 text-ocean-blue">
                   <span>{selectedImage.category.hieroglyph || '𓊪'}</span>
                   <span className="text-white">•</span>
                   <span className="text-sm">{selectedImage.category.name}</span>

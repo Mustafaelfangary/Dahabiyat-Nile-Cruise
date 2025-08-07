@@ -248,44 +248,39 @@ export default function Navbar() {
     { href: "/contact", label: `𓏏 ${t('contact')} 𓏏`, hieroglyph: "𓏏" },
   ];
 
-  // Dark blue navbar styling for all pages
+  // Ocean blue navbar styling for all pages with black text
   const getNavbarStyle = () => {
-    // All pages: Dark blue background with white text
+    // All pages: Ocean blue/pale blue background with black text for clarity
     return {
       background: scrolled
-        ? 'rgba(0, 61, 122, 0.98)'  // Deep blue
-        : 'rgba(0, 31, 63, 0.95)',  // Navy blue
+        ? 'rgba(0, 128, 255, 0.95)'  // Ocean blue
+        : 'rgba(153, 204, 255, 0.90)',  // Pale blue (ocean-blue-lightest)
       backdropFilter: scrolled ? 'blur(25px)' : 'blur(20px)',
       boxShadow: scrolled
-        ? '0 2px 20px rgba(0, 128, 255, 0.3)'  // Ocean blue shadow
-        : '0 2px 15px rgba(0, 128, 255, 0.2)',
+        ? '0 2px 20px rgba(0, 128, 255, 0.4)'  // Ocean blue shadow
+        : '0 2px 15px rgba(0, 128, 255, 0.3)',
       borderBottom: scrolled
-        ? '1px solid rgba(0, 128, 255, 0.4)'  // Ocean blue border
-        : '1px solid rgba(0, 128, 255, 0.3)'
+        ? '1px solid rgba(0, 128, 255, 0.6)'  // Ocean blue border
+        : '1px solid rgba(0, 128, 255, 0.4)'
     };
   };
 
-  // White text colors for dark blue background
+  // Black text colors for ocean blue background
   const getTextColor = (isLogo = false) => {
-    // White text on dark blue background
-    return 'hsl(0, 0%, 100%)';  // White
+    // Black text on ocean blue background for best clarity
+    return 'hsl(0, 0%, 0%)';  // Black
   };
 
-  // White link colors for dark blue background
+  // Black link colors for ocean blue background
   const getLinkColor = () => {
-    // White for links with hover effect
-    return 'hsl(0, 0%, 100%)';  // White
+    // Black for links with hover effect
+    return 'hsl(0, 0%, 0%)';  // Black
   };
 
-  // Ocean blue hover colors based on page and scroll state
+  // Dark blue hover colors for black text on ocean blue background
   const getHoverColor = () => {
-    if (isHomepage) {
-      return scrolled
-        ? 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)'  // Ocean blue to blue
-        : 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)';
-    } else {
-      return 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)';  // Consistent ocean blue gradient
-    }
+    // Dark blue hover effect for better contrast with black text
+    return 'hsl(220, 100%, 30%)';  // Dark blue for hover
   };
 
   const navbarStyle = getNavbarStyle();

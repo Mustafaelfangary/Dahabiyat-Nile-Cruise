@@ -3,7 +3,7 @@ import React from 'react';
 // Hieroglyphic Text Component
 export const HieroglyphicText = ({ text, className = "" }: { text: string; className?: string }) => {
   return (
-    <div className={`font-hieroglyphic text-egyptian-gold ${className}`}>
+    <div className={`font-hieroglyphic text-ocean-blue ${className}`}>
       {text}
     </div>
   );
@@ -27,20 +27,20 @@ export const ObeliskContainer = ({ children, className = "" }: { children: React
   return (
     <div className={`relative ${className}`}>
       {/* Obelisk Shape */}
-      <div className="relative bg-gradient-to-b from-egyptian-gold/20 via-egyptian-gold/10 to-white/20 
-                      backdrop-blur-sm bg-white/95 border-2 border-egyptian-gold/30 rounded-t-3xl rounded-b-lg
-                      shadow-2xl shadow-egyptian-gold/20">
+      <div className="relative bg-gradient-to-b from-ocean-blue/20 via-ocean-blue/10 to-white/20 
+                      backdrop-blur-sm bg-white/95 border-2 border-ocean-blue/30 rounded-t-3xl rounded-b-lg
+                      shadow-2xl shadow-ocean-blue/20">
         {/* Pyramid Top */}
         <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-0 h-0 
                         border-l-[30px] border-r-[30px] border-b-[24px] 
-                        border-l-transparent border-r-transparent border-b-egyptian-gold/80">
+                        border-l-transparent border-r-transparent border-b-ocean-blue/80">
         </div>
         
         {/* Hieroglyphic Decorations */}
-        <div className="absolute top-4 left-4 text-egyptian-gold/60 text-sm">
+        <div className="absolute top-4 left-4 text-ocean-blue/60 text-sm">
           𓂀 𓈖 𓇳
         </div>
-        <div className="absolute top-4 right-4 text-egyptian-gold/60 text-sm">
+        <div className="absolute top-4 right-4 text-ocean-blue/60 text-sm">
           𓊪 𓏏 𓇯
         </div>
         
@@ -50,8 +50,8 @@ export const ObeliskContainer = ({ children, className = "" }: { children: React
         </div>
         
         {/* Bottom Hieroglyphic Border */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-r from-egyptian-gold/20 via-coral-bright/40 to-egyptian-gold/20 
-                        flex items-center justify-center text-egyptian-gold/80 text-xs">
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-r from-ocean-blue/20 via-coral-bright/40 to-ocean-blue/20 
+                        flex items-center justify-center text-ocean-blue/80 text-xs">
           𓈖 𓊪 𓏏 𓇯 𓂀 𓈖 𓇳 𓊪 𓏏 𓇯
         </div>
       </div>
@@ -63,24 +63,24 @@ export const ObeliskContainer = ({ children, className = "" }: { children: React
 export const PharaohCard = ({ children, className = "", title }: { children: React.ReactNode; className?: string; title?: string }) => {
   return (
     <div className={`relative bg-papyrus/95
-                     rounded-2xl border-2 border-egyptian-gold/30 shadow-xl shadow-egyptian-gold/20
+                     rounded-2xl border-2 border-ocean-blue/30 shadow-xl shadow-ocean-blue/20
                      backdrop-blur-sm overflow-hidden ${className}`}>
       {/* Golden Corner Decorations */}
-      <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-egyptian-gold/30 to-transparent rounded-br-full"></div>
+      <div className="absolute top-0 left-0 w-16 h-16 bg-gradient-to-br from-ocean-blue/30 to-transparent rounded-br-full"></div>
       <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-bl from-ocean-blue/30 to-transparent rounded-bl-full"></div>
-      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-egyptian-gold/30 to-transparent rounded-tr-full"></div>
-      <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-egyptian-gold/30 to-transparent rounded-tl-full"></div>
+      <div className="absolute bottom-0 left-0 w-16 h-16 bg-gradient-to-tr from-ocean-blue/30 to-transparent rounded-tr-full"></div>
+      <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-ocean-blue/30 to-transparent rounded-tl-full"></div>
       
       {/* Hieroglyphic Corner Elements */}
-      <div className="absolute top-2 left-2 text-egyptian-gold/60 text-xs">𓂀</div>
-      <div className="absolute top-2 right-2 text-egyptian-gold/60 text-xs">𓇳</div>
-      <div className="absolute bottom-2 left-2 text-egyptian-gold/60 text-xs">𓊪</div>
-      <div className="absolute bottom-2 right-2 text-egyptian-gold/60 text-xs">𓏏</div>
+      <div className="absolute top-2 left-2 text-ocean-blue/60 text-xs">𓂀</div>
+      <div className="absolute top-2 right-2 text-ocean-blue/60 text-xs">𓇳</div>
+      <div className="absolute bottom-2 left-2 text-ocean-blue/60 text-xs">𓊪</div>
+      <div className="absolute bottom-2 right-2 text-ocean-blue/60 text-xs">𓏏</div>
       
       {/* Title with Hieroglyphic Accent */}
       {title && (
         <div className="p-6 pb-0">
-          <h3 className="text-2xl font-heading font-bold text-egyptian-gold mb-2 flex items-center gap-3">
+          <h3 className="text-2xl font-heading font-bold text-ocean-blue mb-2 flex items-center gap-3">
             <span className="text-coral-bright">𓈖</span>
             {title}
             <span className="text-coral-bright">𓈖</span>
@@ -102,10 +102,10 @@ export const FloatingEgyptianElements = () => {
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
       {/* Subtle Floating Golden Particles only */}
-      <div className="absolute top-16 right-16 w-1 h-1 bg-egyptian-gold/30 rounded-full"></div>
-      <div className="absolute top-80 left-16 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
-      <div className="absolute bottom-40 right-32 w-1 h-1 bg-egyptian-gold/25 rounded-full"></div>
-      <div className="absolute bottom-60 left-32 w-1 h-1 bg-egyptian-gold/15 rounded-full"></div>
+      <div className="absolute top-16 right-16 w-1 h-1 bg-ocean-blue/30 rounded-full"></div>
+      <div className="absolute top-80 left-16 w-1 h-1 bg-ocean-blue/20 rounded-full"></div>
+      <div className="absolute bottom-40 right-32 w-1 h-1 bg-ocean-blue/25 rounded-full"></div>
+      <div className="absolute bottom-60 left-32 w-1 h-1 bg-ocean-blue/15 rounded-full"></div>
     </div>
   );
 };
@@ -215,11 +215,11 @@ export const PharaohButton = ({ children, onClick, className = "", variant = "pr
 export const HieroglyphicDivider = ({ className = "" }: { className?: string }) => {
   return (
     <div className={`flex items-center justify-center my-8 ${className}`}>
-      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-coral-bright/50 to-egyptian-gold/50"></div>
-      <div className="px-6 text-egyptian-gold text-2xl">
+      <div className="flex-1 h-px bg-gradient-to-r from-transparent via-coral-bright/50 to-ocean-blue/50"></div>
+      <div className="px-6 text-ocean-blue text-2xl">
         𓈖 𓂀 𓇳 𓊪 𓏏 𓇯 𓂀 𓈖
       </div>
-      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-coral-bright/50 to-egyptian-gold/50"></div>
+      <div className="flex-1 h-px bg-gradient-to-l from-transparent via-coral-bright/50 to-ocean-blue/50"></div>
     </div>
   );
 };
@@ -297,7 +297,7 @@ export const EmeraldPatternBackground = ({ className = "" }: { className?: strin
     <svg className="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
       <defs>
         <pattern id="emerald-pattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
-          <circle cx="10" cy="10" r="2" fill="currentColor" className="text-egyptian-gold/20" />
+          <circle cx="10" cy="10" r="2" fill="currentColor" className="text-ocean-blue/20" />
           <path d="M5,5 L15,15 M15,5 L5,15" stroke="currentColor" strokeWidth="0.5" className="text-emerald-600/20" />
         </pattern>
       </defs>
@@ -329,15 +329,15 @@ export const EmeraldCrown = ({ className = "" }: { className?: string }) => (
       />
 
       {/* Ostrich Feathers */}
-      <path d="M20 45 Q18 35 22 30 Q25 35 23 45" fill="currentColor" className="text-egyptian-gold" />
-      <path d="M57 45 Q62 35 58 30 Q55 35 57 45" fill="currentColor" className="text-egyptian-gold" />
+      <path d="M20 45 Q18 35 22 30 Q25 35 23 45" fill="currentColor" className="text-ocean-blue" />
+      <path d="M57 45 Q62 35 58 30 Q55 35 57 45" fill="currentColor" className="text-ocean-blue" />
 
       {/* Central Uraeus */}
       <circle cx="40" cy="25" r="4" fill="currentColor" className="text-emerald-600" />
 
       {/* Side Uraei */}
-      <circle cx="28" cy="35" r="2.5" fill="currentColor" className="text-egyptian-gold" />
-      <circle cx="52" cy="35" r="2.5" fill="currentColor" className="text-egyptian-gold" />
+      <circle cx="28" cy="35" r="2.5" fill="currentColor" className="text-ocean-blue" />
+      <circle cx="52" cy="35" r="2.5" fill="currentColor" className="text-ocean-blue" />
 
       {/* Hieroglyphic Elements - Removed black symbols */}
     </svg>
@@ -351,18 +351,18 @@ export const EmeraldCrown = ({ className = "" }: { className?: string }) => (
 export const PharaonicCard = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
   <div
     className={`relative bg-white/95
-                 rounded-2xl border-2 border-egyptian-gold/40 shadow-2xl shadow-egyptian-gold/20
-                 backdrop-blur-sm hover:shadow-egyptian-gold/30 hover:border-egyptian-gold/60
+                 rounded-2xl border-2 border-ocean-blue/40 shadow-2xl shadow-ocean-blue/20
+                 backdrop-blur-sm hover:shadow-ocean-blue/30 hover:border-ocean-blue/60
                  transition-all duration-500 overflow-hidden group ${className}`}
     {...props}
   >
     <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     <div className="relative z-10">{children}</div>
     {/* corner ornaments */}
-    <div className="absolute top-2 left-2 text-egyptian-gold/30 text-sm">𓇳</div>
-    <div className="absolute top-2 right-2 text-egyptian-gold/30 text-sm">𓊪</div>
-    <div className="absolute bottom-2 left-2 text-egyptian-gold/30 text-sm">𓈖</div>
-    <div className="absolute bottom-2 right-2 text-egyptian-gold/30 text-sm">𓂀</div>
+    <div className="absolute top-2 left-2 text-ocean-blue/30 text-sm">𓇳</div>
+    <div className="absolute top-2 right-2 text-ocean-blue/30 text-sm">𓊪</div>
+    <div className="absolute bottom-2 left-2 text-ocean-blue/30 text-sm">𓈖</div>
+    <div className="absolute bottom-2 right-2 text-ocean-blue/30 text-sm">𓂀</div>
   </div>
 );
 
@@ -384,23 +384,23 @@ export const PharaonicButton = ({ children, className = "", variant = "primary",
 
 export const PharaonicBorder = ({ className = "" }: { className?: string }) => (
   <div className={`h-1 bg-gradient-to-r from-transparent via-coral-bright to-transparent rounded-full ${className}`}>
-    <div className="h-full bg-gradient-to-r from-egyptian-gold/50 via-coral-bright to-egyptian-gold/50 rounded-full animate-pulse" />
+    <div className="h-full bg-gradient-to-r from-ocean-blue/50 via-coral-bright to-ocean-blue/50 rounded-full animate-pulse" />
   </div>
 );
 
 export const PharaonicObelisk = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => (
   <div className={`relative ${className}`}>
-    <div className="bg-gradient-to-b from-egyptian-gold/20 via-coral-bright/10 to-egyptian-gold/20
-                    border-4 border-egyptian-gold/40 rounded-t-3xl rounded-b-lg
-                    shadow-2xl shadow-egyptian-gold/30 backdrop-blur-sm bg-white/95
+    <div className="bg-gradient-to-b from-ocean-blue/20 via-coral-bright/10 to-ocean-blue/20
+                    border-4 border-ocean-blue/40 rounded-t-3xl rounded-b-lg
+                    shadow-2xl shadow-ocean-blue/30 backdrop-blur-sm bg-white/95
                     transform hover:scale-105 transition-all duration-500
                     relative overflow-hidden">
       {/* Pattern overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-coral-bright/5 to-transparent" />
 
       {/* Hieroglyphic borders */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-egyptian-gold text-2xl">𓇳</div>
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-egyptian-gold text-2xl">𓊪</div>
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓇳</div>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓊪</div>
 
       <div className="relative z-10 p-8">
         {children}
@@ -412,10 +412,10 @@ export const PharaonicObelisk = ({ children, className = "" }: { children: React
 export const FloatingPharaonicElements = ({ className = "" }: { className?: string }) => (
   <div className={`absolute inset-0 pointer-events-none overflow-hidden ${className}`}>
     {/* Subtle decorative particles only */}
-    <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
-    <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-egyptian-gold/15 rounded-full"></div>
-    <div className="absolute bottom-1/4 left-3/4 w-1 h-1 bg-egyptian-gold/20 rounded-full"></div>
-    <div className="absolute top-1/2 right-1/2 w-1 h-1 bg-egyptian-gold/10 rounded-full"></div>
+    <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-ocean-blue/20 rounded-full"></div>
+    <div className="absolute top-3/4 right-1/4 w-1 h-1 bg-ocean-blue/15 rounded-full"></div>
+    <div className="absolute bottom-1/4 left-3/4 w-1 h-1 bg-ocean-blue/20 rounded-full"></div>
+    <div className="absolute top-1/2 right-1/2 w-1 h-1 bg-ocean-blue/10 rounded-full"></div>
   </div>
 );
 
@@ -434,7 +434,7 @@ export const PharaonicPatternBackground = ({ className = "" }: { className?: str
 
 export const PharaonicCrown = ({ className = "" }: { className?: string }) => (
   <div className={`relative inline-block ${className}`}>
-    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-egyptian-gold/40">
+    <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center shadow-2xl shadow-ocean-blue/40">
       {/* Khepresh - Blue War Crown of Pharaohs */}
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Main Crown Body */}
@@ -465,13 +465,13 @@ export const PharaonicCrown = ({ className = "" }: { className?: string }) => (
     <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-to-br from-ocean-blue to-blue-600 rounded-full flex items-center justify-center shadow-lg">
       <span className="text-gold-text-dark text-sm font-bold">𓇳</span>
     </div>
-    <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-gradient-to-br from-white0 to-egyptian-gold rounded-full flex items-center justify-center shadow-lg">
+    <div className="absolute -bottom-2 -left-2 w-8 h-8 bg-gradient-to-br from-white0 to-ocean-blue rounded-full flex items-center justify-center shadow-lg">
       <span className="text-gold-text-dark text-sm font-bold">𓊪</span>
     </div>
     <div className="absolute top-1/2 -left-3 w-6 h-6 bg-gradient-to-br from-ocean-blue to-blue-500 rounded-full flex items-center justify-center shadow-md">
       <span className="text-gold-text-dark text-xs font-bold">𓈖</span>
     </div>
-    <div className="absolute top-1/2 -right-3 w-6 h-6 bg-gradient-to-br from-white0 to-egyptian-gold rounded-full flex items-center justify-center shadow-md">
+    <div className="absolute top-1/2 -right-3 w-6 h-6 bg-gradient-to-br from-white0 to-ocean-blue rounded-full flex items-center justify-center shadow-md">
       <span className="text-gold-text-dark text-xs font-bold">𓂀</span>
     </div>
   </div>
@@ -500,11 +500,11 @@ export const EgyptHieroglyphic = ({ className = "", size = "2rem" }: { className
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
     <div className="flex items-center space-x-1">
       {/* 𓊖 - Land/Country symbol */}
-      <span className="text-egyptian-gold animate-pulse" style={{ animationDelay: '0s' }}>𓊖</span>
+      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0s' }}>𓊖</span>
       {/* 𓏏 - Bread/Land symbol */}
       <span className="text-emerald-600 animate-pulse" style={{ animationDelay: '0.5s' }}>𓏏</span>
       {/* 𓊖 - Land/Country symbol */}
-      <span className="text-egyptian-gold animate-pulse" style={{ animationDelay: '1s' }}>𓊖</span>
+      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '1s' }}>𓊖</span>
     </div>
   </div>
 );
@@ -514,13 +514,13 @@ export const EgyptHieroglyphicAlt = ({ className = "", size = "2rem" }: { classN
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
     <div className="flex items-center space-x-1">
       {/* 𓇯 - Eye of Horus */}
-      <span className="text-egyptian-gold animate-pulse" style={{ animationDelay: '0s' }}>𓇯</span>
+      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0s' }}>𓇯</span>
       {/* 𓊪 - Bread loaf */}
       <span className="text-emerald-600 animate-pulse" style={{ animationDelay: '0.3s' }}>𓊪</span>
       {/* 𓇳 - Sun disk */}
       <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0.6s' }}>𓇳</span>
       {/* 𓏏 - Bread/Land */}
-      <span className="text-egyptian-gold animate-pulse" style={{ animationDelay: '0.9s' }}>𓏏</span>
+      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0.9s' }}>𓏏</span>
     </div>
   </div>
 );

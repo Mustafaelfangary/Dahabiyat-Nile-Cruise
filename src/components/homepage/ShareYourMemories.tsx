@@ -59,11 +59,11 @@ export default function ShareYourMemories() {
 
   if (loading) {
     return (
-      <section className="py-24 bg-gradient-to-b from-orange-50 to-amber-50">
+      <section className="py-24 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
         <Container maxWidth="lg">
           <div className="text-center">
-            <div className="text-6xl text-egyptian-gold animate-pulse mb-4">𓇳</div>
-            <div className="text-xl text-hieroglyph-brown">Loading memories...</div>
+            <div className="text-6xl text-ocean-blue animate-pulse mb-4">𓇳</div>
+            <div className="text-xl text-deep-blue">Loading memories...</div>
           </div>
         </Container>
       </section>
@@ -71,13 +71,13 @@ export default function ShareYourMemories() {
   }
 
   return (
-    <section className="py-24 bg-gradient-to-b from-orange-50 to-amber-50 relative overflow-hidden">
+    <section className="py-24 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest relative overflow-hidden">
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 left-10 text-6xl text-egyptian-gold animate-pulse">𓇳</div>
-        <div className="absolute top-20 right-20 text-4xl text-sunset-orange animate-pulse">𓊪</div>
-        <div className="absolute bottom-20 left-20 text-5xl text-egyptian-gold animate-pulse">𓈖</div>
-        <div className="absolute bottom-10 right-10 text-6xl text-sunset-orange animate-pulse">𓂀</div>
+        <div className="absolute top-10 left-10 text-6xl text-ocean-blue animate-pulse">𓇳</div>
+        <div className="absolute top-20 right-20 text-4xl text-blue-300 animate-pulse">𓊪</div>
+        <div className="absolute bottom-20 left-20 text-5xl text-ocean-blue animate-pulse">𓈖</div>
+        <div className="absolute bottom-10 right-10 text-6xl text-blue-300 animate-pulse">𓂀</div>
       </div>
 
       <Container maxWidth="lg">
@@ -138,7 +138,7 @@ export default function ShareYourMemories() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
                 >
-                  <PharaonicCard className="group overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/95 backdrop-blur-sm border border-egyptian-gold/30 h-full">
+                  <PharaonicCard className="group overflow-hidden hover:shadow-2xl transition-all duration-500 bg-white/95 backdrop-blur-sm border border-ocean-blue/30 h-full">
                     {/* Image */}
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image
@@ -150,7 +150,7 @@ export default function ShareYourMemories() {
                       />
                       
                       {/* Hover Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-egyptian-gold/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute inset-0 bg-gradient-to-t from-ocean-blue/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                         <div className="absolute bottom-4 left-4 right-4">
                           <div className="flex items-center justify-between text-white">
                             <div className="flex items-center gap-2">
@@ -174,9 +174,9 @@ export default function ShareYourMemories() {
                               className="rounded-full"
                             />
                           ) : (
-                            <User className="w-4 h-4 text-hieroglyph-brown" />
+                            <User className="w-4 h-4 text-deep-blue" />
                           )}
-                          <span className="text-xs font-medium text-hieroglyph-brown">
+                          <span className="text-xs font-medium text-deep-blue">
                             {memory.user.name || 'Traveler'}
                           </span>
                         </div>
@@ -185,7 +185,7 @@ export default function ShareYourMemories() {
 
                     {/* Content */}
                     <CardContent className="p-6">
-                      <h3 className="font-bold text-hieroglyph-brown text-lg mb-2 group-hover:text-egyptian-gold transition-colors">
+                      <h3 className="font-bold text-deep-blue text-lg mb-2 group-hover:text-ocean-blue transition-colors">
                         {memory.title}
                       </h3>
                       
@@ -198,24 +198,24 @@ export default function ShareYourMemories() {
                       <div className="space-y-2 text-sm text-gray-500">
                         {memory.location && (
                           <div className="flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-egyptian-gold" />
+                            <MapPin className="w-4 h-4 text-ocean-blue" />
                             <span>{memory.location}</span>
                           </div>
                         )}
                         
                         {memory.tripDate && (
                           <div className="flex items-center gap-2">
-                            <Calendar className="w-4 h-4 text-egyptian-gold" />
+                            <Calendar className="w-4 h-4 text-ocean-blue" />
                             <span>{new Date(memory.tripDate).toLocaleDateString()}</span>
                           </div>
                         )}
                       </div>
 
                       {/* Egyptian Decorative Border */}
-                      <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-egyptian-gold/20">
-                        <span className="text-egyptian-gold text-sm">𓏏</span>
-                        <span className="text-egyptian-gold text-sm">𓇯</span>
-                        <span className="text-egyptian-gold text-sm">𓊃</span>
+                      <div className="flex items-center justify-center gap-2 mt-4 pt-4 border-t border-ocean-blue/20">
+                        <span className="text-ocean-blue text-sm">𓏏</span>
+                        <span className="text-ocean-blue text-sm">𓇯</span>
+                        <span className="text-ocean-blue text-sm">𓊃</span>
                       </div>
                     </CardContent>
                   </PharaonicCard>

@@ -385,10 +385,10 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
               </p>
 
               <div className="flex items-center space-x-6">
-                <Link href="/privacy" className="text-egyptian-gold hover:text-sunset-orange transition-colors duration-300 font-medium">
+                <Link href="/privacy" className="text-blue-300 hover:text-white transition-colors duration-300 font-medium">
                   Privacy Policy
                 </Link>
-                <Link href="/terms" className="text-egyptian-gold hover:text-sunset-orange transition-colors duration-300 font-medium">
+                <Link href="/terms" className="text-blue-300 hover:text-white transition-colors duration-300 font-medium">
                   Terms of Service
                 </Link>
               </div>
