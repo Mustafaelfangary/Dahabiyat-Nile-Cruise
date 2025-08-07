@@ -138,7 +138,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
           <Button
             type="submit"
             disabled={isLoading || code.length !== 6}
-            className="w-full bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white font-semibold py-3"
+            className="w-full bg-gradient-to-r from-ocean-blue to-blue-600 hover:from-blue-600 hover:to-ocean-blue text-white font-semibold py-3"
           >
             {isLoading ? (
               <>

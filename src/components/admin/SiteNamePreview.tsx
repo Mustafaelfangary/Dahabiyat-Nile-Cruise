@@ -169,7 +169,7 @@ export function SiteNamePreview() {
           <Button
             onClick={handleSave}
             disabled={saving}
-            className="bg-egyptian-gold hover:bg-amber-600 text-black"
+            className="bg-ocean-blue hover:bg-blue-600 text-white"
           >
             {saving ? (
               <>

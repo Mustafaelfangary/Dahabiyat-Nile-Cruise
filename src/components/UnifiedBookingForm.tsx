@@ -315,17 +315,17 @@ export default function UnifiedBookingForm({
       </div>
 
       {/* Price Display */}
-      <div className={`p-4 rounded-lg ${style === 'pharaonic' ? 'bg-amber-50 border border-amber-200' : 'bg-gray-50 border border-gray-200'}`}>
+      <div className={`p-4 rounded-lg ${style === 'pharaonic' ? 'bg-blue-50 border border-blue-200' : 'bg-gray-50 border border-gray-200'}`}>
         <div className="flex justify-between items-center">
-          <span className={`text-lg font-medium ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-800'}`}>
+          <span className={`text-lg font-medium ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-800'}`}>
             Total Price:
           </span>
-          <span className={`text-2xl font-bold ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-800'}`}>
+          <span className={`text-2xl font-bold ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-800'}`}>
             ${availabilityResult?.totalPrice || calculateTotalPrice()}
           </span>
         </div>
         {type === 'dahabiya' && startDate && endDate && (
-          <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-amber-600' : 'text-gray-600'}`}>
+          <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-blue-600' : 'text-gray-600'}`}>
             {Math.ceil((new Date(endDate).getTime() - new Date(startDate).getTime()) / (1000 * 60 * 60 * 24))} days × {guests} guests
           </p>
         )}

@@ -52,7 +52,7 @@ export default function MobileForgotPasswordForm({ onBack, className = '' }: Mob
 
   if (success) {
     return (
-      <div className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4 flex flex-col ${className}`}>
+      <div className={`min-h-screen bg-gradient-to-br from-blue-50 via-ocean-blue-lightest/30 to-slate-50 p-4 flex flex-col ${className}`}>
         <div className="flex-1 flex flex-col justify-center">
           <div className="text-center mb-8">
             <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -61,7 +61,7 @@ export default function MobileForgotPasswordForm({ onBack, className = '' }: Mob
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
               Check Your Email
             </h1>
-            <div className="text-lg text-egyptian-gold mb-2">𓇳 𓈖 𓊪 𓏏 𓇳</div>
+            <div className="text-lg text-ocean-blue mb-2">𓇳 𓈖 𓊪 𓏏 𓇳</div>
           </div>
 
           <div className="bg-white rounded-2xl shadow-xl p-6 mx-auto w-full max-w-sm">

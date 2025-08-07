@@ -66,16 +66,16 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-ocean-blue-lightest to-blue-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <div className="mx-auto mb-4 w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center">
-            <Crown className="w-8 h-8 text-amber-600" />
+          <div className="mx-auto mb-4 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+            <Crown className="w-8 h-8 text-ocean-blue" />
           </div>
-          <CardTitle className="text-2xl font-bold text-amber-900">
+          <CardTitle className="text-2xl font-bold text-deep-blue">
             👑 Admin Access 👑
           </CardTitle>
-          <p className="text-amber-700 text-sm">
+          <p className="text-blue-700 text-sm">
             Direct login to admin panel
           </p>
         </CardHeader>

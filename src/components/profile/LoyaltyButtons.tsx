@@ -63,7 +63,7 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
       url: '/packages',
       action: 'redirect',
       description: 'Browse and book our luxury pharaonic packages',
-      color: 'bg-gradient-to-r from-egyptian-gold to-amber-600'
+      color: 'bg-gradient-to-r from-ocean-blue to-blue-600'
     },
     {
       id: 'book-dahabiya',
