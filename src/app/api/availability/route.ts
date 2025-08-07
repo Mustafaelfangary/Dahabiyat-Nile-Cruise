@@ -69,9 +69,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(response);
 
   } catch (error) {
-    console.error('❌ Availability check error:', error);
+    console.error('❌ Availability API error:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('API Error details:', {
+      error: errorMessage,
+      stack: error instanceof Error ? error.stack : undefined
+    });
     return NextResponse.json(
-      { error: 'Failed to check availability' },
+      {
+        error: 'Failed to check availability',
+        details: errorMessage
+      },
       { status: 500 }
     );
   }

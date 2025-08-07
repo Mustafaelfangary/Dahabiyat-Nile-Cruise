@@ -59,10 +59,19 @@ export class CleanAvailabilityService {
         return await this.checkPackageAvailability(itemId, startDate, endDate, guests, excludeBookingId);
       }
     } catch (error) {
-      console.error('Availability check error:', error);
+      console.error('❌ Availability check error:', error);
+      console.error('Error details:', {
+        type,
+        itemId,
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        guests,
+        errorMessage: error instanceof Error ? error.message : 'Unknown error',
+        errorStack: error instanceof Error ? error.stack : undefined
+      });
       return {
         isAvailable: false,
-        message: 'Error checking availability',
+        message: `Error checking availability: ${error instanceof Error ? error.message : 'Unknown error'}`,
         totalPrice: 0
       };
     }
@@ -160,23 +169,66 @@ export class CleanAvailabilityService {
     }
 
     // Check admin-set availability dates
-    const unavailableDates = await prisma.availabilityDate.findMany({
+    console.log(`🗓️ Checking availability dates for dahabiya ${dahabiyaId} from ${startDate.toISOString()} to ${endDate.toISOString()}`);
+
+    // Get all availability dates for this dahabiya in the date range
+    const availabilityDates = await prisma.availabilityDate.findMany({
       where: {
         dahabiyaId,
         date: {
           gte: startDate,
           lte: endDate
-        },
-        available: false
+        }
       }
     });
 
-    if (unavailableDates.length > 0) {
-      return {
-        isAvailable: false,
-        message: 'Some dates in the selected range are not available',
-        totalPrice: 0
-      };
+    console.log(`📅 Found ${availabilityDates.length} availability date records`);
+
+    // If there are any availability dates set for this dahabiya, we need to check them
+    if (availabilityDates.length > 0) {
+      // Check if any dates in the range are marked as unavailable
+      const unavailableDates = availabilityDates.filter(date => !date.available);
+
+      if (unavailableDates.length > 0) {
+        console.log(`❌ Found ${unavailableDates.length} unavailable dates in range`);
+        return {
+          isAvailable: false,
+          message: 'Some dates in the selected range are not available',
+          totalPrice: 0
+        };
+      }
+
+      // Generate all dates in the requested range
+      const requestedDates = [];
+      const currentDate = new Date(startDate);
+      while (currentDate <= endDate) {
+        requestedDates.push(new Date(currentDate));
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+
+      // Check if all requested dates have availability records and are marked as available
+      const availableDateStrings = availabilityDates
+        .filter(date => date.available)
+        .map(date => date.date.toISOString().split('T')[0]);
+
+      const missingAvailableDates = requestedDates.filter(date => {
+        const dateString = date.toISOString().split('T')[0];
+        return !availableDateStrings.includes(dateString);
+      });
+
+      if (missingAvailableDates.length > 0) {
+        console.log(`❌ Missing availability for ${missingAvailableDates.length} dates in range`);
+        return {
+          isAvailable: false,
+          message: 'Not all dates in the selected range are available. Please check the availability calendar.',
+          totalPrice: 0
+        };
+      }
+
+      console.log(`✅ All dates in range are marked as available`);
+    } else {
+      console.log(`ℹ️ No specific availability dates set - allowing booking (default behavior)`);
+      console.log(`✅ Dahabiya is available by default since no restrictions are set`);
     }
 
     // Calculate total price
