@@ -28,6 +28,7 @@
         "backgroundColor": "#0080ff"
       },
       "package": "com.dahabiyat.nilecruise",
+      "versionCode": 1,
       "statusBar": {
         "backgroundColor": "#0080ff",
         "barStyle": "light-content"
@@ -37,7 +38,10 @@
         "ACCESS_NETWORK_STATE"
       ],
       "usesCleartextTraffic": false,
-      "allowBackup": true
+      "allowBackup": true,
+      "compileSdkVersion": 34,
+      "targetSdkVersion": 34,
+      "buildToolsVersion": "34.0.0"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -53,13 +57,6 @@
       "apiUrl": "https://dahabiyatnilecruise.com",
       "websiteUrl": "https://dahabiyatnilecruise.com"
     },
-    "plugins": [
-      [
-        "expo-linking",
-        {
-          "scheme": "dahabiyat"
-        }
-      ]
-    ]
+    "plugins": []
   }
 }
