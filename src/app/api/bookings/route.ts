@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { CleanBookingService } from "@/lib/services/clean-booking-service";
-import { CleanAvailabilityService } from "@/lib/services/clean-availability-service";
+import { CleanBookingService } from "@/lib/services/unified-booking-service";
+import { CleanAvailabilityService } from "@/lib/services/availability-service";
 
 export async function POST(req: Request) {
   try {

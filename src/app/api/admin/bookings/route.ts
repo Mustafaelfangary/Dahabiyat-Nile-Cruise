@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { CleanBookingService } from '@/lib/services/clean-booking-service';
+import { CleanBookingService } from '@/lib/services/unified-booking-service';
 
 export async function GET(request: NextRequest) {
   try {

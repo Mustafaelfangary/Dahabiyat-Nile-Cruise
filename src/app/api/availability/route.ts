@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { CleanAvailabilityService } from "@/lib/services/clean-availability-service";
+import { CleanAvailabilityService } from "@/lib/services/availability-service";
 
 export async function POST(request: NextRequest) {
   try {
