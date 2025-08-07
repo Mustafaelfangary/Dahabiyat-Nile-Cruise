@@ -304,8 +304,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       {/* Mobile Header */}
       <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white shadow-lg border-b border-egyptian-gold/30'
-          : 'bg-gradient-to-r from-egyptian-gold/10 to-sunset-orange/10 backdrop-blur-sm bg-white/95'
+          ? 'bg-white shadow-lg border-b border-ocean-blue/30'
+          : 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 backdrop-blur-sm bg-white/95'
       }`}>
         <div className="flex items-center justify-between px-4 py-3">
           {/* Dynamic Logo + Site Name */}
@@ -321,7 +321,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
               <span className="font-bold text-lg text-hieroglyph-brown leading-tight">
                 {settings.siteName.split(' ')[0]}
               </span>
-              <span className="text-xs text-egyptian-gold font-medium leading-tight">
+              <span className="text-xs text-ocean-blue font-medium leading-tight">
                 {settings.siteName.split(' ').slice(1).join(' ')}
               </span>
             </div>
@@ -330,7 +330,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
           {/* Mobile Menu Button */}
           <button
             onClick={onToggle}
-            className="p-2 rounded-lg bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="p-2 rounded-lg bg-gradient-to-r from-ocean-blue to-deep-blue text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -356,10 +356,10 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-amber-50 to-orange-50 shadow-2xl z-50 overflow-y-auto"
+              className="fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest shadow-2xl z-50 overflow-y-auto"
             >
               {/* Menu Header */}
-              <div className="bg-gradient-to-br from-egyptian-gold to-sunset-orange p-6 text-hieroglyph-brown">
+              <div className="bg-gradient-to-br from-ocean-blue to-deep-blue p-6 text-white">
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-xl font-bold flex items-center gap-2">
@@ -379,39 +379,39 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
 
               {/* User Profile Section */}
               {session && (
-                <div className="p-6 border-b-2 border-egyptian-gold/30 bg-gradient-to-r from-egyptian-gold/10 via-egyptian-gold/5 to-egyptian-gold/10 relative overflow-hidden">
+                <div className="p-6 border-b-2 border-ocean-blue/30 bg-gradient-to-r from-ocean-blue/10 via-ocean-blue/5 to-ocean-blue/10 relative overflow-hidden">
                   {/* Pharaonic decorative elements */}
-                  <div className="absolute top-2 left-2 text-egyptian-gold/30 text-xl">𓇳</div>
-                  <div className="absolute top-2 right-2 text-egyptian-gold/30 text-xl">𓇳</div>
-                  <div className="absolute bottom-2 left-2 text-egyptian-gold/30 text-lg">𓈖</div>
-                  <div className="absolute bottom-2 right-2 text-egyptian-gold/30 text-lg">𓈖</div>
+                  <div className="absolute top-2 left-2 text-ocean-blue/30 text-xl">𓇳</div>
+                  <div className="absolute top-2 right-2 text-ocean-blue/30 text-xl">𓇳</div>
+                  <div className="absolute bottom-2 left-2 text-ocean-blue/30 text-lg">𓈖</div>
+                  <div className="absolute bottom-2 right-2 text-ocean-blue/30 text-lg">𓈖</div>
 
                   <div className="flex items-center gap-4 relative z-10">
                     <div className="relative">
-                      <Avatar className="w-16 h-16 border-3 border-egyptian-gold/50 shadow-lg shadow-egyptian-gold/30 ring-2 ring-white/50">
+                      <Avatar className="w-16 h-16 border-3 border-ocean-blue/50 shadow-lg shadow-ocean-blue/30 ring-2 ring-white/50">
                         <AvatarImage src={session.user.image || ''} alt={session.user.name || ''} />
-                        <AvatarFallback className="bg-gradient-to-br from-egyptian-gold to-egyptian-gold/80 text-hieroglyph-brown font-bold text-xl">
+                        <AvatarFallback className="bg-gradient-to-br from-ocean-blue to-ocean-blue/80 text-white font-bold text-xl">
                           {session.user.name?.charAt(0) || 'U'}
                         </AvatarFallback>
                       </Avatar>
                       {/* Pharaonic crown symbol */}
-                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-egyptian-gold rounded-full flex items-center justify-center text-hieroglyph-brown text-xs font-bold shadow-lg">
+                      <div className="absolute -top-1 -right-1 w-6 h-6 bg-ocean-blue rounded-full flex items-center justify-center text-white text-xs font-bold shadow-lg">
                         𓇳
                       </div>
                     </div>
 
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1">
-                        <span className="text-egyptian-gold text-sm">𓂀</span>
+                        <span className="text-ocean-blue text-sm">𓂀</span>
                         <p className="font-bold text-hieroglyph-brown text-lg">{session.user.name}</p>
                       </div>
                       <div className="flex items-center gap-2">
-                        <span className="text-egyptian-gold/70 text-xs">𓏏</span>
-                        <p className="text-sm text-egyptian-gold/80 font-medium">{session.user.email}</p>
+                        <span className="text-ocean-blue/70 text-xs">𓏏</span>
+                        <p className="text-sm text-ocean-blue/80 font-medium">{session.user.email}</p>
                       </div>
                     </div>
 
-                    <Badge className="bg-gradient-to-r from-egyptian-gold to-egyptian-gold/80 text-hieroglyph-brown border-egyptian-gold/50 shadow-lg px-3 py-1">
+                    <Badge className="bg-gradient-to-r from-ocean-blue to-ocean-blue/80 text-white border-ocean-blue/50 shadow-lg px-3 py-1">
                       <Crown className="w-4 h-4 mr-1" />
                       <span className="font-bold">Royal</span>
                     </Badge>
@@ -441,12 +441,12 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={() => toggleDropdown(item.href)}
                             className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
                               isActive || isExpanded
-                                ? 'bg-gradient-to-r from-egyptian-gold/20 to-sunset-orange/20 text-hieroglyph-brown border border-egyptian-gold/30'
-                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-egyptian-gold'
+                                ? 'bg-gradient-to-r from-ocean-blue/20 to-deep-blue/20 text-hieroglyph-brown border border-ocean-blue/30'
+                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-ocean-blue'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
-                              <div className="w-8 h-8 rounded-lg bg-egyptian-gold/10 flex items-center justify-center">
+                              <div className="w-8 h-8 rounded-lg bg-ocean-blue/10 flex items-center justify-center">
                                 <span className="text-lg">{item.hieroglyph}</span>
                               </div>
                               <span className="font-medium">{item.label}</span>
@@ -463,11 +463,11 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={onToggle}
                             className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
                               isActive
-                                ? 'bg-gradient-to-r from-egyptian-gold/20 to-sunset-orange/20 text-hieroglyph-brown border border-egyptian-gold/30'
-                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-egyptian-gold'
+                                ? 'bg-gradient-to-r from-ocean-blue/20 to-deep-blue/20 text-hieroglyph-brown border border-ocean-blue/30'
+                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-ocean-blue'
                             }`}
                           >
-                            <div className="w-8 h-8 rounded-lg bg-egyptian-gold/10 flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-lg bg-ocean-blue/10 flex items-center justify-center">
                               <span className="text-lg">{item.hieroglyph}</span>
                             </div>
                             <span className="font-medium">{item.label}</span>

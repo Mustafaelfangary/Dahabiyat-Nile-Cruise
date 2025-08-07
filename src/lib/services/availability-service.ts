@@ -21,6 +21,10 @@ export interface AvailabilityResult {
 export class CleanAvailabilityService {
   /**
    * Check availability for dahabiya or package
+   *
+   * NOTE: This provides read-only availability checking for UI purposes.
+   * For atomic booking creation with availability check, use CleanBookingService.createBooking()
+   * which includes transactional availability verification to prevent race conditions.
    */
   static async checkAvailability({
     type,

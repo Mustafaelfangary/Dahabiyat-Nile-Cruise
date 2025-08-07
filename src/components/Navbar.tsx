@@ -331,7 +331,7 @@ export default function Navbar() {
               priority
             />
             <span style={{
-              color: 'hsl(45, 100%, 51%)',
+              color: 'hsl(0, 0%, 0%)',
               fontSize: '0.85rem',
               fontWeight: 600,
               textShadow: isHomepage && !scrolled ? '0 1px 2px rgba(0, 0, 0, 0.3)' : 'none',

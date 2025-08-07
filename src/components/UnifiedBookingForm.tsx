@@ -115,10 +115,10 @@ export default function UnifiedBookingForm({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type,
+          type: type.toUpperCase(), // Ensure consistent type format
           itemId,
           startDate,
-          endDate: type === 'package' ? endDate : endDate,
+          endDate,
           guests
         })
       });
@@ -171,16 +171,15 @@ export default function UnifiedBookingForm({
       const totalPrice = availabilityResult?.totalPrice || calculateTotalPrice();
       
       const bookingData = {
-        type,
-        itemId: type === 'dahabiya' ? itemId : undefined,
-        packageId: type === 'package' ? itemId : undefined,
+        type: type.toUpperCase(), // Ensure consistent type format (DAHABIYA/PACKAGE)
         dahabiyaId: type === 'dahabiya' ? itemId : undefined,
+        packageId: type === 'package' ? itemId : undefined,
         startDate,
-        endDate: type === 'package' ? endDate : endDate,
+        endDate,
         guests,
         totalPrice,
         specialRequests,
-        // selectedCabinId: showCabinSelection ? selectedCabinId : undefined  // REMOVED: cabin system removed
+        guestDetails: [] // Add empty guest details array for now
       };
 
       const response = await fetch("/api/bookings", {
@@ -221,7 +220,7 @@ export default function UnifiedBookingForm({
       {/* Date Selection */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}`}>
+          <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}`}>
             {type === 'package' ? 'Departure Date' : 'Start Date'}
           </label>
           <Input
@@ -232,13 +231,13 @@ export default function UnifiedBookingForm({
             onChange={(e) => setStartDate(e.target.value)}
             min={minDate.toISOString().split('T')[0]}
             required
-            className={style === 'pharaonic' ? 'border-amber-300 focus:border-amber-500' : ''}
+            className={style === 'pharaonic' ? 'border-blue-300 focus:border-blue-500' : ''}
           />
         </div>
         
         {type === 'dahabiya' && (
           <div>
-            <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}`}>
+            <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}`}>
               End Date
             </label>
             <Input
@@ -249,20 +248,20 @@ export default function UnifiedBookingForm({
               onChange={(e) => setEndDate(e.target.value)}
               min={startDate || minDate.toISOString().split('T')[0]}
               required
-              className={style === 'pharaonic' ? 'border-amber-300 focus:border-amber-500' : ''}
+              className={style === 'pharaonic' ? 'border-blue-300 focus:border-blue-500' : ''}
             />
           </div>
         )}
         
         {type === 'package' && durationDays && (
           <div>
-            <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}`}>
+            <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}`}>
               Duration
             </label>
-            <div className={`p-3 rounded-md border ${style === 'pharaonic' ? 'border-amber-300 bg-amber-50' : 'border-gray-300 bg-gray-50'}`}>
+            <div className={`p-3 rounded-md border ${style === 'pharaonic' ? 'border-blue-300 bg-blue-50' : 'border-gray-300 bg-gray-50'}`}>
               <div className="flex items-center">
-                <Clock className={`w-4 h-4 mr-2 ${style === 'pharaonic' ? 'text-amber-600' : 'text-gray-600'}`} />
-                <span className={style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}>
+                <Clock className={`w-4 h-4 mr-2 ${style === 'pharaonic' ? 'text-blue-600' : 'text-gray-600'}`} />
+                <span className={style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}>
                   {durationDays} Days
                 </span>
               </div>
@@ -273,7 +272,7 @@ export default function UnifiedBookingForm({
 
       {/* Guests Selection */}
       <div>
-        <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}`}>
+        <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}`}>
           Number of Guests
         </label>
         <Input
@@ -285,9 +284,9 @@ export default function UnifiedBookingForm({
           min="1"
           max={maxGuests}
           required
-          className={style === 'pharaonic' ? 'border-amber-300 focus:border-amber-500' : ''}
+          className={style === 'pharaonic' ? 'border-blue-300 focus:border-blue-500' : ''}
         />
-        <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-amber-600' : 'text-gray-500'}`}>
+        <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-blue-600' : 'text-gray-500'}`}>
           Maximum {maxGuests} guests
         </p>
       </div>
@@ -296,7 +295,7 @@ export default function UnifiedBookingForm({
 
       {/* Special Requests */}
       <div>
-        <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-amber-800' : 'text-gray-700'}`}>
+        <label className={`block text-sm font-medium mb-2 ${style === 'pharaonic' ? 'text-blue-800' : 'text-gray-700'}`}>
           Special Requests (Optional)
         </label>
         <textarea
@@ -307,7 +306,7 @@ export default function UnifiedBookingForm({
           rows={3}
           className={`w-full p-3 border rounded-md focus:ring-2 focus:ring-opacity-50 ${
             style === 'pharaonic'
-              ? 'border-amber-300 focus:border-amber-500 focus:ring-amber-500'
+              ? 'border-blue-300 focus:border-blue-500 focus:ring-blue-500'
               : 'border-gray-300 focus:border-blue-500 focus:ring-blue-500'
           }`}
           placeholder="Any special dietary requirements, celebrations, or preferences..."
@@ -330,7 +329,7 @@ export default function UnifiedBookingForm({
           </p>
         )}
         {type === 'package' && (
-          <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-amber-600' : 'text-gray-600'}`}>
+          <p className={`text-sm mt-1 ${style === 'pharaonic' ? 'text-blue-600' : 'text-gray-600'}`}>
             ${basePrice} per person × {guests} guests
           </p>
         )}
@@ -349,7 +348,7 @@ export default function UnifiedBookingForm({
             >
               {checkingAvailability ? (
                 <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-amber-600 mr-2"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
                   Checking Availability...
                 </>
               ) : (
@@ -454,12 +453,12 @@ export default function UnifiedBookingForm({
       </div>
 
       {!session && (
-        <p className={`text-sm text-center ${style === 'pharaonic' ? 'text-amber-600' : 'text-gray-600'}`}>
+        <p className={`text-sm text-center ${style === 'pharaonic' ? 'text-blue-600' : 'text-gray-600'}`}>
           You need to{" "}
           <button
             type="button"
             onClick={() => router.push("/auth/signin")}
-            className={`underline hover:no-underline ${style === 'pharaonic' ? 'text-amber-700' : 'text-blue-600'}`}
+            className={`underline hover:no-underline ${style === 'pharaonic' ? 'text-blue-700' : 'text-blue-600'}`}
           >
             sign in
           </button>{" "}
@@ -476,10 +475,10 @@ export default function UnifiedBookingForm({
         <CardHeader className="text-center">
           <HieroglyphicText 
             text={`Book ${itemName}`}
-            className="text-2xl font-bold text-amber-800"
+            className="text-2xl font-bold text-blue-800"
           />
           <HieroglyphicDivider />
-          <p className="text-amber-700">
+          <p className="text-blue-700">
             {type === 'package' ? 'Reserve your royal adventure' : 'Reserve your royal vessel'}
           </p>
         </CardHeader>

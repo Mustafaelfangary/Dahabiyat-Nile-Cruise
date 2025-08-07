@@ -18,7 +18,7 @@ export const bookingSchema = z.object({
     phone: z.string().optional(),
     age: z.number().optional(),
     nationality: z.string().optional(),
-  })).min(1, "At least one guest is required"),
+  })).optional().default([]),
 });
 
 export type BookingData = z.infer<typeof bookingSchema>;
@@ -37,65 +37,208 @@ export class CleanBookingService {
     try {
       // Validate input data
       const validatedData = bookingSchema.parse(data);
-      
-      // Verify the item exists and get details
-      let itemDetails: any = null;
-      if (validatedData.type === 'DAHABIYA' && validatedData.dahabiyaId) {
-        itemDetails = await prisma.dahabiya.findUnique({
-          where: { id: validatedData.dahabiyaId },
-          select: { id: true, name: true, pricePerDay: true, capacity: true }
-        });
-        if (!itemDetails) {
-          return { success: false, error: 'Dahabiya not found' };
+
+      // Use database transaction to ensure atomicity between availability check and booking creation
+      const result = await prisma.$transaction(async (tx) => {
+        // Verify the item exists and get details
+        let itemDetails: any = null;
+        if (validatedData.type === 'DAHABIYA' && validatedData.dahabiyaId) {
+          itemDetails = await tx.dahabiya.findUnique({
+            where: { id: validatedData.dahabiyaId },
+            select: { id: true, name: true, pricePerDay: true, capacity: true, isActive: true, mainImage: true }
+          });
+          if (!itemDetails) {
+            throw new Error('Dahabiya not found');
+          }
+          if (!itemDetails.isActive) {
+            throw new Error('Dahabiya is not currently available for booking');
+          }
+        } else if (validatedData.type === 'PACKAGE' && validatedData.packageId) {
+          itemDetails = await tx.package.findUnique({
+            where: { id: validatedData.packageId },
+            select: { id: true, name: true, price: true, mainImageUrl: true, durationDays: true }
+          });
+          if (!itemDetails) {
+            throw new Error('Package not found');
+          }
+          // For packages, set a reasonable default max guests
+          itemDetails.maxGuests = itemDetails.maxGuests || 50;
+        } else {
+          throw new Error('Invalid booking type or missing item ID');
         }
-      } else if (validatedData.type === 'PACKAGE' && validatedData.packageId) {
-        itemDetails = await prisma.package.findUnique({
-          where: { id: validatedData.packageId },
-          select: { id: true, name: true, price: true, maxGuests: true }
-        });
-        if (!itemDetails) {
-          return { success: false, error: 'Package not found' };
+
+        // Validate guest capacity
+        const maxCapacity = validatedData.type === 'DAHABIYA' ? itemDetails.capacity : itemDetails.maxGuests;
+        if (validatedData.guests > maxCapacity) {
+          throw new Error(`Maximum ${maxCapacity} guests allowed for this ${validatedData.type.toLowerCase()}`);
         }
-      } else {
-        return { success: false, error: 'Invalid booking type or missing item ID' };
+
+        // ATOMIC AVAILABILITY CHECK - Check for conflicts within the same transaction
+        const startDate = new Date(validatedData.startDate);
+        const endDate = new Date(validatedData.endDate);
+
+        // Validate dates
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        if (startDate < today) {
+          throw new Error('Start date cannot be in the past');
+        }
+
+        if (startDate >= endDate) {
+          throw new Error('End date must be after start date');
+        }
+
+        // Check for conflicting bookings within the transaction
+        const conflictingBookings = await tx.booking.findMany({
+          where: {
+            ...(validatedData.type === 'DAHABIYA' ? { dahabiyaId: validatedData.dahabiyaId } : { packageId: validatedData.packageId }),
+            status: { in: ['PENDING', 'CONFIRMED'] },
+            OR: [
+              {
+                startDate: { lte: startDate },
+                endDate: { gt: startDate }
+              },
+              {
+                startDate: { lt: endDate },
+                endDate: { gte: endDate }
+              },
+              {
+                startDate: { gte: startDate },
+                endDate: { lte: endDate }
+              }
+            ]
+          }
+        });
+
+        if (conflictingBookings.length > 0) {
+          throw new Error('Selected dates are not available. Please choose different dates.');
+        }
+
+        // Check admin-set unavailable dates for dahabiyas
+        if (validatedData.type === 'DAHABIYA') {
+          const unavailableDates = await tx.availabilityDate.findMany({
+            where: {
+              dahabiyaId: validatedData.dahabiyaId,
+              date: {
+                gte: startDate,
+                lt: endDate
+              },
+              available: false
+            }
+          });
+
+          if (unavailableDates.length > 0) {
+            throw new Error('Some dates in your selection are marked as unavailable');
+          }
+        }
+
+        // Generate unique booking reference
+        const bookingReference = `${validatedData.type.charAt(0)}${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`;
+
+        // Get user details for default guest if no guest details provided
+        const user = await tx.user.findUnique({
+          where: { id: userId },
+          select: { name: true, email: true }
+        });
+
+        // If no guest details provided, create a default guest from user info
+        let guestDetailsToCreate = validatedData.guestDetails;
+        if (!guestDetailsToCreate || guestDetailsToCreate.length === 0) {
+          if (user?.name && user?.email) {
+            guestDetailsToCreate = [{
+              name: user.name,
+              email: user.email
+            }];
+          }
+        }
+
+        // Create booking with guest details
+        const booking = await tx.booking.create({
+          data: {
+            userId,
+            type: validatedData.type,
+            dahabiyaId: validatedData.dahabiyaId,
+            packageId: validatedData.packageId,
+            startDate,
+            endDate,
+            guests: validatedData.guests,
+            totalPrice: validatedData.totalPrice,
+            specialRequests: validatedData.specialRequests,
+            status: 'PENDING',
+            bookingReference,
+            guestDetails: guestDetailsToCreate && guestDetailsToCreate.length > 0 ? {
+              create: guestDetailsToCreate
+            } : undefined,
+          },
+          include: {
+            dahabiya: {
+              select: {
+                id: true,
+                name: true,
+                mainImage: true,
+                pricePerDay: true
+              }
+            },
+            package: {
+              select: {
+                id: true,
+                name: true,
+                mainImageUrl: true,
+                price: true
+              }
+            },
+            guestDetails: true,
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true
+              }
+            }
+          }
+        });
+
+        return { booking, itemDetails };
+      });
+
+      // Send confirmation emails outside transaction to avoid blocking
+      try {
+        await this.sendBookingEmails(result.booking, result.itemDetails);
+      } catch (emailError) {
+        console.error('Failed to send booking emails:', emailError);
+        // Don't fail the booking if email fails
       }
 
-      // Validate guest capacity
-      const maxCapacity = validatedData.type === 'DAHABIYA' ? itemDetails.capacity : itemDetails.maxGuests;
-      if (validatedData.guests > maxCapacity) {
-        return { 
-          success: false, 
-          error: `Maximum ${maxCapacity} guests allowed for this ${validatedData.type.toLowerCase()}` 
+      return { success: true, booking: result.booking };
+    } catch (error) {
+      console.error('Booking creation error:', error);
+      if (error instanceof z.ZodError) {
+        return {
+          success: false,
+          error: error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ')
         };
       }
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to create booking'
+      };
+    }
+  }
 
-      // Generate unique booking reference
-      const bookingReference = `${validatedData.type.charAt(0)}${Date.now().toString().slice(-6)}${Math.random().toString(36).substr(2, 3).toUpperCase()}`;
-
-      // Create booking with guest details
-      const booking = await prisma.booking.create({
-        data: {
-          userId,
-          type: validatedData.type,
-          dahabiyaId: validatedData.dahabiyaId,
-          packageId: validatedData.packageId,
-          startDate: new Date(validatedData.startDate),
-          endDate: new Date(validatedData.endDate),
-          guests: validatedData.guests,
-          totalPrice: validatedData.totalPrice,
-          specialRequests: validatedData.specialRequests,
-          status: 'PENDING',
-          bookingReference,
-          guestDetails: validatedData.guestDetails ? {
-            create: validatedData.guestDetails
-          } : undefined,
-        },
+  /**
+   * Get booking by ID with authorization check
+   */
+  static async getBookingById(bookingId: string, userId: string) {
+    try {
+      const booking = await prisma.booking.findUnique({
+        where: { id: bookingId },
         include: {
           dahabiya: {
             select: {
               id: true,
               name: true,
-              mainImageUrl: true,
+              mainImage: true,
               pricePerDay: true
             }
           },
@@ -118,22 +261,26 @@ export class CleanBookingService {
         }
       });
 
-      // Send confirmation emails
-      await this.sendBookingEmails(booking, itemDetails);
-
-      return { success: true, booking };
-    } catch (error) {
-      console.error('Booking creation error:', error);
-      if (error instanceof z.ZodError) {
-        return { 
-          success: false, 
-          error: error.errors.map(e => `${e.path.join('.')}: ${e.message}`).join(', ') 
-        };
+      if (!booking) {
+        return null;
       }
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Failed to create booking' 
-      };
+
+      // Check authorization - user can only see their own bookings unless they're admin
+      if (booking.userId !== userId) {
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { role: true }
+        });
+
+        if (!user || user.role !== 'ADMIN') {
+          return null; // Unauthorized
+        }
+      }
+
+      return booking;
+    } catch (error) {
+      console.error('Get booking by ID error:', error);
+      return null;
     }
   }
 
@@ -148,7 +295,7 @@ export class CleanBookingService {
           select: {
             id: true,
             name: true,
-            mainImageUrl: true,
+            mainImage: true,
             pricePerDay: true
           }
         },
@@ -296,6 +443,56 @@ export class CleanBookingService {
   }
 
   /**
+   * Cancel booking with authorization check
+   */
+  static async cancelBooking(bookingId: string, userId: string): Promise<BookingResult> {
+    try {
+      // Verify booking belongs to user or user is admin
+      const existingBooking = await prisma.booking.findUnique({
+        where: { id: bookingId },
+        include: { user: true }
+      });
+
+      if (!existingBooking) {
+        return { success: false, error: 'Booking not found' };
+      }
+
+      if (existingBooking.userId !== userId) {
+        // Check if user is admin
+        const user = await prisma.user.findUnique({
+          where: { id: userId },
+          select: { role: true }
+        });
+
+        if (!user || user.role !== 'ADMIN') {
+          return { success: false, error: 'Unauthorized to cancel this booking' };
+        }
+      }
+
+      // Update booking status to cancelled
+      const result = await this.updateBookingStatus(bookingId, 'CANCELLED');
+
+      if (result.success) {
+        // Send cancellation email
+        try {
+          await this.sendCancellationEmail(result.booking);
+        } catch (emailError) {
+          console.error('Failed to send cancellation email:', emailError);
+          // Don't fail the cancellation if email fails
+        }
+      }
+
+      return result;
+    } catch (error) {
+      console.error('Booking cancellation error:', error);
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Failed to cancel booking'
+      };
+    }
+  }
+
+  /**
    * Send booking confirmation emails
    */
   private static async sendBookingEmails(booking: any, itemDetails: any) {
@@ -382,6 +579,40 @@ export class CleanBookingService {
       });
     } catch (error) {
       console.error('Cancellation email error:', error);
+    }
+  }
+
+  /**
+   * Send booking cancellation email
+   */
+  private static async sendCancellationEmail(booking: any): Promise<void> {
+    try {
+      const itemName = booking.dahabiya?.name || booking.package?.name || 'Unknown Item';
+
+      await sendEmail({
+        to: booking.user.email,
+        subject: `Booking Cancelled - ${booking.bookingReference}`,
+        html: `
+          <h2>Booking Cancellation</h2>
+          <p>Dear ${booking.user.name},</p>
+          <p>Your booking has been cancelled.</p>
+
+          <h3>Cancelled Booking Details:</h3>
+          <ul>
+            <li><strong>Reference:</strong> ${booking.bookingReference}</li>
+            <li><strong>Item:</strong> ${itemName}</li>
+            <li><strong>Dates:</strong> ${booking.startDate.toDateString()} - ${booking.endDate.toDateString()}</li>
+            <li><strong>Guests:</strong> ${booking.guests}</li>
+            <li><strong>Total Price:</strong> $${booking.totalPrice}</li>
+          </ul>
+
+          <p>If you have any questions about this cancellation, please contact us.</p>
+          <p>Thank you for your understanding.</p>
+        `
+      });
+    } catch (error) {
+      console.error('Failed to send cancellation email:', error);
+      throw error;
     }
   }
 }

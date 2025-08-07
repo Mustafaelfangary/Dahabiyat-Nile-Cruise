@@ -167,10 +167,10 @@ async function addFooterContent() {
         await prisma.websiteContent.create({
           data: {
             key: content.key,
-            value: content.value,
+            content: content.value, // Use 'content' instead of 'value'
             section: content.section,
             page: content.page,
-            type: 'text',
+            contentType: 'TEXT', // Use 'contentType' instead of 'type'
             isActive: true
           }
         });

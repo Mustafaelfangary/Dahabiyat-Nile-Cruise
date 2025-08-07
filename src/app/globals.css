@@ -108,26 +108,26 @@
   }
 
   .dark {
-    /* Egyptian theme even in dark mode */
-    --background: 45 50% 98%;
-    --foreground: 30 25% 15%;
-    --card: 45 50% 98%;
-    --card-foreground: 30 25% 15%;
-    --popover: 45 50% 98%;
-    --popover-foreground: 30 25% 15%;
-    --primary: 45 100% 51%;
-    --primary-foreground: 30 25% 15%;
-    --secondary: 25 100% 60%;
+    /* Ocean Blue theme even in dark mode */
+    --background: 220 20% 5%;
+    --foreground: 0 0% 100%;
+    --card: 220 20% 8%;
+    --card-foreground: 0 0% 100%;
+    --popover: 220 20% 8%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 200 100% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 100% 60%;
     --secondary-foreground: 0 0% 100%;
-    --muted: 45 30% 94%;
-    --muted-foreground: 30 20% 45%;
-    --accent: 0 75% 55%;
+    --muted: 220 20% 15%;
+    --muted-foreground: 220 20% 65%;
+    --accent: 200 100% 50%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 75% 55%;
     --destructive-foreground: 0 0% 100%;
-    --border: 45 25% 88%;
-    --input: 45 30% 94%;
-    --ring: 45 100% 51%;
+    --border: 220 25% 20%;
+    --input: 220 30% 15%;
+    --ring: 200 100% 50%;
   }
 }
 
@@ -166,7 +166,7 @@
       135deg,
       var(--pharaonic-sand) 0%,
       var(--pharaonic-cream) 50%,
-      #fef3c7 100%
+      #f0f8ff 100%
     );
     min-height: 100vh;
   }
@@ -854,9 +854,9 @@
   .gradient-hero {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(16, 100%, 60%) 50%,
-      hsl(142, 70%, 50%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 50%,
+      hsl(200, 70%, 50%) 100%
     );
   }
 
@@ -899,8 +899,8 @@
   .egyptian-gradient {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(25, 100%, 60%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 100%
     );
   }
 
@@ -913,11 +913,11 @@
   }
 
   .papyrus-bg {
-    background-color: #f7f3e9;
+    background-color: #f0f8ff;
   }
 
   .desert-sand-bg {
-    background-color: #f4e4bc;
+    background-color: #e6f3ff;
   }
 
   .text-egyptian-gold {
@@ -983,7 +983,7 @@
       135deg,
       hsl(142, 70%, 50%) 0%,
       hsl(160, 50%, 85%) 50%,
-      hsl(45, 100%, 60%) 100%
+      hsl(200, 100%, 60%) 100%
     );
   }
 
@@ -1071,8 +1071,8 @@
   .btn-modern {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 51%) 0%,
-      hsl(45, 100%, 61%) 100%
+      hsl(200, 100%, 50%) 0%,
+      hsl(220, 100%, 60%) 100%
     );
     color: hsl(0, 0%, 100%);
     border: none;
@@ -1080,17 +1080,17 @@
     border-radius: 0.75rem;
     font-weight: 600;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 128, 255, 0.3);
   }
 
   .btn-modern:hover {
     background: linear-gradient(
       135deg,
-      hsl(45, 100%, 41%) 0%,
-      hsl(45, 100%, 51%) 100%
+      hsl(200, 100%, 40%) 0%,
+      hsl(220, 100%, 50%) 100%
     );
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.4);
+    box-shadow: 0 8px 24px rgba(0, 128, 255, 0.4);
   }
 }
 
@@ -1367,8 +1367,8 @@ img.no-zoom:hover,
   height: 2px;
   background: linear-gradient(
     135deg,
-    hsl(45, 100%, 51%) 0%,
-    hsl(45, 100%, 51%) 100%
+    hsl(200, 100%, 50%) 0%,
+    hsl(220, 100%, 60%) 100%
   );
   transition: all 0.3s ease-in-out;
   transform: translateX(-50%);
@@ -1649,9 +1649,9 @@ img.no-zoom:hover,
   background-size: 60px 60px, 80px 80px, 100px 100px, 20px 20px, 20px 20px;
 }
 
-/* Golden placeholder styling for footer inputs */
+/* Ocean blue placeholder styling for footer inputs */
 .golden-placeholder::placeholder {
-  color: #ffd700 !important;
+  color: #0080ff !important;
   opacity: 0.8;
 }
 

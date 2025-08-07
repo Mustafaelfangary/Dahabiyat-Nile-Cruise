@@ -231,7 +231,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
     return (
       <Container maxWidth="lg" className="min-h-screen flex items-center justify-center">
         <Box textAlign="center">
-          <CircularProgress size={60} className="text-egyptian-gold" />
+          <CircularProgress size={60} className="text-ocean-blue" />
           <Typography variant="h6" className="mt-4 text-hieroglyph-brown">
             Loading vessel details...
           </Typography>
@@ -269,7 +269,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
   const categoryInfo = getCategoryColor(dahabiya.category || 'DELUXE');
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-cyan-50">
       {/* Enhanced Hero Section */}
       <div className="relative h-screen overflow-hidden">
         {/* Background Image */}
@@ -308,7 +308,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
           <Container maxWidth="lg">
             <div className="text-center text-white">
               {/* Hieroglyphic Symbol */}
-              <Typography variant="h3" className="text-egyptian-gold mb-4 animate-pulse drop-shadow-lg">
+              <Typography variant="h3" className="text-ocean-blue mb-4 animate-pulse drop-shadow-lg">
                 𓊪
               </Typography>
 
@@ -409,7 +409,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     size="large"
                     sx={{
                       '& .MuiRating-iconFilled': {
-                        color: '#D4AF37',
+                        color: '#0080ff',
                         filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))'
                       },
                       '& .MuiRating-iconEmpty': {
@@ -465,16 +465,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     className="font-semibold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
                     startIcon={<Play size={20} className="text-white" />}
                     sx={{
-                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.2) 50%, rgba(184, 134, 11, 0.3) 100%)',
+                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.3) 0%, rgba(0, 102, 204, 0.2) 50%, rgba(0, 68, 153, 0.3) 100%)',
                       backdropFilter: 'blur(20px)',
                       border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(255, 215, 0, 0.4) 50%, rgba(184, 134, 11, 0.5) 100%)',
-                        border: '2px solid rgba(255, 215, 0, 0.9)',
-                        boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
+                        background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.5) 0%, rgba(0, 102, 204, 0.4) 50%, rgba(0, 68, 153, 0.5) 100%)',
+                        border: '2px solid rgba(0, 153, 255, 0.9)',
+                        boxShadow: '0 12px 35px rgba(0, 128, 255, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
                       }
                     }}
                   >
@@ -493,16 +493,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     className="font-semibold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
                     startIcon={<Eye size={20} className="text-white" />}
                     sx={{
-                      background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.3) 0%, rgba(255, 215, 0, 0.2) 50%, rgba(184, 134, 11, 0.3) 100%)',
+                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.3) 0%, rgba(0, 102, 204, 0.2) 50%, rgba(0, 68, 153, 0.3) 100%)',
                       backdropFilter: 'blur(20px)',
                       border: '2px solid rgba(255, 255, 255, 0.8)',
                       color: '#FFFFFF',
                       textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                      boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                       '&:hover': {
-                        background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.5) 0%, rgba(255, 215, 0, 0.4) 50%, rgba(184, 134, 11, 0.5) 100%)',
-                        border: '2px solid rgba(255, 215, 0, 0.9)',
-                        boxShadow: '0 12px 35px rgba(212, 175, 55, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
+                        background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.5) 0%, rgba(0, 102, 204, 0.4) 50%, rgba(0, 68, 153, 0.5) 100%)',
+                        border: '2px solid rgba(0, 153, 255, 0.9)',
+                        boxShadow: '0 12px 35px rgba(0, 128, 255, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4)'
                       }
                     }}
                   >
@@ -548,12 +548,12 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   onClick={() => setSelectedImage(image)}
                   className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
                     selectedImage === image
-                      ? 'bg-gradient-to-r from-egyptian-gold to-amber-400 border-white scale-125 shadow-lg shadow-egyptian-gold/60'
-                      : 'bg-white/80 border-white/70 hover:bg-gradient-to-r hover:from-egyptian-gold/70 hover:to-amber-400/70 hover:border-egyptian-gold hover:scale-110 hover:shadow-md hover:shadow-egyptian-gold/40'
+                      ? 'bg-gradient-to-r from-ocean-blue to-blue-400 border-white scale-125 shadow-lg shadow-ocean-blue/60'
+                      : 'bg-white/80 border-white/70 hover:bg-gradient-to-r hover:from-ocean-blue/70 hover:to-blue-400/70 hover:border-ocean-blue hover:scale-110 hover:shadow-md hover:shadow-ocean-blue/40'
                   }`}
                   style={{
                     boxShadow: selectedImage === image
-                      ? '0 4px 15px rgba(212, 175, 55, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                      ? '0 4px 15px rgba(0, 128, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
                       : '0 2px 8px rgba(0, 0, 0, 0.2)'
                   }}
                 />
@@ -564,14 +564,14 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   onClick={() => setShowGallery(true)}
                   className="text-xs ml-2 rounded-full px-3 py-1 font-bold transition-all duration-300 hover:scale-110"
                   sx={{
-                    background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.8) 0%, rgba(255, 215, 0, 0.7) 100%)',
+                    background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.8) 0%, rgba(0, 102, 204, 0.7) 100%)',
                     color: '#FFFFFF',
                     border: '2px solid rgba(255, 255, 255, 0.8)',
                     textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
-                    boxShadow: '0 4px 15px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 4px 15px rgba(0, 128, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                     '&:hover': {
-                      background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 100%)',
-                      boxShadow: '0 6px 20px rgba(212, 175, 55, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
+                      background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 100%)',
+                      boxShadow: '0 6px 20px rgba(0, 128, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
                     }
                   }}
                 >
@@ -587,9 +587,9 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
       <Container maxWidth="lg" className="py-16">
         {/* Tabs Navigation */}
         <Paper elevation={0} className="mb-8 rounded-2xl overflow-hidden" sx={{
-          background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(255, 215, 0, 0.05) 50%, rgba(184, 134, 11, 0.1) 100%)',
+          background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.1) 0%, rgba(0, 102, 204, 0.05) 50%, rgba(0, 68, 153, 0.1) 100%)',
           backdropFilter: 'blur(10px)',
-          border: '1px solid rgba(212, 175, 55, 0.2)'
+          border: '1px solid rgba(0, 128, 255, 0.2)'
         }}>
           <Tabs
             value={activeTab}
@@ -609,15 +609,15 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 borderRadius: '12px',
                 transition: 'all 0.3s ease',
                 '&:hover': {
-                  background: 'linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(255, 215, 0, 0.15) 100%)',
+                  background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.2) 0%, rgba(0, 102, 204, 0.15) 100%)',
                   transform: 'translateY(-2px)',
-                  boxShadow: '0 4px 15px rgba(212, 175, 55, 0.3)'
+                  boxShadow: '0 4px 15px rgba(0, 128, 255, 0.3)'
                 },
                 '&.Mui-selected': {
-                  background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #B8860B 100%)',
+                  background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 50%, #004499 100%)',
                   color: '#FFFFFF',
                   textShadow: '1px 1px 2px rgba(0,0,0,0.5)',
-                  boxShadow: '0 6px 20px rgba(212, 175, 55, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
+                  boxShadow: '0 6px 20px rgba(0, 128, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
                 }
               },
               '& .MuiTabs-indicator': {
@@ -642,7 +642,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2} className="h-full">
                 <CardContent className="p-6">
                   <Typography variant="h4" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                    <Crown className="text-egyptian-gold" />
+                    <Crown className="text-ocean-blue" />
                     About {dahabiya.name}
                   </Typography>
                   <Typography variant="body1" className="text-gray-700 leading-relaxed mb-6">
@@ -660,7 +660,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                           <Chip
                             key={index}
                             label={feature}
-                            className="bg-egyptian-gold/10 text-hieroglyph-brown border border-egyptian-gold/30"
+                            className="bg-ocean-blue/10 text-hieroglyph-brown border border-ocean-blue/30"
                             variant="outlined"
                           />
                         ))}
@@ -682,7 +682,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   <List dense>
                     <ListItem>
                       <ListItemIcon>
-                        <Users className="text-egyptian-gold" size={20} />
+                        <Users className="text-ocean-blue" size={20} />
                       </ListItemIcon>
                       <ListItemText
                         primary="Capacity"
@@ -693,7 +693,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.cabins && (
                       <ListItem>
                         <ListItemIcon>
-                          <Ship className="text-egyptian-gold" size={20} />
+                          <Ship className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Cabins"
@@ -705,7 +705,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.crew && (
                       <ListItem>
                         <ListItemIcon>
-                          <Users className="text-egyptian-gold" size={20} />
+                          <Users className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Crew"
@@ -717,7 +717,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.length && (
                       <ListItem>
                         <ListItemIcon>
-                          <Ruler className="text-egyptian-gold" size={20} />
+                          <Ruler className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Length"
@@ -729,7 +729,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.yearBuilt && (
                       <ListItem>
                         <ListItemIcon>
-                          <Calendar className="text-egyptian-gold" size={20} />
+                          <Calendar className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Year Built"
@@ -740,7 +740,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
 
                     <ListItem>
                       <ListItemIcon>
-                        <DollarSign className="text-egyptian-gold" size={20} />
+                        <DollarSign className="text-ocean-blue" size={20} />
                       </ListItemIcon>
                       <ListItemText
                         primary="Price"
@@ -759,7 +759,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     variant="contained"
                     fullWidth
                     size="large"
-                    className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-amber font-semibold"
+                    className="bg-ocean-blue text-white hover:bg-blue-600 font-semibold"
                     startIcon={<Crown />}
                     onClick={() => {
                       const bookingSection = document.getElementById('booking-section');
@@ -784,14 +784,14 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                      <Sparkles className="text-egyptian-gold" />
+                      <Sparkles className="text-ocean-blue" />
                       Amenities
                     </Typography>
                     <List>
                       {dahabiya.amenities.map((amenity, index) => (
                         <ListItem key={index}>
                           <ListItemIcon>
-                            <Gem className="text-egyptian-gold" size={16} />
+                            <Gem className="text-ocean-blue" size={16} />
                           </ListItemIcon>
                           <ListItemText primary={amenity} />
                         </ListItem>
@@ -807,14 +807,14 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                      <Utensils className="text-egyptian-gold" />
+                      <Utensils className="text-ocean-blue" />
                       Dining Options
                     </Typography>
                     <List>
                       {dahabiya.diningOptions.map((option, index) => (
                         <ListItem key={index}>
                           <ListItemIcon>
-                            <Utensils className="text-egyptian-gold" size={16} />
+                            <Utensils className="text-ocean-blue" size={16} />
                           </ListItemIcon>
                           <ListItemText primary={option} />
                         </ListItem>
@@ -830,13 +830,13 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                      <Shield className="text-egyptian-gold" />
+                      <Shield className="text-ocean-blue" />
                       Services
                     </Typography>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {dahabiya.services.map((service, index) => (
                         <div key={index} className="flex items-center gap-2">
-                          <Award className="text-egyptian-gold" size={16} />
+                          <Award className="text-ocean-blue" size={16} />
                           <Typography variant="body2">{service}</Typography>
                         </div>
                       ))}
@@ -855,13 +855,13 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2}>
                 <CardContent className="p-6">
                   <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                    <Ruler className="text-egyptian-gold" />
+                    <Ruler className="text-ocean-blue" />
                     Vessel Specifications
                   </Typography>
                   <List>
                     <ListItem>
                       <ListItemIcon>
-                        <Users className="text-egyptian-gold" size={20} />
+                        <Users className="text-ocean-blue" size={20} />
                       </ListItemIcon>
                       <ListItemText
                         primary="Maximum Capacity"
@@ -872,7 +872,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.cabins && (
                       <ListItem>
                         <ListItemIcon>
-                          <Ship className="text-egyptian-gold" size={20} />
+                          <Ship className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Cabins"
@@ -884,7 +884,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.crew && (
                       <ListItem>
                         <ListItemIcon>
-                          <Users className="text-egyptian-gold" size={20} />
+                          <Users className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Crew Members"
@@ -896,7 +896,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.length && (
                       <ListItem>
                         <ListItemIcon>
-                          <Ruler className="text-egyptian-gold" size={20} />
+                          <Ruler className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Length"
@@ -908,7 +908,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.width && (
                       <ListItem>
                         <ListItemIcon>
-                          <Ruler className="text-egyptian-gold" size={20} />
+                          <Ruler className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Width"
@@ -920,7 +920,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     {dahabiya.yearBuilt && (
                       <ListItem>
                         <ListItemIcon>
-                          <Calendar className="text-egyptian-gold" size={20} />
+                          <Calendar className="text-ocean-blue" size={20} />
                         </ListItemIcon>
                         <ListItemText
                           primary="Year Built"
@@ -937,7 +937,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2}>
                 <CardContent className="p-6">
                   <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                    <Crown className="text-egyptian-gold" />
+                    <Crown className="text-ocean-blue" />
                     Category & Rating
                   </Typography>
                   <div className="space-y-4">
@@ -956,7 +956,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                       <div className="flex items-center justify-between">
                         <Typography variant="body1">Rating</Typography>
                         <div className="flex items-center gap-2">
-                          <Star className="text-egyptian-gold" size={20} />
+                          <Star className="text-ocean-blue" size={20} />
                           <Typography variant="body1">{(dahabiya.rating || 0).toFixed(1)}</Typography>
                           <Typography variant="body2" color="textSecondary">
                             ({dahabiya.reviewCount || 0} reviews)
@@ -967,7 +967,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
 
                     <div className="flex items-center justify-between">
                       <Typography variant="body1">Price per Day</Typography>
-                      <Typography variant="h6" className="text-egyptian-gold font-bold">
+                      <Typography variant="h6" className="text-ocean-blue font-bold">
                         {formatPrice(dahabiya.pricePerDay)}
                       </Typography>
                     </div>
@@ -986,15 +986,15 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                      <Activity className="text-egyptian-gold" />
+                      <Activity className="text-ocean-blue" />
                       Onboard Activities & Experiences
                     </Typography>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {dahabiya.activities.map((activity, index) => (
-                        <div key={index} className="bg-gradient-to-br from-egyptian-gold/10 to-amber-50 rounded-lg p-4 border border-egyptian-gold/20 hover:border-egyptian-gold/40 transition-colors">
+                        <div key={index} className="bg-gradient-to-br from-ocean-blue/10 to-blue-50 rounded-lg p-4 border border-ocean-blue/20 hover:border-ocean-blue/40 transition-colors">
                           <div className="flex items-start gap-3">
-                            <div className="bg-egyptian-gold/20 rounded-full p-2 flex-shrink-0">
-                              <TreePine className="text-egyptian-gold" size={16} />
+                            <div className="bg-ocean-blue/20 rounded-full p-2 flex-shrink-0">
+                              <TreePine className="text-ocean-blue" size={16} />
                             </div>
                             <div>
                               <Typography variant="body1" className="font-semibold text-hieroglyph-brown">
@@ -1015,17 +1015,17 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2}>
                 <CardContent className="p-6">
                   <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                    <Navigation className="text-egyptian-gold" />
+                    <Navigation className="text-ocean-blue" />
                     Available Itineraries
                   </Typography>
                   {loadingItineraries ? (
                     <div className="flex justify-center py-8">
-                      <CircularProgress size={40} className="text-egyptian-gold" />
+                      <CircularProgress size={40} className="text-ocean-blue" />
                     </div>
                   ) : itineraries.length > 0 ? (
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                       {itineraries.slice(0, 6).map((itinerary) => (
-                        <div key={itinerary.id} className="bg-white rounded-lg border border-egyptian-gold/20 hover:border-egyptian-gold/40 transition-all duration-300 hover:shadow-lg overflow-hidden">
+                        <div key={itinerary.id} className="bg-white rounded-lg border border-ocean-blue/20 hover:border-ocean-blue/40 transition-all duration-300 hover:shadow-lg overflow-hidden">
                           {itinerary.mainImageUrl && (
                             <div className="aspect-video relative overflow-hidden">
                               <Image
@@ -1045,12 +1045,12 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                             </Typography>
                             <div className="flex items-center justify-between mb-3">
                               <div className="flex items-center gap-2">
-                                <Calendar className="text-egyptian-gold" size={16} />
+                                <Calendar className="text-ocean-blue" size={16} />
                                 <Typography variant="body2">{itinerary.durationDays} days</Typography>
                               </div>
                               {itinerary.maxGuests && (
                                 <div className="flex items-center gap-2">
-                                  <Users className="text-egyptian-gold" size={16} />
+                                  <Users className="text-ocean-blue" size={16} />
                                   <Typography variant="body2">Max {itinerary.maxGuests}</Typography>
                                 </div>
                               )}
@@ -1058,7 +1058,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                             {itinerary.price && (
                               <div className="flex items-center justify-between mb-3">
                                 <Typography variant="body2" color="textSecondary">Starting from</Typography>
-                                <Typography variant="h6" className="text-egyptian-gold font-bold">
+                                <Typography variant="h6" className="text-ocean-blue font-bold">
                                   ${itinerary.price.toLocaleString()}
                                 </Typography>
                               </div>
@@ -1067,7 +1067,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                               <Button
                                 variant="outlined"
                                 fullWidth
-                                className="border-egyptian-gold text-egyptian-gold hover:bg-egyptian-gold hover:text-hieroglyph-brown"
+                                className="border-ocean-blue text-ocean-blue hover:bg-ocean-blue hover:text-white"
                                 endIcon={<ChevronRight size={16} />}
                               >
                                 View Itinerary
@@ -1079,7 +1079,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     </div>
                   ) : (
                     <div className="text-center py-8">
-                      <Compass className="text-egyptian-gold mx-auto mb-4" size={48} />
+                      <Compass className="text-ocean-blue mx-auto mb-4" size={48} />
                       <Typography variant="body1" color="textSecondary">
                         No itineraries available at the moment
                       </Typography>
@@ -1099,7 +1099,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                      <Route className="text-egyptian-gold" />
+                      <Route className="text-ocean-blue" />
                       Available Routes
                     </Typography>
                     <div className="space-y-4">
@@ -1126,17 +1126,17 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-4 flex items-center gap-2">
-                      <Star className="text-egyptian-gold" />
+                      <Star className="text-ocean-blue" />
                       Key Highlights
                     </Typography>
                     <div className="space-y-4">
                       {dahabiya.highlights.map((highlight, index) => (
-                        <div key={index} className="bg-gradient-to-r from-amber-50 to-yellow-50 rounded-lg p-4 border border-amber-200">
+                        <div key={index} className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg p-4 border border-blue-200">
                           <div className="flex items-center gap-3">
-                            <div className="bg-amber-500/20 rounded-full p-2">
-                              <Sunset className="text-amber-600" size={16} />
+                            <div className="bg-blue-500/20 rounded-full p-2">
+                              <Sunset className="text-blue-600" size={16} />
                             </div>
-                            <Typography variant="body1" className="font-semibold text-amber-900">
+                            <Typography variant="body1" className="font-semibold text-blue-900">
                               {highlight}
                             </Typography>
                           </div>
@@ -1153,7 +1153,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2}>
                 <CardContent className="p-6">
                   <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                    <Mountain className="text-egyptian-gold" />
+                    <Mountain className="text-ocean-blue" />
                     Scenic Views & Cultural Attractions
                   </Typography>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -1218,7 +1218,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
               <Card elevation={2}>
                 <CardContent className="p-6">
                   <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                    <Camera className="text-egyptian-gold" />
+                    <Camera className="text-ocean-blue" />
                     Photo Gallery
                   </Typography>
                   {dahabiya.gallery && dahabiya.gallery.length > 0 ? (
@@ -1226,7 +1226,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                       {dahabiya.gallery.map((image, index) => (
                         <div
                           key={index}
-                          className="aspect-square relative overflow-hidden rounded-lg cursor-pointer group border border-egyptian-gold/20 hover:border-egyptian-gold/40 transition-all duration-300"
+                          className="aspect-square relative overflow-hidden rounded-lg cursor-pointer group border border-ocean-blue/20 hover:border-ocean-blue/40 transition-all duration-300"
                           onClick={() => {
                             setGalleryIndex(index);
                             setShowGallery(true);
@@ -1246,7 +1246,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     </div>
                   ) : (
                     <div className="text-center py-12">
-                      <ImageIcon className="text-egyptian-gold mx-auto mb-4" size={48} />
+                      <ImageIcon className="text-ocean-blue mx-auto mb-4" size={48} />
                       <Typography variant="body1" color="textSecondary">
                         No gallery images available
                       </Typography>
@@ -1262,7 +1262,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                      <Film className="text-egyptian-gold" />
+                      <Film className="text-ocean-blue" />
                       Video Tour
                     </Typography>
                     <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
@@ -1284,7 +1284,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 <Card elevation={2}>
                   <CardContent className="p-6">
                     <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                      <Compass className="text-egyptian-gold" />
+                      <Compass className="text-ocean-blue" />
                       Virtual Tour
                     </Typography>
                     <div className="text-center">
@@ -1292,7 +1292,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                         variant="contained"
                         size="large"
                         onClick={() => window.open(dahabiya.virtualTourUrl, '_blank')}
-                        className="bg-egyptian-gold text-hieroglyph-brown hover:bg-egyptian-amber"
+                        className="bg-ocean-blue text-white hover:bg-blue-600"
                         startIcon={<Eye />}
                       >
                         Take Virtual Tour
@@ -1307,7 +1307,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
       </Container>
 
       {/* Itineraries Section */}
-      <div className="bg-gradient-to-b from-amber-50/30 to-slate-50 py-16">
+      <div className="bg-gradient-to-b from-blue-50/30 to-slate-50 py-16">
         <Container maxWidth="lg">
           <DahabiyaItineraries
             dahabiyaId={dahabiya.id}
@@ -1317,16 +1317,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
       </div>
 
       {/* Booking Section */}
-      <div id="booking-section" className="bg-gradient-to-b from-slate-50 to-amber-50/30 py-16">
+      <div id="booking-section" className="bg-gradient-to-b from-slate-50 to-blue-50/30 py-16">
         <Container maxWidth="lg">
           <div className="text-center mb-12">
             <Typography variant="h3" className="text-hieroglyph-brown font-bold mb-4">
               Book Your Royal Journey
             </Typography>
-            <Typography variant="h6" className="text-amber-700 mb-2">
+            <Typography variant="h6" className="text-blue-700 mb-2">
               Reserve {dahabiya.name} for an unforgettable Nile experience
             </Typography>
-            <div className="w-24 h-1 bg-gradient-to-r from-egyptian-gold to-amber-600 mx-auto rounded-full"></div>
+            <div className="w-24 h-1 bg-gradient-to-r from-ocean-blue to-blue-600 mx-auto rounded-full"></div>
           </div>
 
           <div className="max-w-4xl mx-auto">

@@ -40,28 +40,8 @@ export async function POST(req: Request) {
       guestDetails: body.guestDetails || [],
     };
 
-    // Check availability using clean availability service
-    console.log("🔍 Checking availability...");
-    const availability = await CleanAvailabilityService.checkAvailability({
-      type: bookingType,
-      itemId,
-      startDate: new Date(bookingData.startDate),
-      endDate: new Date(bookingData.endDate),
-      guests: bookingData.guests,
-    });
-
-    if (!availability.isAvailable) {
-      console.log("❌ Not available:", availability.message);
-      return NextResponse.json(
-        { error: availability.message },
-        { status: 400 }
-      );
-    }
-
-    console.log("✅ Available! Total price:", availability.totalPrice);
-
-    // Create the booking using clean booking service
-    console.log("📝 Creating booking...");
+    // Create the booking using clean booking service (includes atomic availability check)
+    console.log("📝 Creating booking with atomic availability check...");
     const result = await CleanBookingService.createBooking(session.user.id, bookingData);
 
     if (!result.success) {
