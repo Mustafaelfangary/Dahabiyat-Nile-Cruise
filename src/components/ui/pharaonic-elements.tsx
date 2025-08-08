@@ -72,10 +72,7 @@ export const PharaohCard = ({ children, className = "", title }: { children: Rea
       <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-ocean-blue/30 to-transparent rounded-tl-full"></div>
       
       {/* Hieroglyphic Corner Elements */}
-      <div className="absolute top-2 left-2 text-ocean-blue/60 text-xs">𓂀</div>
-      <div className="absolute top-2 right-2 text-ocean-blue/60 text-xs">𓇳</div>
-      <div className="absolute bottom-2 left-2 text-ocean-blue/60 text-xs">𓊪</div>
-      <div className="absolute bottom-2 right-2 text-ocean-blue/60 text-xs">𓏏</div>
+      <div className="absolute top-2 left-2 text-ocean-blue/60 text-xs">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</div>
       
       {/* Title with Hieroglyphic Accent */}
       {title && (
@@ -159,8 +156,7 @@ export const RoyalCrown = ({ className = "" }: { className?: string }) => {
         <circle cx="20" cy="10" r="2" fill="#3399ff" stroke="#B8860B" strokeWidth="0.8"/>
 
         {/* Hieroglyphic Symbols */}
-        <text x="10" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓇳</text>
-        <text x="26" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓊪</text>
+        <text x="10" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</text>
 
         <defs>
           <linearGradient id="pharaoh-white-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -495,33 +491,17 @@ export const PharaohCrownSymbol = ({ className = "", size = "1em" }: { className
   </span>
 );
 
-// Hieroglyphic "Egypt" Component - 𓊖𓏏𓊖 (Kemet/Egypt)
+// Hieroglyphic "Egypt" Component - Single unified text
 export const EgyptHieroglyphic = ({ className = "", size = "2rem" }: { className?: string; size?: string }) => (
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
-    <div className="flex items-center space-x-1">
-      {/* 𓊖 - Land/Country symbol */}
-      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0s' }}>𓊖</span>
-      {/* 𓏏 - Bread/Land symbol */}
-      <span className="text-emerald-600 animate-pulse" style={{ animationDelay: '0.5s' }}>𓏏</span>
-      {/* 𓊖 - Land/Country symbol */}
-      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '1s' }}>𓊖</span>
-    </div>
+    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
   </div>
 );
 
-// Alternative Egypt Hieroglyphic with different symbols
+// Alternative Egypt Hieroglyphic - Same unified text
 export const EgyptHieroglyphicAlt = ({ className = "", size = "2rem" }: { className?: string; size?: string }) => (
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
-    <div className="flex items-center space-x-1">
-      {/* 𓇯 - Eye of Horus */}
-      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0s' }}>𓇯</span>
-      {/* 𓊪 - Bread loaf */}
-      <span className="text-emerald-600 animate-pulse" style={{ animationDelay: '0.3s' }}>𓊪</span>
-      {/* 𓇳 - Sun disk */}
-      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0.6s' }}>𓇳</span>
-      {/* 𓏏 - Bread/Land */}
-      <span className="text-ocean-blue animate-pulse" style={{ animationDelay: '0.9s' }}>𓏏</span>
-    </div>
+    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
   </div>
 );
 

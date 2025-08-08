@@ -137,17 +137,10 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
         {/* Left decorative elements */}
         <View style={styles.decorativeLeft}>
           <HieroglyphicText
-            text="𓇳"
+            text="𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿"
             size="small"
             animated={animated}
             animationType="rotate"
-            style={[styles.decorativeText, { color: textColor }]}
-          />
-          <HieroglyphicText
-            text="𓊪"
-            size="small"
-            animated={animated}
-            animationType="pulse"
             style={[styles.decorativeText, { color: textColor }]}
           />
         </View>
@@ -166,17 +159,10 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
         {/* Right decorative elements */}
         <View style={styles.decorativeRight}>
           <HieroglyphicText
-            text="𓊪"
+            text="𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿"
             size="small"
             animated={animated}
             animationType="pulse"
-            style={[styles.decorativeText, { color: textColor }]}
-          />
-          <HieroglyphicText
-            text="𓇳"
-            size="small"
-            animated={animated}
-            animationType="rotate"
             style={[styles.decorativeText, { color: textColor }]}
           />
         </View>
@@ -186,7 +172,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
       {variant === 'elegant' && (
         <View style={styles.bottomDecoration}>
           <HieroglyphicText
-            text="𓇯 𓊪 𓇳 𓊪 𓇯"
+            text="𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿"
             size="tiny"
             animated={animated}
             animationType="wave"

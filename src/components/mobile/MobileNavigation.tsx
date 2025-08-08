@@ -163,7 +163,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .catch(() => {
         // Fallback items
         setDahabiyatItems([
-          { href: "/dahabiyas/royal-dahabiya", label: "𓇳 Royal Dahabiya", hieroglyph: "𓇳" },
+          { href: "/dahabiyas/royal-dahabiya", label: "𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿 Royal Dahabiya", hieroglyph: "𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿" },
           { href: "/dahabiyas/nile-goddess", label: "𓊪 Nile Goddess", hieroglyph: "𓊪" },
           { href: "/dahabiyas/pharaoh-dream", label: "𓈖 Pharaoh's Dream", hieroglyph: "𓈖" },
           { href: "/dahabiyas/golden-horus", label: "𓂀 Golden Horus", hieroglyph: "𓂀" },
@@ -302,11 +302,14 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
   return (
     <>
       {/* Mobile Header */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-white/98 shadow-lg border-b border-gray-200 backdrop-blur-md'
-          : 'bg-white/95 backdrop-blur-md border-b border-gray-100'
-      }`}>
+      <div
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-white/98 shadow-lg border-b border-gray-200 backdrop-blur-md'
+            : 'bg-white/95 backdrop-blur-md border-b border-gray-100'
+        }`}
+        style={{ top: '2.5rem' }} // Position below HieroglyphicTopBanner (minimal variant for mobile)
+      >
         <div className="flex items-center justify-between px-4 py-3">
           {/* Dynamic Logo + Site Name */}
           <Link href="/" className="flex items-center space-x-2" onClick={onToggle}>

@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
         {
           id: 'booking-confirmation',
           name: 'Booking Confirmation',
-          subject: '🏺 Your Sacred Journey Awaits - Booking Confirmed',
+          subject: '🏺 Your Royal Journey Awaits - Booking Confirmed',
           content: getBookingConfirmationTemplate(),
           type: 'customer',
           enabled: true,
@@ -135,7 +135,7 @@ function getEmailVerificationTemplate() {
         </div>
         
         <p style="font-size: 16px; line-height: 1.6; color: #e0e0e0; margin-bottom: 25px;">
-          Your royal account has been created successfully. To complete your registration and unlock the treasures of the Nile, please verify your email address using the sacred code below:
+          Your royal account has been created successfully. To complete your registration and unlock the treasures of the Nile, please verify your email address using the royal code below:
         </p>
         
         <!-- Verification Code Box -->
@@ -165,7 +165,7 @@ function getBookingConfirmationTemplate() {
       <!-- Header -->
       <div style="background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); padding: 40px 20px; text-align: center;">
         <div style="font-size: 48px; margin-bottom: 10px;">𓇳</div>
-        <h1 style="margin: 0; color: #1a1a2e; font-size: 32px; font-weight: bold;">Sacred Journey Confirmed</h1>
+        <h1 style="margin: 0; color: #1a1a2e; font-size: 32px; font-weight: bold;">Royal Journey Confirmed</h1>
         <p style="margin: 10px 0 0 0; color: #2c2c2c; font-size: 16px;">Your Nile Adventure Begins</p>
       </div>
       
@@ -182,7 +182,7 @@ function getBookingConfirmationTemplate() {
         
         <!-- Booking Details Card -->
         <div style="background: rgba(0, 128, 255, 0.1); border: 2px solid #d4af37; border-radius: 10px; padding: 25px; margin: 25px 0;">
-          <h3 style="margin: 0 0 20px 0; color: #d4af37; font-size: 18px; text-align: center;">📜 Sacred Scroll of Details</h3>
+          <h3 style="margin: 0 0 20px 0; color: #d4af37; font-size: 18px; text-align: center;">📜 Royal Scroll of Details</h3>
           
           <div style="display: grid; gap: 15px;">
             <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0, 128, 255, 0.3);">

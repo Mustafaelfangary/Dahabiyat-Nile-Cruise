@@ -17,7 +17,7 @@ import {
   Gift
 } from 'lucide-react';
 
-interface LoyaltyDashboardData {
+interface RewardDashboardData {
   user: {
     id: string;
     totalPoints: number;
@@ -75,8 +75,8 @@ interface LoyaltyDashboardData {
   };
 }
 
-export default function LoyaltyDashboard() {
-  const [data, setData] = useState<LoyaltyDashboardData | null>(null);
+export default function RewardDashboard() {
+  const [data, setData] = useState<RewardDashboardData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -87,16 +87,16 @@ export default function LoyaltyDashboard() {
   const fetchDashboardData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/loyalty/dashboard');
+      const response = await fetch('/api/rewards/dashboard');
       if (response.ok) {
         const dashboardData = await response.json();
         setData(dashboardData);
       } else {
-        setError('Failed to load loyalty dashboard');
+        setError('Failed to load rewards dashboard');
       }
     } catch (error) {
-      console.error('Error fetching loyalty dashboard:', error);
-      setError('Failed to load loyalty dashboard');
+      console.error('Error fetching rewards dashboard:', error);
+      setError('Failed to load rewards dashboard');
     } finally {
       setLoading(false);
     }
@@ -118,7 +118,7 @@ export default function LoyaltyDashboard() {
     return (
       <Card className="p-6 text-center">
         <AlertCircle className="w-12 h-12 text-red-500 mx-auto mb-4" />
-        <p className="text-gray-600">{error || 'Failed to load loyalty data'}</p>
+        <p className="text-gray-600">{error || 'Failed to load reward data'}</p>
       </Card>
     );
   }
@@ -270,14 +270,14 @@ export default function LoyaltyDashboard() {
             <Users className="w-5 h-5 text-amber-600" />
             Available Actions
           </h3>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {data.actions.eligibility.map((eligibility) => (
-              <div 
-                key={eligibility.action} 
+              <div
+                key={eligibility.action}
                 className={`p-4 rounded-lg border-2 ${
-                  eligibility.eligible 
-                    ? 'border-green-200 bg-green-50' 
+                  eligibility.eligible
+                    ? 'border-green-200 bg-green-50'
                     : 'border-red-200 bg-red-50'
                 }`}
               >
@@ -291,7 +291,7 @@ export default function LoyaltyDashboard() {
                     <AlertCircle className="w-5 h-5 text-red-600" />
                   )}
                 </div>
-                
+
                 {eligibility.eligible ? (
                   <div className="text-sm text-green-700">
                     {eligibility.remainingToday !== undefined && (
@@ -314,14 +314,14 @@ export default function LoyaltyDashboard() {
             <Crown className="w-5 h-5 text-amber-600" />
             All Tiers
           </h3>
-          
+
           <div className="space-y-3">
             {data.tier.allTiers.map((tier) => (
-              <div 
-                key={tier.name} 
+              <div
+                key={tier.name}
                 className={`p-4 rounded-lg border-2 ${
-                  tier.name === data.tier.current.name 
-                    ? 'border-amber-300 bg-amber-50' 
+                  tier.name === data.tier.current.name
+                    ? 'border-amber-300 bg-amber-50'
                     : 'border-gray-200 bg-gray-50'
                 }`}
               >

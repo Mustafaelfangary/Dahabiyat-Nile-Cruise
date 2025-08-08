@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -38,6 +38,18 @@ export default function SignUpForm() {
   const [showVerification, setShowVerification] = useState(false);
   const [userEmail, setUserEmail] = useState('');
   const router = useRouter();
+
+  // Check URL parameters on component mount to handle page refresh
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const email = urlParams.get('email');
+    const verification = urlParams.get('verification');
+
+    if (email && verification === 'true') {
+      setUserEmail(email);
+      setShowVerification(true);
+    }
+  }, []);
   
   const {
     register,
@@ -125,35 +137,17 @@ export default function SignUpForm() {
       const responseData = await response.json();
       console.log('Signup successful:', responseData);
 
-      if (responseData.requiresVerification) {
-        // Show email verification form
-        setUserEmail(data.email);
-        setShowVerification(true);
-        toast.success("Account created! Please check your email for verification code.");
-      } else {
-        // Old flow for backward compatibility
-        toast.success("Account created successfully!");
+      // All new accounts now require email verification
+      setUserEmail(data.email);
+      setShowVerification(true);
 
-        // Sign in the user automatically after successful registration
-        console.log('Attempting to sign in...');
-        const result = await signIn("credentials", {
-          email: data.email,
-          password: data.password,
-          redirect: false,
-        });
+      // Update URL to persist verification state on page refresh
+      const newUrl = new URL(window.location.href);
+      newUrl.searchParams.set('email', data.email);
+      newUrl.searchParams.set('verification', 'true');
+      window.history.replaceState({}, '', newUrl.toString());
 
-        if (result?.error) {
-          console.error('Auto sign-in failed:', result.error);
-          toast.error("Account created but failed to sign in automatically");
-          router.push("/auth/signin");
-          return;
-        }
-
-        console.log('Sign-in successful, redirecting to homepage...');
-        // Redirect to homepage for regular users
-        router.push("/");
-        router.refresh();
-      }
+      toast.success("Account created! Please check your email for verification code.");
     } catch (error) {
       console.error('Sign up error:', error);
       toast.error(error instanceof Error ? error.message : "Something went wrong. Please try again.");
@@ -163,29 +157,15 @@ export default function SignUpForm() {
   };
 
   const handleVerificationComplete = async () => {
-    // After email verification, sign in the user
-    try {
-      const result = await signIn("credentials", {
-        email: userEmail,
-        password: '', // We'll need to handle this differently
-        redirect: false,
-      });
+    // Clear URL parameters
+    const newUrl = new URL(window.location.href);
+    newUrl.searchParams.delete('email');
+    newUrl.searchParams.delete('verification');
+    window.history.replaceState({}, '', newUrl.toString());
 
-      if (result?.error) {
-        // If auto sign-in fails, redirect to sign-in page
-        toast.success("Email verified! Please sign in to continue.");
-        router.push("/auth/signin");
-        return;
-      }
-
-      toast.success("Welcome to Cleopatra Dahabiyat!");
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      console.error('Post-verification sign-in error:', error);
-      toast.success("Email verified! Please sign in to continue.");
-      router.push("/auth/signin");
-    }
+    // After email verification, redirect to sign-in page
+    toast.success("Email verified! Please sign in to continue.");
+    router.push("/auth/signin?verified=true");
   };
 
   // Show verification form if needed

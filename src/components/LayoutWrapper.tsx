@@ -71,11 +71,15 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
         </>
       )}
       <main
-        className={`transition-all duration-300 ${
-          isMobile && showNavbar ? 'pt-32' : ''
-        }`}
+        className="transition-all duration-300"
         style={{
-          paddingTop: showNavbar && !isMobile ? (scrolled ? '8rem' : '9rem') : '0'
+          paddingTop: showNavbar
+            ? isMobile
+              ? '9rem' // Mobile: HieroglyphicTopBanner (~3rem) + MobileNavigation (~6rem)
+              : scrolled
+                ? '7.5rem' // Desktop scrolled: HieroglyphicTopBanner (~3rem) + Navbar (~4.5rem)
+                : '8rem' // Desktop not scrolled: HieroglyphicTopBanner (~3rem) + Navbar (~5rem)
+            : '3rem' // Admin pages: just HieroglyphicTopBanner
         }}
       >
         {children}

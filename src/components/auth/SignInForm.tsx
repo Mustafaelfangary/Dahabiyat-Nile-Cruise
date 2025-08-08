@@ -46,6 +46,12 @@ export default function SignInForm() {
       });
 
       if (result?.error) {
+        if (result.error === 'EMAIL_NOT_VERIFIED') {
+          toast.error("Please verify your email address before signing in.");
+          // Redirect to verification page with email
+          router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
+          return;
+        }
         toast.error("Invalid email or password");
         return;
       }

@@ -123,7 +123,7 @@ export default function NewBlogPage() {
             <ArrowLeft className="w-4 h-4" />
             Back to Blogs
           </a>
-          <h1 className="text-3xl font-bold text-amber-800">Create New Ancient Chronicle</h1>
+          <h1 className="text-3xl font-bold text-amber-800">Create New Blog</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
@@ -214,7 +214,7 @@ export default function NewBlogPage() {
                   id="content"
                   value={formData.content}
                   onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
-                  placeholder="Write your ancient chronicle here... You can use HTML for formatting."
+                  placeholder="Write your blog here... You can use HTML for formatting."
                   required
                   className="border-amber-200 focus:border-blue-400 min-h-[400px]"
                   rows={20}
@@ -344,7 +344,7 @@ export default function NewBlogPage() {
                   checked={formData.featured}
                   onCheckedChange={(checked) => setFormData(prev => ({ ...prev, featured: !!checked }))}
                 />
-                <Label htmlFor="featured">Featured chronicle</Label>
+                <Label htmlFor="featured">Featured blog</Label>
               </div>
             </CardContent>
           </Card>
@@ -361,7 +361,7 @@ export default function NewBlogPage() {
               ) : (
                 <>
                   <Save className="w-4 h-4 mr-2" />
-                  Create Ancient Chronicle
+                  Create Blog
                 </>
               )}
             </Button>

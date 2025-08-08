@@ -92,7 +92,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   return (
     <Component
       className={`
-        fixed top-0 left-0 right-0 z-50 
+        fixed top-0 left-0 right-0 z-[60]
         ${currentVariant.background} 
         ${currentVariant.shadow} 
         ${currentVariant.padding} 
@@ -109,23 +109,14 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
         <div className="flex items-center justify-center">
           {/* Left decorative elements */}
           <div className="hidden md:flex items-center space-x-2 mr-6">
-            <motion.span 
+            <motion.span
               className={`text-lg ${currentVariant.textColor} opacity-70`}
               animate={animated ? {
                 rotate: [0, 10, -10, 0],
                 transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
               } : {}}
             >
-              𓇳
-            </motion.span>
-            <motion.span 
-              className={`text-lg ${currentVariant.textColor} opacity-70`}
-              animate={animated ? {
-                scale: [1, 1.1, 1],
-                transition: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-              } : {}}
-            >
-              𓊪
+              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
             </motion.span>
           </div>
 
@@ -146,23 +137,14 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
 
           {/* Right decorative elements */}
           <div className="hidden md:flex items-center space-x-2 ml-6">
-            <motion.span 
+            <motion.span
               className={`text-lg ${currentVariant.textColor} opacity-70`}
               animate={animated ? {
                 scale: [1, 1.1, 1],
                 transition: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }
               } : {}}
             >
-              𓊪
-            </motion.span>
-            <motion.span 
-              className={`text-lg ${currentVariant.textColor} opacity-70`}
-              animate={animated ? {
-                rotate: [0, -10, 10, 0],
-                transition: { duration: 4, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
-              } : {}}
-            >
-              𓇳
+              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
             </motion.span>
           </div>
         </div>

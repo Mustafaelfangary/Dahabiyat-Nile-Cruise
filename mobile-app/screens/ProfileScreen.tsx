@@ -1,6 +1,6 @@
 /**
- * Profile Screen with Loyalty Program
- * User profile and loyalty program features
+ * Profile Screen with Rewards Program
+ * User profile and rewards program features
  */
 
 import React, { useState } from 'react';
@@ -50,8 +50,8 @@ const ProfileScreen: React.FC = () => {
     email: 'ahmed.hassan@email.com',
     phone: '+20 123 456 7890',
     memberSince: '2023',
-    loyaltyPoints: 2450,
-    loyaltyTier: 'Gold',
+    rewardPoints: 2450,
+    rewardTier: 'Gold',
     totalBookings: 8,
     avatar: null,
   });
@@ -60,8 +60,8 @@ const ProfileScreen: React.FC = () => {
     Alert.alert('Edit Profile', 'Profile editing feature coming soon!');
   };
 
-  const handleLoyaltyProgram = () => {
-    navigation.navigate('LoyaltyProgram' as never);
+  const handleRewardsProgram = () => {
+    navigation.navigate('RewardsProgram' as never);
   };
 
   const handleBookingHistory = () => {
@@ -112,13 +112,13 @@ const ProfileScreen: React.FC = () => {
         <Text style={styles.userName}>{user.name}</Text>
         <Text style={styles.userEmail}>{user.email}</Text>
         
-        {/* Loyalty Status */}
-        <View style={styles.loyaltyContainer}>
-          <View style={[styles.loyaltyBadge, { backgroundColor: getTierColor(user.loyaltyTier) }]}>
+        {/* Rewards Status */}
+        <View style={styles.rewardContainer}>
+          <View style={[styles.rewardBadge, { backgroundColor: getTierColor(user.rewardTier) }]}>
             <Ionicons name="star" size={16} color="#000" />
-            <Text style={styles.loyaltyTier}>{user.loyaltyTier} Member</Text>
+            <Text style={styles.rewardTier}>{user.rewardTier} Member</Text>
           </View>
-          <Text style={styles.loyaltyPoints}>{user.loyaltyPoints} Points</Text>
+          <Text style={styles.rewardPoints}>{user.rewardPoints} Points</Text>
         </View>
       </View>
 
@@ -129,7 +129,7 @@ const ProfileScreen: React.FC = () => {
           <Text style={styles.statLabel}>Bookings</Text>
         </View>
         <View style={styles.statItem}>
-          <Text style={styles.statNumber}>{user.loyaltyPoints}</Text>
+          <Text style={styles.statNumber}>{user.rewardPoints}</Text>
           <Text style={styles.statLabel}>Points</Text>
         </View>
         <View style={styles.statItem}>
@@ -149,9 +149,9 @@ const ProfileScreen: React.FC = () => {
 
         <ProfileItem
           icon="star-outline"
-          title="Loyalty Program"
-          subtitle={`${user.loyaltyTier} - ${user.loyaltyPoints} points`}
-          onPress={handleLoyaltyProgram}
+          title="Rewards Program"
+          subtitle={`${user.rewardTier} - ${user.rewardPoints} points`}
+          onPress={handleRewardsProgram}
         />
 
         <ProfileItem
@@ -284,10 +284,10 @@ const styles = StyleSheet.create({
     color: '#e6f3ff',
     marginBottom: 15,
   },
-  loyaltyContainer: {
+  rewardContainer: {
     alignItems: 'center',
   },
-  loyaltyBadge: {
+  rewardBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 12,
@@ -295,13 +295,13 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginBottom: 8,
   },
-  loyaltyTier: {
+  rewardTier: {
     fontSize: 14,
     fontWeight: 'bold',
     color: '#000',
     marginLeft: 5,
   },
-  loyaltyPoints: {
+  rewardPoints: {
     fontSize: 18,
     fontWeight: 'bold',
     color: '#ffffff',

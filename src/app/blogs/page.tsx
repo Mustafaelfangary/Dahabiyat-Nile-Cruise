@@ -109,7 +109,7 @@ export default function BlogsPage() {
           <AnimatedSection animation="fade-up">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="text-6xl md:text-7xl font-bold mb-6 text-shadow-lg">
-                <span className="text-sky-blue">𓆎𓅓𓏏𓊖</span> Ancient Blogs
+                <span className="text-sky-blue">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span> Ancient Blogs
               </h1>
               <p className="text-xl md:text-2xl mb-8 text-sky-blue leading-relaxed">
                 Discover the secrets of the pharaohs, explore hidden treasures, and immerse yourself
@@ -218,7 +218,7 @@ export default function BlogsPage() {
                           className="w-full text-sm"
                           onClick={() => window.location.href = `/blogs/${blog.slug || blog.id}`}
                         >
-                          Read Chronicle
+                          Read Blog
                           <ChevronRight className="w-4 h-4 ml-1" />
                         </PharaohButton>
                       </CardContent>

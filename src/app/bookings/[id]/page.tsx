@@ -286,20 +286,20 @@ export default function BookingDetailsPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex gap-4">
+                  <div className="flex flex-col sm:flex-row gap-4">
                     {booking.dahabiya ? (
                       <>
                         {(booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0]) && (
                           <img
                             src={booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0] || '/images/dahabiya-placeholder.jpg'}
                             alt={booking.dahabiya.name}
-                            className="w-24 h-24 object-cover rounded-lg"
+                            className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-lg"
                           />
                         )}
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-800 mb-2">{booking.dahabiya.name}</h3>
                           <p className="text-gray-600 mb-3">{booking.dahabiya.description}</p>
-                          <div className="flex gap-4 text-sm text-gray-500">
+                          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-gray-500">
                             <span>Capacity: {booking.dahabiya.capacity} guests</span>
                             <span>Cabins: {booking.dahabiya.cabins}</span>
                           </div>
@@ -311,13 +311,13 @@ export default function BookingDetailsPage() {
                           <img
                             src={booking.package.mainImageUrl}
                             alt={booking.package.name}
-                            className="w-24 h-24 object-cover rounded-lg"
+                            className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-lg"
                           />
                         )}
                         <div className="flex-1">
                           <h3 className="text-xl font-bold text-gray-800 mb-2">{booking.package.name}</h3>
                           <p className="text-gray-600 mb-3">{booking.package.shortDescription || booking.package.description}</p>
-                          <div className="flex gap-4 text-sm text-gray-500">
+                          <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 text-sm text-gray-500">
                             <span>Duration: {booking.package.durationDays} days</span>
                             <span>Price: ${booking.package.price.toLocaleString()}</span>
                           </div>

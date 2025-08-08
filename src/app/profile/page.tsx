@@ -21,8 +21,8 @@ import { ReviewsList } from '@/components/ReviewsList';
 import UserNotificationCenter from '@/components/profile/UserNotificationCenter';
 import MemorySharing from '@/components/profile/MemorySharing';
 import ReviewSharing from '@/components/profile/ReviewSharing';
-import LoyaltyButtons from '@/components/profile/LoyaltyButtons';
-import LoyaltyDashboard from '@/components/profile/LoyaltyDashboard';
+import RewardButtons from '@/components/profile/RewardButtons';
+import RewardDashboard from '@/components/profile/RewardDashboard';
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
@@ -81,13 +81,13 @@ export default function ProfilePage() {
     totalSpent: 0,
     favoriteDestination: '',
     memberSince: '',
-    loyaltyPoints: 0
+    rewardPoints: 0
   });
 
   const handlePointsEarned = (points: number, action: string) => {
     setUserStats(prev => ({
       ...prev,
-      loyaltyPoints: prev.loyaltyPoints + points
+      rewardPoints: prev.rewardPoints + points
     }));
   };
   const [preferences, setPreferences] = useState<UserPreferences>({
@@ -114,7 +114,7 @@ export default function ProfilePage() {
   }, [session?.user?.id]);
 
   useEffect(() => {
-    // Listen for memory sharing events from loyalty buttons
+    // Listen for memory sharing events from reward buttons
     const handleMemorySharing = () => {
       setActiveTab('memories');
     };
@@ -260,7 +260,7 @@ export default function ProfilePage() {
     }
   };
 
-  const getLoyaltyTier = (points: number) => {
+  const getRewardTier = (points: number) => {
     if (points >= 10000) return {
       name: 'Pharaoh',
       color: 'text-purple-600',
@@ -289,14 +289,14 @@ export default function ProfilePage() {
       name: 'Traveler',
       color: 'text-green-600',
       icon: Palmtree,
-      description: 'Beginning your journey along the sacred river',
+      description: 'Beginning your journey along the eternal river',
       hieroglyph: '𓈖',
       benefits: ['Priority booking access', 'Exclusive member rates', 'Complimentary upgrades']
     };
   };
 
-  const loyaltyTier = getLoyaltyTier(userStats.loyaltyPoints);
-  const LoyaltyIcon = loyaltyTier.icon;
+  const rewardTier = getRewardTier(userStats.rewardPoints);
+  const RewardIcon = rewardTier.icon;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-50/30 to-slate-50 relative overflow-hidden">
@@ -361,7 +361,7 @@ export default function ProfilePage() {
                       </Avatar>
 
                       {/* Pharaonic crown overlay for high-tier users */}
-                      {loyaltyTier.name === 'Pharaoh' && (
+                      {rewardTier.name === 'Pharaoh' && (
                         <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-2xl text-ocean-blue animate-bounce">👑</div>
                       )}
 
@@ -410,12 +410,9 @@ export default function ProfilePage() {
                         {session.user.name}
                       </h1>
                       <div className="flex items-center gap-2 bg-gradient-to-r from-ocean-blue/30 to-blue-600/30 backdrop-blur-sm px-4 py-2 rounded-full border border-ocean-blue/50 ocean-glow hieroglyph-decoration">
-                        <LoyaltyIcon className="w-6 h-6 text-ocean-blue pharaonic-pulse" />
-                        <span className="font-bold text-ocean-blue">{loyaltyTier.name}</span>
-                        {loyaltyTier.name === 'Pharaoh' && <span className="text-lg hieroglyph-glow">𓇳</span>}
-                        {loyaltyTier.name === 'Noble' && <span className="text-lg hieroglyph-glow">𓊪</span>}
-                        {loyaltyTier.name === 'Explorer' && <span className="text-lg hieroglyph-glow">𓂀</span>}
-                        {loyaltyTier.name === 'Traveler' && <span className="text-lg hieroglyph-glow">𓈖</span>}
+                        <RewardIcon className="w-6 h-6 text-ocean-blue pharaonic-pulse" />
+                        <span className="font-bold text-ocean-blue">{rewardTier.name}</span>
+                        <span className="text-lg hieroglyph-glow">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                       </div>
                     </div>
 
@@ -445,7 +442,7 @@ export default function ProfilePage() {
                           <Crown className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
                           <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓇳</div>
                         </div>
-                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.loyaltyPoints.toLocaleString()}</div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.rewardPoints.toLocaleString()}</div>
                         <div className="text-sm text-white/90 font-medium">Points</div>
                       </div>
                       <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
@@ -532,11 +529,11 @@ export default function ProfilePage() {
                     <span>Reviews</span>
                   </TabsTrigger>
                   <TabsTrigger
-                    value="loyalty"
+                    value="rewards"
                     className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Crown className="w-3 h-3" />
-                    <span>Loyalty</span>
+                    <span>Rewards</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="memories"
@@ -588,11 +585,11 @@ export default function ProfilePage() {
                   <span>Reviews</span>
                 </TabsTrigger>
                 <TabsTrigger
-                  value="loyalty"
+                  value="rewards"
                   className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Crown className="w-4 h-4" />
-                  <span>Loyalty</span>
+                  <span>Rewards</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="memories"
@@ -891,8 +888,8 @@ export default function ProfilePage() {
               </div>
             </TabsContent>
 
-            {/* Enhanced Loyalty Tab with Pharaonic Theme */}
-            <TabsContent value="loyalty" className="mt-8">
+            {/* Enhanced Rewards Tab with Pharaonic Theme */}
+            <TabsContent value="rewards" className="mt-8">
               <Card className="bg-gradient-to-br from-white/90 to-blue-50/80 backdrop-blur-sm border border-ocean-blue/30 shadow-2xl relative overflow-hidden">
                 {/* Pharaonic border decorations */}
                 <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue"></div>
@@ -909,8 +906,8 @@ export default function ProfilePage() {
                     </div>
                     <div>
                       <CardTitle className="text-3xl text-gray-800 font-heading flex items-center gap-2">
-                        Royal Loyalty Program
-                        <span className="text-2xl text-ocean-blue">𓊪</span>
+                        Royal Rewards Program
+                        <span className="text-2xl text-ocean-blue">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                       </CardTitle>
                       <CardDescription className="text-gray-700 font-medium">
                         Your journey to pharaonic privileges and ancient treasures
@@ -923,8 +920,8 @@ export default function ProfilePage() {
                   <div className="absolute top-4 right-4 text-3xl text-ocean-blue/20 animate-pulse">𓂀</div>
                   <div className="absolute bottom-4 left-4 text-2xl text-ocean-blue/15 animate-bounce">𓈖</div>
 
-                  {/* Enhanced Loyalty Dashboard */}
-                  <LoyaltyDashboard />
+                  {/* Enhanced Rewards Dashboard */}
+                  <RewardDashboard />
 
                   {/* Enhanced Current Tier Display */}
                   <div className="text-center mb-10">
@@ -933,16 +930,13 @@ export default function ProfilePage() {
                       <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-lg text-ocean-blue">𓇳</div>
                       <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-lg text-ocean-blue">𓊪</div>
 
-                      <LoyaltyIcon className={`w-10 h-10 ${loyaltyTier.color} drop-shadow-lg`} />
+                      <RewardIcon className={`w-10 h-10 ${rewardTier.color} drop-shadow-lg`} />
                       <div>
                         <div className="text-3xl font-bold text-gray-800 font-heading flex items-center gap-2">
-                          {loyaltyTier.name}
-                          {loyaltyTier.name === 'Pharaoh' && <span className="text-2xl">👑</span>}
-                          {loyaltyTier.name === 'Noble' && <span className="text-xl">𓇳</span>}
-                          {loyaltyTier.name === 'Explorer' && <span className="text-xl">𓂀</span>}
-                          {loyaltyTier.name === 'Traveler' && <span className="text-xl">𓈖</span>}
+                          {rewardTier.name}
+                          <span className="text-xl">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                         </div>
-                        <div className="text-lg text-gray-700 font-semibold">{userStats.loyaltyPoints.toLocaleString()} points</div>
+                        <div className="text-lg text-gray-700 font-semibold">{userStats.rewardPoints.toLocaleString()} points</div>
                       </div>
                     </div>
                   </div>
@@ -955,14 +949,14 @@ export default function ProfilePage() {
                         <span className="text-ocean-blue">𓏏</span>
                       </span>
                       <span className="text-lg text-gray-600 font-medium">
-                        {Math.min(userStats.loyaltyPoints, 10000)}/10000 points
+                        {Math.min(userStats.rewardPoints, 10000)}/10000 points
                       </span>
                     </div>
                     <div className="relative">
                       <div className="pharaonic-progress w-full h-4 shadow-inner">
                         <div
                           className="pharaonic-progress-fill h-4 rounded-full transition-all duration-700 shadow-lg relative overflow-hidden"
-                          style={{ width: `${Math.min((userStats.loyaltyPoints / 10000) * 100, 100)}%` }}
+                          style={{ width: `${Math.min((userStats.rewardPoints / 10000) * 100, 100)}%` }}
                         >
                         </div>
                       </div>
@@ -998,7 +992,7 @@ export default function ProfilePage() {
                           <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                           Complimentary upgrades
                         </div>
-                        {loyaltyTier.name !== 'Traveler' && (
+                        {rewardTier.name !== 'Traveler' && (
                           <div className="flex items-center gap-2 text-sm text-gray-600">
                             <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                             Personal concierge service
@@ -1008,7 +1002,7 @@ export default function ProfilePage() {
                     </div>
 
                     <div>
-                      <LoyaltyButtons onPointsEarned={handlePointsEarned} />
+                      <RewardButtons onPointsEarned={handlePointsEarned} />
                     </div>
                   </div>
                 </CardContent>

@@ -239,7 +239,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="text-egyptian-gold hover:text-sunset-orange transition-colors duration-300 font-medium"
+                      className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
                     >
                       {link.name}
                     </Link>
@@ -380,15 +380,15 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
           {/* Modern Bottom Section */}
           <div className="border-t border-gray-200 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              <p className="text-blue-100">
+              <p className="text-white">
                 © {new Date().getFullYear()} {get('footer-company-name', 'Cleopatra Dahabiyat')}. All Rights Reserved.
               </p>
 
               <div className="flex items-center space-x-6">
-                <Link href="/privacy" className="text-blue-300 hover:text-white transition-colors duration-300 font-medium">
+                <Link href="/privacy" className="text-blue-200 hover:text-white transition-colors duration-300 font-medium">
                   Privacy Policy
                 </Link>
-                <Link href="/terms" className="text-blue-300 hover:text-white transition-colors duration-300 font-medium">
+                <Link href="/terms" className="text-blue-200 hover:text-white transition-colors duration-300 font-medium">
                   Terms of Service
                 </Link>
               </div>

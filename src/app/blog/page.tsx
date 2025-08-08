@@ -116,31 +116,20 @@ export default function BlogListingPage() {
         <Container maxWidth="lg" className="relative z-10">
           <AnimatedSection animation="fade-in">
             <div className="text-center text-white">
-              {/* Hieroglyphic Egypt at top */}
-              <div className="text-center mb-8">
-                <div className="text-5xl font-bold text-sky-blue mb-4 drop-shadow-lg">
-                  𓇳 𓈖 𓊪 𓏏 𓇳
-                </div>
-                <HieroglyphicDivider />
-              </div>
-
-              {/* Royal Crown */}
-              <div className="flex justify-center mb-6">
-                <RoyalCrown />
-              </div>
-
               {/* Main Title */}
-              <HieroglyphicText
-                text="Royal Blogs"
+              <Typography
+                variant="h1"
                 className="text-5xl md:text-7xl font-bold mb-6 text-white drop-shadow-2xl"
-              />
+              >
+                Blogs
+              </Typography>
 
               {/* Subtitle */}
               <Typography
                 variant="h4"
                 className="text-2xl md:text-3xl mb-8 text-sky-blue font-light drop-shadow-lg"
               >
-                𓊪 Tales from the Land of Pharaohs 𓊪
+                Discover amazing stories and experiences
               </Typography>
 
               {/* Description */}
@@ -162,13 +151,14 @@ export default function BlogListingPage() {
           <Container maxWidth="lg">
             <AnimatedSection animation="slide-up">
               <div className="text-center mb-16">
-                <HieroglyphicText
-                  text="Featured Blogs"
+                <Typography
+                  variant="h2"
                   className="text-4xl md:text-5xl font-bold text-ocean-blue-dark mb-4"
-                />
-                <HieroglyphicDivider />
+                >
+                  Featured Blogs
+                </Typography>
                 <p className="text-xl text-ocean-blue max-w-3xl mx-auto">
-                  Our most treasured stories from the land of the pharaohs
+                  Our most treasured stories and experiences
                 </p>
               </div>
 
@@ -248,11 +238,12 @@ export default function BlogListingPage() {
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="text-center mb-16">
-              <HieroglyphicText
-                text="All Blogs"
+              <Typography
+                variant="h2"
                 className="text-4xl md:text-5xl font-bold text-ocean-blue-dark mb-4"
-              />
-              <HieroglyphicDivider />
+              >
+                All Blogs
+              </Typography>
               <p className="text-xl text-ocean-blue max-w-3xl mx-auto">
                 Explore all our stories and insights about Egypt
               </p>

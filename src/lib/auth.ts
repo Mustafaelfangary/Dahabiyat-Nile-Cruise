@@ -58,13 +58,22 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
+        // Check if email is verified
+        if (!user.isEmailVerified) {
+          console.log('Email not verified for user:', user.email);
+          throw new Error('EMAIL_NOT_VERIFIED');
+        }
+
+        console.log('Authentication successful for user:', user.email);
+
         // Keep all roles for proper authorization
         return {
           id: user.id,
           email: user.email,
           name: user.name,
           role: user.role, // Keep original role: ADMIN, MANAGER, GUIDE, USER
-          originalRole: user.role // Store original role for reference
+          originalRole: user.role, // Store original role for reference
+          image: user.image
         };
       },
     }),

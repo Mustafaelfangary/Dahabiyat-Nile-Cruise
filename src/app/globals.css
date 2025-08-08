@@ -2059,27 +2059,27 @@ img.no-zoom:hover,
     font-size: 0.875rem !important;
   }
 
-  /* Loyalty buttons mobile optimizations */
-  .mobile-mode .loyalty-buttons {
+  /* Reward buttons mobile optimizations */
+  .mobile-mode .reward-buttons {
     padding: 0.75rem !important;
   }
 
-  .mobile-mode .loyalty-buttons .card {
+  .mobile-mode .reward-buttons .card {
     margin-bottom: 0.75rem !important;
   }
 
-  .mobile-mode .loyalty-buttons button {
+  .mobile-mode .reward-buttons button {
     min-height: 4rem !important;
     padding: 0.75rem !important;
     font-size: 0.875rem !important;
   }
 
-  .mobile-mode .loyalty-buttons .button-icon {
+  .mobile-mode .reward-buttons .button-icon {
     width: 1rem !important;
     height: 1rem !important;
   }
 
-  .mobile-mode .loyalty-buttons .button-text {
+  .mobile-mode .reward-buttons .button-text {
     font-size: 0.75rem !important;
     line-height: 1.2 !important;
   }

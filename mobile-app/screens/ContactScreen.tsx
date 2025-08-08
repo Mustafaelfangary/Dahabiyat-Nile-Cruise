@@ -52,7 +52,7 @@ const ContactScreen: React.FC = () => {
   });
   const [content, setContent] = useState<ContactContent>({
     heroTitle: 'Royal Advisors',
-    heroSubtitle: 'Reach out to our sacred council for guidance',
+    heroSubtitle: 'Reach out to our royal council for guidance',
     companyName: 'Cleopatra Dahabiyat',
     address: 'Luxor, Egypt',
     phone: '+20 123 456 789',
@@ -321,7 +321,7 @@ const ContactScreen: React.FC = () => {
 
         {/* Contact Form */}
         <Card variant="elevated" style={styles.formCard}>
-          <Heading2 style={styles.formTitle}>Send Sacred Message</Heading2>
+          <Heading2 style={styles.formTitle}>Send Royal Message</Heading2>
           
           <View style={styles.inputGroup}>
             <AccentText style={styles.inputLabel}>Full Name *</AccentText>

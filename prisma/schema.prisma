@@ -24,6 +24,7 @@ model User {
   resetToken String?
   resetTokenExpiry DateTime?
   loyaltyPoints Int             @default(0)
+  rewardPoints  Int             @default(0)
   accounts      Account[]
   bookings      Booking[]
   notifications Notification[]
@@ -33,6 +34,7 @@ model User {
   // UserWishlist  UserWishlist[]  // REMOVED: related to deleted UserWishlist model
   memories      UserMemory[]
   loyaltyActions LoyaltyAction[]
+  rewardActions  RewardAction[]
   bookingModifications BookingModification[] @relation("BookingModifications")
   bookingCancellations BookingCancellation[] @relation("BookingCancellations")
   analyticsEvents AnalyticsEvent[] @relation("AnalyticsEvents")
@@ -497,16 +499,14 @@ model TailorMadeRequest {
 
 model GalleryCategory {
   id          String         @id @default(cuid())
-  name        String         @unique
+  name        String
   slug        String         @unique
   description String?
-  hieroglyph  String?        // Egyptian hieroglyph for the category
-  color       String?        // Theme color for the category
   order       Int            @default(0)
   isActive    Boolean        @default(true)
+  images      GalleryImage[]
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
-  images      GalleryImage[]
 
   @@map("gallery_categories")
 }
@@ -522,7 +522,7 @@ model GalleryImage {
   order       Int             @default(0)
   isActive    Boolean         @default(true)
   isFeatured  Boolean         @default(false)
-  tags        String[]        // Array of tags for filtering
+  tags        String[]        @default([])
   createdAt   DateTime        @default(now())
   updatedAt   DateTime        @updatedAt
 
@@ -981,6 +981,34 @@ model LoyaltyConfig {
   updatedAt     DateTime @updatedAt
 
   @@map("loyalty_config")
+}
+
+model RewardAction {
+  id          String   @id @default(cuid())
+  userId      String
+  action      String   // book-package, like-facebook, follow-instagram, etc.
+  points      Int
+  description String?
+  metadata    String?  @db.Text // JSON metadata
+  verified    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, createdAt])
+  @@index([action, createdAt])
+  @@map("reward_actions")
+}
+
+model RewardConfig {
+  id            String   @id @default("default")
+  buttonsConfig String   @db.Text // JSON configuration for reward buttons
+  socialLinks   String?  @db.Text // JSON configuration for social media links
+  pointsConfig  String?  @db.Text // JSON configuration for points values
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@map("reward_config")
 }
 
 model PDFDocument {
