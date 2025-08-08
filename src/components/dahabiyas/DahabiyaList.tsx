@@ -117,7 +117,7 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
 
   if (!data || data.dahabiyas.length === 0) {
     return (
-      <Box textAlign="center" py={12} className="bg-gradient-to-b from-amber-50 to-orange-50 rounded-lg border-2 border-egyptian-gold/20">
+      <Box textAlign="center" py={12} className="bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 rounded-lg border-2 border-egyptian-gold/20">
         <Typography className="text-egyptian-gold text-6xl mb-4">𓊪</Typography>
         <Typography variant="h4" className="text-hieroglyph-brown font-bold mb-4" style={{ fontFamily: 'serif' }}>
           {getContent('dahabiyas_empty_title') || 'No Vessels Found'}
@@ -175,7 +175,7 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
             <div className="w-16 h-0.5 bg-egyptian-gold"></div>
           </div>
 
-          <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-lg p-4 border-2 border-egyptian-gold/20">
+          <div className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100 rounded-lg p-4 border-2 border-egyptian-gold/20">
             <Pagination
               count={data.pages}
               page={currentPage}
@@ -188,11 +188,11 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
                   color: '#8B4513',
                   fontWeight: 'bold',
                   '&:hover': {
-                    backgroundColor: '#D4AF37',
+                    backgroundColor: '#0080ff',
                     color: '#8B4513',
                   },
                   '&.Mui-selected': {
-                    backgroundColor: '#D4AF37',
+                    backgroundColor: '#0080ff',
                     color: '#8B4513',
                     '&:hover': {
                       backgroundColor: '#B8860B',

@@ -107,7 +107,7 @@ export default function MobileForgotPasswordForm({ onBack, className = '' }: Mob
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4 flex flex-col ${className}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 p-4 flex flex-col ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-8 pt-4">
         <Button 

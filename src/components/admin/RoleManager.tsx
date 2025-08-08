@@ -61,7 +61,7 @@ const roleConfig = {
   },
   MANAGER: {
     label: 'Manager',
-    color: 'bg-orange-100 text-orange-800',
+    color: 'bg-gray-100 text-gray-900',
     icon: Edit,
     description: 'Manager with extensive administrative capabilities',
     permissions: ['All guide permissions', 'Manage users', 'View analytics', 'Content management', 'Booking management']
@@ -221,12 +221,12 @@ export function RoleManager({ user, currentUserRole, onRoleUpdate }: RoleManager
                   </div>
 
                   {selectedRole !== user.role && (
-                    <div className="p-3 bg-amber-50 border border-amber-200 rounded-md">
+                    <div className="p-3 bg-gray-50 border border-gray-200 rounded-md">
                       <div className="flex items-start gap-2">
-                        <AlertTriangle className="w-4 h-4 text-amber-600 mt-0.5" />
+                        <AlertTriangle className="w-4 h-4 text-gray-700 mt-0.5" />
                         <div className="text-sm">
-                          <p className="font-medium text-amber-800">Role Change Impact:</p>
-                          <p className="text-amber-700 mt-1">
+                          <p className="font-medium text-gray-900">Role Change Impact:</p>
+                          <p className="text-gray-700 mt-1">
                             {roleConfig[selectedRole as keyof typeof roleConfig].description}
                           </p>
                         </div>

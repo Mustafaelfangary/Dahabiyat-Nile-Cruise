@@ -182,10 +182,10 @@ export default function ProfilePage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-gray-50 to-blue-100">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-8 w-8 border-2 border-amber-400 border-t-transparent mx-auto mb-3"></div>
-          <p className="text-amber-700 font-medium text-sm">Loading profile...</p>
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-ocean-blue border-t-transparent mx-auto mb-3"></div>
+          <p className="text-gray-800 font-medium text-sm">Loading profile...</p>
         </div>
       </div>
     );
@@ -271,7 +271,7 @@ export default function ProfilePage() {
     };
     if (points >= 5000) return {
       name: 'Noble',
-      color: 'text-amber-600',
+      color: 'text-ocean-blue',
       icon: Award,
       description: 'Honored member of the royal court',
       hieroglyph: '𓊪',
@@ -299,35 +299,35 @@ export default function ProfilePage() {
   const LoyaltyIcon = loyaltyTier.icon;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-gray-50/30 to-slate-50 relative overflow-hidden">
       {/* Enhanced Pharaonic Background Pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="w-full h-full" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4af37' fill-opacity='0.15'%3E%3Cpath d='M60 20l20 20v40l-20 20-20-20V40z'/%3E%3Cpath d='M20 60l20-20h40l20 20-20 20H40z'/%3E%3C/g%3E%3C/svg%3E")`
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='120' height='120' viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%230080ff' fill-opacity='0.15'%3E%3Cpath d='M60 20l20 20v40l-20 20-20-20V40z'/%3E%3Cpath d='M20 60l20-20h40l20 20-20 20H40z'/%3E%3C/g%3E%3C/svg%3E")`
         }}></div>
       </div>
 
       {/* Enhanced Floating Hieroglyphic Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 text-6xl text-egyptian-gold/20 float-hieroglyph hieroglyph-glow">𓇳</div>
-        <div className="absolute top-40 right-20 text-4xl text-egyptian-gold/15 float-hieroglyph" style={{animationDelay: '1s'}}>𓂀</div>
-        <div className="absolute bottom-40 left-20 text-5xl text-egyptian-gold/20 float-hieroglyph hieroglyph-glow" style={{animationDelay: '2s'}}>𓊪</div>
-        <div className="absolute bottom-20 right-10 text-3xl text-egyptian-gold/15 float-hieroglyph" style={{animationDelay: '0.5s'}}>𓈖</div>
-        <div className="absolute top-1/2 left-1/4 text-4xl text-egyptian-gold/10 float-hieroglyph" style={{animationDelay: '1.5s'}}>𓏏</div>
-        <div className="absolute top-1/3 right-1/3 text-5xl text-egyptian-gold/15 float-hieroglyph hieroglyph-glow" style={{animationDelay: '3s'}}>𓇯</div>
+        <div className="absolute top-20 left-10 text-6xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow">𓇳</div>
+        <div className="absolute top-40 right-20 text-4xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '1s'}}>𓂀</div>
+        <div className="absolute bottom-40 left-20 text-5xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow" style={{animationDelay: '2s'}}>𓊪</div>
+        <div className="absolute bottom-20 right-10 text-3xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '0.5s'}}>𓈖</div>
+        <div className="absolute top-1/2 left-1/4 text-4xl text-ocean-blue/10 float-hieroglyph" style={{animationDelay: '1.5s'}}>𓏏</div>
+        <div className="absolute top-1/3 right-1/3 text-5xl text-ocean-blue/15 float-hieroglyph hieroglyph-glow" style={{animationDelay: '3s'}}>𓇯</div>
       </div>
 
       <Container maxWidth="xl" className="relative z-10 py-8">
         <AnimatedSection animation="fade-in">
           {/* Hero Profile Section */}
           <div className="relative mb-12">
-            {/* Background Card with Enhanced Pharaonic Gradient */}
-            <Card className="bg-gradient-to-r from-amber-500 via-yellow-500 to-orange-500 border-none shadow-2xl overflow-hidden relative pharaonic-card golden-glow">
+            {/* Background Card with Enhanced Ocean Blue Gradient */}
+            <Card className="bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue border-none shadow-2xl overflow-hidden relative pharaonic-card ocean-glow">
               <div className="absolute inset-0 bg-black/15"></div>
 
               {/* Enhanced Pharaonic Border Pattern */}
-              <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold pharaonic-shimmer"></div>
-              <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold pharaonic-shimmer"></div>
+              <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue pharaonic-shimmer"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-3 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue pharaonic-shimmer"></div>
 
               {/* Egyptian Hieroglyphic Corner Decorations */}
               <div className="absolute top-4 left-4 text-2xl text-white/30">𓇳</div>
@@ -340,45 +340,45 @@ export default function ProfilePage() {
                   {/* Enhanced Profile Avatar with Pharaonic Elements */}
                   <div className="relative">
                     {/* Outer pharaonic ring with hieroglyphs */}
-                    <div className="absolute -inset-4 w-48 h-48 rounded-full border-4 border-egyptian-gold/40 animate-pulse">
-                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 text-lg text-egyptian-gold">𓇳</div>
-                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-egyptian-gold">𓊪</div>
-                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 text-lg text-egyptian-gold">𓂀</div>
-                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 text-lg text-egyptian-gold">𓈖</div>
+                    <div className="absolute -inset-4 w-48 h-48 rounded-full border-4 border-ocean-blue/40 animate-pulse">
+                      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-2 text-lg text-ocean-blue">𓇳</div>
+                      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-2 text-lg text-ocean-blue">𓊪</div>
+                      <div className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-2 text-lg text-ocean-blue">𓂀</div>
+                      <div className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-2 text-lg text-ocean-blue">𓈖</div>
                     </div>
 
                     {/* Middle ornamental ring */}
                     <div className="absolute inset-0 w-40 h-40 rounded-full border-4 border-white/50 animate-pulse" />
-                    <div className="absolute inset-2 w-36 h-36 rounded-full border-2 border-egyptian-gold/60" />
+                    <div className="absolute inset-2 w-36 h-36 rounded-full border-2 border-ocean-blue/60" />
 
                     {/* Main avatar container with pharaonic styling */}
-                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white/80 shadow-2xl bg-gradient-to-br from-white/40 to-amber-100/30 backdrop-blur-sm">
+                    <div className="relative w-36 h-36 rounded-full overflow-hidden border-4 border-white/80 shadow-2xl bg-gradient-to-br from-white/40 to-blue-100/30 backdrop-blur-sm">
                       <Avatar className="w-full h-full">
                         <AvatarImage src={session.user.image || ''} alt={session.user.name || ''} />
-                        <AvatarFallback className="text-5xl font-bold text-amber-800 bg-gradient-to-br from-white to-amber-100">
+                        <AvatarFallback className="text-5xl font-bold text-ocean-blue bg-gradient-to-br from-white to-blue-100">
                           {session.user.name?.charAt(0) || 'U'}
                         </AvatarFallback>
                       </Avatar>
 
                       {/* Pharaonic crown overlay for high-tier users */}
                       {loyaltyTier.name === 'Pharaoh' && (
-                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-2xl text-egyptian-gold animate-bounce">👑</div>
+                        <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-2xl text-ocean-blue animate-bounce">👑</div>
                       )}
 
-                      {/* Golden rim effect */}
-                      <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-egyptian-gold/20 to-transparent" />
+                      {/* Ocean blue rim effect */}
+                      <div className="absolute inset-0 rounded-full border-2 border-transparent bg-gradient-to-r from-transparent via-ocean-blue/20 to-transparent" />
                     </div>
 
                     {/* Pharaonic crown symbol */}
-                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-br from-egyptian-gold to-egyptian-gold/80 rounded-full flex items-center justify-center text-hieroglyph-brown text-lg font-bold shadow-lg border-2 border-white/50">
+                    <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-gradient-to-br from-ocean-blue to-ocean-blue/80 rounded-full flex items-center justify-center text-white text-lg font-bold shadow-lg border-2 border-white/50">
                       𓇳
                     </div>
 
                     {/* Side pharaonic symbols */}
-                    <div className="absolute top-1/2 -left-3 transform -translate-y-1/2 text-egyptian-gold/60 text-2xl">
+                    <div className="absolute top-1/2 -left-3 transform -translate-y-1/2 text-ocean-blue/60 text-2xl">
                       𓈖
                     </div>
-                    <div className="absolute top-1/2 -right-3 transform -translate-y-1/2 text-egyptian-gold/60 text-2xl">
+                    <div className="absolute top-1/2 -right-3 transform -translate-y-1/2 text-ocean-blue/60 text-2xl">
                       𓈖
                     </div>
 
@@ -391,7 +391,7 @@ export default function ProfilePage() {
                     />
                     <Button
                       size="sm"
-                      className="absolute -bottom-3 -right-3 rounded-full w-12 h-12 p-0 bg-gradient-to-br from-egyptian-gold to-egyptian-gold/80 hover:from-egyptian-gold/90 hover:to-egyptian-gold/70 text-hieroglyph-brown shadow-xl border-2 border-white/50 transition-all duration-300 hover:scale-110"
+                      className="absolute -bottom-3 -right-3 rounded-full w-12 h-12 p-0 bg-gradient-to-br from-ocean-blue to-ocean-blue/80 hover:from-ocean-blue/90 hover:to-ocean-blue/70 text-white shadow-xl border-2 border-white/50 transition-all duration-300 hover:scale-110"
                       onClick={() => document.getElementById('profile-image-upload')?.click()}
                       disabled={isUploadingImage}
                     >
@@ -409,9 +409,9 @@ export default function ProfilePage() {
                       <h1 className="text-4xl lg:text-5xl font-heading font-bold drop-shadow-lg text-shadow-lg text-egyptian-gradient">
                         {session.user.name}
                       </h1>
-                      <div className="flex items-center gap-2 bg-gradient-to-r from-egyptian-gold/30 to-amber-600/30 backdrop-blur-sm px-4 py-2 rounded-full border border-egyptian-gold/50 golden-glow hieroglyph-decoration">
-                        <LoyaltyIcon className="w-6 h-6 text-egyptian-gold pharaonic-pulse" />
-                        <span className="font-bold text-egyptian-gold">{loyaltyTier.name}</span>
+                      <div className="flex items-center gap-2 bg-gradient-to-r from-ocean-blue/30 to-blue-600/30 backdrop-blur-sm px-4 py-2 rounded-full border border-ocean-blue/50 ocean-glow hieroglyph-decoration">
+                        <LoyaltyIcon className="w-6 h-6 text-ocean-blue pharaonic-pulse" />
+                        <span className="font-bold text-ocean-blue">{loyaltyTier.name}</span>
                         {loyaltyTier.name === 'Pharaoh' && <span className="text-lg hieroglyph-glow">𓇳</span>}
                         {loyaltyTier.name === 'Noble' && <span className="text-lg hieroglyph-glow">𓊪</span>}
                         {loyaltyTier.name === 'Explorer' && <span className="text-lg hieroglyph-glow">𓂀</span>}
@@ -432,34 +432,34 @@ export default function ProfilePage() {
 
                     {/* Enhanced Stats Row with Pharaonic Styling */}
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                      <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
                         <div className="relative">
-                          <Ship className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
-                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓊪</div>
+                          <Ship className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
+                          <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓊪</div>
                         </div>
                         <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.totalBookings}</div>
                         <div className="text-sm text-white/90 font-medium">Cruises</div>
                       </div>
-                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                      <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
                         <div className="relative">
-                          <Crown className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
-                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓇳</div>
+                          <Crown className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
+                          <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓇳</div>
                         </div>
                         <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.loyaltyPoints.toLocaleString()}</div>
                         <div className="text-sm text-white/90 font-medium">Points</div>
                       </div>
-                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                      <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
                         <div className="relative">
-                          <Gift className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
-                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓂀</div>
+                          <Gift className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
+                          <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓂀</div>
                         </div>
                         <div className="text-2xl font-bold text-white drop-shadow-lg">${userStats.totalSpent.toLocaleString()}</div>
                         <div className="text-sm text-white/90 font-medium">Spent</div>
                       </div>
-                      <div className="bg-gradient-to-br from-white/25 to-egyptian-gold/20 backdrop-blur-sm rounded-lg p-4 text-center border border-egyptian-gold/30 hover:border-egyptian-gold/50 transition-all">
+                      <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
                         <div className="relative">
-                          <MapPin className="w-6 h-6 mx-auto mb-2 text-egyptian-gold" />
-                          <div className="absolute -top-1 -right-1 text-xs text-egyptian-gold">𓈖</div>
+                          <MapPin className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
+                          <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓈖</div>
                         </div>
                         <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.favoriteDestination || 'Egypt'}</div>
                         <div className="text-sm text-white/90 font-medium">Favorite</div>
@@ -502,52 +502,52 @@ export default function ProfilePage() {
             {/* Mobile Tabs - Scrollable */}
             <div className="lg:hidden">
               <div className="overflow-x-auto scrollbar-hide">
-                <TabsList className="flex w-max min-w-full gap-1 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
+                <TabsList className="flex w-max min-w-full gap-1 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-xl p-1">
                   <TabsTrigger
                     value="bookings"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Calendar className="w-3 h-3" />
                     <span>Journeys</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="notifications"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Bell className="w-3 h-3" />
                     <span>Alerts</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="wishlist"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Heart className="w-3 h-3" />
                     <span>Wishlist</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="reviews"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Star className="w-3 h-3" />
                     <span>Reviews</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="loyalty"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Crown className="w-3 h-3" />
                     <span>Loyalty</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="memories"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Camera className="w-3 h-3" />
                     <span>Memories</span>
                   </TabsTrigger>
                   <TabsTrigger
                     value="settings"
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                   >
                     <Settings className="w-3 h-3" />
                     <span>Settings</span>
@@ -558,52 +558,52 @@ export default function ProfilePage() {
 
             {/* Desktop Tabs - Grid */}
             <div className="hidden lg:block">
-              <TabsList className="grid w-full grid-cols-6 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
+              <TabsList className="grid w-full grid-cols-6 bg-white/80 backdrop-blur-sm border border-blue-200 rounded-xl p-1">
                 <TabsTrigger
                   value="bookings"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Calendar className="w-4 h-4" />
                   <span>My Journeys</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="notifications"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Bell className="w-4 h-4" />
                   <span>Notifications</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="wishlist"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Heart className="w-4 h-4" />
                   <span>Wishlist</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="reviews"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Star className="w-4 h-4" />
                   <span>Reviews</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="loyalty"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Crown className="w-4 h-4" />
                   <span>Loyalty</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="memories"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Camera className="w-4 h-4" />
                   <span>Memories</span>
                 </TabsTrigger>
                 <TabsTrigger
                   value="settings"
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue data-[state=active]:to-deep-blue data-[state=active]:text-white"
                 >
                   <Settings className="w-4 h-4" />
                   <span>Settings</span>
@@ -613,10 +613,10 @@ export default function ProfilePage() {
 
             {/* My Journeys Tab */}
             <TabsContent value="bookings" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+                    <div className="p-2 bg-gradient-to-r from-ocean-blue to-deep-blue rounded-lg">
                       <Ship className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -637,8 +637,8 @@ export default function ProfilePage() {
 
             {/* Notifications Tab */}
             <TabsContent value="notifications" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-lg">
                       <Bell className="w-6 h-6 text-white" />
@@ -661,8 +661,8 @@ export default function ProfilePage() {
 
             {/* Wishlist Tab */}
             <TabsContent value="wishlist" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-gradient-to-r from-pink-400 to-red-400 rounded-lg">
                       <Heart className="w-6 h-6 text-white" />
@@ -685,10 +685,10 @@ export default function ProfilePage() {
 
             {/* Reviews Tab */}
             <TabsContent value="reviews" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-yellow-400 to-amber-400 rounded-lg">
+                    <div className="p-2 bg-gradient-to-r from-ocean-blue to-deep-blue rounded-lg">
                       <Star className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -711,15 +711,15 @@ export default function ProfilePage() {
             <TabsContent value="settings" className="mt-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Personal Information */}
-                <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                  <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+                <Card className="bg-white border border-gray-200 shadow-lg">
+                  <CardHeader className="bg-gray-50 border-b border-gray-200">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-gradient-to-r from-blue-400 to-indigo-400 rounded-lg">
+                      <div className="p-2 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg">
                         <User className="w-6 h-6 text-white" />
                       </div>
                       <div>
-                        <CardTitle className="text-xl text-gray-800">Personal Information</CardTitle>
-                        <CardDescription>Update your profile details</CardDescription>
+                        <CardTitle className="text-xl text-gray-900">Personal Information</CardTitle>
+                        <CardDescription className="text-gray-600">Update your profile details</CardDescription>
                       </div>
                     </div>
                   </CardHeader>
@@ -751,7 +751,7 @@ export default function ProfilePage() {
                         onClick={() => {
                           toast.success('Profile updated successfully!');
                         }}
-                        className="bg-gradient-to-r from-egyptian-gold to-amber-600 hover:from-egyptian-gold/90 hover:to-amber-600/90 text-white"
+                        className="bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue/90 hover:to-deep-blue/90 text-white"
                       >
                         <Save className="w-4 h-4 mr-2" />
                         Save Changes
@@ -761,8 +761,8 @@ export default function ProfilePage() {
                 </Card>
 
                 {/* Preferences */}
-                <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                  <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+                <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                  <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                     <div className="flex items-center gap-3">
                       <div className="p-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-lg">
                         <Settings className="w-6 h-6 text-white" />
@@ -881,7 +881,7 @@ export default function ProfilePage() {
 
                     <Button
                       onClick={savePreferences}
-                      className="w-full bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white"
+                      className="w-full bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue/90 hover:to-deep-blue/90 text-white"
                     >
                       <Save className="w-4 h-4 mr-2" />
                       Save Preferences
@@ -893,24 +893,24 @@ export default function ProfilePage() {
 
             {/* Enhanced Loyalty Tab with Pharaonic Theme */}
             <TabsContent value="loyalty" className="mt-8">
-              <Card className="bg-gradient-to-br from-white/90 to-amber-50/80 backdrop-blur-sm border border-egyptian-gold/30 shadow-2xl relative overflow-hidden">
+              <Card className="bg-gradient-to-br from-white/90 to-blue-50/80 backdrop-blur-sm border border-ocean-blue/30 shadow-2xl relative overflow-hidden">
                 {/* Pharaonic border decorations */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue"></div>
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-ocean-blue via-blue-400 to-ocean-blue"></div>
 
-                <CardHeader className="bg-gradient-to-r from-amber-100/80 to-orange-100/80 border-b border-egyptian-gold/30 relative">
+                <CardHeader className="bg-gradient-to-r from-blue-100/80 to-gray-100/80 border-b border-ocean-blue/30 relative">
                   {/* Hieroglyphic corner decorations */}
-                  <div className="absolute top-2 left-2 text-lg text-egyptian-gold/40">𓇳</div>
-                  <div className="absolute top-2 right-2 text-lg text-egyptian-gold/40">𓇳</div>
+                  <div className="absolute top-2 left-2 text-lg text-ocean-blue/40">𓇳</div>
+                  <div className="absolute top-2 right-2 text-lg text-ocean-blue/40">𓇳</div>
 
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-gradient-to-r from-egyptian-gold to-amber-500 rounded-lg shadow-lg">
+                    <div className="p-3 bg-gradient-to-r from-ocean-blue to-deep-blue rounded-lg shadow-lg">
                       <Crown className="w-7 h-7 text-white" />
                     </div>
                     <div>
                       <CardTitle className="text-3xl text-gray-800 font-heading flex items-center gap-2">
                         Royal Loyalty Program
-                        <span className="text-2xl text-egyptian-gold">𓊪</span>
+                        <span className="text-2xl text-ocean-blue">𓊪</span>
                       </CardTitle>
                       <CardDescription className="text-gray-700 font-medium">
                         Your journey to pharaonic privileges and ancient treasures
@@ -920,18 +920,18 @@ export default function ProfilePage() {
                 </CardHeader>
                 <CardContent className="p-8 relative">
                   {/* Floating hieroglyphic elements */}
-                  <div className="absolute top-4 right-4 text-3xl text-egyptian-gold/20 animate-pulse">𓂀</div>
-                  <div className="absolute bottom-4 left-4 text-2xl text-egyptian-gold/15 animate-bounce">𓈖</div>
+                  <div className="absolute top-4 right-4 text-3xl text-ocean-blue/20 animate-pulse">𓂀</div>
+                  <div className="absolute bottom-4 left-4 text-2xl text-ocean-blue/15 animate-bounce">𓈖</div>
 
                   {/* Enhanced Loyalty Dashboard */}
                   <LoyaltyDashboard />
 
                   {/* Enhanced Current Tier Display */}
                   <div className="text-center mb-10">
-                    <div className="inline-flex items-center gap-4 bg-gradient-to-r from-egyptian-gold/20 to-amber-200/30 px-8 py-4 rounded-full border-2 border-egyptian-gold/40 shadow-lg relative">
+                    <div className="inline-flex items-center gap-4 bg-gradient-to-r from-ocean-blue/20 to-blue-200/30 px-8 py-4 rounded-full border-2 border-ocean-blue/40 shadow-lg relative">
                       {/* Pharaonic tier decorations */}
-                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-lg text-egyptian-gold">𓇳</div>
-                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-lg text-egyptian-gold">𓊪</div>
+                      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2 text-lg text-ocean-blue">𓇳</div>
+                      <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 text-lg text-ocean-blue">𓊪</div>
 
                       <LoyaltyIcon className={`w-10 h-10 ${loyaltyTier.color} drop-shadow-lg`} />
                       <div>
@@ -952,7 +952,7 @@ export default function ProfilePage() {
                     <div className="flex justify-between items-center mb-3">
                       <span className="text-lg font-semibold text-gray-700 flex items-center gap-2">
                         Progress to next tier
-                        <span className="text-egyptian-gold">𓏏</span>
+                        <span className="text-ocean-blue">𓏏</span>
                       </span>
                       <span className="text-lg text-gray-600 font-medium">
                         {Math.min(userStats.loyaltyPoints, 10000)}/10000 points
@@ -967,9 +967,9 @@ export default function ProfilePage() {
                         </div>
                       </div>
                       {/* Enhanced Hieroglyphic markers at progress points */}
-                      <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓇯</div>
-                      <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓇳</div>
-                      <div className="absolute top-1/2 left-3/4 transform -translate-y-1/2 text-sm text-egyptian-gold hieroglyph-glow">𓊪</div>
+                      <div className="absolute top-1/2 left-1/4 transform -translate-y-1/2 text-sm text-ocean-blue hieroglyph-glow">𓇯</div>
+                      <div className="absolute top-1/2 left-1/2 transform -translate-y-1/2 text-sm text-ocean-blue hieroglyph-glow">𓇳</div>
+                      <div className="absolute top-1/2 left-3/4 transform -translate-y-1/2 text-sm text-ocean-blue hieroglyph-glow">𓊪</div>
 
                       {/* Tier milestone indicators */}
                       <div className="absolute -bottom-6 left-1/4 transform -translate-x-1/2 text-xs text-gray-600 font-medium">1K</div>
@@ -982,7 +982,7 @@ export default function ProfilePage() {
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <h4 className="font-semibold text-gray-800 mb-4 flex items-center gap-2">
-                        <Gift className="w-5 h-5 text-amber-600" />
+                        <Gift className="w-5 h-5 text-ocean-blue" />
                         Current Benefits
                       </h4>
                       <div className="space-y-2">
@@ -1017,10 +1017,10 @@ export default function ProfilePage() {
 
             {/* Memories Tab */}
             <TabsContent value="memories" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg">
+                    <div className="p-2 bg-gradient-to-r from-ocean-blue to-deep-blue rounded-lg">
                       <Camera className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -1039,10 +1039,10 @@ export default function ProfilePage() {
 
             {/* Reviews Tab */}
             <TabsContent value="reviews" className="mt-8">
-              <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
-                <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+              <Card className="bg-white/80 backdrop-blur-sm border border-blue-200 shadow-xl">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-gray-50 border-b border-blue-200">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-gradient-to-r from-egyptian-gold to-sunset-orange rounded-lg">
+                    <div className="p-2 bg-gradient-to-r from-ocean-blue to-deep-blue rounded-lg">
                       <Star className="w-6 h-6 text-white" />
                     </div>
                     <div>

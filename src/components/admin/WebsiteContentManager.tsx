@@ -483,7 +483,7 @@ export default function WebsiteContentManager() {
                   <TabsTrigger
                     key={section.id}
                     value={section.id}
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue-400 data-[state=active]:to-navy-blue-400 data-[state=active]:text-white"
                   >
                     <Icon className="w-3 h-3" />
                     <span className="text-xs">{section.label}</span>
@@ -507,7 +507,7 @@ export default function WebsiteContentManager() {
                 <TabsTrigger
                   key={section.id}
                   value={section.id}
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-amber-400 data-[state=active]:to-orange-400 data-[state=active]:text-white"
+                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue-400 data-[state=active]:to-navy-blue-400 data-[state=active]:text-white"
                 >
                   <Icon className="w-4 h-4" />
                   <span>{section.label}</span>

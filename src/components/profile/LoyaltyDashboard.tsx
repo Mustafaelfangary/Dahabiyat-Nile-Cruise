@@ -134,7 +134,7 @@ export default function LoyaltyDashboard() {
   return (
     <div className="space-y-6">
       {/* Current Tier & Progress */}
-      <Card className="bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200">
+      <Card className="bg-gradient-to-r from-ocean-blue-50 to-navy-blue-50 border-amber-200">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -240,9 +240,9 @@ export default function LoyaltyDashboard() {
             </div>
           ) : (
             <div className="text-center py-8">
-              <Gift className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-              <p className="text-gray-600">No recent activity</p>
-              <p className="text-sm text-gray-500">Start earning points by completing actions!</p>
+              <Gift className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+              <p className="text-gray-800">No recent activity</p>
+              <p className="text-sm text-gray-700">Start earning points by completing actions!</p>
             </div>
           )}
         </CardContent>

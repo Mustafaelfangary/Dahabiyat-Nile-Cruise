@@ -136,13 +136,13 @@ const BookingsList: React.FC<BookingsListProps> = ({
   if (bookings.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
+        <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 rounded-full flex items-center justify-center">
           <Calendar className="w-8 h-8 text-white" />
         </div>
         <h3 className="text-xl font-semibold text-gray-800 mb-2">No Journeys Yet</h3>
         <p className="text-gray-600 mb-6">Start your Egyptian adventure by booking your first Dahabiya cruise</p>
         <Link href="/packages">
-          <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white">
+          <Button className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500 text-white">
             <Package className="w-4 h-4 mr-2" />
             Browse Packages
           </Button>

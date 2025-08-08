@@ -158,7 +158,7 @@ export default function UsersManagement() {
               <Button
                 variant="outline"
                 size="sm"
-                className="bg-amber-100 border-amber-300 text-amber-900 hover:bg-amber-200 shadow-lg admin-focus flex items-center gap-1 h-8 text-xs font-medium"
+                className="bg-amber-100 border-amber-300 text-amber-900 hover:bg-blue-200 shadow-lg admin-focus flex items-center gap-1 h-8 text-xs font-medium"
               >
                 <ArrowLeft className="w-3 h-3" />
                 Return to Dashboard
@@ -288,7 +288,7 @@ export default function UsersManagement() {
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         placeholder="Enter full name"
                         required
-                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                        className="border-2 border-amber-200 focus:border-blue-400 focus:ring-blue-200 bg-white text-gray-900 placeholder-gray-500"
                       />
                     </div>
                     <div className="space-y-2">
@@ -302,7 +302,7 @@ export default function UsersManagement() {
                         onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
                         placeholder="Enter email address"
                         required
-                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                        className="border-2 border-amber-200 focus:border-blue-400 focus:ring-blue-200 bg-white text-gray-900 placeholder-gray-500"
                       />
                     </div>
                     <div className="space-y-2">
@@ -317,7 +317,7 @@ export default function UsersManagement() {
                         placeholder="Enter password (min 6 characters)"
                         required
                         minLength={6}
-                        className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900 placeholder-gray-500"
+                        className="border-2 border-amber-200 focus:border-blue-400 focus:ring-blue-200 bg-white text-gray-900 placeholder-gray-500"
                       />
                     </div>
                     <div className="space-y-2">
@@ -325,20 +325,20 @@ export default function UsersManagement() {
                         Role *
                       </Label>
                       <Select value={formData.role} onValueChange={(value) => setFormData(prev => ({ ...prev, role: value }))}>
-                        <SelectTrigger className="border-2 border-amber-200 focus:border-amber-400 focus:ring-amber-200 bg-white text-gray-900">
+                        <SelectTrigger className="border-2 border-amber-200 focus:border-blue-400 focus:ring-blue-200 bg-white text-gray-900">
                           <SelectValue placeholder="Select role" />
                         </SelectTrigger>
                         <SelectContent className="bg-white border-2 border-amber-200">
-                          <SelectItem value="ADMIN" className="text-gray-900 hover:bg-amber-50">
+                          <SelectItem value="ADMIN" className="text-gray-900 hover:bg-blue-50">
                             👑 Admin - Full system access
                           </SelectItem>
-                          <SelectItem value="MANAGER" className="text-gray-900 hover:bg-amber-50">
+                          <SelectItem value="MANAGER" className="text-gray-900 hover:bg-blue-50">
                             📊 Manager - Administrative access
                           </SelectItem>
-                          <SelectItem value="GUIDE" className="text-gray-900 hover:bg-amber-50">
+                          <SelectItem value="GUIDE" className="text-gray-900 hover:bg-blue-50">
                             🗺️ Guide - Tour management access
                           </SelectItem>
-                          <SelectItem value="USER" className="text-gray-900 hover:bg-amber-50">
+                          <SelectItem value="USER" className="text-gray-900 hover:bg-blue-50">
                             👤 User - Customer access
                           </SelectItem>
                         </SelectContent>
@@ -356,7 +356,7 @@ export default function UsersManagement() {
                       </Button>
                       <Button
                         type="submit"
-                        className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-200"
+                        className="bg-gradient-to-r from-ocean-blue-600 to-navy-blue-600 hover:from-ocean-blue-700 hover:to-navy-blue-700 text-white font-semibold px-6 py-2 shadow-lg hover:shadow-xl transition-all duration-200"
                         disabled={createLoading}
                       >
                         {createLoading ? (
@@ -425,7 +425,7 @@ export default function UsersManagement() {
                           <div className="flex items-center gap-3">
                             <div className={`w-10 h-10 rounded-full flex items-center justify-center text-white font-bold ${
                               user.role === 'ADMIN' ? 'bg-gradient-to-r from-purple-500 to-purple-600' :
-                              user.role === 'MANAGER' ? 'bg-gradient-to-r from-orange-500 to-orange-600' :
+                              user.role === 'MANAGER' ? 'bg-gradient-to-r from-deep-blue-500 to-navy-blue-600' :
                               user.role === 'GUIDE' ? 'bg-gradient-to-r from-blue-500 to-blue-600' :
                               'bg-gradient-to-r from-green-500 to-green-600'
                             }`}>

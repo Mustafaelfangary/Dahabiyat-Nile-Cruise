@@ -166,86 +166,76 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="admin-container admin-font-pharaonic">
-      <div className="admin-header relative">
-        {/* NotificationCenter removed - dashboard components deleted */}
-        <div className="container mx-auto px-8 py-8 text-center">
-          <h1 className="admin-header-title">
-            𓇳 Pharaonic Admin Empire 𓇳
-          </h1>
-          <p className="admin-header-subtitle admin-text-justify max-w-2xl mx-auto">
-            Welcome back, {session.user.name} | Command your royal Nile empire with the wisdom of the pharaohs and manage all aspects of your dahabiya kingdom
-          </p>
-        </div>
-      </div>
-
+    <div className="min-h-screen bg-gray-50">
+      {/* Admin Navigation Tabs */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="bg-white border-b border-slate-200 px-4 overflow-x-auto">
-          <TabsList className="flex gap-0.5 bg-transparent p-0 h-auto min-w-max">
-            <TabsTrigger
-              value="overview"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <BarChart3 size={14} />
-              Overview
-            </TabsTrigger>
-            <TabsTrigger
-              value="dahabiyat"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Ship size={14} />
-              Dahabiyat
-            </TabsTrigger>
-            <TabsTrigger
-              value="packages"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Package size={14} />
-              Packages
-            </TabsTrigger>
-            <TabsTrigger
-              value="website"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <FileText size={14} />
-              Content
-            </TabsTrigger>
-            <TabsTrigger
-              value="featured"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Star size={14} />
-              Featured
-            </TabsTrigger>
-            <TabsTrigger
-              value="media"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Image size={14} />
-              Media
-            </TabsTrigger>
-            <TabsTrigger
-              value="bookings"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Calendar size={14} />
-              Bookings
-            </TabsTrigger>
-            <TabsTrigger
-              value="settings"
-              className="flex items-center gap-1 px-3 py-2 border-b-2 border-transparent data-[state=active]:border-yellow-500 data-[state=active]:bg-yellow-50 rounded-none text-xs font-medium whitespace-nowrap"
-            >
-              <Zap size={14} />
-              Settings
-            </TabsTrigger>
-
-          </TabsList>
+        <div className="bg-white border-b border-gray-200 px-2 sm:px-4 py-2 shadow-sm sticky top-14 sm:top-16 z-30 overflow-x-hidden">
+          <div className="w-full overflow-x-auto scrollbar-hide">
+            <TabsList className="flex gap-0.5 bg-transparent p-0 h-auto min-w-max w-full">
+              <TabsTrigger
+                value="overview"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <BarChart3 size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Overview</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="dahabiyat"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Ship size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Dahabiyat</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="packages"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Package size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Packages</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="website"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <FileText size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Content</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="featured"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Star size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Featured</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="media"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Image size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Media</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="bookings"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Calendar size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Bookings</span>
+              </TabsTrigger>
+              <TabsTrigger
+                value="settings"
+                className="flex items-center gap-1 px-2 sm:px-3 py-2 border-b-2 border-transparent data-[state=active]:border-blue-500 data-[state=active]:bg-blue-50 rounded-none text-xs sm:text-sm font-medium whitespace-nowrap text-gray-700 data-[state=active]:text-gray-900 min-w-0 flex-shrink-0"
+              >
+                <Zap size={14} className="flex-shrink-0" />
+                <span className="hidden xs:inline">Settings</span>
+              </TabsTrigger>
+            </TabsList>
+          </div>
         </div>
 
-        <div className="p-8 max-w-7xl mx-auto">
+        <div className="p-4 sm:p-6 lg:p-8 w-full max-w-full overflow-x-hidden">
           <TabsContent value="overview">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <BarChart3 size={24} />
                 Dashboard Overview
               </h2>
@@ -256,8 +246,8 @@ export default function AdminDashboard() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-slate-600">Total Bookings</p>
-                        <p className="text-2xl font-bold text-slate-900">{stats.totalBookings}</p>
+                        <p className="text-sm font-medium text-gray-600">Total Bookings</p>
+                        <p className="text-2xl font-bold text-gray-900">{stats.totalBookings}</p>
                       </div>
                       <Calendar className="h-8 w-8 text-green-600" />
                     </div>
@@ -268,8 +258,8 @@ export default function AdminDashboard() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-slate-600">Total Users</p>
-                        <p className="text-2xl font-bold text-slate-900">{stats.totalUsers}</p>
+                        <p className="text-sm font-medium text-gray-600">Total Users</p>
+                        <p className="text-2xl font-bold text-gray-900">{stats.totalUsers}</p>
                       </div>
                       <Users className="h-8 w-8 text-purple-600" />
                     </div>
@@ -280,10 +270,10 @@ export default function AdminDashboard() {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm font-medium text-slate-600">Total Revenue</p>
-                        <p className="text-2xl font-bold text-slate-900">${stats.totalRevenue}</p>
+                        <p className="text-sm font-medium text-gray-600">Total Revenue</p>
+                        <p className="text-2xl font-bold text-gray-900">${stats.totalRevenue}</p>
                       </div>
-                      <DollarSign className="h-8 w-8 text-yellow-600" />
+                      <DollarSign className="h-8 w-8 text-blue-600" />
                     </div>
                   </CardContent>
                 </Card>
@@ -351,7 +341,7 @@ export default function AdminDashboard() {
 
           <TabsContent value="dahabiyat">
             <div>
-              <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <Ship size={24} />
                 Dahabiyat Management
               </h2>
@@ -402,7 +392,7 @@ export default function AdminDashboard() {
                       variant="outline"
                       className="h-24 flex-col"
                     >
-                      <Crown size={24} className="mb-2 text-yellow-600" />
+                      <Crown size={24} className="mb-2 text-ocean-blue" />
                       <div className="text-center">
                         <div className="font-medium">Royal Dahabiya</div>
                         <div className="text-xs text-slate-500">👑 Royal Majesty</div>
@@ -489,7 +479,7 @@ export default function AdminDashboard() {
 
           <TabsContent value="website">
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-slate-800 mb-6 flex items-center gap-2">
+              <h2 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <FileText size={24} />
                 Website Content Management
               </h2>
@@ -543,7 +533,7 @@ export default function AdminDashboard() {
                   <div className="mb-4 flex gap-3">
                     <Button
                       onClick={() => window.open('/admin/packages', '_blank')}
-                      className="bg-egyptian-gold hover:bg-amber-600 text-black font-semibold"
+                      className="bg-egyptian-gold hover:bg-blue-600 text-black font-semibold"
                     >
                       <Package size={16} className="mr-2" />
                       Manage All Packages
@@ -580,7 +570,7 @@ export default function AdminDashboard() {
                           <Button
                             size="sm"
                             onClick={() => window.open(`/admin/packages`, '_blank')}
-                            className="w-full bg-egyptian-gold hover:bg-amber-600 text-black text-xs"
+                            className="w-full bg-egyptian-gold hover:bg-blue-600 text-black text-xs"
                           >
                             Edit Package
                           </Button>
@@ -595,7 +585,7 @@ export default function AdminDashboard() {
                         <Button
                           onClick={() => window.open('/admin/packages', '_blank')}
                           size="sm"
-                          className="bg-egyptian-gold hover:bg-amber-600 text-black"
+                          className="bg-egyptian-gold hover:bg-blue-600 text-black"
                         >
                           <Plus size={16} className="mr-2" />
                           Create First Package
@@ -619,7 +609,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-4 mb-4">
                     <Button
                       onClick={() => window.open('/admin/itineraries', '_blank')}
-                      className="bg-amber-600 hover:bg-amber-700"
+                      className="bg-amber-600 hover:bg-blue-700"
                     >
                       <MapPin size={16} className="mr-2" />
                       Manage Itineraries
@@ -627,7 +617,7 @@ export default function AdminDashboard() {
                     <Button
                       onClick={() => window.open('/admin/itineraries/new', '_blank')}
                       variant="outline"
-                      className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                      className="border-amber-600 text-amber-600 hover:bg-blue-50"
                     >
                       <Plus size={16} className="mr-2" />
                       Add New Itinerary
@@ -647,7 +637,7 @@ export default function AdminDashboard() {
                   <div className="flex gap-4 mb-4">
                     <Button
                       onClick={() => window.open('/admin/blogs', '_blank')}
-                      className="bg-amber-600 hover:bg-amber-700"
+                      className="bg-amber-600 hover:bg-blue-700"
                     >
                       <FileText size={16} className="mr-2" />
                       Manage Blogs
@@ -655,7 +645,7 @@ export default function AdminDashboard() {
                     <Button
                       onClick={() => window.open('/admin/blogs/new', '_blank')}
                       variant="outline"
-                      className="border-amber-600 text-amber-600 hover:bg-amber-50"
+                      className="border-amber-600 text-amber-600 hover:bg-blue-50"
                     >
                       <Plus size={16} className="mr-2" />
                       Add New Blog
@@ -824,7 +814,7 @@ export default function AdminDashboard() {
                       size="sm"
                       className="h-12 flex-col text-xs font-medium"
                     >
-                      <Crown size={16} className="mb-1 text-amber-600" />
+                      <Crown size={16} className="mb-1 text-ocean-blue" />
                       Loyalty System
                       <span className="text-xs text-slate-500 mt-0.5">Manage loyalty buttons & points</span>
                     </Button>
@@ -904,7 +894,7 @@ export default function AdminDashboard() {
                       variant="outline"
                       className="h-20 flex-col"
                     >
-                      <Zap size={24} className="mb-2 text-orange-600" />
+                      <Zap size={24} className="mb-2 text-ocean-blue" />
                       General Settings
                       <span className="text-xs text-slate-500 mt-1">System configuration</span>
                     </Button>
@@ -935,7 +925,7 @@ export default function AdminDashboard() {
                       variant="outline"
                       className="h-20 flex-col"
                     >
-                      <Sparkles size={24} className="mb-2 text-amber-600" />
+                      <Sparkles size={24} className="mb-2 text-ocean-blue" />
                       Database Seed
                       <span className="text-xs text-slate-500 mt-1">Initialize sample data</span>
                     </Button>

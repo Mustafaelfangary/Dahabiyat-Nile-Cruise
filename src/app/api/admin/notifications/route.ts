@@ -17,7 +17,7 @@ export async function GET(request: NextRequest) {
     const unreadOnly = searchParams.get('unreadOnly') === 'true';
 
     const where: any = {
-      userId: session.user.id
+      userId: session.user.id // Admin notifications are created for each admin user
     };
 
     if (type) {

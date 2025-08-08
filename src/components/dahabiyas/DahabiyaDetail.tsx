@@ -454,7 +454,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                     }
                   }}
                 >
-                  Book Royal Journey
+                  Book Dahabiya
                 </Button>
 
                 {dahabiya.videoUrl && (
@@ -1321,7 +1321,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
         <Container maxWidth="lg">
           <div className="text-center mb-12">
             <Typography variant="h3" className="text-hieroglyph-brown font-bold mb-4">
-              Book Your Royal Journey
+              Book Your Dahabiya
             </Typography>
             <Typography variant="h6" className="text-blue-700 mb-2">
               Reserve {dahabiya.name} for an unforgettable Nile experience

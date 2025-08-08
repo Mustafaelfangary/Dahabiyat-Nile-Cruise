@@ -165,8 +165,8 @@ export default function NotificationCenter({ className }: NotificationCenterProp
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <div className="flex items-center justify-between">
+      <CardHeader className="pb-3">
+        <div className="space-y-3">
           <CardTitle className="flex items-center gap-2">
             <Bell className="w-5 h-5" />
             Notifications
@@ -176,11 +176,11 @@ export default function NotificationCenter({ className }: NotificationCenterProp
               </Badge>
             )}
           </CardTitle>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
             <select
               value={filter}
               onChange={(e) => setFilter(e.target.value as any)}
-              className="text-sm border rounded px-2 py-1"
+              className="text-sm border rounded px-3 py-1.5 bg-white min-w-[120px]"
             >
               <option value="all">All</option>
               <option value="unread">Unread</option>
@@ -188,7 +188,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
               <option value="availability">Availability</option>
             </select>
             {unreadCount > 0 && (
-              <Button size="sm" variant="outline" onClick={markAllAsRead}>
+              <Button size="sm" variant="outline" onClick={markAllAsRead} className="whitespace-nowrap">
                 Mark All Read
               </Button>
             )}
@@ -201,8 +201,8 @@ export default function NotificationCenter({ className }: NotificationCenterProp
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-ocean-blue"></div>
           </div>
         ) : filteredNotifications.length === 0 ? (
-          <div className="text-center py-8 text-gray-500">
-            <Bell className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+          <div className="text-center py-8 text-gray-800">
+            <Bell className="w-12 h-12 mx-auto mb-4 text-gray-600" />
             <p>No notifications found</p>
           </div>
         ) : (

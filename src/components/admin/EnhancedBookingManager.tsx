@@ -32,10 +32,8 @@ import {
 
 interface Booking {
   id: string;
-  customerName: string;
-  customerEmail: string;
-  customerPhone?: string;
-  bookingType: 'DAHABIYA' | 'PACKAGE';
+  bookingReference: string;
+  type: 'DAHABIYA' | 'PACKAGE';
   dahabiyaId?: string;
   packageId?: string;
   startDate: string;
@@ -43,24 +41,32 @@ interface Booking {
   guests: number;
   totalPrice: number;
   status: 'PENDING' | 'CONFIRMED' | 'CANCELLED' | 'COMPLETED';
-  paymentStatus: 'PENDING' | 'PARTIAL' | 'PAID' | 'REFUNDED';
   specialRequests?: string;
   createdAt: string;
   updatedAt: string;
-  dahabiya?: {
+  user: {
+    id: string;
     name: string;
+    email: string;
+  };
+  dahabiya?: {
+    id: string;
+    name: string;
+    mainImageUrl?: string;
     pricePerDay: number;
   };
   package?: {
+    id: string;
     name: string;
+    mainImageUrl?: string;
     price: number;
-    duration: number;
   };
+  guestDetails?: any[];
 }
 
 interface BookingFilters {
   status?: string;
-  bookingType?: string;
+  type?: string;
   dateRange?: string;
   search?: string;
 }
@@ -178,79 +184,80 @@ export default function EnhancedBookingManager() {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6 w-full min-w-0">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900">Booking Management</h1>
-          <p className="text-gray-600 mt-1">Manage all dahabiya and package bookings</p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="min-w-0">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">Booking Management</h1>
+          <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage all dahabiya and package bookings</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3 flex-shrink-0">
           <Button
             variant="outline"
-            className="flex items-center gap-2"
+            size="sm"
+            className="flex items-center gap-2 px-3"
             onClick={handleExportBookings}
           >
             <Download className="w-4 h-4" />
-            Export
+            <span className="hidden sm:inline">Export</span>
           </Button>
-          <Button className="flex items-center gap-2 bg-ocean-blue hover:bg-blue-600">
+          <Button size="sm" className="flex items-center gap-2 bg-ocean-blue hover:bg-blue-600 px-3">
             <Bell className="w-4 h-4" />
-            Notifications
+            <span className="hidden sm:inline">Notifications</span>
           </Button>
         </div>
       </div>
 
       {/* Filters */}
-      <Card>
-        <CardContent className="p-6">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <Card className="w-full">
+        <CardContent className="p-4 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
               <Input
                 id="booking-search"
                 name="search"
                 placeholder="Search bookings..."
-                className="pl-10"
+                className="pl-10 text-sm"
                 value={filters.search || ''}
                 onChange={(e) => setFilters({ ...filters, search: e.target.value })}
               />
             </div>
             
             <Select value={filters.status || 'ALL'} onValueChange={(value) => setFilters({ ...filters, status: value === 'ALL' ? undefined : value })}>
-              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500">
-                <SelectValue placeholder="Filter by status" />
+              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500 text-sm h-10">
+                <SelectValue placeholder="Status" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md">
-                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50">All Statuses</SelectItem>
-                <SelectItem value="PENDING" className="hover:bg-gray-50 focus:bg-gray-50">Pending</SelectItem>
-                <SelectItem value="CONFIRMED" className="hover:bg-gray-50 focus:bg-gray-50">Confirmed</SelectItem>
-                <SelectItem value="CANCELLED" className="hover:bg-gray-50 focus:bg-gray-50">Cancelled</SelectItem>
-                <SelectItem value="COMPLETED" className="hover:bg-gray-50 focus:bg-gray-50">Completed</SelectItem>
+              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md z-50">
+                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">All Statuses</SelectItem>
+                <SelectItem value="PENDING" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Pending</SelectItem>
+                <SelectItem value="CONFIRMED" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Confirmed</SelectItem>
+                <SelectItem value="CANCELLED" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Cancelled</SelectItem>
+                <SelectItem value="COMPLETED" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Completed</SelectItem>
               </SelectContent>
             </Select>
 
-            <Select value={filters.bookingType || 'ALL'} onValueChange={(value) => setFilters({ ...filters, bookingType: value === 'ALL' ? undefined : value })}>
-              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500">
-                <SelectValue placeholder="Filter by type" />
+            <Select value={filters.type || 'ALL'} onValueChange={(value) => setFilters({ ...filters, type: value === 'ALL' ? undefined : value })}>
+              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500 text-sm h-10">
+                <SelectValue placeholder="Type" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md">
-                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50">All Types</SelectItem>
-                <SelectItem value="DAHABIYA" className="hover:bg-gray-50 focus:bg-gray-50">Dahabiya</SelectItem>
-                <SelectItem value="PACKAGE" className="hover:bg-gray-50 focus:bg-gray-50">Package</SelectItem>
+              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md z-50">
+                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">All Types</SelectItem>
+                <SelectItem value="DAHABIYA" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Dahabiya</SelectItem>
+                <SelectItem value="PACKAGE" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Package</SelectItem>
               </SelectContent>
             </Select>
 
             <Select value={filters.dateRange || 'ALL'} onValueChange={(value) => setFilters({ ...filters, dateRange: value === 'ALL' ? undefined : value })}>
-              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500">
+              <SelectTrigger className="bg-white border-gray-200 hover:border-gray-300 focus:border-blue-500 text-sm h-10">
                 <SelectValue placeholder="Date range" />
               </SelectTrigger>
-              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md">
-                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50">All Dates</SelectItem>
-                <SelectItem value="today" className="hover:bg-gray-50 focus:bg-gray-50">Today</SelectItem>
-                <SelectItem value="week" className="hover:bg-gray-50 focus:bg-gray-50">This Week</SelectItem>
-                <SelectItem value="month" className="hover:bg-gray-50 focus:bg-gray-50">This Month</SelectItem>
-                <SelectItem value="upcoming" className="hover:bg-gray-50 focus:bg-gray-50">Upcoming</SelectItem>
+              <SelectContent className="bg-white border border-gray-200 shadow-lg rounded-md z-50">
+                <SelectItem value="ALL" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">All Dates</SelectItem>
+                <SelectItem value="today" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Today</SelectItem>
+                <SelectItem value="week" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">This Week</SelectItem>
+                <SelectItem value="month" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">This Month</SelectItem>
+                <SelectItem value="upcoming" className="hover:bg-gray-50 focus:bg-gray-50 text-sm">Upcoming</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -258,35 +265,34 @@ export default function EnhancedBookingManager() {
       </Card>
 
       {/* Bookings Table */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+      <Card className="w-full">
+        <CardHeader className="pb-3">
+          <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
             <Calendar className="w-5 h-5" />
             Bookings ({bookings.length})
           </CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           {loading ? (
             <div className="flex justify-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-blue"></div>
             </div>
           ) : bookings.length === 0 ? (
-            <div className="text-center py-8 text-gray-500">
+            <div className="text-center py-8 text-gray-500 px-4">
               No bookings found matching your criteria
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full min-w-[800px]">
                 <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-3 px-4 font-semibold">Customer</th>
-                    <th className="text-left py-3 px-4 font-semibold">Booking</th>
-                    <th className="text-left py-3 px-4 font-semibold">Dates</th>
-                    <th className="text-left py-3 px-4 font-semibold">Guests</th>
-                    <th className="text-left py-3 px-4 font-semibold">Status</th>
-                    <th className="text-left py-3 px-4 font-semibold">Payment</th>
-                    <th className="text-left py-3 px-4 font-semibold">Total</th>
-                    <th className="text-left py-3 px-4 font-semibold">Actions</th>
+                  <tr className="border-b bg-gray-50">
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Customer</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Booking</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Dates</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Guests</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Status</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Total</th>
+                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -294,22 +300,19 @@ export default function EnhancedBookingManager() {
                     <tr key={booking.id} className="border-b hover:bg-gray-50">
                       <td className="py-4 px-4">
                         <div>
-                          <div className="font-medium">{booking.customerName}</div>
+                          <div className="font-medium">{booking.user.name}</div>
                           <div className="text-sm text-gray-500 flex items-center gap-1">
                             <Mail className="w-3 h-3" />
-                            {booking.customerEmail}
+                            {booking.user.email}
                           </div>
-                          {booking.customerPhone && (
-                            <div className="text-sm text-gray-500 flex items-center gap-1">
-                              <Phone className="w-3 h-3" />
-                              {booking.customerPhone}
-                            </div>
-                          )}
+                          <div className="text-sm text-gray-500">
+                            {booking.bookingReference}
+                          </div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-2">
-                          {booking.bookingType === 'DAHABIYA' ? (
+                          {booking.type === 'DAHABIYA' ? (
                             <Ship className="w-4 h-4 text-ocean-blue" />
                           ) : (
                             <Package className="w-4 h-4 text-ocean-blue" />
@@ -319,7 +322,7 @@ export default function EnhancedBookingManager() {
                               {booking.dahabiya?.name || booking.package?.name}
                             </div>
                             <div className="text-sm text-gray-500">
-                              {booking.bookingType}
+                              {booking.type}
                             </div>
                           </div>
                         </div>

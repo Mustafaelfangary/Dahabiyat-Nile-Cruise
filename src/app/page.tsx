@@ -381,8 +381,8 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-yellow-500">
                       <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-600 font-medium">4.9</span>
-                      <span className="ml-1 text-xs text-gray-400">(127)</span>
+                      <span className="ml-1 text-sm text-gray-800 font-medium">4.9</span>
+                      <span className="ml-1 text-xs text-gray-700">(127)</span>
                     </div>
                     <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
                       <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
@@ -565,8 +565,8 @@ export default function HomePage() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center text-yellow-500">
                       <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-600 font-medium">4.8</span>
-                      <span className="ml-1 text-xs text-gray-400">(89)</span>
+                      <span className="ml-1 text-sm text-gray-800 font-medium">4.8</span>
+                      <span className="ml-1 text-xs text-gray-700">(89)</span>
                     </div>
                     <Link href={`/packages/${pkg.id}`}>
                       <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
@@ -897,7 +897,7 @@ export default function HomePage() {
 
       {/* 8. Featured Blog Posts Section */}
       {featuredBlogs.length > 0 && (
-        <section className="py-20 bg-gradient-to-b from-slate-50 to-blue-50 relative overflow-hidden">
+        <section className="py-20 bg-gradient-to-b from-slate-50 to-blue-50 relative overflow-hidden featured-blogs-section">
           {/* Background Pattern */}
           <div className="absolute inset-0 opacity-5">
             <div className="absolute top-10 left-10 text-6xl text-blue-600 animate-pulse">𓇳</div>

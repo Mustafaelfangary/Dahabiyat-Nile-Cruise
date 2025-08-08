@@ -133,7 +133,7 @@ export default function MobileHeroSection({
           >
             <a
               href={ctaLink}
-              className="w-full bg-gradient-to-r from-yellow-500 to-yellow-600 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 min-h-[44px]"
+              className="w-full bg-gradient-to-r from-ocean-blue-500 to-blue-600 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-full font-bold text-sm sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 min-h-[44px]"
             >
               <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>{ctaText}</span>

@@ -161,7 +161,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
           {/* Enhanced Rating overlay */}
           {dahabiya.rating > 0 && (
-            <div className="absolute bottom-4 left-4 bg-gradient-to-r from-hieroglyph-brown to-amber-900 text-egyptian-gold rounded-lg px-3 py-2 flex items-center gap-2 shadow-lg border border-egyptian-gold/30">
+            <div className="absolute bottom-4 left-4 bg-gradient-to-r from-hieroglyph-brown to-deep-blue-900 text-egyptian-gold rounded-lg px-3 py-2 flex items-center gap-2 shadow-lg border border-egyptian-gold/30">
               <div className="flex items-center">
                 {renderStars(dahabiya.rating)}
               </div>

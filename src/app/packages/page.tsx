@@ -1,471 +1,210 @@
 "use client";
-export const dynamic = "force-dynamic";
 
-import Image from 'next/image';
+import React from 'react';
 import Link from 'next/link';
-import { Container, Typography, Box, Card, CardContent, CardMedia, Button, TextField, Select, MenuItem, FormControl, InputLabel, Chip, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, IconButton, Switch, FormControlLabel } from '@mui/material';
-import { AnimatedSection } from '@/components/ui/animated-section';
-import { Star, Users, Calendar, MapPin, Anchor, Sparkles, Gift, Crown, Globe, Search, Filter, SortAsc, SortDesc, Eye, BookOpen, Package as PackageIcon, Edit, Delete, Add } from 'lucide-react';
+import { Container, Typography, Box, CircularProgress } from '@mui/material';
+import { PackageList } from '@/components/packages';
 import { useContent } from '@/hooks/useContent';
-import { useEffect, useState } from 'react';
-import {
-  HieroglyphicDivider,
-  PharaonicCard,
-  PharaonicButton,
-  PharaonicBorder,
-  PharaonicObelisk,
-  PharaonicPatternBackground,
-  PharaonicCrown,
-  EgyptHieroglyphic
-} from '@/components/ui/pharaonic-elements';
-
-interface Package {
-  id: string;
-  name: string;
-  shortDescription?: string;
-  description?: string;
-  price: number;
-  durationDays: number;
-  mainImageUrl?: string;
-  category?: string;
-  isFeatured?: boolean;
-  isActive?: boolean;
-  maxGuests?: number;
-  highlights?: string[];
-  includes?: string[];
-  createdAt?: string;
-  updatedAt?: string;
-}
 
 export default function PackagesPage() {
-  const { getContent, getContentBlock, loading, error } = useContent({ page: 'packages' });
-  const [packages, setPackages] = useState<Package[]>([]);
-  const [packagesLoading, setPackagesLoading] = useState(true);
-  const [filteredPackages, setFilteredPackages] = useState<Package[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [categoryFilter, setCategoryFilter] = useState('all');
-  const [sortBy, setSortBy] = useState('name');
-  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
-  const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
-  const [showFeaturedOnly, setShowFeaturedOnly] = useState(false);
+  const { getContent, loading: contentLoading } = useContent({ page: 'packages' });
 
-  // Fetch packages data
-  useEffect(() => {
-    const fetchPackages = async () => {
-      try {
-        const response = await fetch('/api/packages?limit=100');
-        if (response.ok) {
-          const data = await response.json();
-          setPackages(data.packages || data || []);
-        }
-      } catch (error) {
-        console.error('Error fetching packages:', error);
-      } finally {
-        setPackagesLoading(false);
-      }
-    };
-
-    fetchPackages();
-  }, []);
-
-  // Filter and sort packages
-  useEffect(() => {
-    let filtered = [...packages];
-
-    // Apply search filter
-    if (searchQuery) {
-      filtered = filtered.filter(pkg =>
-        pkg.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pkg.shortDescription?.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        pkg.description?.toLowerCase().includes(searchQuery.toLowerCase())
-      );
-    }
-
-    // Apply category filter
-    if (categoryFilter !== 'all') {
-      filtered = filtered.filter(pkg => pkg.category === categoryFilter);
-    }
-
-    // Apply featured filter
-    if (showFeaturedOnly) {
-      filtered = filtered.filter(pkg => pkg.isFeatured);
-    }
-
-    // Apply sorting
-    filtered.sort((a, b) => {
-      let aValue: any, bValue: any;
-
-      switch (sortBy) {
-        case 'name':
-          aValue = a.name.toLowerCase();
-          bValue = b.name.toLowerCase();
-          break;
-        case 'price':
-          aValue = a.price;
-          bValue = b.price;
-          break;
-        case 'duration':
-          aValue = a.durationDays;
-          bValue = b.durationDays;
-          break;
-        case 'created':
-          aValue = new Date(a.createdAt || 0);
-          bValue = new Date(b.createdAt || 0);
-          break;
-        default:
-          aValue = a.name.toLowerCase();
-          bValue = b.name.toLowerCase();
-      }
-
-      if (sortOrder === 'asc') {
-        return aValue < bValue ? -1 : aValue > bValue ? 1 : 0;
-      } else {
-        return aValue > bValue ? -1 : aValue < bValue ? 1 : 0;
-      }
-    });
-
-    setFilteredPackages(filtered);
-  }, [packages, searchQuery, categoryFilter, showFeaturedOnly, sortBy, sortOrder]);
-
-  // Get unique categories
-  const categories = Array.from(new Set(packages.map(pkg => pkg.category).filter(Boolean)));
-
-  const handleSortToggle = () => {
-    setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
-  };
-
-  const getSettingValue = (key: string, defaultValue: string = '') => {
-    // First try to get from content, then fall back to default value
-    return getContent(key, defaultValue);
-  };
-
-  if (loading || packagesLoading) {
+  // Show loading state while content is being fetched
+  if (contentLoading) {
     return (
-      <div className="pharaonic-container flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-blue-50 via-blue-100 to-blue-200 flex items-center justify-center">
         <div className="text-center">
-          <EgyptHieroglyphic className="mx-auto mb-6" size="4rem" />
-          <p className="pharaonic-text-brown font-bold text-xl">{getContent('packages_loading_text') || 'Loading Packages...'}</p>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="pharaonic-container flex items-center justify-center">
-        <div className="text-center">
-          <div className="text-text-secondary text-4xl mb-4">𓇳 𓊪 𓈖</div>
-          <p className="text-text-primary font-bold text-xl">Content Loading Error: {error}</p>
+          <CircularProgress size={60} className="text-blue-600 mb-4" />
+          <Typography variant="h6" className="text-gray-800">
+            Loading Content...
+          </Typography>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-ocean-blue/10">
-      <div className="p-6">
-        {/* Header */}
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900 flex items-center gap-3">
-              <PackageIcon className="w-8 h-8 text-ocean-blue" />
-              {getContent('packages_hero_title') || 'Royal Packages'}
-            </h1>
-            <p className="text-gray-600">{getContent('packages_hero_subtitle') || 'Discover our curated collection of luxury Nile experiences'}</p>
-          </div>
-          <div className="flex items-center gap-2">
-            <Button
-              variant={viewMode === 'grid' ? 'contained' : 'outlined'}
-              onClick={() => setViewMode('grid')}
-              size="small"
-              className="min-w-0"
-            >
-              <Gift className="w-4 h-4" />
-            </Button>
-            <Button
-              variant={viewMode === 'table' ? 'contained' : 'outlined'}
-              onClick={() => setViewMode('table')}
-              size="small"
-              className="min-w-0"
-            >
-              <BookOpen className="w-4 h-4" />
-            </Button>
-          </div>
-        </div>
-
-        {/* Filters and Search */}
-        <Card className="mb-6">
-          <CardContent className="p-4">
-            <Grid container spacing={3} alignItems="center">
-              <Grid item xs={12} md={4}>
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Search packages..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  InputProps={{
-                    startAdornment: <Search className="w-4 h-4 mr-2 text-gray-400" />
-                  }}
-                />
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Category</InputLabel>
-                  <Select
-                    value={categoryFilter}
-                    onChange={(e) => setCategoryFilter(e.target.value)}
-                    label="Category"
-                  >
-                    <MenuItem value="all">All Categories</MenuItem>
-                    {categories.map(category => (
-                      <MenuItem key={category} value={category}>{category}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <FormControl fullWidth size="small">
-                  <InputLabel>Sort By</InputLabel>
-                  <Select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    label="Sort By"
-                  >
-                    <MenuItem value="name">Name</MenuItem>
-                    <MenuItem value="price">Price</MenuItem>
-                    <MenuItem value="duration">Duration</MenuItem>
-                    <MenuItem value="created">Date Created</MenuItem>
-                  </Select>
-                </FormControl>
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <Button
-                  variant="outlined"
-                  onClick={handleSortToggle}
-                  startIcon={sortOrder === 'asc' ? <SortAsc className="w-4 h-4" /> : <SortDesc className="w-4 h-4" />}
-                  size="small"
-                  fullWidth
-                >
-                  {sortOrder === 'asc' ? 'Ascending' : 'Descending'}
-                </Button>
-              </Grid>
-              <Grid item xs={12} md={2}>
-                <FormControlLabel
-                  control={
-                    <Switch
-                      checked={showFeaturedOnly}
-                      onChange={(e) => setShowFeaturedOnly(e.target.checked)}
-                      size="small"
-                    />
-                  }
-                  label="Featured Only"
-                />
-              </Grid>
-            </Grid>
-          </CardContent>
-        </Card>
-
-        {/* Results Summary */}
-        <div className="mb-4 flex items-center justify-between">
-          <Typography variant="body2" color="text.secondary">
-            Showing {filteredPackages.length} of {packages.length} packages
-          </Typography>
-          <div className="flex items-center gap-2">
-            {searchQuery && (
-              <Chip
-                label={`Search: "${searchQuery}"`}
-                onDelete={() => setSearchQuery('')}
-                size="small"
-                variant="outlined"
-              />
-            )}
-            {categoryFilter !== 'all' && (
-              <Chip
-                label={`Category: ${categoryFilter}`}
-                onDelete={() => setCategoryFilter('all')}
-                size="small"
-                variant="outlined"
-              />
-            )}
-            {showFeaturedOnly && (
-              <Chip
-                label="Featured Only"
-                onDelete={() => setShowFeaturedOnly(false)}
-                size="small"
-                variant="outlined"
-              />
-            )}
-          </div>
-        </div>
-
-        {/* Content Section */}
-        {viewMode === 'grid' ? (
-          /* Grid View */
-          <Grid container spacing={3}>
-            {filteredPackages.length > 0 ? (
-              filteredPackages.map((pkg, index) => (
-                <Grid item xs={12} sm={6} md={4} key={pkg.id}>
-                  <Card className="h-full hover:shadow-lg transition-shadow duration-300 border border-egyptian-gold/20">
-                    <CardMedia
-                      component="div"
-                      className="h-48 relative overflow-hidden"
-                    >
-                      <Image
-                        src={pkg.mainImageUrl || '/images/placeholder-package.jpg'}
-                        alt={pkg.name}
-                        fill
-                        className="object-cover hover:scale-105 transition-transform duration-300"
-                      />
-                      <div className="absolute top-2 left-2 bg-egyptian-gold text-hieroglyph-brown px-2 py-1 rounded-full text-xs font-bold">
-                        <Calendar className="w-3 h-3 inline mr-1" />
-                        {pkg.durationDays} Days
-                      </div>
-                      {pkg.isFeatured && (
-                        <div className="absolute top-2 right-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                          <Star className="w-3 h-3 inline mr-1" />
-                          Featured
-                        </div>
-                      )}
-                    </CardMedia>
-                    <CardContent className="p-4">
-                      <Typography variant="h6" className="font-bold text-gray-900 mb-2 line-clamp-1">
-                        {pkg.name}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" className="mb-3 line-clamp-2">
-                        {pkg.shortDescription || 'Discover the wonders of ancient Egypt with this luxury experience.'}
-                      </Typography>
-                      <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-4 text-sm text-gray-600">
-                          <div className="flex items-center gap-1">
-                            <Users className="w-4 h-4" />
-                            <span>{pkg.maxGuests || 'N/A'}</span>
-                          </div>
-                          {pkg.category && (
-                            <Chip label={pkg.category} size="small" variant="outlined" />
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <Typography variant="h6" className="font-bold text-egyptian-gold">
-                          ${pkg.price.toLocaleString()}
-                        </Typography>
-                        <div className="flex gap-1">
-                          <IconButton size="small" component={Link} href={`/packages/${pkg.id}`}>
-                            <Eye className="w-4 h-4" />
-                          </IconButton>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))
-            ) : (
-              <Grid item xs={12}>
-                <Card className="p-8 text-center">
-                  <PackageIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-                  <Typography variant="h6" color="text.secondary" className="mb-2">
-                    No packages found
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {searchQuery || categoryFilter !== 'all' || showFeaturedOnly
-                      ? 'Try adjusting your filters to see more results.'
-                      : 'No packages are currently available.'}
-                  </Typography>
-                </Card>
-              </Grid>
-            )}
-          </Grid>
-        ) : (
-          /* Table View */
-          <TableContainer component={Paper} className="shadow-lg">
-            <Table>
-              <TableHead className="bg-gray-50">
-                <TableRow>
-                  <TableCell><strong>Package</strong></TableCell>
-                  <TableCell><strong>Category</strong></TableCell>
-                  <TableCell><strong>Duration</strong></TableCell>
-                  <TableCell><strong>Max Guests</strong></TableCell>
-                  <TableCell><strong>Price</strong></TableCell>
-                  <TableCell><strong>Status</strong></TableCell>
-                  <TableCell><strong>Actions</strong></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {filteredPackages.map((pkg) => (
-                  <TableRow key={pkg.id} hover>
-                    <TableCell>
-                      <div className="flex items-center gap-3">
-                        <div className="w-12 h-12 relative rounded overflow-hidden">
-                          <Image
-                            src={pkg.mainImageUrl || '/images/placeholder-package.jpg'}
-                            alt={pkg.name}
-                            fill
-                            className="object-cover"
-                          />
-                        </div>
-                        <div>
-                          <Typography variant="subtitle2" className="font-bold">
-                            {pkg.name}
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            {pkg.shortDescription?.substring(0, 50)}...
-                          </Typography>
-                        </div>
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      {pkg.category ? (
-                        <Chip label={pkg.category} size="small" variant="outlined" />
-                      ) : (
-                        <span className="text-gray-400">-</span>
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <Calendar className="w-4 h-4 text-gray-400" />
-                        {pkg.durationDays} days
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-1">
-                        <Users className="w-4 h-4 text-gray-400" />
-                        {pkg.maxGuests || 'N/A'}
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <Typography variant="subtitle2" className="font-bold text-egyptian-gold">
-                        ${pkg.price.toLocaleString()}
-                      </Typography>
-                    </TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        {pkg.isFeatured && (
-                          <Chip
-                            label="Featured"
-                            size="small"
-                            className="bg-gradient-to-r from-purple-500 to-pink-500 text-white"
-                          />
-                        )}
-                        <Chip
-                          label={pkg.isActive ? 'Active' : 'Inactive'}
-                          size="small"
-                          color={pkg.isActive ? 'success' : 'default'}
-                          variant="outlined"
-                        />
-                      </div>
-                    </TableCell>
-                    <TableCell>
-                      <IconButton size="small" component={Link} href={`/packages/${pkg.id}`}>
-                        <Eye className="w-4 h-4" />
-                      </IconButton>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+    <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-sky-50">
+      {/* Enhanced Pharaonic Hero Section */}
+      <div className="relative overflow-hidden min-h-screen">
+        {/* Hero Background Image with Enhanced Effects */}
+        {getContent('packages_hero_background_image') && (
+          <div
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 animate-slow-zoom"
+            style={{
+              backgroundImage: `url("${getContent('packages_hero_background_image') || '/images/packages-hero-bg.jpg'}")`,
+              filter: 'brightness(1.2) contrast(1.3) saturate(1.4)',
+            }}
+          ></div>
         )}
+
+        {/* Enhanced Multi-layer Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-blue-800/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
+
+        <div className="relative z-10 py-24">
+          <Container maxWidth="lg">
+            <Box textAlign="center">
+              {/* Hieroglyphic Title */}
+              <div className="mb-8">
+                <Typography
+                  variant="h3"
+                  className="font-bold mb-4 tracking-wider"
+                  style={{
+                    fontFamily: 'serif',
+                    background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
+                    WebkitBackgroundClip: 'text',
+                    WebkitTextFillColor: 'transparent',
+                    backgroundClip: 'text',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                  }}
+                >
+                  {getContent('packages_hero_title') || 'Royal Journey Packages'}
+                </Typography>
+                <div className="w-32 h-1 bg-ocean-blue mx-auto mb-6 rounded-full"></div>
+              </div>
+
+              {/* Main Title */}
+              <Typography
+                variant="h1"
+                component="h1"
+                className="font-bold mb-6 text-shadow-lg"
+                style={{
+                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontFamily: 'serif',
+                  background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
+                }}
+              >
+                {getContent('packages_hero_subtitle') || 'Curated Experiences Along the Eternal Nile'}
+              </Typography>
+
+              {/* Subtitle */}
+              <Typography
+                variant="h4"
+                className="mb-8 max-w-4xl mx-auto leading-relaxed"
+                style={{
+                  fontFamily: 'serif',
+                  color: '#FFE4B5',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
+                  fontSize: 'clamp(1.2rem, 3vw, 1.8rem)'
+                }}
+              >
+                {getContent('packages_hero_description') || 'From luxury cruises to cultural immersions, discover the perfect journey through ancient Egypt'}
+              </Typography>
+
+              {/* Decorative Elements */}
+              <div className="flex justify-center items-center gap-8 mb-12">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-blue-400"></div>
+                <Typography className="text-6xl text-blue-300 animate-pulse">𓇳</Typography>
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-blue-400"></div>
+              </div>
+            </Box>
+          </Container>
+        </div>
+
+        {/* Floating Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+          <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+            <div className="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Content Section */}
+      <div className="relative z-10 bg-white">
+        <Container maxWidth="xl" className="py-16">
+          {/* Package List */}
+          <PackageList activeOnly={true} limit={12} />
+
+          {/* Enhanced CTA Section */}
+          <div className="mt-24 text-center">
+            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-3xl p-12 shadow-2xl border border-blue-200/50">
+              {/* Decorative Header */}
+              <div className="flex justify-center items-center gap-4 mb-8">
+                <div className="w-16 h-0.5 bg-gradient-to-r from-transparent to-blue-400"></div>
+                <Typography className="text-4xl text-blue-600">𓇳</Typography>
+                <Typography className="text-2xl font-bold text-blue-800">Ready for Your Journey?</Typography>
+                <Typography className="text-4xl text-blue-600">𓇳</Typography>
+                <div className="w-16 h-0.5 bg-gradient-to-l from-transparent to-blue-400"></div>
+              </div>
+
+              <Typography
+                variant="h4"
+                className="mb-6 text-gray-800 font-serif"
+                style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}
+              >
+                {getContent('packages_cta_title') || 'Begin Your Egyptian Adventure'}
+              </Typography>
+
+              <Typography
+                variant="h6"
+                className="mb-8 text-gray-600 max-w-3xl mx-auto leading-relaxed"
+              >
+                {getContent('packages_cta_description') || 'Choose from our carefully curated packages or explore individual dahabiyas for a personalized experience'}
+              </Typography>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap justify-center gap-6">
+                {/* Book Any Package */}
+                <Link href="/booking?type=package">
+                  <button className="bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-500">
+                    <div className="flex items-center gap-3">
+                      <Typography className="text-2xl">𓇳</Typography>
+                      <div>
+                        <Typography variant="h6" className="font-bold">
+                          {getContent('packages_cta_book_title') || 'Book Any Package'}
+                        </Typography>
+                        <Typography variant="caption" className="opacity-80">
+                          {getContent('packages_cta_book_subtitle') || 'Complete journey experiences'}
+                        </Typography>
+                      </div>
+                      <Typography className="text-2xl">𓇳</Typography>
+                    </div>
+                  </button>
+                </Link>
+
+                {/* Explore Dahabiyas */}
+                <Link href="/dahabiyas">
+                  <button className="bg-gradient-to-r from-blue-600 to-ocean-blue text-white px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-600">
+                    <div className="flex items-center gap-3">
+                      <Typography className="text-2xl">𓊪</Typography>
+                      <div>
+                        <Typography variant="h6" className="font-bold">
+                          {getContent('packages_cta_dahabiyas_title') || 'Explore Dahabiyas'}
+                        </Typography>
+                        <Typography variant="caption" className="opacity-80">
+                          {getContent('packages_cta_dahabiyas_subtitle') || 'Individual luxury vessels'}
+                        </Typography>
+                      </div>
+                      <Typography className="text-2xl">𓊪</Typography>
+                    </div>
+                  </button>
+                </Link>
+              </div>
+
+              {/* Additional Info */}
+              <div className="mt-8 flex flex-wrap justify-center gap-8 text-sm text-gray-600">
+                <div className="flex items-center gap-2">
+                  <Typography className="text-blue-600">𓈖</Typography>
+                  <span>Expert Local Guides</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Typography className="text-blue-600">𓂀</Typography>
+                  <span>Luxury Accommodations</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Typography className="text-blue-600">𓇳</Typography>
+                  <span>Authentic Experiences</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
       </div>
     </div>
   );

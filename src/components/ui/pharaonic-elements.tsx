@@ -118,17 +118,17 @@ export const EgyptianPatternBackground = ({ className = "" }: { className?: stri
         <defs>
           <pattern id="egyptian-pattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
             {/* Ankh Symbol */}
-            <g fill="#D4AF37" opacity="0.3">
-              <circle cx="60" cy="30" r="12" fill="none" stroke="#D4AF37" strokeWidth="3"/>
-              <line x1="60" y1="42" x2="60" y2="90" stroke="#D4AF37" strokeWidth="3"/>
-              <line x1="45" y1="65" x2="75" y2="65" stroke="#D4AF37" strokeWidth="3"/>
+            <g fill="#0080ff" opacity="0.3">
+              <circle cx="60" cy="30" r="12" fill="none" stroke="#0080ff" strokeWidth="3"/>
+              <line x1="60" y1="42" x2="60" y2="90" stroke="#0080ff" strokeWidth="3"/>
+              <line x1="45" y1="65" x2="75" y2="65" stroke="#0080ff" strokeWidth="3"/>
             </g>
             {/* Eye of Horus */}
-            <g fill="#D4AF37" opacity="0.2" transform="translate(20, 80)">
-              <ellipse cx="20" cy="10" rx="15" ry="8" fill="none" stroke="#D4AF37" strokeWidth="2"/>
-              <circle cx="20" cy="10" r="3" fill="#D4AF37"/>
-              <path d="M5 10 Q10 15 15 10" stroke="#D4AF37" strokeWidth="2" fill="none"/>
-              <path d="M25 10 Q30 15 35 10" stroke="#D4AF37" strokeWidth="2" fill="none"/>
+            <g fill="#0080ff" opacity="0.2" transform="translate(20, 80)">
+              <ellipse cx="20" cy="10" rx="15" ry="8" fill="none" stroke="#0080ff" strokeWidth="2"/>
+              <circle cx="20" cy="10" r="3" fill="#0080ff"/>
+              <path d="M5 10 Q10 15 15 10" stroke="#0080ff" strokeWidth="2" fill="none"/>
+              <path d="M25 10 Q30 15 35 10" stroke="#0080ff" strokeWidth="2" fill="none"/>
             </g>
           </pattern>
         </defs>
@@ -145,7 +145,7 @@ export const RoyalCrown = ({ className = "" }: { className?: string }) => {
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* White Crown (Hedjet) - Upper Egypt */}
         <path d="M12 30 Q12 25 15 22 Q20 18 20 15 Q20 18 25 22 Q28 25 28 30 Z"
-              fill="url(#pharaoh-white-gradient)" stroke="#D4AF37" strokeWidth="1.5"/>
+              fill="url(#pharaoh-white-gradient)" stroke="#0080ff" strokeWidth="1.5"/>
 
         {/* Red Crown (Deshret) - Lower Egypt */}
         <path d="M8 30 L32 30 L30 25 Q28 22 25 20 L28 18 Q30 16 32 12 L28 14 Q25 16 20 16 Q15 16 12 14 L8 12 Q10 16 12 18 L15 20 Q12 22 10 25 Z"
@@ -153,14 +153,14 @@ export const RoyalCrown = ({ className = "" }: { className?: string }) => {
 
         {/* Uraeus (Serpent) */}
         <path d="M20 12 Q18 10 16 12 Q15 14 17 15 Q19 16 20 14 Q21 12 20 12 Z"
-              fill="#FFD700" stroke="#B8860B" strokeWidth="0.8"/>
+              fill="#3399ff" stroke="#B8860B" strokeWidth="0.8"/>
 
         {/* Cobra Head */}
-        <circle cx="20" cy="10" r="2" fill="#FFD700" stroke="#B8860B" strokeWidth="0.8"/>
+        <circle cx="20" cy="10" r="2" fill="#3399ff" stroke="#B8860B" strokeWidth="0.8"/>
 
         {/* Hieroglyphic Symbols */}
-        <text x="10" y="35" fontSize="6" fill="#D4AF37" fontFamily="serif">𓇳</text>
-        <text x="26" y="35" fontSize="6" fill="#D4AF37" fontFamily="serif">𓊪</text>
+        <text x="10" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓇳</text>
+        <text x="26" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓊪</text>
 
         <defs>
           <linearGradient id="pharaoh-white-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -439,25 +439,25 @@ export const PharaonicCrown = ({ className = "" }: { className?: string }) => (
       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         {/* Main Crown Body */}
         <path d="M8 30 Q8 20 12 15 Q20 8 20 8 Q20 8 28 15 Q32 20 32 30 Z"
-              fill="url(#khepresh-gradient)" stroke="#D4AF37" strokeWidth="1.5"/>
+              fill="url(#khepresh-gradient)" stroke="#0080ff" strokeWidth="1.5"/>
 
         {/* Golden Dots Pattern */}
-        <circle cx="15" cy="18" r="1" fill="#FFD700"/>
-        <circle cx="20" cy="15" r="1" fill="#FFD700"/>
-        <circle cx="25" cy="18" r="1" fill="#FFD700"/>
-        <circle cx="18" cy="22" r="1" fill="#FFD700"/>
-        <circle cx="22" cy="22" r="1" fill="#FFD700"/>
-        <circle cx="20" cy="26" r="1" fill="#FFD700"/>
+        <circle cx="15" cy="18" r="1" fill="#3399ff"/>
+        <circle cx="20" cy="15" r="1" fill="#3399ff"/>
+        <circle cx="25" cy="18" r="1" fill="#3399ff"/>
+        <circle cx="18" cy="22" r="1" fill="#3399ff"/>
+        <circle cx="22" cy="22" r="1" fill="#3399ff"/>
+        <circle cx="20" cy="26" r="1" fill="#3399ff"/>
 
         {/* Uraeus Serpent */}
         <path d="M20 8 Q18 6 16 8 Q15 10 17 11 Q19 12 20 10 Q21 8 20 8 Z"
-              fill="#FFD700" stroke="#B8860B" strokeWidth="0.8"/>
+              fill="#3399ff" stroke="#B8860B" strokeWidth="0.8"/>
 
         <defs>
           <linearGradient id="khepresh-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1E3A8A"/>
             <stop offset="50%" stopColor="#FFBF00"/>
-            <stop offset="100%" stopColor="#D4AF37"/>
+            <stop offset="100%" stopColor="#0080ff"/>
           </linearGradient>
         </defs>
       </svg>

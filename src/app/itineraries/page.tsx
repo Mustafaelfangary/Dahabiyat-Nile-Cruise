@@ -127,7 +127,7 @@ export default function ItinerariesPage() {
           <AnimatedSection animation="fade-up">
             <div className="text-center max-w-4xl mx-auto">
               <h1 className="text-6xl md:text-7xl font-bold mb-6 text-shadow-lg" style={{
-                background: 'linear-gradient(45deg, #FFD700, #FF4500, #FF1493, #00CED1, #9370DB, #FFD700)',
+                background: 'linear-gradient(45deg, #3399ff, #FF4500, #FF1493, #00CED1, #9370DB, #3399ff)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',
@@ -142,13 +142,13 @@ export default function ItinerariesPage() {
                 {getSettingValue('itineraries_hero_subtitle', 'Discover Ancient Egypt Through Carefully Crafted Journeys')}
               </p>
               <p className="text-lg mb-8 leading-relaxed max-w-3xl mx-auto" style={{
-                color: '#F0E68C',
+                color: '#e0f2fe',
                 textShadow: '2px 2px 4px rgba(0,0,0,0.4)'
               }}>
                 {getSettingValue('itineraries_hero_description', 'Explore our collection of meticulously planned itineraries, each designed to immerse you in the wonders of pharaonic Egypt while ensuring comfort and authenticity.')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <PharaohButton className="bg-white/20 hover:bg-white/30 text-white border border-white/30">
+                <PharaohButton className="bg-black/40 hover:bg-black/60 text-white border border-white/50 backdrop-blur-sm">
                   <Play className="w-5 h-5 mr-2" />
                   {getSettingValue('itineraries_hero_cta_text', 'Explore Journeys')}
                 </PharaohButton>
@@ -224,7 +224,7 @@ export default function ItinerariesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredItineraries.map((itinerary, index) => (
                 <AnimatedSection key={itinerary.id} animation="fade-up" delay={index * 100}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-amber-200 hover:border-amber-400 overflow-hidden">
+                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 overflow-hidden">
                     {/* Image */}
                     <div className="relative h-64 overflow-hidden">
                       <img
@@ -236,7 +236,7 @@ export default function ItinerariesPage() {
                       
                       {/* Featured Badge */}
                       {itinerary.featured && (
-                        <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-500 to-orange-600 text-black px-3 py-1 rounded-full text-sm font-bold">
+                        <div className="absolute top-4 right-4 bg-gradient-to-r from-gray-100 to-gray-200 text-black px-3 py-1 rounded-full text-sm font-bold border border-gray-300">
                           ⭐ Featured
                         </div>
                       )}
@@ -249,16 +249,16 @@ export default function ItinerariesPage() {
                     </div>
 
                     <CardContent className="p-6">
-                      <h3 className="text-xl font-bold text-amber-800 mb-3 group-hover:text-amber-600 transition-colors">
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-black transition-colors">
                         {itinerary.name}
                       </h3>
                       
-                      <p className="text-gray-600 mb-4 line-clamp-3">
+                      <p className="text-gray-800 mb-4 line-clamp-3">
                         {itinerary.shortDescription || itinerary.description}
                       </p>
 
                       {/* Details */}
-                      <div className="flex items-center gap-4 mb-4 text-sm text-gray-500">
+                      <div className="flex items-center gap-4 mb-4 text-sm text-gray-800">
                         {itinerary.maxGuests && (
                           <div className="flex items-center">
                             <Users className="w-4 h-4 mr-1" />
@@ -266,7 +266,7 @@ export default function ItinerariesPage() {
                           </div>
                         )}
                         {itinerary.price && (
-                          <div className="font-semibold text-amber-600">
+                          <div className="font-semibold text-gray-900">
                             From ${itinerary.price}
                           </div>
                         )}
@@ -277,12 +277,12 @@ export default function ItinerariesPage() {
                         <div className="mb-4">
                           <div className="flex flex-wrap gap-1">
                             {itinerary.highlights.slice(0, 3).map((highlight, idx) => (
-                              <span key={idx} className="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">
+                              <span key={idx} className="bg-gray-100 text-black text-xs px-2 py-1 rounded-full border border-gray-200">
                                 {highlight}
                               </span>
                             ))}
                             {itinerary.highlights.length > 3 && (
-                              <span className="text-amber-600 text-xs">+{itinerary.highlights.length - 3} more</span>
+                              <span className="text-black text-xs">+{itinerary.highlights.length - 3} more</span>
                             )}
                           </div>
                         </div>
@@ -308,21 +308,21 @@ export default function ItinerariesPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 border-t border-gray-200">
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection animation="fade-up">
-            <h2 className="text-4xl font-bold mb-6" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.5)' }}>
+            <h2 className="text-4xl font-bold mb-6 text-gray-900">
               {getSettingValue('itineraries_cta_title', 'Start Your Journey')}
             </h2>
-            <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.5)' }}>
+            <p className="text-xl mb-8 text-black max-w-2xl mx-auto">
               {getSettingValue('itineraries_cta_description', 'Choose from our blessed itineraries and embark on a transformative journey through the eternal wonders of ancient Egypt.')}
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <PharaohButton className="bg-white text-amber-800 hover:bg-amber-50">
+              <PharaohButton className="bg-gray-900 text-white hover:bg-black">
                 <Calendar className="w-5 h-5 mr-2" />
                 {getSettingValue('itineraries_cta_primary_text', 'Book Journey')}
               </PharaohButton>
-              <PharaohButton className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+              <PharaohButton className="bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
                 <Users className="w-5 h-5 mr-2" />
                 {getSettingValue('itineraries_cta_secondary_text', 'Custom Itinerary')}
               </PharaohButton>

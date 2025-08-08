@@ -72,11 +72,11 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   const glowAnimation = {
     animate: {
       textShadow: [
-        '0 0 5px rgba(255, 215, 0, 0.5)',
-        '0 0 15px rgba(255, 215, 0, 0.8)',
-        '0 0 25px rgba(255, 215, 0, 0.6)',
-        '0 0 15px rgba(255, 215, 0, 0.8)',
-        '0 0 5px rgba(255, 215, 0, 0.5)'
+        '0 0 5px rgba(51, 153, 255, 0.5)',
+        '0 0 15px rgba(51, 153, 255, 0.8)',
+        '0 0 25px rgba(51, 153, 255, 0.6)',
+        '0 0 15px rgba(51, 153, 255, 0.8)',
+        '0 0 5px rgba(51, 153, 255, 0.5)'
       ],
       transition: {
         duration: 3,

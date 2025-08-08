@@ -246,7 +246,7 @@ export default function NewItineraryPage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4 animate-pulse" />
           <p className="text-amber-800 text-lg">Loading Sacred Portal...</p>
@@ -257,7 +257,7 @@ export default function NewItineraryPage() {
 
   if (!session || session.user.role !== 'ADMIN') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-amber-800 mb-4">Access Denied</h1>
@@ -268,10 +268,10 @@ export default function NewItineraryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100">
       <div className="container mx-auto py-8">
         {/* Pharaonic Header */}
-        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 rounded-lg shadow-lg">
+        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
           <a
             href="/admin/itineraries"
             className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
@@ -312,7 +312,7 @@ export default function NewItineraryPage() {
             {/* Basic Information Tab */}
             <TabsContent value="basic" className="space-y-6">
               <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                <CardHeader className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Ship className="w-6 h-6" />
                     Sacred Journey Details
@@ -328,7 +328,7 @@ export default function NewItineraryPage() {
                         onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
                         placeholder="e.g., Royal Dahabiya Cruise: 5 Days Esna - Aswan"
                         required
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                     </div>
                     <div>
@@ -338,7 +338,7 @@ export default function NewItineraryPage() {
                         value={formData.slug}
                         onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                         placeholder="royal-dahabiya-cruise-5-days"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                       <p className="text-sm text-amber-600 mt-1">Leave empty to auto-generate from name</p>
                     </div>
@@ -351,7 +351,7 @@ export default function NewItineraryPage() {
                       value={formData.shortDescription}
                       onChange={(e) => setFormData(prev => ({ ...prev, shortDescription: e.target.value }))}
                       placeholder="A brief, captivating description for cards and previews..."
-                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       rows={3}
                     />
                   </div>
@@ -363,7 +363,7 @@ export default function NewItineraryPage() {
                       value={formData.description}
                       onChange={(e) => setFormData(prev => ({ ...prev, description: e.target.value }))}
                       placeholder="Detailed description of this magnificent journey..."
-                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       rows={6}
                     />
                   </div>
@@ -377,7 +377,7 @@ export default function NewItineraryPage() {
                         min="1"
                         value={formData.durationDays}
                         onChange={(e) => setFormData(prev => ({ ...prev, durationDays: parseInt(e.target.value) || 1 }))}
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                     </div>
                     <div>
@@ -389,7 +389,7 @@ export default function NewItineraryPage() {
                         value={formData.maxGuests}
                         onChange={(e) => setFormData(prev => ({ ...prev, maxGuests: e.target.value }))}
                         placeholder="e.g., 20"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                     </div>
                     <div>
@@ -402,7 +402,7 @@ export default function NewItineraryPage() {
                         value={formData.price}
                         onChange={(e) => setFormData(prev => ({ ...prev, price: e.target.value }))}
                         placeholder="e.g., 1500"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                     </div>
                   </div>
@@ -417,7 +417,7 @@ export default function NewItineraryPage() {
                             value={highlight}
                             onChange={(e) => updateArrayField('highlights', index, e.target.value)}
                             placeholder="e.g., Visit the magnificent Temple of Edfu"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                           <Button
                             type="button"
@@ -434,7 +434,7 @@ export default function NewItineraryPage() {
                         type="button"
                         variant="outline"
                         onClick={() => addArrayField('highlights')}
-                        className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                        className="border-amber-300 text-amber-600 hover:bg-blue-50"
                       >
                         <Plus className="w-4 h-4 mr-2" />
                         Add Highlight
@@ -455,7 +455,7 @@ export default function NewItineraryPage() {
                 <Button
                   type="button"
                   onClick={addDay}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                  className="bg-amber-500 hover:bg-blue-600 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Day
@@ -465,7 +465,7 @@ export default function NewItineraryPage() {
               <div className="space-y-6">
                 {days.map((day, dayIndex) => (
                   <Card key={dayIndex} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                    <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-amber-800 font-bold">
@@ -494,7 +494,7 @@ export default function NewItineraryPage() {
                             value={day.title}
                             onChange={(e) => updateDay(dayIndex, 'title', e.target.value)}
                             placeholder="e.g., Arrival in Luxor - Temple of Karnak"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                         <div>
@@ -503,7 +503,7 @@ export default function NewItineraryPage() {
                             value={day.location}
                             onChange={(e) => updateDay(dayIndex, 'location', e.target.value)}
                             placeholder="e.g., Luxor, Egypt"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                       </div>
@@ -514,7 +514,7 @@ export default function NewItineraryPage() {
                           value={day.description}
                           onChange={(e) => updateDay(dayIndex, 'description', e.target.value)}
                           placeholder="Detailed description of this day's journey..."
-                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           rows={4}
                         />
                       </div>
@@ -561,7 +561,7 @@ export default function NewItineraryPage() {
                                 value={activity}
                                 onChange={(e) => updateArrayItem(dayIndex, 'activities', actIndex, e.target.value)}
                                 placeholder="e.g., Guided tour of Karnak Temple Complex"
-                                className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                                className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                               />
                               <Button
                                 type="button"
@@ -578,7 +578,7 @@ export default function NewItineraryPage() {
                             type="button"
                             variant="outline"
                             onClick={() => addArrayItem(dayIndex, 'activities')}
-                            className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                            className="border-amber-300 text-amber-600 hover:bg-blue-50"
                           >
                             <Plus className="w-4 h-4 mr-2" />
                             Add Activity
@@ -596,7 +596,7 @@ export default function NewItineraryPage() {
                                 value={highlight}
                                 onChange={(e) => updateArrayItem(dayIndex, 'highlights', hlIndex, e.target.value)}
                                 placeholder="e.g., Witness the sunset from the temple's sacred halls"
-                                className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                                className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                               />
                               <Button
                                 type="button"
@@ -613,7 +613,7 @@ export default function NewItineraryPage() {
                             type="button"
                             variant="outline"
                             onClick={() => addArrayItem(dayIndex, 'highlights')}
-                            className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                            className="border-amber-300 text-amber-600 hover:bg-blue-50"
                           >
                             <Plus className="w-4 h-4 mr-2" />
                             Add Highlight
@@ -636,7 +636,7 @@ export default function NewItineraryPage() {
                 <Button
                   type="button"
                   onClick={addPricingTier}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                  className="bg-amber-500 hover:bg-blue-600 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Tier
@@ -646,7 +646,7 @@ export default function NewItineraryPage() {
               <div className="grid gap-6">
                 {pricingTiers.map((tier, index) => (
                   <Card key={index} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                    <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                       <div className="flex items-center justify-between">
                         <CardTitle>Pricing Tier {index + 1}</CardTitle>
                         {pricingTiers.length > 1 && (
@@ -670,7 +670,7 @@ export default function NewItineraryPage() {
                             value={tier.category}
                             onValueChange={(value) => updatePricingTier(index, 'category', value)}
                           >
-                            <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                            <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                               <SelectValue />
                             </SelectTrigger>
                             <SelectContent>
@@ -687,7 +687,7 @@ export default function NewItineraryPage() {
                             value={tier.paxRange}
                             onChange={(e) => updatePricingTier(index, 'paxRange', e.target.value)}
                             placeholder="e.g., 2-3 PAX"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                         <div>
@@ -699,7 +699,7 @@ export default function NewItineraryPage() {
                             value={tier.price}
                             onChange={(e) => updatePricingTier(index, 'price', parseFloat(e.target.value) || 0)}
                             placeholder="e.g., 1500"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                         <div>
@@ -711,7 +711,7 @@ export default function NewItineraryPage() {
                             value={tier.singleSupplement}
                             onChange={(e) => updatePricingTier(index, 'singleSupplement', parseFloat(e.target.value) || 0)}
                             placeholder="e.g., 300"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                       </div>
@@ -724,7 +724,7 @@ export default function NewItineraryPage() {
             {/* Media & Gallery Tab */}
             <TabsContent value="media" className="space-y-6">
               <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                <CardHeader className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Camera className="w-6 h-6" />
                     Media & Visual Gallery
@@ -739,13 +739,13 @@ export default function NewItineraryPage() {
                           value={formData.mainImageUrl}
                           onChange={(e) => setFormData(prev => ({ ...prev, mainImageUrl: e.target.value }))}
                           placeholder="Main display image URL"
-                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         />
                         <Button
                           type="button"
                           variant="outline"
                           onClick={() => setShowMediaPicker('mainImage')}
-                          className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                          className="border-amber-300 text-amber-600 hover:bg-blue-50"
                         >
                           <ImageIcon className="w-4 h-4" />
                         </Button>
@@ -758,13 +758,13 @@ export default function NewItineraryPage() {
                           value={formData.heroImageUrl}
                           onChange={(e) => setFormData(prev => ({ ...prev, heroImageUrl: e.target.value }))}
                           placeholder="Hero banner image URL"
-                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         />
                         <Button
                           type="button"
                           variant="outline"
                           onClick={() => setShowMediaPicker('heroImage')}
-                          className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                          className="border-amber-300 text-amber-600 hover:bg-blue-50"
                         >
                           <ImageIcon className="w-4 h-4" />
                         </Button>
@@ -779,13 +779,13 @@ export default function NewItineraryPage() {
                         value={formData.videoUrl}
                         onChange={(e) => setFormData(prev => ({ ...prev, videoUrl: e.target.value }))}
                         placeholder="Journey video URL"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                       <Button
                         type="button"
                         variant="outline"
                         onClick={() => setShowMediaPicker('video')}
-                        className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                        className="border-amber-300 text-amber-600 hover:bg-blue-50"
                       >
                         <Video className="w-4 h-4" />
                       </Button>
@@ -801,7 +801,7 @@ export default function NewItineraryPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-12 py-4 text-lg font-bold rounded-lg shadow-lg"
+              className="bg-gradient-to-r from-ocean-blue-600 to-navy-blue-600 hover:from-ocean-blue-700 hover:to-navy-blue-700 text-white px-12 py-4 text-lg font-bold rounded-lg shadow-lg"
             >
               {loading ? (
                 <>

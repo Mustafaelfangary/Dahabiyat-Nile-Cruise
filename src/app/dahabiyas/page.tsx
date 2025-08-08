@@ -204,7 +204,7 @@ export default function DahabiyasPage() {
                 {/* Action Buttons */}
                 <div className="flex flex-wrap justify-center gap-6">
                   {/* Book Any Dahabiya */}
-                  <Link href="/packages">
+                  <Link href="/booking?type=dahabiya">
                     <button className="bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-8 py-4 rounded-full font-bold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border-2 border-blue-500">
                       <div className="flex items-center gap-3">
                         <Typography className="text-2xl">𓊪</Typography>

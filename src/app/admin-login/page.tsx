@@ -105,7 +105,7 @@ export default function AdminLoginPage() {
             </div>
             <Button
               type="submit"
-              className="w-full bg-amber-600 hover:bg-amber-700"
+              className="w-full bg-amber-600 hover:bg-blue-700"
               disabled={isLoading}
             >
               {isLoading ? (

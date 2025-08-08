@@ -20,12 +20,12 @@ export default function MobileLayout({ children }: MobileLayoutProps) {
       {/* Mobile Content Container */}
       <div className={`min-h-screen ${
         isHomepage
-          ? 'bg-gradient-to-b from-blue-50 via-ocean-blue-lightest/30 to-blue-100/10'
+          ? 'bg-gradient-to-b from-white via-blue-50/20 to-blue-100/10'
           : isAdminPage
-          ? 'bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/10'
+          ? 'bg-gradient-to-br from-white via-blue-50/10 to-indigo-50/5'
           : isAuthPage
-          ? 'bg-gradient-to-br from-ocean-blue/5 via-blue-100/5 to-blue-50'
-          : 'bg-gradient-to-b from-white to-blue-50/30'
+          ? 'bg-gradient-to-br from-white via-blue-50/10 to-blue-100/5'
+          : 'bg-white'
       }`}>
         {/* Mobile Top Spacing */}
         <div className="pt-20">

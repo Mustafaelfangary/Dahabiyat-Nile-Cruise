@@ -226,7 +226,7 @@ const WishlistGrid: React.FC<WishlistGridProps> = ({ userId, limit }) => {
                     )}
                   </div>
                   <Link href={linkHref}>
-                    <Button size="sm" className="bg-gradient-to-r from-egyptian-gold/80 to-amber-500/80 text-hieroglyph-brown text-xs font-bold border border-egyptian-gold/30 hover:from-egyptian-gold hover:to-amber-500">
+                    <Button size="sm" className="bg-gradient-to-r from-egyptian-gold/80 to-deep-blue-500/80 text-hieroglyph-brown text-xs font-bold border border-egyptian-gold/30 hover:from-egyptian-gold hover:to-deep-blue-500">
                       <span className="text-xs">View Details</span>
                       <span className="text-xs text-egyptian-gold ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                     </Button>

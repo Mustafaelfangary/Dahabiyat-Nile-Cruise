@@ -21,7 +21,7 @@ export default function AdminMemoriesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50">
       <Container maxWidth="xl" sx={{ py: 4 }}>
         <Box mb={4}>
           <Typography variant="h3" component="h1" gutterBottom className="text-hieroglyph-brown">

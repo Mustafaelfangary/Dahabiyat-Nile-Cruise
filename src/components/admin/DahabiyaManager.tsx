@@ -345,14 +345,14 @@ const DahabiyaManager = () => {
     <div style={{ padding: '24px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '24px' }}>
         <Typography variant="h4" component="h1">
-          <DirectionsBoat style={{ marginRight: '8px', color: '#D4AF37' }} />
+          <DirectionsBoat style={{ marginRight: '8px', color: '#0080ff' }} />
           Sacred Fleet Management
         </Typography>
         <Button
           variant="contained"
           startIcon={<Add />}
           onClick={() => handleOpenDialog()}
-          style={{ backgroundColor: '#D4AF37', color: 'white' }}
+          style={{ backgroundColor: '#0080ff', color: 'white' }}
         >
           Add New Dahabiya
         </Button>
@@ -414,7 +414,7 @@ const DahabiyaManager = () => {
                   />
                 </TableCell>
                 <TableCell>
-                  {dahabiya.isFeatured && <Star style={{ color: '#FFD700' }} />}
+                  {dahabiya.isFeatured && <Star style={{ color: '#3399ff' }} />}
                 </TableCell>
                 <TableCell>
                   <IconButton onClick={() => handleOpenDialog(dahabiya)} size="small">
@@ -600,7 +600,7 @@ const DahabiyaManager = () => {
             {formTab === 2 && (
               <div className="space-y-6">
                 <Box sx={{ mb: 2 }}>
-                  <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#0080ff' }}>
                     Main Image
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -620,7 +620,7 @@ const DahabiyaManager = () => {
                 />
 
                 <Box sx={{ mb: 2 }}>
-                  <Typography variant="h6" sx={{ mb: 1, color: '#D4AF37' }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#0080ff' }}>
                     Gallery Images
                   </Typography>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -845,7 +845,7 @@ const DahabiyaManager = () => {
             onClick={handleSubmit}
             variant="contained"
             disabled={submitting}
-            style={{ backgroundColor: '#D4AF37', color: 'white' }}
+            style={{ backgroundColor: '#0080ff', color: 'white' }}
           >
             {submitting ? <CircularProgress size={20} /> : (editingDahabiya ? 'Update' : 'Create')}
           </Button>

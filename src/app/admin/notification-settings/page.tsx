@@ -241,13 +241,13 @@ export default function NotificationSettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/20 to-orange-50/10">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-navy-blue-50/10">
       <Container maxWidth={false} className="py-8">
         <AnimatedSection animation="fade-in">
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+              <div className="p-3 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 rounded-lg">
                 <Bell className="w-8 h-8 text-white" />
               </div>
               <div>
@@ -287,7 +287,7 @@ export default function NotificationSettingsPage() {
                         conditions: {},
                         priority: 'medium'
                       })}
-                      className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500"
+                      className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500"
                     >
                       <Plus className="w-4 h-4 mr-2" />
                       Add Rule
@@ -302,7 +302,7 @@ export default function NotificationSettingsPage() {
                         className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                           selectedRule?.id === rule.id
                             ? 'border-amber-400 bg-amber-50'
-                            : 'border-gray-200 hover:border-amber-200'
+                            : 'border-gray-200 hover:border-blue-200'
                         }`}
                         onClick={() => setSelectedRule(rule)}
                       >
@@ -353,7 +353,7 @@ export default function NotificationSettingsPage() {
                                 e.stopPropagation();
                                 setSelectedRule(rule);
                               }}
-                              className="border-amber-200 text-amber-700 hover:bg-amber-50"
+                              className="border-amber-200 text-amber-700 hover:bg-blue-50"
                             >
                               <Edit3 className="w-3 h-3" />
                             </Button>
@@ -458,7 +458,7 @@ export default function NotificationSettingsPage() {
                       <Button
                         onClick={() => saveRule(selectedRule)}
                         disabled={saving}
-                        className="flex-1 bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500"
+                        className="flex-1 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500"
                       >
                         {saving ? (
                           <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -533,7 +533,7 @@ export default function NotificationSettingsPage() {
                   <Button
                     onClick={saveSettings}
                     disabled={saving}
-                    className="w-full bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500"
+                    className="w-full bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500"
                   >
                     {saving ? (
                       <RefreshCw className="w-4 h-4 mr-2 animate-spin" />

@@ -194,9 +194,9 @@ export function SiteNamePreview() {
           </Button>
         </div>
 
-        <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mt-4">
-          <h4 className="font-semibold text-amber-800 mb-2">💡 Quick Access</h4>
-          <p className="text-sm text-amber-700">
+        <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 mt-4">
+          <h4 className="font-semibold text-gray-900 mb-2">💡 Quick Access</h4>
+          <p className="text-sm text-gray-700">
             You can also edit these fields in the <strong>Website Content Manager</strong> under the <strong>Homepage Content</strong> tab, in the <strong>Branding</strong> section.
           </p>
         </div>

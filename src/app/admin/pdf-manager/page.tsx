@@ -179,7 +179,7 @@ export default function PDFManagerPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4 animate-pulse" />
           <p className="text-amber-800 text-lg">Loading PDF Manager...</p>
@@ -190,7 +190,7 @@ export default function PDFManagerPage() {
 
   if (!session || session.user.role !== 'ADMIN') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-amber-800 mb-4">Access Denied</h1>
@@ -201,10 +201,10 @@ export default function PDFManagerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100">
       <div className="container mx-auto py-8">
         {/* Pharaonic Header */}
-        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 rounded-lg shadow-lg">
+        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
           <div className="flex items-center gap-4">
             <Crown className="w-10 h-10 text-amber-200" />
             <div>
@@ -238,7 +238,7 @@ export default function PDFManagerPage() {
             {/* Upload Tab */}
             <TabsContent value="upload" className="space-y-6">
               <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                <CardHeader className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Upload className="w-6 h-6" />
                     Upload New PDF Document
@@ -255,13 +255,13 @@ export default function PDFManagerPage() {
                           onChange={(e) => setUploadForm(prev => ({ ...prev, name: e.target.value }))}
                           placeholder="e.g., Royal Cleopatra Factsheet"
                           required
-                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                          className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         />
                       </div>
                       <div>
                         <Label htmlFor="type" className="text-amber-800 font-semibold">Document Type *</Label>
                         <Select value={uploadForm.type} onValueChange={(value: any) => setUploadForm(prev => ({ ...prev, type: value }))}>
-                          <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                          <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                             <SelectValue placeholder="Select document type" />
                           </SelectTrigger>
                           <SelectContent>
@@ -277,7 +277,7 @@ export default function PDFManagerPage() {
                       <div>
                         <Label htmlFor="dahabiya" className="text-amber-800 font-semibold">Associated Dahabiya</Label>
                         <Select value={uploadForm.dahabiyaId} onValueChange={(value) => setUploadForm(prev => ({ ...prev, dahabiyaId: value }))}>
-                          <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                          <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                             <SelectValue placeholder="Select dahabiya" />
                           </SelectTrigger>
                           <SelectContent>
@@ -295,7 +295,7 @@ export default function PDFManagerPage() {
                       <div>
                         <Label htmlFor="itinerary" className="text-amber-800 font-semibold">Associated Itinerary</Label>
                         <Select value={uploadForm.itineraryId} onValueChange={(value) => setUploadForm(prev => ({ ...prev, itineraryId: value }))}>
-                          <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                          <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                             <SelectValue placeholder="Select itinerary" />
                           </SelectTrigger>
                           <SelectContent>
@@ -316,7 +316,7 @@ export default function PDFManagerPage() {
                         value={uploadForm.category}
                         onChange={(e) => setUploadForm(prev => ({ ...prev, category: e.target.value }))}
                         placeholder="e.g., Luxury, Standard, Premium"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                     </div>
 
@@ -328,7 +328,7 @@ export default function PDFManagerPage() {
                         accept=".pdf"
                         onChange={(e) => setUploadForm(prev => ({ ...prev, file: e.target.files?.[0] || null }))}
                         required
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                       />
                       <p className="text-sm text-amber-600 mt-1">Only PDF files are allowed. Max size: 10MB</p>
                     </div>
@@ -336,7 +336,7 @@ export default function PDFManagerPage() {
                     <Button
                       type="submit"
                       disabled={uploading}
-                      className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-3 text-lg font-bold rounded-lg shadow-lg"
+                      className="bg-gradient-to-r from-ocean-blue-600 to-navy-blue-600 hover:from-ocean-blue-700 hover:to-navy-blue-700 text-white px-8 py-3 text-lg font-bold rounded-lg shadow-lg"
                     >
                       {uploading ? (
                         <>

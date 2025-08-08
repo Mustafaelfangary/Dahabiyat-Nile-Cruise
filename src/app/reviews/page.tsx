@@ -144,7 +144,7 @@ export default function ReviewsPage() {
       <FloatingEgyptianElements />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-ocean-blue-900 via-navy-blue-800 to-deep-blue-900 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/reviews-hero-bg.jpg"
@@ -246,7 +246,7 @@ export default function ReviewsPage() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="border border-amber-300 rounded-md px-3 py-2 bg-white text-amber-800 focus:border-amber-500 focus:ring-2 focus:ring-amber-200"
+                className="border border-amber-300 rounded-md px-3 py-2 bg-white text-amber-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               >
                 <option value="newest">Newest First</option>
                 <option value="oldest">Oldest First</option>
@@ -258,7 +258,7 @@ export default function ReviewsPage() {
       </section>
 
       {/* Reviews Grid */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-deep-blue-50/30 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -317,7 +317,7 @@ export default function ReviewsPage() {
                           <div className="mb-3">
                             <Link 
                               href={`/${review.type === 'dahabiya' ? 'dahabiyat' : 'packages'}/${review.itemSlug}`}
-                              className="text-amber-700 hover:text-amber-600 font-medium underline"
+                              className="text-amber-700 hover:text-ocean-blue-600 font-medium underline"
                             >
                               {review.itemName}
                             </Link>

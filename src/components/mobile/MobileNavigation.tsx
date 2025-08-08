@@ -304,8 +304,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       {/* Mobile Header */}
       <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white shadow-lg border-b border-ocean-blue/30'
-          : 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 backdrop-blur-sm bg-white/95'
+          ? 'bg-white/98 shadow-lg border-b border-gray-200 backdrop-blur-md'
+          : 'bg-white/95 backdrop-blur-md border-b border-gray-100'
       }`}>
         <div className="flex items-center justify-between px-4 py-3">
           {/* Dynamic Logo + Site Name */}
@@ -315,10 +315,10 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
               alt="Site Logo"
               width={64}
               height={64}
-              className="h-16 w-16 object-contain rounded-lg shadow-lg"
+              className="h-16 w-16 object-contain rounded-lg shadow-sm"
             />
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-hieroglyph-brown leading-tight">
+              <span className="font-bold text-lg text-gray-900 leading-tight">
                 {settings.siteName.split(' ')[0]}
               </span>
               <span className="text-xs text-ocean-blue font-medium leading-tight">
@@ -330,7 +330,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
           {/* Mobile Menu Button */}
           <button
             onClick={onToggle}
-            className="p-2 rounded-lg bg-gradient-to-r from-ocean-blue to-deep-blue text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            className="p-2 rounded-lg bg-gradient-to-r from-ocean-blue to-deep-blue text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -356,7 +356,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-blue-50 to-ocean-blue-lightest shadow-2xl z-50 overflow-y-auto"
+              className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 overflow-y-auto"
             >
               {/* Menu Header */}
               <div className="bg-gradient-to-br from-ocean-blue to-deep-blue p-6 text-white">
@@ -366,7 +366,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                       <span className="text-2xl">𓇳</span>
                       Dahabiyat
                     </h2>
-                    <p className="text-hieroglyph-brown/80 text-sm mt-1">Royal Nile Adventures</p>
+                    <p className="text-white/90 text-sm mt-1">Royal Nile Adventures</p>
                   </div>
                   <button
                     onClick={onToggle}
@@ -441,8 +441,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={() => toggleDropdown(item.href)}
                             className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
                               isActive || isExpanded
-                                ? 'bg-gradient-to-r from-ocean-blue/20 to-deep-blue/20 text-hieroglyph-brown border border-ocean-blue/30'
-                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-ocean-blue'
+                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
+                                : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -463,8 +463,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={onToggle}
                             className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
                               isActive
-                                ? 'bg-gradient-to-r from-ocean-blue/20 to-deep-blue/20 text-hieroglyph-brown border border-ocean-blue/30'
-                                : 'hover:bg-white/70 text-hieroglyph-brown hover:text-ocean-blue'
+                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
+                                : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
                             }`}
                           >
                             <div className="w-8 h-8 rounded-lg bg-ocean-blue/10 flex items-center justify-center">
@@ -532,7 +532,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                     className="flex items-center space-x-3 p-3 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown rounded-lg hover:shadow-lg transition-all duration-300"
                   >
                     <Calendar className="w-5 h-5" />
-                    <span className="font-medium">Book Royal Journey</span>
+                    <span className="font-medium">Book Dahabiya</span>
                   </Link>
 
                   {status === "loading" ? (

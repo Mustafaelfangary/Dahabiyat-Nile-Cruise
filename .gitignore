@@ -1,7 +1,12 @@
 # Dependencies
 /node_modules
+/mobile-app/node_modules
 /.pnp
 .pnp.js
+
+# Expo
+/mobile-app/.expo/
+.expo/
 
 # Vercel
 .vercel

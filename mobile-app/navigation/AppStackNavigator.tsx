@@ -64,14 +64,15 @@ const AppStackNavigator: React.FC = () => {
 
   const screenOptions = {
     headerStyle: {
-      backgroundColor: colors.background.primary,
-      borderBottomColor: colors.border.secondary,
+      backgroundColor: '#f0f8ff', // Pale blue background
+      borderBottomColor: '#e0e0e0',
       borderBottomWidth: 1,
     },
-    headerTintColor: colors.text.primary,
+    headerTintColor: '#000000', // Dark black text
     headerTitleStyle: {
       fontWeight: 'bold',
       fontSize: 18,
+      color: '#000000', // Ensure title is dark
     },
     headerBackTitleVisible: false,
   };

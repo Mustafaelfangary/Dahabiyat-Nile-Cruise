@@ -40,24 +40,31 @@ interface BookingDetails {
   status: string;
   startDate: string;
   endDate: string;
-  guestCount: number;
+  guests: number; // Updated field name to match API
   totalPrice: number;
   specialRequests?: string;
   createdAt: string;
   updatedAt: string;
-  dahabiya: {
+  type?: string; // Booking type (DAHABIYA, PACKAGE)
+  dahabiya?: {
     id: string;
     name: string;
     description: string;
-    images: Array<{ url: string; alt: string }>;
+    mainImage?: string;
+    gallery?: string[];
     capacity: number;
     cabins: number;
+    features?: string[];
+    amenities?: string[];
   };
   package?: {
     id: string;
     name: string;
-    duration: number;
+    durationDays: number;
     description: string;
+    shortDescription?: string;
+    mainImageUrl?: string;
+    price: number;
   };
   guestDetails: Array<{
     id: string;
@@ -68,6 +75,13 @@ interface BookingDetails {
     dateOfBirth?: string;
     nationality?: string;
   }>;
+  payment?: {
+    id: string;
+    amount: number;
+    status: string;
+    provider: string;
+    paymentMethod: string;
+  };
 }
 
 export default function BookingDetailsPage() {
@@ -147,7 +161,7 @@ export default function BookingDetailsPage() {
 
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 flex items-center justify-center">
         <div className="text-center">
           <Loader className="w-8 h-8 animate-spin text-egyptian-gold mx-auto mb-4" />
           <p className="text-gray-600">Loading booking details...</p>
@@ -158,7 +172,7 @@ export default function BookingDetailsPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 flex items-center justify-center">
         <div className="text-center">
           <XCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-gray-800 mb-2">Booking Not Found</h1>
@@ -179,7 +193,7 @@ export default function BookingDetailsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50">
+    <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50">
       {/* Pharaonic Background Pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -240,7 +254,7 @@ export default function BookingDetailsPage() {
                       <Users className="w-4 h-4 text-gray-500" />
                       <div>
                         <p className="text-sm text-gray-500">Guests</p>
-                        <p className="font-semibold">{booking.guestCount} guests</p>
+                        <p className="font-semibold">{booking.guests} guests</p>
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
@@ -254,31 +268,66 @@ export default function BookingDetailsPage() {
                 </CardContent>
               </Card>
 
-              {/* Dahabiya Details */}
+              {/* Dahabiya/Package Details */}
               <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
-                    <Anchor className="w-6 h-6 text-egyptian-gold" />
-                    Your Dahabiya
+                    {booking.dahabiya ? (
+                      <>
+                        <Anchor className="w-6 h-6 text-egyptian-gold" />
+                        Your Dahabiya
+                      </>
+                    ) : (
+                      <>
+                        <Ship className="w-6 h-6 text-egyptian-gold" />
+                        Your Package
+                      </>
+                    )}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-4">
-                    {booking.dahabiya.images?.[0] && (
-                      <img
-                        src={booking.dahabiya.images[0].url}
-                        alt={booking.dahabiya.images[0].alt}
-                        className="w-24 h-24 object-cover rounded-lg"
-                      />
-                    )}
-                    <div className="flex-1">
-                      <h3 className="text-xl font-bold text-gray-800 mb-2">{booking.dahabiya.name}</h3>
-                      <p className="text-gray-600 mb-3">{booking.dahabiya.description}</p>
-                      <div className="flex gap-4 text-sm text-gray-500">
-                        <span>Capacity: {booking.dahabiya.capacity} guests</span>
-                        <span>Cabins: {booking.dahabiya.cabins}</span>
+                    {booking.dahabiya ? (
+                      <>
+                        {(booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0]) && (
+                          <img
+                            src={booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0] || '/images/dahabiya-placeholder.jpg'}
+                            alt={booking.dahabiya.name}
+                            className="w-24 h-24 object-cover rounded-lg"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-gray-800 mb-2">{booking.dahabiya.name}</h3>
+                          <p className="text-gray-600 mb-3">{booking.dahabiya.description}</p>
+                          <div className="flex gap-4 text-sm text-gray-500">
+                            <span>Capacity: {booking.dahabiya.capacity} guests</span>
+                            <span>Cabins: {booking.dahabiya.cabins}</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : booking.package ? (
+                      <>
+                        {booking.package.mainImageUrl && (
+                          <img
+                            src={booking.package.mainImageUrl}
+                            alt={booking.package.name}
+                            className="w-24 h-24 object-cover rounded-lg"
+                          />
+                        )}
+                        <div className="flex-1">
+                          <h3 className="text-xl font-bold text-gray-800 mb-2">{booking.package.name}</h3>
+                          <p className="text-gray-600 mb-3">{booking.package.shortDescription || booking.package.description}</p>
+                          <div className="flex gap-4 text-sm text-gray-500">
+                            <span>Duration: {booking.package.durationDays} days</span>
+                            <span>Price: ${booking.package.price.toLocaleString()}</span>
+                          </div>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex-1">
+                        <p className="text-gray-500">Booking details not available</p>
                       </div>
-                    </div>
+                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -302,7 +351,7 @@ export default function BookingDetailsPage() {
                       Modify Booking
                     </Button>
                   )}
-                  <Button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown hover:from-egyptian-amber hover:to-orange-600">
+                  <Button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown hover:from-egyptian-amber hover:to-navy-blue-600">
                     <Phone className="w-4 h-4 mr-2" />
                     Contact Support
                   </Button>

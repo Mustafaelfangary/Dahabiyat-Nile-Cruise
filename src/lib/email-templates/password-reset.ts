@@ -33,7 +33,7 @@ export const passwordResetTemplate = {
           text-align: center;
           margin-bottom: 30px;
           padding-bottom: 20px;
-          border-bottom: 3px solid #D4AF37;
+          border-bottom: 3px solid #0080ff;
         }
         .logo {
           font-size: 28px;
@@ -43,7 +43,7 @@ export const passwordResetTemplate = {
         }
         .hieroglyphics {
           font-size: 24px;
-          color: #D4AF37;
+          color: #0080ff;
           margin: 10px 0;
         }
         .content {
@@ -61,7 +61,7 @@ export const passwordResetTemplate = {
         }
         .reset-button {
           display: inline-block;
-          background: linear-gradient(135deg, #D4AF37, #B8941F);
+          background: linear-gradient(135deg, #0080ff, #B8941F);
           color: white;
           padding: 15px 30px;
           text-decoration: none;
@@ -70,13 +70,13 @@ export const passwordResetTemplate = {
           font-size: 16px;
           margin: 20px 0;
           text-align: center;
-          box-shadow: 0 4px 8px rgba(212, 175, 55, 0.3);
+          box-shadow: 0 4px 8px rgba(0, 128, 255, 0.3);
           transition: all 0.3s ease;
         }
         .reset-button:hover {
-          background: linear-gradient(135deg, #B8941F, #D4AF37);
+          background: linear-gradient(135deg, #B8941F, #0080ff);
           transform: translateY(-2px);
-          box-shadow: 0 6px 12px rgba(212, 175, 55, 0.4);
+          box-shadow: 0 6px 12px rgba(0, 128, 255, 0.4);
         }
         .security-info {
           background: #fff3cd;

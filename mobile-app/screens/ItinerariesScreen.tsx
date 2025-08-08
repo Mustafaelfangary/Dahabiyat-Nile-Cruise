@@ -34,9 +34,9 @@ interface ItineraryCardProps {
 const ItineraryCard: React.FC<ItineraryCardProps> = ({ itinerary, onPress }) => {
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
-      case 'Easy': return '#4CAF50';
-      case 'Moderate': return '#FF9800';
-      case 'Challenging': return '#F44336';
+      case 'Easy': return '#0080ff'; // Ocean blue for easy
+      case 'Moderate': return '#003d7a'; // Deep blue for moderate
+      case 'Challenging': return '#001f3f'; // Navy blue for challenging
       default: return '#0080ff';
     }
   };
@@ -222,10 +222,10 @@ const ItinerariesScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f8f9fa',
+    backgroundColor: '#f8f9fa', // Pale background
   },
   header: {
-    backgroundColor: '#0080ff',
+    backgroundColor: '#f0f8ff', // Pale blue background
     paddingHorizontal: 20,
     paddingVertical: 30,
     paddingTop: 50,
@@ -233,15 +233,15 @@ const styles = StyleSheet.create({
   headerTitle: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: '#ffffff',
+    color: '#000000', // Dark black text
     marginBottom: 5,
   },
   headerSubtitle: {
     fontSize: 16,
-    color: '#e6f3ff',
+    color: '#333333', // Dark gray text
   },
   filtersContainer: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f8f9fa', // Pale background
     paddingVertical: 15,
   },
   filtersContent: {
@@ -251,7 +251,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 8,
     borderRadius: 20,
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#e6f3ff', // Pale blue background
     marginRight: 10,
   },
   activeFilterButton: {
@@ -260,10 +260,10 @@ const styles = StyleSheet.create({
   filterText: {
     fontSize: 14,
     fontWeight: '500',
-    color: '#666',
+    color: '#000000', // Dark text on pale background
   },
   activeFilterText: {
-    color: '#ffffff',
+    color: '#ffffff', // White text on blue background
   },
   itinerariesContainer: {
     flex: 1,
@@ -272,7 +272,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   itineraryCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#f8f9fa', // Pale background
     borderRadius: 15,
     marginBottom: 20,
     shadowColor: '#000',
@@ -281,6 +281,8 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
     overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#e0e0e0',
   },
   itineraryImage: {
     width: '100%',
@@ -299,7 +301,7 @@ const styles = StyleSheet.create({
   itineraryTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: '#333',
+    color: '#000000', // Dark black text
     flex: 1,
     marginRight: 10,
   },

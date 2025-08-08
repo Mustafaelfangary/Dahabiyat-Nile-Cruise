@@ -160,7 +160,7 @@ export default function MediaLibrarySelector({
           </h2>
           <button
             onClick={onClose}
-            className="text-white hover:text-yellow-400 text-lg font-bold px-3 py-2 rounded hover:bg-slate-700 transition-colors"
+            className="text-white hover:text-ocean-blue-400 text-lg font-bold px-3 py-2 rounded hover:bg-slate-700 transition-colors"
           >
             ✕
           </button>
@@ -213,7 +213,7 @@ export default function MediaLibrarySelector({
                     className={`group cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-200 hover:shadow-lg ${
                       selectedItem === item.url
                         ? 'border-yellow-500 ring-2 ring-yellow-200 shadow-lg'
-                        : 'border-gray-200 hover:border-yellow-300'
+                        : 'border-gray-200 hover:border-blue-300'
                     }`}
                   >
                     {item.type.startsWith('image/') ? (
@@ -256,7 +256,7 @@ export default function MediaLibrarySelector({
               disabled={!selectedItem}
               className={`flex-1 px-4 sm:px-6 py-2 sm:py-3 rounded-lg text-sm font-medium transition-colors ${
                 selectedItem
-                  ? 'bg-yellow-500 text-white hover:bg-yellow-600 shadow-md'
+                  ? 'bg-yellow-500 text-white hover:bg-blue-600 shadow-md'
                   : 'bg-gray-300 text-gray-500 cursor-not-allowed'
               }`}
             >

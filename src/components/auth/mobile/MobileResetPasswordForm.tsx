@@ -121,7 +121,7 @@ export default function MobileResetPasswordForm({ token, className = '' }: Mobil
 
   if (verifying) {
     return (
-      <div className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4 flex flex-col justify-center ${className}`}>
+      <div className={`min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 p-4 flex flex-col justify-center ${className}`}>
         <div className="text-center">
           <Loader className="w-12 h-12 animate-spin mx-auto mb-6 text-blue-600" />
           <h2 className="text-xl font-semibold text-gray-800 mb-2">Verifying Reset Token</h2>
@@ -133,7 +133,7 @@ export default function MobileResetPasswordForm({ token, className = '' }: Mobil
 
   if (!tokenValid) {
     return (
-      <div className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4 flex flex-col justify-center ${className}`}>
+      <div className={`min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 p-4 flex flex-col justify-center ${className}`}>
         <div className="text-center mb-8">
           <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
             <XCircle className="w-10 h-10 text-red-600" />
@@ -206,7 +206,7 @@ export default function MobileResetPasswordForm({ token, className = '' }: Mobil
   const strengthInfo = getPasswordStrengthText(passwordStrength);
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4 flex flex-col ${className}`}>
+    <div className={`min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 p-4 flex flex-col ${className}`}>
       {/* Header */}
       <div className="flex items-center justify-between mb-8 pt-4">
         <Button 

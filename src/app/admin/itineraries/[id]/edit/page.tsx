@@ -328,7 +328,7 @@ export default function EditItineraryPage() {
 
   if (status === 'loading' || loadingData) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4 animate-pulse" />
           <p className="text-amber-800 text-lg">Loading Sacred Journey...</p>
@@ -339,7 +339,7 @@ export default function EditItineraryPage() {
 
   if (!session || session.user.role !== 'ADMIN') {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <Crown className="w-16 h-16 text-amber-600 mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-amber-800 mb-4">Access Denied</h1>
@@ -350,10 +350,10 @@ export default function EditItineraryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100">
       <div className="container mx-auto py-8">
         {/* Pharaonic Header */}
-        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 rounded-lg shadow-lg">
+        <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
           <a
             href="/admin/itineraries"
             className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
@@ -394,7 +394,7 @@ export default function EditItineraryPage() {
             {/* Basic Information Tab */}
             <TabsContent value="basic" className="space-y-6">
               <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                <CardHeader className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Ship className="w-6 h-6" />
                     Sacred Journey Details
@@ -408,7 +408,7 @@ export default function EditItineraryPage() {
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                         placeholder="e.g., Luxor to Aswan Royal Journey"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         required
                       />
                     </div>
@@ -419,7 +419,7 @@ export default function EditItineraryPage() {
                         value={formData.durationDays}
                         onChange={(e) => setFormData({ ...formData, durationDays: parseInt(e.target.value) })}
                         placeholder="e.g., 5"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         required
                         min="1"
                       />
@@ -432,7 +432,7 @@ export default function EditItineraryPage() {
                       value={formData.shortDescription}
                       onChange={(e) => setFormData({ ...formData, shortDescription: e.target.value })}
                       placeholder="Brief description for listings and previews..."
-                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80 min-h-[80px]"
+                      className="border-2 border-amber-200 focus:border-blue-500 bg-white/80 min-h-[80px]"
                       required
                     />
                   </div>
@@ -443,7 +443,7 @@ export default function EditItineraryPage() {
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                       placeholder="Detailed description of the sacred journey..."
-                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80 min-h-[120px]"
+                      className="border-2 border-amber-200 focus:border-blue-500 bg-white/80 min-h-[120px]"
                       required
                     />
                   </div>
@@ -456,7 +456,7 @@ export default function EditItineraryPage() {
                         value={formData.price || ''}
                         onChange={(e) => setFormData({ ...formData, price: e.target.value })}
                         placeholder="e.g., 2500"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         step="0.01"
                       />
                     </div>
@@ -467,7 +467,7 @@ export default function EditItineraryPage() {
                         value={formData.maxGuests || ''}
                         onChange={(e) => setFormData({ ...formData, maxGuests: e.target.value })}
                         placeholder="e.g., 12"
-                        className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                        className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                         min="1"
                       />
                     </div>
@@ -514,7 +514,7 @@ export default function EditItineraryPage() {
                 <Button
                   type="button"
                   onClick={addDay}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                  className="bg-amber-500 hover:bg-blue-600 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Day
@@ -524,7 +524,7 @@ export default function EditItineraryPage() {
               <div className="space-y-6">
                 {days.map((day, dayIndex) => (
                   <Card key={dayIndex} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                    <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-3">
                           <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-amber-800 font-bold">
@@ -553,7 +553,7 @@ export default function EditItineraryPage() {
                             value={day.title}
                             onChange={(e) => updateDay(dayIndex, 'title', e.target.value)}
                             placeholder="e.g., Arrival in Luxor - Temple of Karnak"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                         <div>
@@ -562,7 +562,7 @@ export default function EditItineraryPage() {
                             value={day.location}
                             onChange={(e) => updateDay(dayIndex, 'location', e.target.value)}
                             placeholder="e.g., Luxor, Egypt"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                       </div>
@@ -573,7 +573,7 @@ export default function EditItineraryPage() {
                           value={day.description}
                           onChange={(e) => updateDay(dayIndex, 'description', e.target.value)}
                           placeholder="Describe the day's journey and experiences..."
-                          className="border-2 border-amber-200 focus:border-amber-500 bg-white/80 min-h-[100px]"
+                          className="border-2 border-amber-200 focus:border-blue-500 bg-white/80 min-h-[100px]"
                         />
                       </div>
 
@@ -623,7 +623,7 @@ export default function EditItineraryPage() {
                                   updateDay(dayIndex, 'activities', updatedActivities);
                                 }}
                                 placeholder="e.g., Visit Temple of Karnak"
-                                className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                                className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                               />
                               <Button
                                 type="button"
@@ -641,7 +641,7 @@ export default function EditItineraryPage() {
                             variant="outline"
                             size="sm"
                             onClick={() => addArrayItem(dayIndex, 'activities')}
-                            className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                            className="border-amber-300 text-amber-600 hover:bg-blue-50"
                           >
                             <Plus className="w-4 h-4 mr-2" />
                             Add Activity
@@ -664,7 +664,7 @@ export default function EditItineraryPage() {
                 <Button
                   type="button"
                   onClick={addPricingTier}
-                  className="bg-amber-500 hover:bg-amber-600 text-white"
+                  className="bg-amber-500 hover:bg-blue-600 text-white"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Tier
@@ -674,7 +674,7 @@ export default function EditItineraryPage() {
               <div className="space-y-4">
                 {pricingTiers.map((tier, tierIndex) => (
                   <Card key={tierIndex} className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                    <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                    <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                       <div className="flex items-center justify-between">
                         <CardTitle className="flex items-center gap-3">
                           <Crown className="w-5 h-5" />
@@ -701,7 +701,7 @@ export default function EditItineraryPage() {
                             value={tier.category}
                             onValueChange={(value) => updatePricingTier(tierIndex, 'category', value)}
                           >
-                            <SelectTrigger className="border-2 border-amber-200 focus:border-amber-500 bg-white/80">
+                            <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                               <SelectValue placeholder="Select category" />
                             </SelectTrigger>
                             <SelectContent>
@@ -718,7 +718,7 @@ export default function EditItineraryPage() {
                             value={tier.paxRange}
                             onChange={(e) => updatePricingTier(tierIndex, 'paxRange', e.target.value)}
                             placeholder="e.g., 2-3 PAX"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                           />
                         </div>
                         <div>
@@ -728,7 +728,7 @@ export default function EditItineraryPage() {
                             value={tier.price}
                             onChange={(e) => updatePricingTier(tierIndex, 'price', parseFloat(e.target.value))}
                             placeholder="e.g., 2500"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                             step="0.01"
                           />
                         </div>
@@ -739,7 +739,7 @@ export default function EditItineraryPage() {
                             value={tier.singleSupplement || ''}
                             onChange={(e) => updatePricingTier(tierIndex, 'singleSupplement', e.target.value ? parseFloat(e.target.value) : 0)}
                             placeholder="e.g., 500"
-                            className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                            className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                             step="0.01"
                           />
                         </div>
@@ -759,7 +759,7 @@ export default function EditItineraryPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                  <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                  <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                     <CardTitle className="flex items-center gap-3">
                       <ImageIcon className="w-5 h-5" />
                       Main Image
@@ -780,7 +780,7 @@ export default function EditItineraryPage() {
                         type="button"
                         onClick={() => setShowMediaPicker('mainImage')}
                         variant="outline"
-                        className="w-full border-amber-300 text-amber-600 hover:bg-amber-50"
+                        className="w-full border-amber-300 text-amber-600 hover:bg-blue-50"
                       >
                         <Upload className="w-4 h-4 mr-2" />
                         {formData.mainImageUrl ? 'Change Main Image' : 'Select Main Image'}
@@ -790,7 +790,7 @@ export default function EditItineraryPage() {
                 </Card>
 
                 <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                  <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                  <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                     <CardTitle className="flex items-center gap-3">
                       <ImageIcon className="w-5 h-5" />
                       Hero Image
@@ -811,7 +811,7 @@ export default function EditItineraryPage() {
                         type="button"
                         onClick={() => setShowMediaPicker('heroImage')}
                         variant="outline"
-                        className="w-full border-amber-300 text-amber-600 hover:bg-amber-50"
+                        className="w-full border-amber-300 text-amber-600 hover:bg-blue-50"
                       >
                         <Upload className="w-4 h-4 mr-2" />
                         {formData.heroImageUrl ? 'Change Hero Image' : 'Select Hero Image'}
@@ -822,7 +822,7 @@ export default function EditItineraryPage() {
               </div>
 
               <Card className="border-2 border-amber-300 bg-white/90 backdrop-blur-sm">
-                <CardHeader className="bg-gradient-to-r from-amber-400 to-orange-400 text-white">
+                <CardHeader className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 text-white">
                   <CardTitle className="flex items-center gap-3">
                     <Video className="w-5 h-5" />
                     Video URL
@@ -834,13 +834,13 @@ export default function EditItineraryPage() {
                       value={formData.videoUrl || ''}
                       onChange={(e) => setFormData({ ...formData, videoUrl: e.target.value })}
                       placeholder="Enter video URL or select from media library"
-                      className="border-2 border-amber-200 focus:border-amber-500 bg-white/80"
+                      className="border-2 border-amber-200 focus:border-blue-500 bg-white/80"
                     />
                     <Button
                       type="button"
                       onClick={() => setShowMediaPicker('video')}
                       variant="outline"
-                      className="border-amber-300 text-amber-600 hover:bg-amber-50"
+                      className="border-amber-300 text-amber-600 hover:bg-blue-50"
                     >
                       <Upload className="w-4 h-4 mr-2" />
                       Select from Media Library
@@ -855,7 +855,7 @@ export default function EditItineraryPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-12 py-4 text-lg font-bold rounded-lg shadow-lg"
+                className="bg-gradient-to-r from-ocean-blue-600 to-navy-blue-600 hover:from-ocean-blue-700 hover:to-navy-blue-700 text-white px-12 py-4 text-lg font-bold rounded-lg shadow-lg"
               >
                 {loading ? (
                   <>

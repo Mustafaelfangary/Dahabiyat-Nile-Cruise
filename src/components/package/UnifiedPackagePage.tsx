@@ -151,7 +151,7 @@ export default function UnifiedPackagePage({
               className="object-cover"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-orange-800/30 to-amber-900/40"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-ocean-blue-900/40 via-navy-blue-800/30 to-deep-blue-900/40"></div>
           </div>
 
           <Container maxWidth="lg" className="relative z-10">
@@ -330,7 +330,7 @@ export default function UnifiedPackagePage({
       {renderHeroSection()}
 
       {/* Package Details Section */}
-      <section className={`py-20 ${style === 'pharaonic' ? 'bg-gradient-to-b from-slate-50 to-amber-50/30' : 'bg-white'} relative`}>
+      <section className={`py-20 ${style === 'pharaonic' ? 'bg-gradient-to-b from-slate-50 to-deep-blue-50/30' : 'bg-white'} relative`}>
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="text-center mb-16">
@@ -471,7 +471,7 @@ export default function UnifiedPackagePage({
 
       {/* Booking Section */}
       {showBookingForm && (
-        <section className={`py-20 ${style === 'pharaonic' ? 'bg-gradient-to-b from-amber-50/30 to-slate-50' : 'bg-gray-50'} relative`}>
+        <section className={`py-20 ${style === 'pharaonic' ? 'bg-gradient-to-b from-ocean-blue-50/30 to-slate-50' : 'bg-gray-50'} relative`}>
           <Container maxWidth="lg">
             <AnimatedSection animation="fade-in">
               <div className="text-center mb-16">

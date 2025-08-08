@@ -60,16 +60,16 @@ function generateFactSheetHTML(dahabiya: any): string {
         }
         .header {
             text-align: center;
-            border-bottom: 3px solid #D4AF37;
+            border-bottom: 3px solid #0080ff;
             padding-bottom: 20px;
             margin-bottom: 30px;
             background: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 128, 255, 0.2);
         }
         .title {
-            color: #D4AF37;
+            color: #0080ff;
             font-size: 3em;
             margin-bottom: 10px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
@@ -87,9 +87,9 @@ function generateFactSheetHTML(dahabiya: any): string {
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
         }
         .section-title {
-            color: #D4AF37;
+            color: #0080ff;
             font-size: 1.8em;
-            border-bottom: 2px solid #D4AF37;
+            border-bottom: 2px solid #0080ff;
             padding-bottom: 8px;
             margin-bottom: 20px;
             display: flex;
@@ -109,7 +109,7 @@ function generateFactSheetHTML(dahabiya: any): string {
             background: linear-gradient(135deg, #f8f6f0 0%, #faf8f3 100%);
             padding: 15px;
             border-radius: 8px;
-            border-left: 4px solid #D4AF37;
+            border-left: 4px solid #0080ff;
         }
         .spec-label {
             font-weight: bold;
@@ -134,11 +134,11 @@ function generateFactSheetHTML(dahabiya: any): string {
             padding: 10px 15px;
             background: linear-gradient(135deg, #f8f6f0 0%, #faf8f3 100%);
             border-radius: 8px;
-            border-left: 3px solid #D4AF37;
+            border-left: 3px solid #0080ff;
         }
         .features-list li:before {
             content: "✨ ";
-            color: #D4AF37;
+            color: #0080ff;
             font-weight: bold;
         }
         .description {
@@ -148,13 +148,13 @@ function generateFactSheetHTML(dahabiya: any): string {
             color: #444;
         }
         .price-section {
-            background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+            background: linear-gradient(135deg, #0080ff 0%, #3399ff 100%);
             color: white;
             text-align: center;
             padding: 25px;
             border-radius: 15px;
             margin: 30px 0;
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4);
         }
         .price {
             font-size: 2.5em;
@@ -170,7 +170,7 @@ function generateFactSheetHTML(dahabiya: any): string {
             text-align: center;
             margin-top: 50px;
             padding-top: 30px;
-            border-top: 2px solid #D4AF37;
+            border-top: 2px solid #0080ff;
             color: #8B4513;
             background: white;
             padding: 30px;

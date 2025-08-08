@@ -120,7 +120,7 @@ export default function TestimonialsPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl text-egyptian-gold animate-pulse mb-4">⭐</div>
           <div className="text-xl text-hieroglyph-brown">Loading testimonials...</div>

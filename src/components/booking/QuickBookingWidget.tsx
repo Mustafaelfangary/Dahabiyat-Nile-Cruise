@@ -90,13 +90,13 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
         PaperProps={{
           style: {
             background: 'linear-gradient(135deg, #fefce8 0%, #fef3c7 100%)',
-            border: '2px solid #D4AF37',
+            border: '2px solid #0080ff',
             borderRadius: '16px',
           }
         }}
       >
         {/* Enhanced Header */}
-        <DialogTitle className="bg-gradient-to-r from-hieroglyph-brown to-amber-900 text-egyptian-gold relative">
+        <DialogTitle className="bg-gradient-to-r from-hieroglyph-brown to-deep-blue-900 text-egyptian-gold relative">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <span className="text-3xl">𓊪</span>
@@ -105,7 +105,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                   Quick Booking
                 </div>
                 <div className="opacity-80 text-sm">
-                  Reserve Your Royal Journey
+                  Reserve Your Dahabiya
                 </div>
               </div>
             </div>
@@ -115,13 +115,13 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
           </div>
 
           {/* Decorative Border */}
-          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-amber-400 to-egyptian-gold"></div>
+          <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-egyptian-gold via-blue-400 to-egyptian-gold"></div>
         </DialogTitle>
 
         <DialogContent className="p-6">
           {/* Dahabiya Info */}
           <Box className="mb-6">
-            <div className="bg-gradient-to-r from-amber-100 to-orange-100 rounded-lg p-4 border border-egyptian-gold/30">
+            <div className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100 rounded-lg p-4 border border-egyptian-gold/30">
               <div className="flex justify-between items-start mb-3">
                 <div>
                   <Typography variant="h5" className="text-hieroglyph-brown font-bold mb-1">
@@ -134,7 +134,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                       style={{
                         backgroundColor: categoryInfo.bg,
                         color: categoryInfo.color,
-                        border: '1px solid #D4AF37',
+                        border: '1px solid #0080ff',
                       }}
                     />
                     {dahabiya.isFeatured && (
@@ -241,7 +241,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
 
           {/* Price Summary */}
           <Box className="mt-6">
-            <div className="bg-gradient-to-r from-egyptian-gold/20 to-amber-400/20 rounded-lg p-4 border border-egyptian-gold/30">
+            <div className="bg-gradient-to-r from-egyptian-gold/20 to-deep-blue-400/20 rounded-lg p-4 border border-egyptian-gold/30">
               <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-3">
                 Price Summary
               </Typography>
@@ -291,7 +291,7 @@ export default function QuickBookingWidget({ dahabiya, open, onClose }: QuickBoo
                 className="bg-gradient-to-r from-ocean-blue to-blue-400 text-white hover:from-blue-400 hover:to-ocean-blue font-bold py-3 shadow-lg"
                 startIcon={<Crown />}
               >
-                Complete Royal Booking
+                Complete Dahabiya Booking
               </Button>
             </Link>
 

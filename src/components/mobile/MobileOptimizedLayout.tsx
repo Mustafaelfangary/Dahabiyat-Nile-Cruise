@@ -85,31 +85,55 @@ export default function MobileOptimizedLayout({ children }: MobileOptimizedLayou
       {/* Mobile-specific CSS injection */}
       {isMobile && (
         <style jsx global>{`
-          /* Mobile Typography Overrides */
+          /* Mobile Typography Overrides with High Contrast */
           .mobile-mode h1 {
             font-size: 1.5rem !important;
             line-height: 1.2 !important;
             margin-bottom: 0.75rem !important;
             word-wrap: break-word !important;
             hyphens: auto !important;
+            color: #111827 !important; /* Very dark text */
+            text-shadow: none !important;
           }
-          
+
           .mobile-mode h2 {
             font-size: 1.25rem !important;
             line-height: 1.3 !important;
             margin-bottom: 0.5rem !important;
+            color: #1f2937 !important; /* Dark text */
+            text-shadow: none !important;
           }
-          
+
           .mobile-mode h3 {
             font-size: 1.125rem !important;
             line-height: 1.3 !important;
             margin-bottom: 0.5rem !important;
+            color: #1f2937 !important; /* Dark text */
+            text-shadow: none !important;
           }
-          
+
           .mobile-mode h4 {
             font-size: 1rem !important;
             line-height: 1.3 !important;
             margin-bottom: 0.5rem !important;
+            color: #374151 !important; /* Medium dark text */
+            text-shadow: none !important;
+          }
+
+          /* Mobile body text */
+          .mobile-mode p, .mobile-mode span, .mobile-mode div {
+            color: #374151 !important; /* Medium dark text */
+            text-shadow: none !important;
+          }
+
+          /* Mobile links */
+          .mobile-mode a {
+            color: #0080ff !important; /* Ocean blue */
+            text-decoration: underline !important;
+          }
+
+          .mobile-mode a:hover {
+            color: #0066cc !important; /* Darker blue on hover */
           }
 
           /* Landscape mode adjustments */

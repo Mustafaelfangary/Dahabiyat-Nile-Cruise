@@ -39,14 +39,14 @@ function MainMenuDrawer() {
           width: 300,
         },
         headerStyle: {
-          backgroundColor: '#0080ff',
+          backgroundColor: '#f0f8ff', // Pale blue background
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#000000', // Dark black text
         headerTitleStyle: {
           fontWeight: 'bold',
         },
-        drawerActiveTintColor: '#0080ff',
-        drawerInactiveTintColor: '#666',
+        drawerActiveTintColor: '#000000', // Dark black for active
+        drawerInactiveTintColor: '#333333', // Dark gray for inactive
       }}
     >
       <Drawer.Screen 
@@ -146,19 +146,19 @@ const TabNavigator: React.FC = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarStyle: {
-          backgroundColor: '#ffffff',
+          backgroundColor: '#f8f9fa', // Pale background
           borderTopColor: '#0080ff',
           borderTopWidth: 1,
           height: 60,
           paddingBottom: 8,
           paddingTop: 8,
         },
-        tabBarActiveTintColor: '#0080ff',
-        tabBarInactiveTintColor: '#666',
+        tabBarActiveTintColor: '#000000', // Dark black for active
+        tabBarInactiveTintColor: '#333333', // Dark gray for inactive
         headerStyle: {
-          backgroundColor: '#0080ff',
+          backgroundColor: '#f0f8ff', // Pale blue background
         },
-        headerTintColor: '#fff',
+        headerTintColor: '#000000', // Dark black text
         headerTitleStyle: {
           fontWeight: 'bold',
         },

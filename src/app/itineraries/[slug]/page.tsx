@@ -51,7 +51,7 @@ interface Itinerary {
 
 const PharaohButton = ({ children, className = '', ...props }: any) => (
   <Button
-    className={`relative overflow-hidden bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
+    className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 hover:from-ocean-blue-600 hover:to-navy-blue-700 text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
   >
     <span className="relative z-10">{children}</span>
@@ -102,7 +102,7 @@ export default function ItineraryDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-amber-600 mx-auto mb-4"></div>
           <p className="text-amber-800 text-lg">Loading Sacred Journey...</p>
@@ -113,7 +113,7 @@ export default function ItineraryDetailPage() {
 
   if (!itinerary) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-6xl mb-4">𓂀</div>
           <h1 className="text-2xl font-bold text-amber-800 mb-4">Journey Not Found</h1>
@@ -130,9 +130,9 @@ export default function ItineraryDetailPage() {
   const selectedPricing = itinerary.pricingTiers.filter(tier => tier.category === selectedPricingCategory);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-red-600 text-white overflow-hidden">
         <div className="absolute inset-0 bg-black/20"></div>
         {itinerary.heroImageUrl && (
           <div 
@@ -180,7 +180,7 @@ export default function ItineraryDetailPage() {
                   <Play className="w-5 h-5 mr-2" />
                   Watch Journey Preview
                 </PharaohButton>
-                <PharaohButton className="bg-amber-500 hover:bg-amber-600 text-black">
+                <PharaohButton className="bg-amber-500 hover:bg-blue-600 text-black">
                   <Download className="w-5 h-5 mr-2" />
                   Download Itinerary
                 </PharaohButton>
@@ -204,8 +204,8 @@ export default function ItineraryDetailPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
               {itinerary.highlights.map((highlight, index) => (
                 <AnimatedSection key={index} animation="fade-up" delay={index * 100}>
-                  <div className="flex items-center bg-gradient-to-r from-amber-100 to-orange-100 rounded-lg p-4 border-2 border-amber-200">
-                    <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-600 rounded-full flex items-center justify-center text-black font-bold mr-4 flex-shrink-0">
+                  <div className="flex items-center bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100 rounded-lg p-4 border-2 border-amber-200">
+                    <div className="w-8 h-8 bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 rounded-full flex items-center justify-center text-black font-bold mr-4 flex-shrink-0">
                       {index + 1}
                     </div>
                     <span className="text-amber-800 font-semibold">{highlight}</span>
@@ -229,10 +229,10 @@ export default function ItineraryDetailPage() {
           <div className="max-w-4xl mx-auto space-y-8">
             {itinerary.days.map((day, index) => (
               <AnimatedSection key={day.id} animation="fade-up" delay={index * 100}>
-                <Card className="overflow-hidden border-2 border-amber-200 hover:border-amber-400 transition-colors bg-white/90 backdrop-blur-sm">
-                  <div className="bg-gradient-to-r from-amber-500 to-orange-600 text-black p-6">
+                <Card className="overflow-hidden border-2 border-blue-200 hover:border-blue-400 transition-colors bg-white/90 backdrop-blur-sm">
+                  <div className="bg-gradient-to-r from-ocean-blue to-deep-blue text-white p-6">
                     <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-amber-800 font-bold text-xl">
+                      <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-ocean-blue font-bold text-xl">
                         {day.dayNumber}
                       </div>
                       <div>
@@ -290,7 +290,7 @@ export default function ItineraryDetailPage() {
 
       {/* Pricing Section */}
       {itinerary.pricingTiers.length > 0 && (
-        <section className="py-16 bg-gradient-to-r from-amber-100 to-orange-100">
+        <section className="py-16 bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
           <div className="container mx-auto px-4">
             <AnimatedSection animation="fade-up">
               <h2 className="text-4xl font-bold text-center text-amber-800 mb-12">
@@ -306,8 +306,8 @@ export default function ItineraryDetailPage() {
                       variant={selectedPricingCategory === category ? 'primary' : 'outline'}
                       onClick={() => setSelectedPricingCategory(category)}
                       className={selectedPricingCategory === category 
-                        ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-black' 
-                        : 'border-amber-300 text-amber-800 hover:bg-amber-50'
+                        ? 'bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 text-black' 
+                        : 'border-amber-300 text-amber-800 hover:bg-blue-50'
                       }
                     >
                       {category}
@@ -319,7 +319,7 @@ export default function ItineraryDetailPage() {
               {/* Pricing Table */}
               <div className="max-w-4xl mx-auto">
                 <Card className="overflow-hidden border-2 border-amber-300">
-                  <div className="bg-gradient-to-r from-amber-500 to-orange-600 text-black p-4">
+                  <div className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 text-black p-4">
                     <h3 className="text-xl font-bold text-center">{selectedPricingCategory} Category Pricing</h3>
                   </div>
                   <CardContent className="p-0">
@@ -405,22 +405,22 @@ export default function ItineraryDetailPage() {
       </section>
 
       {/* Call to Action */}
-      <section className="py-16 bg-gradient-to-r from-amber-600 via-orange-600 to-red-600 text-white">
+      <section className="py-16 bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 border-t border-gray-200">
         <div className="container mx-auto px-4 text-center">
           <AnimatedSection animation="fade-up">
-            <h2 className="text-4xl font-bold mb-6">
+            <h2 className="text-4xl font-bold mb-6 text-gray-900">
               Ready to Begin This Royal Journey?
             </h2>
-            <p className="text-xl mb-8 text-amber-100 max-w-2xl mx-auto">
-              Let our expert guides lead you through this carefully crafted itinerary. 
+            <p className="text-xl mb-8 text-gray-700 max-w-2xl mx-auto">
+              Let our expert guides lead you through this carefully crafted itinerary.
               Create memories that will last a lifetime.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <PharaohButton className="bg-white text-amber-800 hover:bg-amber-50">
+              <PharaohButton className="bg-gray-900 text-white hover:bg-black">
                 <Calendar className="w-5 h-5 mr-2" />
                 Book This Journey
               </PharaohButton>
-              <PharaohButton className="bg-transparent border-2 border-white text-white hover:bg-white/10">
+              <PharaohButton className="bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
                 <Users className="w-5 h-5 mr-2" />
                 Contact Our Experts
               </PharaohButton>

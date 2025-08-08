@@ -81,9 +81,9 @@ export default function MobileAdminLayout({
   }
 
   return (
-    <div className="lg:hidden min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/20 to-indigo-50/10">
+    <div className="lg:hidden min-h-screen bg-gray-50">
       {/* Mobile Admin Header */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-200 shadow-sm">
+      <div className="fixed top-0 left-0 right-0 z-50 bg-white/98 backdrop-blur-sm border-b border-gray-200 shadow-sm">
         <div className="flex items-center justify-between px-4 py-3">
           {/* Left Side */}
           <div className="flex items-center gap-3">
@@ -99,7 +99,7 @@ export default function MobileAdminLayout({
             )}
 
             {/* Logo */}
-            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gradient-to-br from-egyptian-gold to-amber-500 p-1">
+            <div className="w-8 h-8 rounded-lg overflow-hidden bg-gradient-to-br from-egyptian-gold to-deep-blue-500 p-1">
               <Image
                 src={getMobileLogo()}
                 alt="Admin Logo"
@@ -122,8 +122,8 @@ export default function MobileAdminLayout({
 
           {/* Right Side */}
           <div className="flex items-center gap-2">
-            <Link href="/admin" className="p-2 rounded-lg hover:bg-slate-100 transition-colors">
-              <Home className="w-5 h-5 text-slate-600" />
+            <Link href="/admin" className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+              <Home className="w-5 h-5 text-gray-600" />
             </Link>
             <Button
               variant="ghost"
@@ -208,7 +208,7 @@ export default function MobileAdminLayout({
                       <Link
                         href={item.href}
                         onClick={() => setSidebarOpen(false)}
-                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-slate-100 text-slate-700 transition-colors"
+                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
                       >
                         <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
                           <span className="text-lg">{item.hieroglyph}</span>

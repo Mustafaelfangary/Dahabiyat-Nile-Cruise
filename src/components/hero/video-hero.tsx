@@ -117,9 +117,9 @@ export const VideoHero = memo(function VideoHero({
                     size="large"
                     href={ctaLink}
                     sx={{
-                      background: 'linear-gradient(90deg, #FFD700 0%, #FFB300 100%)',
+                      background: 'linear-gradient(90deg, #3399ff 0%, #FFB300 100%)',
                       color: 'black',
-                      boxShadow: '0 0 24px 6px rgba(255, 215, 0, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
+                      boxShadow: '0 0 24px 6px rgba(51, 153, 255, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
                       borderRadius: '40px',
                       px: { xs: 4, md: 7 },
                       py: { xs: 2, md: 2.5 },
@@ -129,9 +129,9 @@ export const VideoHero = memo(function VideoHero({
                       textTransform: 'uppercase',
                       minWidth: { xs: '180px', md: '220px' },
                       '&:hover': {
-                        background: 'linear-gradient(90deg, #FFB300 0%, #FFD700 100%)',
+                        background: 'linear-gradient(90deg, #FFB300 0%, #3399ff 100%)',
                         transform: 'scale(1.06)',
-                        boxShadow: '0 0 32px 10px rgba(255, 215, 0, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
+                        boxShadow: '0 0 32px 10px rgba(51, 153, 255, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
                       },
                     }}
                   >
@@ -245,9 +245,9 @@ export const VideoHero = memo(function VideoHero({
                       size="large"
                       aria-label={ctaText || 'Book Now'}
                       sx={{
-                        background: 'linear-gradient(90deg, #FFD700 0%, #FFB300 100%)',
+                        background: 'linear-gradient(90deg, #3399ff 0%, #FFB300 100%)',
                         color: 'black',
-                        boxShadow: '0 0 24px 6px rgba(255, 215, 0, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
+                        boxShadow: '0 0 24px 6px rgba(51, 153, 255, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
                         borderRadius: '40px',
                         px: { xs: 4, md: 7 },
                         py: { xs: 2, md: 2.5 },
@@ -260,10 +260,10 @@ export const VideoHero = memo(function VideoHero({
                         overflow: 'hidden',
                         transition: 'transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1)',
                         '&:hover': {
-                          background: 'linear-gradient(90deg, #FFB300 0%, #FFD700 100%)',
+                          background: 'linear-gradient(90deg, #FFB300 0%, #3399ff 100%)',
                           color: 'black',
                           transform: 'scale(1.06)',
-                          boxShadow: '0 0 32px 10px rgba(255, 215, 0, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
+                          boxShadow: '0 0 32px 10px rgba(51, 153, 255, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
                         },
                         '&:active::after': {
                           content: '""',
@@ -294,9 +294,9 @@ export const VideoHero = memo(function VideoHero({
                     rel="noopener noreferrer"
                     aria-label={ctaText || 'Book Now'}
                     sx={{
-                      background: 'linear-gradient(90deg, #FFD700 0%, #FFB300 100%)',
+                      background: 'linear-gradient(90deg, #3399ff 0%, #FFB300 100%)',
                       color: 'black',
-                      boxShadow: '0 0 24px 6px rgba(255, 215, 0, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
+                      boxShadow: '0 0 24px 6px rgba(51, 153, 255, 0.25), 0 4px 20px rgba(0,0,0,0.2)',
                       borderRadius: '40px',
                       px: { xs: 4, md: 7 },
                       py: { xs: 2, md: 2.5 },
@@ -309,10 +309,10 @@ export const VideoHero = memo(function VideoHero({
                       overflow: 'hidden',
                       transition: 'transform 0.18s cubic-bezier(.4,0,.2,1), box-shadow 0.18s cubic-bezier(.4,0,.2,1)',
                       '&:hover': {
-                        background: 'linear-gradient(90deg, #FFB300 0%, #FFD700 100%)',
+                        background: 'linear-gradient(90deg, #FFB300 0%, #3399ff 100%)',
                         color: 'black',
                         transform: 'scale(1.06)',
-                        boxShadow: '0 0 32px 10px rgba(255, 215, 0, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
+                        boxShadow: '0 0 32px 10px rgba(51, 153, 255, 0.35), 0 8px 32px rgba(0,0,0,0.25)',
                       },
                       '&:active::after': {
                         content: '""',

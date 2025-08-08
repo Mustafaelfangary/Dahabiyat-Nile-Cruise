@@ -24,11 +24,13 @@ export default function AdminLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
-        <div className="admin-layout min-h-screen bg-slate-50">
+        <div className="admin-layout min-h-screen bg-gray-50 text-gray-900 overflow-x-hidden">
           <AdminHeader />
-          <div className="admin-content">
-            {children}
-          </div>
+          <main className="admin-content w-full">
+            <div className="w-full max-w-full overflow-x-hidden">
+              {children}
+            </div>
+          </main>
         </div>
       </SessionProvider>
     </QueryClientProvider>

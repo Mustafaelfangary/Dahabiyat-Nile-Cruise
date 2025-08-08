@@ -112,7 +112,7 @@ export default function IndividualBlogPostPage() {
       <FloatingEgyptianElements />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-ocean-blue-900 via-navy-blue-800 to-deep-blue-900 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src={post.heroImageUrl || post.mainImageUrl || '/images/blog-hero-bg.jpg'}
@@ -200,7 +200,7 @@ export default function IndividualBlogPostPage() {
       </section>
 
       {/* Article Content */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-deep-blue-50/30 relative">
         <Container maxWidth="md">
           <AnimatedSection animation="slide-up">
             <PharaohCard className="overflow-hidden">
@@ -239,7 +239,7 @@ export default function IndividualBlogPostPage() {
                         <Chip
                           key={index}
                           label={tag}
-                          className="bg-amber-100 text-amber-800 hover:bg-amber-200 transition-colors"
+                          className="bg-amber-100 text-amber-800 hover:bg-blue-200 transition-colors"
                         />
                       ))}
                     </div>

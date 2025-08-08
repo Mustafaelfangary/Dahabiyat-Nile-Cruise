@@ -23,7 +23,7 @@ export default function TestMobilePasswordResetPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50/30 to-slate-50 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50/30 to-slate-50 p-4">
       <div className="max-w-md mx-auto pt-8">
         <Card>
           <CardHeader className="text-center">

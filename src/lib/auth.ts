@@ -78,8 +78,26 @@ export const authOptions: NextAuthOptions = {
         url = `${baseUrl}${url}`;
       }
 
-      // If it's the same origin, allow it
+      // If it's the same origin and not a sign-in page, allow it
       if (url && new URL(url).origin === baseUrl) {
+        const urlPath = new URL(url).pathname;
+        // Prevent redirect loops to sign-in page
+        if (urlPath === '/auth/signin' || urlPath === '/auth/signup') {
+          // If user is authenticated and trying to access auth pages, redirect to appropriate page
+          if (token?.role) {
+            switch (token.role) {
+              case 'ADMIN':
+                return `${baseUrl}/admin`;
+              case 'MANAGER':
+                return `${baseUrl}/admin/dashboard`;
+              case 'GUIDE':
+                return `${baseUrl}/guide/dashboard`;
+              default:
+                return `${baseUrl}/profile`;
+            }
+          }
+          return `${baseUrl}/`;
+        }
         return url;
       }
 
@@ -99,8 +117,8 @@ export const authOptions: NextAuthOptions = {
         }
       }
 
-      // Default to profile page
-      return `${baseUrl}/profile`;
+      // Default to homepage for unauthenticated users
+      return `${baseUrl}/`;
     },
     async session({ token, session }) {
       if (token) {

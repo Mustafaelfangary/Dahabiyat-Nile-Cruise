@@ -35,7 +35,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="manifest" href="/manifest.json" />
-        <meta name="theme-color" content="#D4AF37" />
+        <meta name="theme-color" content="#0080ff" />
       </head>
       <body className={`${inter.variable} ${playfair.variable} ${inter.className} antialiased`}>
         <div className="min-h-screen bg-gradient-to-br from-blue-50 via-ocean-blue-lightest/30 to-slate-50">

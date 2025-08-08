@@ -25,7 +25,7 @@ export default function PackageEditor({ params }: { params: Promise<{ id: string
   }, [session, status, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-egyptian-gold mx-auto mb-4"></div>
         <h2 className="text-xl font-semibold text-hieroglyph-brown mb-2">

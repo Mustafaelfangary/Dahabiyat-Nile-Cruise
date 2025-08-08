@@ -155,7 +155,7 @@ export default function ItinerariesManagementPage() {
           <div className="flex items-center gap-4">
             <a
               href="/admin"
-              className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-amber-600 text-black font-bold py-2 px-4 rounded transition-colors"
+              className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-blue-600 text-black font-bold py-2 px-4 rounded transition-colors"
             >
               ← Back to Dashboard
             </a>
@@ -178,7 +178,7 @@ export default function ItinerariesManagementPage() {
             </Button>
             <Button
               onClick={() => window.location.href = '/admin/itineraries/new'}
-              className="bg-amber-600 hover:bg-amber-700 text-black shadow-lg"
+              className="bg-amber-600 hover:bg-blue-700 text-black shadow-lg"
             >
               <Plus className="w-4 h-4 mr-2" />
               Add New Itinerary
@@ -221,7 +221,7 @@ export default function ItinerariesManagementPage() {
               <div className="flex gap-2 justify-center">
                 <Button
                   onClick={() => window.location.href = '/admin/itineraries/new'}
-                  className="bg-yellow-600 hover:bg-yellow-700 text-white"
+                  className="bg-yellow-600 hover:bg-blue-700 text-white"
                 >
                   Create First Itinerary
                 </Button>
@@ -238,7 +238,7 @@ export default function ItinerariesManagementPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {itineraries.map((itinerary) => (
-            <Card key={itinerary.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-amber-400">
+            <Card key={itinerary.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-blue-400">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <img
                   src={itinerary.mainImageUrl || '/images/default-itinerary.jpg'}
@@ -325,7 +325,7 @@ export default function ItinerariesManagementPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => window.location.href = `/admin/itineraries/${itinerary.id}/edit`}
-                    className="flex-1 text-amber-600 hover:text-amber-700 border-amber-300 hover:bg-amber-50"
+                    className="flex-1 text-amber-600 hover:text-ocean-blue-700 border-amber-300 hover:bg-blue-50"
                   >
                     <Edit className="w-4 h-4 mr-1" />
                     Edit
@@ -367,7 +367,7 @@ export default function ItinerariesManagementPage() {
             <p className="text-amber-600 mb-6">Start creating your first royal journey itinerary.</p>
             <Button
               onClick={() => window.location.href = '/admin/itineraries/new'}
-              className="bg-amber-600 hover:bg-amber-700 text-black"
+              className="bg-amber-600 hover:bg-blue-700 text-black"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create First Itinerary

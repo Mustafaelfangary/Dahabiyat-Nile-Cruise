@@ -45,7 +45,7 @@ const ProfileTabWrapper: React.FC<ProfileTabWrapperProps> = ({
             <h3 className="text-xl font-semibold text-gray-800 mb-2">No Journeys Yet</h3>
             <p className="text-gray-600 mb-6">Start your Egyptian adventure by booking your first Dahabiya cruise</p>
             <Link href="/packages">
-              <Button className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500 text-white">
+              <Button className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500 text-white">
                 <Package className="w-4 h-4 mr-2" />
                 Browse Packages
               </Button>
@@ -75,7 +75,7 @@ const ProfileTabWrapper: React.FC<ProfileTabWrapperProps> = ({
             <h3 className="text-xl font-semibold text-gray-800 mb-2">No Reviews Yet</h3>
             <p className="text-gray-600 mb-6">Share your experiences after completing a journey</p>
             <Link href="/packages">
-              <Button className="bg-gradient-to-r from-yellow-400 to-amber-400 hover:from-yellow-500 hover:to-amber-500 text-white">
+              <Button className="bg-gradient-to-r from-ocean-blue-400 to-deep-blue-400 hover:from-ocean-blue-500 hover:to-deep-blue-500 text-white">
                 <Star className="w-4 h-4 mr-2" />
                 Book a Journey
               </Button>
@@ -97,7 +97,7 @@ const ProfileTabWrapper: React.FC<ProfileTabWrapperProps> = ({
       default:
         return (
           <div className="text-center py-12">
-            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-amber-400 to-orange-400 rounded-full flex items-center justify-center">
+            <div className="w-16 h-16 mx-auto mb-4 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 rounded-full flex items-center justify-center">
               <span className="text-white text-2xl">𓊪</span>
             </div>
             <h3 className="text-xl font-semibold text-gray-800 mb-2">{fallbackTitle}</h3>

@@ -175,15 +175,15 @@ export default function EmailSettingsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/20 to-orange-50/10 p-6">
+    <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-4xl mx-auto space-y-6">
         {/* Header */}
         <div className="flex items-center gap-4 mb-8">
-          <div className="p-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+          <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg">
             <Mail className="w-8 h-8 text-white" />
           </div>
           <div>
-            <h1 className="text-4xl font-bold text-gray-800">
+            <h1 className="text-4xl font-bold text-gray-900">
               𓇳 Email Settings 𓇳
             </h1>
             <p className="text-gray-600 text-lg">
@@ -271,7 +271,7 @@ export default function EmailSettingsPage() {
                 onKeyPress={(e) => e.key === 'Enter' && addAdminEmail()}
                 className="flex-1"
               />
-              <Button onClick={addAdminEmail} className="bg-amber-600 hover:bg-amber-700">
+              <Button onClick={addAdminEmail} className="bg-amber-600 hover:bg-blue-700">
                 <Plus className="w-4 h-4 mr-2" />
                 Add Email
               </Button>
@@ -334,7 +334,7 @@ export default function EmailSettingsPage() {
           <Button
             onClick={saveEmailSettings}
             disabled={saving}
-            className="bg-amber-600 hover:bg-amber-700"
+            className="bg-amber-600 hover:bg-blue-700"
           >
             {saving ? (
               <>
@@ -353,7 +353,7 @@ export default function EmailSettingsPage() {
             onClick={testEmailConfiguration}
             disabled={testingEmail || !settings.emailEnabled}
             variant="outline"
-            className="border-amber-300 text-amber-700 hover:bg-amber-50"
+            className="border-amber-300 text-amber-700 hover:bg-blue-50"
           >
             {testingEmail ? (
               <>

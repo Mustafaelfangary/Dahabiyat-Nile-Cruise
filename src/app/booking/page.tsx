@@ -92,7 +92,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 py-12 px-4">
       {/* Enhanced Pharaonic Background */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
         {/* Hieroglyphic Background Elements */}
@@ -119,7 +119,7 @@ export default function BookingPage() {
 
           {/* Show selected dahabiya info if pre-selected */}
           {selectedDahabiya ? (
-            <div className="bg-gradient-to-r from-egyptian-gold/20 to-amber-400/20 rounded-xl p-6 mb-6 border-2 border-egyptian-gold/30">
+            <div className="bg-gradient-to-r from-egyptian-gold/20 to-deep-blue-400/20 rounded-xl p-6 mb-6 border-2 border-egyptian-gold/30">
               <Typography variant="h5" className="text-hieroglyph-brown font-bold mb-2">
                 Booking: {selectedDahabiya.name}
               </Typography>
@@ -155,7 +155,7 @@ export default function BookingPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Selection Panel */}
           <div className="lg:col-span-1">
-            <div className="bg-gradient-to-b from-amber-50 to-orange-50 p-6 border border-egyptian-gold/30 shadow-2xl rounded-xl">
+            <div className="bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 p-6 border border-egyptian-gold/30 shadow-2xl rounded-xl">
               <h3 className="text-2xl font-bold text-egyptian-gold mb-6 flex items-center gap-2">
                 <Ship className="w-6 h-6" />
                 Select {bookingType === 'package' ? 'Package' : 'Vessel'}
@@ -254,7 +254,7 @@ export default function BookingPage() {
 
           {/* Booking Form */}
           <div className="lg:col-span-2">
-            <div className="bg-gradient-to-b from-amber-50 to-orange-50 p-8 border border-egyptian-gold/30 shadow-2xl rounded-xl">
+            <div className="bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 p-8 border border-egyptian-gold/30 shadow-2xl rounded-xl">
               {/* Package Booking */}
               {bookingType === 'package' && selectedPackage ? (
                 <div>

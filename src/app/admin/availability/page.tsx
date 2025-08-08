@@ -305,7 +305,7 @@ export default function AvailabilityManagement() {
               href="/admin"
               variant="contained"
               startIcon={<ArrowLeft />}
-              className="bg-ocean-blue hover:bg-amber-600 text-white"
+              className="bg-ocean-blue hover:bg-blue-600 text-white"
             >
               Back to Admin
             </Button>
@@ -356,7 +356,7 @@ export default function AvailabilityManagement() {
                   onClick={() => setViewMode('dahabiya')}
                   startIcon={<Calendar />}
                   className={viewMode === 'dahabiya'
-                    ? 'bg-ocean-blue hover:bg-amber-600 text-white'
+                    ? 'bg-ocean-blue hover:bg-blue-600 text-white'
                     : 'border-ocean-blue text-ocean-blue hover:bg-ocean-blue hover:text-white'
                   }
                 >
@@ -367,7 +367,7 @@ export default function AvailabilityManagement() {
                   onClick={() => setViewMode('package')}
                   startIcon={<Plus />}
                   className={viewMode === 'package'
-                    ? 'bg-ocean-blue hover:bg-amber-600 text-white'
+                    ? 'bg-ocean-blue hover:bg-blue-600 text-white'
                     : 'border-ocean-blue text-ocean-blue hover:bg-ocean-blue hover:text-white'
                   }
                 >

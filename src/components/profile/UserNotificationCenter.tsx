@@ -159,10 +159,10 @@ export default function UserNotificationCenter({ className }: UserNotificationCe
 
   return (
     <Card className={`bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl ${className}`}>
-      <CardHeader className="bg-gradient-to-r from-amber-50 to-orange-50 border-b border-amber-200">
+      <CardHeader className="bg-gradient-to-r from-ocean-blue-50 to-navy-blue-50 border-b border-amber-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="p-2 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+            <div className="p-2 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 rounded-lg">
               <Bell className="w-6 h-6 text-white" />
             </div>
             <div>
@@ -209,9 +209,9 @@ export default function UserNotificationCenter({ className }: UserNotificationCe
               <div
                 key={notification.id}
                 className={`p-4 rounded-lg border transition-colors ${
-                  notification.read 
-                    ? 'bg-gray-50 border-gray-200' 
-                    : 'bg-gradient-to-r from-amber-50 to-orange-50 border-amber-200 shadow-sm'
+                  notification.read
+                    ? 'bg-gray-50 border-gray-200'
+                    : 'bg-blue-50 border-blue-200 shadow-sm'
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -250,7 +250,7 @@ export default function UserNotificationCenter({ className }: UserNotificationCe
                             size="sm"
                             variant="ghost"
                             onClick={() => markAsRead(notification.id)}
-                            className="h-8 w-8 p-0 hover:bg-amber-100"
+                            className="h-8 w-8 p-0 hover:bg-blue-100"
                           >
                             <CheckCircle className="w-4 h-4 text-amber-600" />
                           </Button>

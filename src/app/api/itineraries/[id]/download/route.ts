@@ -65,12 +65,12 @@ function generateItineraryHTML(itinerary: any): string {
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid #D4AF37;
+            border-bottom: 2px solid #0080ff;
             padding-bottom: 20px;
             margin-bottom: 30px;
         }
         .title {
-            color: #D4AF37;
+            color: #0080ff;
             font-size: 2.5em;
             margin-bottom: 10px;
         }
@@ -82,9 +82,9 @@ function generateItineraryHTML(itinerary: any): string {
             margin-bottom: 30px;
         }
         .section-title {
-            color: #D4AF37;
+            color: #0080ff;
             font-size: 1.5em;
-            border-bottom: 1px solid #D4AF37;
+            border-bottom: 1px solid #0080ff;
             padding-bottom: 5px;
             margin-bottom: 15px;
         }
@@ -98,7 +98,7 @@ function generateItineraryHTML(itinerary: any): string {
         }
         .highlights li:before {
             content: "✨ ";
-            color: #D4AF37;
+            color: #0080ff;
         }
         .included li:before {
             content: "✅ ";
@@ -114,7 +114,7 @@ function generateItineraryHTML(itinerary: any): string {
         }
         .price {
             font-size: 1.3em;
-            color: #D4AF37;
+            color: #0080ff;
             font-weight: bold;
         }
         .footer {

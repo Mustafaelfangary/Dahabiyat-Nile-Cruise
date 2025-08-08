@@ -84,9 +84,17 @@ export default function Navbar() {
   const { getContent } = useContent({ page: 'global_media' });
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
 
-  // Get dynamic logo from database
+  // Get dynamic logo from database with fallback
+  const [logoSrc, setLogoSrc] = useState('/images/logo.png'); // Start with fallback
+  const [logoLoaded, setLogoLoaded] = useState(false);
+
   const getNavbarLogo = () => {
-    return getContent('navbar_logo', '/images/logo.png');
+    const dynamicLogo = getContent('navbar_logo', '/images/logo.png');
+    if (dynamicLogo && dynamicLogo !== '/images/logo.png' && !logoLoaded) {
+      setLogoSrc(dynamicLogo);
+      setLogoLoaded(true);
+    }
+    return logoSrc;
   };
 
   // Check if we're on the homepage
@@ -248,20 +256,20 @@ export default function Navbar() {
     { href: "/contact", label: `𓏏 ${t('contact')} 𓏏`, hieroglyph: "𓏏" },
   ];
 
-  // Ocean blue navbar styling for all pages with black text
+  // Pale navbar styling for all pages with dark text
   const getNavbarStyle = () => {
-    // All pages: Ocean blue/pale blue background with black text for clarity
+    // All pages: Pale background with dark text for clarity
     return {
       background: scrolled
-        ? 'rgba(0, 128, 255, 0.95)'  // Ocean blue
-        : 'rgba(153, 204, 255, 0.90)',  // Pale blue (ocean-blue-lightest)
+        ? 'rgba(248, 249, 250, 0.98)'  // Very pale background
+        : 'rgba(250, 251, 252, 0.95)',  // Even paler background
       backdropFilter: scrolled ? 'blur(25px)' : 'blur(20px)',
       boxShadow: scrolled
-        ? '0 2px 20px rgba(0, 128, 255, 0.4)'  // Ocean blue shadow
-        : '0 2px 15px rgba(0, 128, 255, 0.3)',
+        ? '0 2px 20px rgba(0, 0, 0, 0.08)'  // Subtle shadow
+        : '0 2px 15px rgba(0, 0, 0, 0.04)',
       borderBottom: scrolled
-        ? '1px solid rgba(0, 128, 255, 0.6)'  // Ocean blue border
-        : '1px solid rgba(0, 128, 255, 0.4)'
+        ? '1px solid rgba(0, 0, 0, 0.08)'  // Subtle border
+        : '1px solid rgba(0, 0, 0, 0.04)'
     };
   };
 
@@ -325,8 +333,12 @@ export default function Navbar() {
               width={56}
               height={56}
               className="h-14 w-auto"
+              priority={true}
+              onError={() => setLogoSrc('/images/logo.png')}
               style={{
-                filter: isHomepage && !scrolled ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' : 'none'
+                filter: isHomepage && !scrolled ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' : 'none',
+                transition: 'opacity 0.3s ease-in-out',
+                opacity: logoSrc ? 1 : 0
               }}
               priority
             />
@@ -377,7 +389,7 @@ export default function Navbar() {
                           e.currentTarget.style.background = getHoverColor();
                           e.currentTarget.style.color = 'white';
                           e.currentTarget.style.transform = 'translateY(-1px)';
-                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(212, 175, 55, 0.3)';
+                          e.currentTarget.style.boxShadow = '0 4px 12px rgba(0, 128, 255, 0.3)';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = 'transparent';

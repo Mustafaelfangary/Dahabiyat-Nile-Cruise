@@ -160,7 +160,7 @@ export default function BlogsManagementPage() {
           <div className="flex items-center gap-4">
             <a
               href="/admin"
-              className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-amber-600 text-black font-bold py-2 px-4 rounded transition-colors"
+              className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-blue-600 text-black font-bold py-2 px-4 rounded transition-colors"
             >
               ← Back to Dashboard
             </a>
@@ -168,7 +168,7 @@ export default function BlogsManagementPage() {
           </div>
           <Button
             onClick={() => window.location.href = '/admin/blogs/new'}
-            className="bg-amber-600 hover:bg-amber-700 text-black shadow-lg"
+            className="bg-amber-600 hover:bg-blue-700 text-black shadow-lg"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add New Blog
@@ -230,7 +230,7 @@ export default function BlogsManagementPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredBlogs.map((blog) => (
-            <Card key={blog.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-amber-400">
+            <Card key={blog.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-blue-400">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
                 <img
                   src={blog.mainImageUrl || '/images/default-blog.jpg'}
@@ -357,7 +357,7 @@ export default function BlogsManagementPage() {
             <p className="text-amber-600 mb-6">Start creating your first blog.</p>
             <Button
               onClick={() => window.location.href = '/admin/blogs/new'}
-              className="bg-amber-600 hover:bg-amber-700 text-black"
+              className="bg-amber-600 hover:bg-blue-700 text-black"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create First Blog
@@ -377,7 +377,7 @@ export default function BlogsManagementPage() {
                 setFeaturedFilter('all');
               }}
               variant="outline"
-              className="border-amber-600 text-amber-600 hover:bg-amber-50"
+              className="border-amber-600 text-amber-600 hover:bg-blue-50"
             >
               Clear Filters
             </Button>

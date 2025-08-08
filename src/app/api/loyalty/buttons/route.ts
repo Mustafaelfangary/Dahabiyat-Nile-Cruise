@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
         url: '/packages',
         action: 'redirect',
         description: 'Browse and book our luxury packages',
-        color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+        color: 'bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500'
       },
       {
         id: 'like-facebook',
@@ -146,7 +146,7 @@ export async function GET(request: NextRequest) {
         url: '/packages',
         action: 'redirect',
         description: 'Browse and book our luxury packages',
-        color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+        color: 'bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500'
       },
       {
         id: 'like-facebook',

@@ -139,7 +139,7 @@ function getEmailVerificationTemplate() {
         </p>
         
         <!-- Verification Code Box -->
-        <div style="background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); border-radius: 10px; padding: 25px; text-align: center; margin: 30px 0; box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);">
+        <div style="background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); border-radius: 10px; padding: 25px; text-align: center; margin: 30px 0; box-shadow: 0 10px 20px rgba(0, 128, 255, 0.3);">
           <p style="margin: 0 0 10px 0; color: #1a1a2e; font-size: 14px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px;">Verification Code</p>
           <div style="font-size: 36px; font-weight: bold; color: #1a1a2e; letter-spacing: 8px; font-family: 'Courier New', monospace;">{{verificationCode}}</div>
           <p style="margin: 10px 0 0 0; color: #2c2c2c; font-size: 12px;">Valid for 15 minutes</p>
@@ -147,7 +147,7 @@ function getEmailVerificationTemplate() {
       </div>
       
       <!-- Footer -->
-      <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.3);">
+      <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-top: 1px solid rgba(0, 128, 255, 0.3);">
         <p style="margin: 0 0 10px 0; font-size: 18px; color: #d4af37; font-weight: bold;">Cleopatra Dahabiyat</p>
         <p style="margin: 0; font-size: 12px; color: #888; line-height: 1.4;">
           Sail the eternal Nile in pharaonic luxury<br>
@@ -181,19 +181,19 @@ function getBookingConfirmationTemplate() {
         </p>
         
         <!-- Booking Details Card -->
-        <div style="background: rgba(212, 175, 55, 0.1); border: 2px solid #d4af37; border-radius: 10px; padding: 25px; margin: 25px 0;">
+        <div style="background: rgba(0, 128, 255, 0.1); border: 2px solid #d4af37; border-radius: 10px; padding: 25px; margin: 25px 0;">
           <h3 style="margin: 0 0 20px 0; color: #d4af37; font-size: 18px; text-align: center;">📜 Sacred Scroll of Details</h3>
           
           <div style="display: grid; gap: 15px;">
-            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.3);">
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0, 128, 255, 0.3);">
               <span style="color: #b0b0b0;">Booking Reference:</span>
               <span style="color: #d4af37; font-weight: bold;">{{booking.id}}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.3);">
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0, 128, 255, 0.3);">
               <span style="color: #b0b0b0;">Journey Begins:</span>
               <span style="color: #fff;">{{booking.startDate}}</span>
             </div>
-            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(212, 175, 55, 0.3);">
+            <div style="display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid rgba(0, 128, 255, 0.3);">
               <span style="color: #b0b0b0;">Journey Ends:</span>
               <span style="color: #fff;">{{booking.endDate}}</span>
             </div>
@@ -202,7 +202,7 @@ function getBookingConfirmationTemplate() {
       </div>
       
       <!-- Footer -->
-      <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-top: 1px solid rgba(212, 175, 55, 0.3);">
+      <div style="background: rgba(0,0,0,0.3); padding: 25px; text-align: center; border-top: 1px solid rgba(0, 128, 255, 0.3);">
         <p style="margin: 0 0 10px 0; font-size: 18px; color: #d4af37; font-weight: bold;">Cleopatra Dahabiyat</p>
         <div style="margin-top: 15px; font-size: 24px;">𓊪 𓇳 𓊪</div>
       </div>

@@ -76,7 +76,7 @@ export default function FeaturedReviews() {
 
   if (loading) {
     return (
-      <section className="py-24 bg-gradient-to-b from-amber-50 to-orange-50">
+      <section className="py-24 bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50">
         <Container maxWidth="lg">
           <div className="text-center">
             <div className="text-6xl text-egyptian-gold animate-pulse mb-4">⭐</div>

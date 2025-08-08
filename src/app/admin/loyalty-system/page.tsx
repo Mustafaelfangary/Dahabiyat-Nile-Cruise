@@ -62,7 +62,7 @@ export default function LoyaltySystemPage() {
       url: '/packages',
       action: 'redirect',
       description: 'Browse and book our luxury packages',
-      color: 'bg-gradient-to-r from-amber-500 to-orange-500'
+      color: 'bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500'
     },
     {
       id: 'like-facebook',
@@ -212,12 +212,12 @@ export default function LoyaltySystemPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 p-6">
+    <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100 p-6">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <div className="p-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+            <div className="p-3 bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 rounded-lg">
               <Crown className="w-8 h-8 text-white" />
             </div>
             <div>
@@ -349,7 +349,7 @@ export default function LoyaltySystemPage() {
           <Button
             onClick={handleSaveConfig}
             disabled={saving}
-            className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-3"
+            className="bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 hover:from-ocean-blue-600 hover:to-navy-blue-600 text-white px-8 py-3"
           >
             {saving ? (
               <RefreshCw className="w-5 h-5 mr-2 animate-spin" />

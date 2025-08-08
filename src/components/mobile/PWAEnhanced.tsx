@@ -135,7 +135,7 @@ export default function PWAEnhanced({ children }: PWAEnhancedProps) {
 
       {/* PWA Features Bar (only show if not installed and not standalone) */}
       {!isInstalled && !isStandalone && (
-        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-amber-600 to-amber-700 text-white p-4 z-40">
+        <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-ocean-blue-600 to-deep-blue-700 text-white p-4 z-40">
           <div className="flex items-center justify-between max-w-md mx-auto">
             <div className="flex items-center gap-3">
               <div className="text-2xl">📱</div>
@@ -162,7 +162,7 @@ export default function PWAEnhanced({ children }: PWAEnhancedProps) {
                 onClick={handleShare}
                 size="sm"
                 variant="ghost"
-                className="text-white hover:bg-amber-800"
+                className="text-white hover:bg-blue-800"
               >
                 <Share className="w-4 h-4" />
               </Button>

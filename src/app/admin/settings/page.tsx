@@ -1,53 +1,54 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
+import { redirect } from 'next/navigation';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Badge } from '@/components/ui/badge';
+import { toast } from 'sonner';
 import {
-  Container,
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  Grid,
-  Alert,
-  Box,
-  Tabs,
-  Tab,
-  CircularProgress,
-  Divider
-} from '@mui/material';
-import { Save as SaveIcon, Refresh as RefreshIcon } from '@mui/icons-material';
+  Save,
+  RefreshCw,
+  Settings,
+  Globe,
+  Mail,
+  Database,
+  Shield,
+  Palette,
+  Bell
+} from 'lucide-react';
 
 interface Setting {
   key: string;
   value: string;
   group: string;
-}
-
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
-
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
-  return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`settings-tabpanel-${index}`}
-      aria-labelledby={`settings-tab-${index}`}
-      {...other}
-    >
-      {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
-    </div>
-  );
+  label?: string;
+  description?: string;
+  type?: 'text' | 'email' | 'number' | 'textarea';
 }
 
 export default function AdminSettingsPage() {
+  const { data: session, status } = useSession();
   const [settings, setSettings] = useState<Setting[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [activeTab, setActiveTab] = useState('general');
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-blue"></div>
+      </div>
+    );
+  }
+
+  if (!session || session.user.role !== 'ADMIN') {
+    redirect('/admin/login');
+  }
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
   const [tabValue, setTabValue] = useState(0);
 

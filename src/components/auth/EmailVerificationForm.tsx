@@ -129,7 +129,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
               placeholder="Enter 6-digit code"
               value={code}
               onChange={(e) => setCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
-              className="text-center text-2xl font-mono tracking-widest border-amber-200 focus:border-amber-400"
+              className="text-center text-2xl font-mono tracking-widest border-amber-200 focus:border-blue-400"
               maxLength={6}
               required
             />
@@ -194,7 +194,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
         
         <div className="text-center">
           <div className="text-2xl mb-2">𓇳 𓊪 𓇳</div>
-          <p className="text-xs text-gray-500">
+          <p className="text-xs text-gray-700">
             Securing your royal account
           </p>
         </div>

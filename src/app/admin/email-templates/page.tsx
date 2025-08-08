@@ -213,21 +213,21 @@ export default function EmailTemplatesPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-amber-50/20 to-orange-50/10">
+    <div className="min-h-screen bg-gray-50">
       <Container maxWidth={false} className="py-8">
         <AnimatedSection animation="fade-in">
           {/* Header */}
           <div className="mb-8">
             <div className="flex items-center gap-4 mb-4">
-              <div className="p-3 bg-gradient-to-r from-amber-400 to-orange-400 rounded-lg">
+              <div className="p-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-lg">
                 <Mail className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h1 className="text-4xl font-heading font-bold text-gray-800">
+                <h1 className="text-4xl font-heading font-bold text-gray-900">
                   𓇳 Email Template Manager 𓇳
                 </h1>
                 <p className="text-gray-600 text-lg">
-                  Customize all email communications with pharaonic elegance
+                  Customize all email communications with professional elegance
                 </p>
               </div>
             </div>
@@ -253,13 +253,13 @@ export default function EmailTemplatesPage() {
             <TabsContent value="templates" className="mt-8">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Template List */}
-                <Card className="bg-white/80 backdrop-blur-sm border border-amber-200 shadow-xl">
+                <Card className="bg-white border border-gray-200 shadow-lg">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <Code className="w-5 h-5 text-amber-600" />
+                      <Code className="w-5 h-5 text-blue-600" />
                       Email Templates
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-gray-600">
                       Manage all email templates used throughout the system
                     </CardDescription>
                   </CardHeader>
@@ -270,8 +270,8 @@ export default function EmailTemplatesPage() {
                           key={template.id}
                           className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                             selectedTemplate?.id === template.id
-                              ? 'border-amber-400 bg-amber-50'
-                              : 'border-gray-200 hover:border-amber-200'
+                              ? 'border-blue-400 bg-blue-50'
+                              : 'border-gray-200 hover:border-blue-200'
                           }`}
                           onClick={() => setSelectedTemplate(template)}
                         >
@@ -324,7 +324,7 @@ export default function EmailTemplatesPage() {
                             ...selectedTemplate,
                             subject: e.target.value
                           })}
-                          className="border-amber-200 focus:border-amber-400"
+                          className="border-amber-200 focus:border-blue-400"
                         />
                       </div>
                       
@@ -338,7 +338,7 @@ export default function EmailTemplatesPage() {
                             content: e.target.value
                           })}
                           rows={10}
-                          className="border-amber-200 focus:border-amber-400 font-mono text-sm"
+                          className="border-amber-200 focus:border-blue-400 font-mono text-sm"
                         />
                       </div>
 
@@ -372,7 +372,7 @@ export default function EmailTemplatesPage() {
                           <Button
                             onClick={() => saveTemplate(selectedTemplate)}
                             disabled={saving}
-                            className="bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500"
+                            className="bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500"
                           >
                             {saving ? (
                               <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -478,7 +478,7 @@ export default function EmailTemplatesPage() {
                   <Button
                     onClick={saveSettings}
                     disabled={saving}
-                    className="w-full bg-gradient-to-r from-amber-400 to-orange-400 hover:from-amber-500 hover:to-orange-500"
+                    className="w-full bg-gradient-to-r from-ocean-blue-400 to-navy-blue-400 hover:from-ocean-blue-500 hover:to-navy-blue-500"
                   >
                     {saving ? (
                       <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
@@ -512,7 +512,7 @@ export default function EmailTemplatesPage() {
                     <Button
                       onClick={() => (document.querySelector('[value="templates"]') as HTMLElement)?.click()}
                       variant="outline"
-                      className="border-amber-200 text-amber-700 hover:bg-amber-50"
+                      className="border-amber-200 text-amber-700 hover:bg-blue-50"
                     >
                       Go to Templates
                     </Button>

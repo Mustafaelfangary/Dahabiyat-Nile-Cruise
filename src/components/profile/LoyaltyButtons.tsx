@@ -273,8 +273,8 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
   if (!buttons || buttons.length === 0) {
     return (
       <div className="text-center py-8">
-        <Crown className="w-12 h-12 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-500">No loyalty actions available at the moment.</p>
+        <Crown className="w-12 h-12 text-gray-600 mx-auto mb-4" />
+        <p className="text-gray-800">No loyalty actions available at the moment.</p>
       </div>
     );
   }

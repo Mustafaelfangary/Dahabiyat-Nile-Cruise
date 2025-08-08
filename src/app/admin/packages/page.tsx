@@ -34,7 +34,7 @@ export default function AdminPackagesPage() {
 
   if (isLoading || status === 'loading') {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-amber-50 to-orange-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-ocean-blue-50 to-navy-blue-100">
         <Card className="w-96">
           <CardContent className="p-8 text-center">
             <RefreshCw className="w-8 h-8 animate-spin mx-auto mb-4 text-amber-600" />
@@ -48,7 +48,7 @@ export default function AdminPackagesPage() {
 
   if (!isAuthorized) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-orange-100">
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-navy-blue-100">
         <Card className="w-96">
           <CardContent className="p-8 text-center">
             <Lock className="w-12 h-12 mx-auto mb-4 text-red-500" />
@@ -65,7 +65,7 @@ export default function AdminPackagesPage() {
               </Button>
               <Button
                 onClick={() => router.push('/')}
-                className="bg-amber-600 hover:bg-amber-700"
+                className="bg-amber-600 hover:bg-blue-700"
               >
                 Go Home
               </Button>
@@ -77,7 +77,7 @@ export default function AdminPackagesPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 to-navy-blue-100">
       <div className="p-6">
         <div className="flex justify-between items-center mb-6">
           <div>

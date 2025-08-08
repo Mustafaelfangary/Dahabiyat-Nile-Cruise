@@ -92,7 +92,7 @@ export default function AuthErrorPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-orange-50 py-12 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-navy-blue-50 py-12 px-4">
       <div className="w-full max-w-md space-y-6">
         <Card className="bg-gradient-to-br from-red-50 to-pink-50 border-red-200">
           <CardHeader className="text-center pb-4">
@@ -123,7 +123,7 @@ export default function AuthErrorPage() {
             <div className="space-y-3">
               <Button
                 onClick={handleRetry}
-                className="w-full bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white font-semibold py-3 rounded-lg transition-all duration-200"
+                className="w-full bg-gradient-to-r from-ocean-blue-500 to-navy-blue-500 hover:from-ocean-blue-600 hover:to-navy-blue-600 text-white font-semibold py-3 rounded-lg transition-all duration-200"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
                 Try Again
@@ -132,7 +132,7 @@ export default function AuthErrorPage() {
               <Button
                 onClick={handleGoHome}
                 variant="outline"
-                className="w-full border-amber-300 text-amber-700 hover:bg-amber-50"
+                className="w-full border-amber-300 text-amber-700 hover:bg-blue-50"
               >
                 <Home className="w-4 h-4 mr-2" />
                 Go to Homepage
@@ -142,7 +142,7 @@ export default function AuthErrorPage() {
             <div className="text-center">
               <Link 
                 href="/contact"
-                className="text-sm text-gray-600 hover:text-amber-700 transition-colors"
+                className="text-sm text-gray-600 hover:text-ocean-blue-700 transition-colors"
               >
                 Still having trouble? Contact support
               </Link>

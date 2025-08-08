@@ -165,7 +165,7 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                       className={`cursor-pointer transition-all duration-300 hover:shadow-lg ${
                         selectedItinerary?.id === itinerary.id 
                           ? 'ring-2 ring-amber-500 bg-amber-50' 
-                          : 'hover:bg-amber-50'
+                          : 'hover:bg-blue-50'
                       }`}
                       onClick={() => {
                         setSelectedItinerary(itinerary);
@@ -256,8 +256,8 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                                   onClick={() => setSelectedDay(day.dayNumber)}
                                   className={`${
                                     selectedDay === day.dayNumber 
-                                      ? 'bg-amber-600 hover:bg-amber-700' 
-                                      : 'border-amber-300 text-amber-700 hover:bg-amber-50'
+                                      ? 'bg-amber-600 hover:bg-blue-700' 
+                                      : 'border-amber-300 text-amber-700 hover:bg-blue-50'
                                   }`}
                                 >
                                   {getTimeIcon(day.dayNumber)}
@@ -278,7 +278,7 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                                     exit={{ opacity: 0, x: -20 }}
                                     transition={{ duration: 0.2 }}
                                   >
-                                    <Card className="bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
+                                    <Card className="bg-gradient-to-br from-ocean-blue-50 to-navy-blue-50 border-amber-200">
                                       <CardContent className="p-6">
                                         <div className="flex items-start gap-4 mb-4">
                                           <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg">

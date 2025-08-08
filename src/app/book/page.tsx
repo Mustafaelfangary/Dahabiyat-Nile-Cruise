@@ -61,11 +61,11 @@ export default function BookPage() {
               {/* Egyptian Pharaoh Crown */}
               <svg width="48" height="48" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 30 Q8 20 12 15 Q20 8 20 8 Q20 8 28 15 Q32 20 32 30 Z"
-                      fill="url(#book-crown-gradient)" stroke="#D4AF37" strokeWidth="1.5"/>
-                <circle cx="15" cy="18" r="1" fill="#FFD700"/>
-                <circle cx="20" cy="15" r="1" fill="#FFD700"/>
-                <circle cx="25" cy="18" r="1" fill="#FFD700"/>
-                <circle cx="20" cy="8" r="1.5" fill="#FFD700"/>
+                      fill="url(#book-crown-gradient)" stroke="#0080ff" strokeWidth="1.5"/>
+                <circle cx="15" cy="18" r="1" fill="#3399ff"/>
+                <circle cx="20" cy="15" r="1" fill="#3399ff"/>
+                <circle cx="25" cy="18" r="1" fill="#3399ff"/>
+                <circle cx="20" cy="8" r="1.5" fill="#3399ff"/>
                 <defs>
                   <linearGradient id="book-crown-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFFFFF"/>
@@ -97,9 +97,9 @@ export default function BookPage() {
 
         {/* Pharaonic Obelisk Form Container */}
         <div className="relative">
-          <div className="bg-white via-white to-amber-200 rounded-t-full mx-8 pt-8 pb-12 shadow-2xl border-4 border-ocean-blue/30">
+          <div className="bg-white via-white to-deep-blue-200 rounded-t-full mx-8 pt-8 pb-12 shadow-2xl border-4 border-ocean-blue/30">
             {/* Obelisk Top */}
-            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-white to-amber-500 rotate-45 border-2 border-ocean-blue/30 shadow-lg"></div>
+            <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 w-16 h-16 bg-white to-deep-blue-500 rotate-45 border-2 border-ocean-blue/30 shadow-lg"></div>
 
             {/* Hieroglyphic Decorations */}
             <div className="absolute inset-0 opacity-10 pointer-events-none">
@@ -129,7 +129,7 @@ export default function BookPage() {
                     type="text"
                     name="name"
                     required
-                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-amber-200 transition-all duration-300 shadow-inner"
+                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-blue-200 transition-all duration-300 shadow-inner"
                     placeholder="Enter your royal name..."
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-primary">𓊪</div>
@@ -151,7 +151,7 @@ export default function BookPage() {
                     type="email"
                     name="email"
                     required
-                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-amber-200 transition-all duration-300 shadow-inner"
+                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-blue-200 transition-all duration-300 shadow-inner"
                     placeholder="your.royal@email.com"
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-primary">𓇳</div>
@@ -174,7 +174,7 @@ export default function BookPage() {
                     name="guests"
                     min="1"
                     required
-                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-amber-200 transition-all duration-300 shadow-inner"
+                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-blue-200 transition-all duration-300 shadow-inner"
                     placeholder="Number of royal guests..."
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-primary">𓊽</div>
@@ -196,7 +196,7 @@ export default function BookPage() {
                     type="date"
                     name="date"
                     required
-                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-amber-200 transition-all duration-300 shadow-inner"
+                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-blue-200 transition-all duration-300 shadow-inner"
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-primary">𓌻</div>
                 </div>
@@ -217,7 +217,7 @@ export default function BookPage() {
                     type="tel"
                     name="phone"
                     required
-                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-amber-200 transition-all duration-300 shadow-inner"
+                    className="w-full px-4 py-3 bg-white/95 border-2 border-ocean-blue/30 rounded-xl text-text-primary font-medium focus:border-ocean-blue/30 focus:ring-2 focus:ring-blue-200 transition-all duration-300 shadow-inner"
                     placeholder="Your royal contact number..."
                   />
                   <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-primary">𓈖</div>
@@ -229,7 +229,7 @@ export default function BookPage() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-white via-white to-amber-600 hover:from-amber-700 hover:via-yellow-600 hover:to-amber-700 disabled:bg-white text-text-primary font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 shadow-2xl border-2 border-ocean-blue/30 text-lg font-serif disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-white via-white to-deep-blue-600 hover:from-ocean-blue-700 hover:via-blue-600 hover:to-deep-blue-700 disabled:bg-white text-text-primary font-bold py-4 px-8 rounded-2xl transition-all duration-300 transform hover:scale-105 disabled:hover:scale-100 shadow-2xl border-2 border-ocean-blue/30 text-lg font-serif disabled:cursor-not-allowed"
                 >
                   <div className="flex items-center justify-center space-x-3">
                     {isSubmitting ? (
@@ -251,7 +251,7 @@ export default function BookPage() {
           </div>
 
           {/* Obelisk Base */}
-          <div className="bg-white to-amber-400 mx-4 h-8 rounded-b-lg shadow-xl border-4 border-ocean-blue/30 border-t-0">
+          <div className="bg-white to-deep-blue-400 mx-4 h-8 rounded-b-lg shadow-xl border-4 border-ocean-blue/30 border-t-0">
             <div className="flex justify-center items-center h-full space-x-4 text-text-primary">
               <span className="text-2xl">𓊪</span>
               <span className="font-bold font-serif">ROYAL BOOKING OBELISK</span>
@@ -260,7 +260,7 @@ export default function BookPage() {
           </div>
 
           {/* Decorative Base Platform */}
-          <div className="bg-white to-amber-600 mx-2 h-4 rounded-b-xl shadow-2xl border-4 border-ocean-blue/30 border-t-0"></div>
+          <div className="bg-white to-deep-blue-600 mx-2 h-4 rounded-b-xl shadow-2xl border-4 border-ocean-blue/30 border-t-0"></div>
 
           {/* Ground Shadow */}
           <div className="bg-white mx-0 h-2 rounded-full blur-sm"></div>

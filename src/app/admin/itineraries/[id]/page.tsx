@@ -156,7 +156,7 @@ export default function ItineraryDetailPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
           <p className="text-amber-800">Loading Sacred Journey...</p>
@@ -167,7 +167,7 @@ export default function ItineraryDetailPage() {
 
   if (!itinerary) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100 flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-amber-800 mb-4">Itinerary Not Found</h1>
           <Button onClick={() => router.push('/admin/itineraries')}>
@@ -180,10 +180,10 @@ export default function ItineraryDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 via-orange-50 to-amber-100">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 via-navy-blue-50 to-deep-blue-100">
       <div className="container mx-auto py-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-amber-600 via-orange-600 to-amber-700 rounded-lg shadow-lg">
+        <div className="flex items-center justify-between mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
           <div className="flex items-center gap-4">
             <Button
               onClick={() => router.push('/admin/itineraries')}
@@ -227,7 +227,7 @@ export default function ItineraryDetailPage() {
           <Button
             onClick={toggleActive}
             variant={itinerary.isActive ? "outline" : "default"}
-            className={itinerary.isActive ? "border-orange-500 text-orange-600 hover:bg-orange-50" : "bg-green-600 hover:bg-green-700 text-white"}
+            className={itinerary.isActive ? "border-orange-500 text-orange-600 hover:bg-blue-50" : "bg-green-600 hover:bg-green-700 text-white"}
           >
             {itinerary.isActive ? (
               <>
@@ -245,7 +245,7 @@ export default function ItineraryDetailPage() {
           <Button
             onClick={() => window.open(`/itineraries/${itinerary.slug}`, '_blank')}
             variant="outline"
-            className="border-amber-500 text-amber-600 hover:bg-amber-50"
+            className="border-amber-500 text-amber-600 hover:bg-blue-50"
           >
             <Eye className="w-4 h-4 mr-2" />
             View Public Page

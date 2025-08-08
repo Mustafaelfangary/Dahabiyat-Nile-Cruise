@@ -174,7 +174,7 @@
   .pharaonic-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    border: 1px solid rgba(0, 128, 255, 0.2);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -222,6 +222,211 @@
       var(--pharaonic-brown) 0%,
       var(--pharaonic-dark-brown) 100%
     );
+  }
+
+  /* Global Rule: Pale backgrounds should have dark text */
+  .bg-gray-50, .bg-gray-100, .bg-gray-200,
+  .bg-blue-50, .bg-blue-100, .bg-blue-200,
+  .bg-white, .bg-slate-50, .bg-slate-100,
+  .bg-stone-50, .bg-stone-100, .bg-neutral-50, .bg-neutral-100,
+  [class*="bg-gradient-to"][class*="gray-50"],
+  [class*="bg-gradient-to"][class*="gray-100"],
+  [class*="bg-gradient-to"][class*="blue-50"],
+  [class*="bg-gradient-to"][class*="blue-100"],
+  [class*="from-gray-50"], [class*="from-gray-100"],
+  [class*="via-gray-50"], [class*="via-gray-100"],
+  [class*="to-gray-50"], [class*="to-gray-100"] {
+    color: #000000 !important; /* Force dark text on pale backgrounds */
+  }
+
+  /* Ensure pale background elements have dark text for children */
+  .bg-gray-50 *, .bg-gray-100 *, .bg-gray-200 *,
+  .bg-blue-50 *, .bg-blue-100 *, .bg-blue-200 *,
+  .bg-white *, .bg-slate-50 *, .bg-slate-100 *,
+  .bg-stone-50 *, .bg-stone-100 *, .bg-neutral-50 *, .bg-neutral-100 *,
+  [class*="from-gray-50"] *, [class*="from-gray-100"] *,
+  [class*="via-gray-50"] *, [class*="via-gray-100"] *,
+  [class*="to-gray-50"] *, [class*="to-gray-100"] * {
+    color: #000000 !important; /* Force dark text on all pale backgrounds */
+  }
+
+  /* Fix pale text colors that are hard to read */
+  .text-gray-300, .text-gray-400, .text-gray-500,
+  .text-slate-300, .text-slate-400, .text-slate-500,
+  .text-stone-300, .text-stone-400, .text-stone-500,
+  .text-neutral-300, .text-neutral-400, .text-neutral-500 {
+    color: #374151 !important; /* Dark gray instead of pale gray */
+  }
+
+  /* Remove any remaining amber/orange colors and replace with appropriate alternatives */
+  .text-amber-600, .text-amber-700, .text-amber-800, .text-amber-900,
+  .text-orange-600, .text-orange-700, .text-orange-800, .text-orange-900 {
+    color: #1f2937 !important; /* Dark gray instead of amber/orange */
+  }
+
+  /* Ensure all text elements have sufficient contrast */
+  h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th, label {
+    color: inherit;
+  }
+
+  /* Force dark text on light backgrounds globally */
+  body, .bg-white, .bg-gray-50, .bg-gray-100, .bg-blue-50, .bg-blue-100 {
+    color: #000000 !important;
+  }
+
+  /* Specific fixes for common pale text issues */
+  .text-muted, .text-muted-foreground {
+    color: #374151 !important; /* Dark gray instead of pale */
+  }
+
+  /* Fix any remaining pale text colors */
+  .text-gray-600 {
+    color: #374151 !important; /* Darker gray for better contrast */
+  }
+
+  .text-gray-700 {
+    color: #1f2937 !important; /* Even darker gray */
+  }
+
+  /* Ensure text on gradient backgrounds has proper contrast */
+  [class*="bg-gradient-to"] {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Force dark text on any pale background variations */
+  .bg-slate-200, .bg-gray-300, .bg-blue-200, .bg-stone-200, .bg-neutral-200 {
+    color: #000000 !important;
+  }
+
+  .bg-slate-200 *, .bg-gray-300 *, .bg-blue-200 *, .bg-stone-200 *, .bg-neutral-200 * {
+    color: #000000 !important;
+  }
+
+  /* Comprehensive pale text fix - catch all remaining instances */
+  .text-slate-400, .text-slate-500, .text-slate-600,
+  .text-zinc-400, .text-zinc-500, .text-zinc-600 {
+    color: #374151 !important; /* Dark gray for better contrast */
+  }
+
+  /* Fix any remaining pale text on light backgrounds */
+  .text-white\/50, .text-white\/60, .text-white\/70, .text-white\/80 {
+    color: rgba(0, 0, 0, 0.8) !important; /* Dark text instead of pale white */
+  }
+
+  /* Ensure buttons with pale backgrounds have dark text */
+  .bg-white\/20, .bg-white\/30, .bg-white\/40 {
+    color: #000000 !important;
+    background-color: rgba(0, 0, 0, 0.1) !important; /* Darker background for better visibility */
+  }
+
+  /* Fix all hover effects - replace orange/gold with blue */
+  .hover\:bg-amber-50:hover, .hover\:bg-amber-100:hover, .hover\:bg-amber-200:hover,
+  .hover\:bg-orange-50:hover, .hover\:bg-orange-100:hover, .hover\:bg-orange-200:hover,
+  .hover\:bg-yellow-50:hover, .hover\:bg-yellow-100:hover, .hover\:bg-yellow-200:hover {
+    background-color: #e0f2fe !important; /* Light blue background on hover */
+  }
+
+  .hover\:bg-amber-300:hover, .hover\:bg-amber-400:hover, .hover\:bg-amber-500:hover,
+  .hover\:bg-orange-300:hover, .hover\:bg-orange-400:hover, .hover\:bg-orange-500:hover,
+  .hover\:bg-yellow-300:hover, .hover\:bg-yellow-400:hover, .hover\:bg-yellow-500:hover {
+    background-color: #0080ff !important; /* Ocean blue background on hover */
+  }
+
+  .hover\:text-amber-600:hover, .hover\:text-amber-700:hover, .hover\:text-amber-800:hover,
+  .hover\:text-orange-600:hover, .hover\:text-orange-700:hover, .hover\:text-orange-800:hover,
+  .hover\:text-yellow-600:hover, .hover\:text-yellow-700:hover, .hover\:text-yellow-800:hover {
+    color: #003d7a !important; /* Deep blue text on hover */
+  }
+
+  .hover\:border-amber-300:hover, .hover\:border-amber-400:hover, .hover\:border-amber-500:hover,
+  .hover\:border-orange-300:hover, .hover\:border-orange-400:hover, .hover\:border-orange-500:hover,
+  .hover\:border-yellow-300:hover, .hover\:border-yellow-400:hover, .hover\:border-yellow-500:hover {
+    border-color: #0080ff !important; /* Ocean blue border on hover */
+  }
+
+  /* Focus states - replace orange/gold with blue */
+  .focus\:ring-amber-500:focus, .focus\:ring-orange-500:focus, .focus\:ring-yellow-500:focus {
+    --tw-ring-color: #0080ff !important; /* Ocean blue focus ring */
+  }
+
+  .focus\:border-amber-500:focus, .focus\:border-orange-500:focus, .focus\:border-yellow-500:focus {
+    border-color: #0080ff !important; /* Ocean blue focus border */
+  }
+
+  /* Selection highlights */
+  ::selection {
+    background-color: rgba(0, 128, 255, 0.3) !important; /* Light ocean blue selection */
+    color: #000000 !important; /* Dark text for contrast */
+  }
+
+  ::-moz-selection {
+    background-color: rgba(0, 128, 255, 0.3) !important; /* Light ocean blue selection */
+    color: #000000 !important; /* Dark text for contrast */
+  }
+
+  /* Fix button hover states globally */
+  button:hover, .btn:hover, [role="button"]:hover {
+    background-color: var(--ocean-blue, #0080ff) !important;
+    color: white !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Fix link hover states */
+  a:hover:not(.no-hover) {
+    color: var(--ocean-blue, #0080ff) !important;
+    text-decoration: underline !important;
+  }
+
+  /* Fix card hover effects */
+  .card:hover, [class*="card"]:hover {
+    box-shadow: 0 8px 25px rgba(0, 128, 255, 0.15) !important;
+    transform: translateY(-2px) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  /* Fix input focus states */
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--ocean-blue, #0080ff) !important;
+    box-shadow: 0 0 0 2px rgba(0, 128, 255, 0.2) !important;
+    outline: none !important;
+  }
+
+  /* Fix tab hover states */
+  [role="tab"]:hover, .tab:hover, [class*="tab"]:hover {
+    background-color: rgba(0, 128, 255, 0.1) !important;
+    color: var(--ocean-blue, #0080ff) !important;
+  }
+
+  /* Fix active/selected states */
+  [aria-selected="true"], .active, [class*="active"] {
+    background-color: var(--ocean-blue, #0080ff) !important;
+    color: white !important;
+  }
+
+  /* Fix dropdown hover states */
+  .dropdown-item:hover, [role="menuitem"]:hover {
+    background-color: rgba(0, 128, 255, 0.1) !important;
+    color: var(--ocean-blue, #0080ff) !important;
+  }
+
+  /* Ensure sufficient contrast for all text elements */
+  * {
+    /* Only apply to elements that don't already have explicit text colors */
+    &:not([class*="text-white"]):not([class*="text-black"]):not([class*="text-blue"]):not([class*="text-red"]):not([class*="text-green"]):not([class*="text-yellow"]):not([class*="text-purple"]):not([class*="text-pink"]):not([class*="text-indigo"]):not([class*="text-cyan"]):not([class*="text-teal"]):not([class*="text-lime"]):not([class*="text-emerald"]):not([class*="text-sky"]):not([class*="text-violet"]):not([class*="text-fuchsia"]):not([class*="text-rose"]) {
+      /* If parent has pale background, ensure dark text */
+      .bg-white &, .bg-gray-50 &, .bg-gray-100 &, .bg-blue-50 &, .bg-blue-100 & {
+        color: #000000;
+      }
+    }
+  }
+
+  .bg-amber-50, .bg-amber-100, .bg-orange-50, .bg-orange-100 {
+    background-color: #f9fafb !important; /* Pale gray instead of amber/orange */
+    color: #000000 !important; /* Dark text */
+  }
+
+  .border-amber-200, .border-amber-300, .border-orange-200, .border-orange-300 {
+    border-color: #d1d5db !important; /* Gray border instead of amber/orange */
   }
 
   /* Navbar Responsive Styles */
@@ -1754,10 +1959,12 @@ img.no-zoom:hover,
   .our-story-section {
     padding: 1rem !important;
     position: relative !important;
+    margin-bottom: 3rem !important; /* Add bottom margin to prevent overlap */
   }
 
   .founder-image-section {
-    margin-top: 1.5rem !important;
+    margin-top: 2rem !important;
+    margin-bottom: 3rem !important; /* Add bottom margin */
     padding: 0.75rem !important;
     position: relative !important;
     z-index: 10 !important;
@@ -2144,12 +2351,12 @@ img.no-zoom:hover,
 @keyframes pharaonicGlow {
   0%,
   100% {
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4),
-      0 0 20px rgba(255, 215, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4),
+      0 0 20px rgba(51, 153, 255, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   50% {
-    box-shadow: 0 12px 35px rgba(212, 175, 55, 0.6),
-      0 0 30px rgba(255, 215, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    box-shadow: 0 12px 35px rgba(0, 128, 255, 0.6),
+      0 0 30px rgba(51, 153, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 }
 
@@ -2554,16 +2761,76 @@ img.no-zoom:hover,
   }
 }
 
+/* Featured Blogs Section Mobile Spacing */
+@media (max-width: 768px) {
+  .featured-blogs-section {
+    margin-top: 4rem !important; /* Add top margin to prevent overlap */
+    padding-top: 2rem !important;
+    position: relative !important;
+    z-index: 5 !important;
+  }
+}
+
+/* Mobile Text Contrast Improvements */
+@media (max-width: 768px) {
+  /* Ensure dark text on light backgrounds */
+  .mobile-nav, .mobile-menu {
+    color: #1f2937 !important; /* Dark gray text */
+  }
+
+  .mobile-nav h1, .mobile-nav h2, .mobile-nav h3,
+  .mobile-menu h1, .mobile-menu h2, .mobile-menu h3 {
+    color: #111827 !important; /* Very dark text for headings */
+  }
+
+  .mobile-nav p, .mobile-nav span,
+  .mobile-menu p, .mobile-menu span {
+    color: #374151 !important; /* Medium dark text for body */
+  }
+
+  /* Mobile navigation links */
+  .mobile-nav a, .mobile-menu a {
+    color: #1f2937 !important;
+  }
+
+  .mobile-nav a:hover, .mobile-menu a:hover {
+    color: #0080ff !important; /* Ocean blue on hover */
+  }
+
+  /* Mobile buttons */
+  .mobile-nav button, .mobile-menu button {
+    color: #1f2937 !important;
+  }
+
+  /* Ensure sufficient contrast for all mobile text */
+  .mobile-mode * {
+    text-shadow: none !important;
+  }
+
+  /* Mobile card text */
+  .mobile-mode .card, .mobile-mode .card * {
+    color: #1f2937 !important;
+  }
+
+  /* Mobile form elements */
+  .mobile-mode input, .mobile-mode textarea, .mobile-mode select {
+    color: #1f2937 !important;
+    background-color: #ffffff !important;
+  }
+}
+
 /* Dark Mode Mobile Support */
 @media (prefers-color-scheme: dark) and (max-width: 768px) {
   .mobile-nav {
     background-color: rgba(0, 0, 0, 0.9) !important;
     backdrop-filter: blur(10px) !important;
+    color: #ffffff !important;
   }
 
   .card {
     background-color: rgba(0, 0, 0, 0.8) !important;
     border: 1px solid rgba(0, 128, 255, 0.3) !important;
+    color: #ffffff !important;
   }
 }
 

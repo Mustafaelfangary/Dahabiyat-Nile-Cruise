@@ -37,19 +37,19 @@ const environments: Record<string, Environment> = {
 
 // Determine current environment
 const getCurrentEnvironment = (): Environment => {
-  // In a real app, this could be determined by build configuration
-  // For now, we'll use production as default
-  const envName = __DEV__ ? 'development' : 'production';
-  
+  // FORCE PRODUCTION MODE - Always use the real domain
+  // This ensures the app connects to https://dahabiyatnilecruise.com
+  const envName = 'production';
+
   const env = environments[envName];
   if (!env) {
     console.warn(`Environment '${envName}' not found, falling back to production`);
     return environments.production;
   }
-  
-  console.log(`🌍 Current Environment: ${env.name}`);
+
+  console.log(`🌍 Current Environment: ${env.name} (FORCED)`);
   console.log(`🔗 API URL: ${env.apiUrl}`);
-  
+
   return env;
 };
 
@@ -94,15 +94,16 @@ export const APP_CONFIG = {
   BUNDLE_ID: 'com.dahabiyat.nilecruise',
   SCHEME: 'dahabiyat',
   
-  // Colors
+  // Colors - Pale backgrounds with dark text
   COLORS: {
     PRIMARY: '#0080ff',
     SECONDARY: '#f0f8ff',
     BACKGROUND: '#f8f9fa',
-    TEXT: '#333333',
-    ERROR: '#dc3545',
-    SUCCESS: '#28a745',
-    WARNING: '#ffc107',
+    TEXT: '#000000',        // Dark black text for pale backgrounds
+    TEXT_SECONDARY: '#333333', // Dark gray text
+    ERROR: '#001f3f',       // Navy blue instead of red
+    SUCCESS: '#0080ff',     // Ocean blue instead of green
+    WARNING: '#003d7a',     // Deep blue instead of orange
   },
   
   // Timeouts

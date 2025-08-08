@@ -145,7 +145,7 @@ export default function GalleryPage() {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 flex items-center justify-center">
         <div className="text-center">
           <div className="text-amber-800 text-4xl mb-4">𓇳 𓊪 𓈖</div>
           <p className="text-amber-800 font-bold text-xl">Failed to Load Gallery 𓏏</p>
@@ -155,13 +155,13 @@ export default function GalleryPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-amber-50 to-orange-50 relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 relative overflow-hidden">
       {/* Egyptian Pattern Background */}
       <EgyptianPatternBackground className="opacity-5" />
       <FloatingEgyptianElements />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-ocean-blue-900 via-navy-blue-800 to-deep-blue-900 overflow-hidden">
         <div className="absolute inset-0">
           <Image
             src="/images/gallery-hero-bg.jpg"
@@ -277,7 +277,7 @@ export default function GalleryPage() {
       </section>
 
       {/* Gallery Grid */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-deep-blue-50/30 relative">
         <Container maxWidth="lg">
           <AnimatedSection animation="slide-up">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

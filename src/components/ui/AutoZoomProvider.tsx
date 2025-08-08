@@ -47,7 +47,7 @@ export default function AutoZoomProvider({ children, enabled = true }: AutoZoomP
         const handleMouseEnter = () => {
           img.style.transform = 'scale(1.05)';
           img.style.filter = 'brightness(1.1)';
-          img.style.boxShadow = '0 8px 32px rgba(218, 165, 32, 0.3)';
+          img.style.boxShadow = '0 8px 32px rgba(0, 128, 255, 0.3)';
         };
 
         const handleMouseLeave = () => {
@@ -214,6 +214,6 @@ export const autoZoomStyles = `
   .zoomable-image-hover:hover {
     transform: scale(1.05);
     filter: brightness(1.1);
-    box-shadow: 0 8px 32px rgba(218, 165, 32, 0.3);
+    box-shadow: 0 8px 32px rgba(0, 128, 255, 0.3);
   }
 `;

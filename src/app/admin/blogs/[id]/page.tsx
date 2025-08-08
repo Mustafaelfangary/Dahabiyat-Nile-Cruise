@@ -198,7 +198,7 @@ export default function EditBlogPage() {
             <Button
               onClick={handleSave}
               disabled={saving}
-              className="bg-amber-600 hover:bg-amber-700 flex items-center gap-2"
+              className="bg-amber-600 hover:bg-blue-700 flex items-center gap-2"
             >
               <Save className="w-4 h-4" />
               {saving ? 'Saving...' : 'Save Changes'}
@@ -370,7 +370,7 @@ export default function EditBlogPage() {
                       {tag}
                       <button
                         onClick={() => removeTag(tag)}
-                        className="hover:text-amber-900"
+                        className="hover:text-ocean-blue-900"
                       >
                         <X className="w-3 h-3" />
                       </button>

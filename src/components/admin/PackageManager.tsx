@@ -49,25 +49,25 @@ const styles = `
   .admin-card {
     background: white;
     border-radius: 15px;
-    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 128, 255, 0.2);
+    border: 1px solid rgba(0, 128, 255, 0.3);
   }
   .admin-header {
-    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    background: linear-gradient(135deg, #0080ff 0%, #3399ff 100%);
     color: white;
     padding: 20px;
     border-radius: 15px 15px 0 0;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
   }
   .admin-btn-primary {
-    background: linear-gradient(135deg, #D4AF37 0%, #FFD700 100%);
+    background: linear-gradient(135deg, #0080ff 0%, #3399ff 100%);
     color: white;
     border: none;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 15px rgba(0, 128, 255, 0.4);
   }
   .admin-btn-primary:hover {
     background: linear-gradient(135deg, #B8941F 0%, #E6C200 100%);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.6);
+    box-shadow: 0 6px 20px rgba(0, 128, 255, 0.6);
   }
   .space-y-6 > * + * {
     margin-top: 1.5rem;
@@ -328,7 +328,7 @@ const PackageManager: React.FC = () => {
     return (
       <div className="admin-container">
         <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
-          <CircularProgress size={60} style={{ color: '#D4AF37' }} />
+          <CircularProgress size={60} style={{ color: '#0080ff' }} />
         </div>
       </div>
     );
@@ -393,7 +393,7 @@ const PackageManager: React.FC = () => {
                         label={pkg.category || 'DELUXE'}
                         size="small"
                         style={{
-                          backgroundColor: pkg.category === 'LUXURY' ? '#FFD700' :
+                          backgroundColor: pkg.category === 'LUXURY' ? '#3399ff' :
                                          pkg.category === 'DELUXE' ? '#C0C0C0' :
                                          pkg.category === 'PREMIUM' ? '#CD7F32' : '#90EE90',
                           color: 'black'
@@ -410,7 +410,7 @@ const PackageManager: React.FC = () => {
                       />
                     </TableCell>
                     <TableCell>
-                      {pkg.featured && <Star style={{ color: '#FFD700' }} />}
+                      {pkg.featured && <Star style={{ color: '#3399ff' }} />}
                     </TableCell>
                     <TableCell>
                       <IconButton
@@ -424,7 +424,7 @@ const PackageManager: React.FC = () => {
                       <IconButton
                         onClick={() => handleOpenDialog(pkg)}
                         size="small"
-                        style={{ color: '#D4AF37' }}
+                        style={{ color: '#0080ff' }}
                       >
                         <Edit />
                       </IconButton>
@@ -460,7 +460,7 @@ const PackageManager: React.FC = () => {
         fullWidth
         fullScreen={isMobile}
       >
-        <DialogTitle style={{ backgroundColor: '#D4AF37', color: 'white' }}>
+        <DialogTitle style={{ backgroundColor: '#0080ff', color: 'white' }}>
           <Inventory style={{ marginRight: '8px' }} />
           {editingPackage ? 'Edit Package' : 'Create New Package'}
         </DialogTitle>
@@ -709,7 +709,7 @@ const PackageManager: React.FC = () => {
             onClick={handleSubmit}
             variant="contained"
             disabled={submitting}
-            style={{ backgroundColor: '#D4AF37', color: 'white' }}
+            style={{ backgroundColor: '#0080ff', color: 'white' }}
           >
             {submitting ? <CircularProgress size={20} /> : (editingPackage ? 'Update' : 'Create')}
           </Button>

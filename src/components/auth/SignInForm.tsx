@@ -52,23 +52,45 @@ export default function SignInForm() {
 
       toast.success("Signed in successfully! Redirecting...");
 
-      // Get the callback URL or use role-based default
+      // Get the callback URL from URL params
       const urlParams = new URLSearchParams(window.location.search);
       let callbackUrl = urlParams.get('callbackUrl');
 
-      // If no callback URL specified, let NextAuth handle role-based redirect
-      if (!callbackUrl) {
-        // Force a page reload to trigger NextAuth's redirect callback
-        setTimeout(() => {
-          window.location.href = '/';
-        }, 500);
-        return;
-      }
+      // Get fresh session to determine role-based redirect
+      const session = await getSession();
 
-      // Use the specified callback URL
-      setTimeout(() => {
-        router.push(callbackUrl);
-      }, 500);
+      if (callbackUrl && callbackUrl !== '/auth/signin') {
+        // Use specified callback URL if it's not the sign-in page
+        setTimeout(() => {
+          router.push(callbackUrl);
+        }, 500);
+      } else if (session?.user?.role) {
+        // Role-based redirect
+        let redirectUrl = '/profile'; // Default for regular users
+
+        switch (session.user.role) {
+          case 'ADMIN':
+            redirectUrl = '/admin';
+            break;
+          case 'MANAGER':
+            redirectUrl = '/admin/dashboard';
+            break;
+          case 'GUIDE':
+            redirectUrl = '/guide/dashboard';
+            break;
+          default:
+            redirectUrl = '/profile';
+        }
+
+        setTimeout(() => {
+          router.push(redirectUrl);
+        }, 500);
+      } else {
+        // Fallback to homepage
+        setTimeout(() => {
+          router.push('/');
+        }, 500);
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       toast.error("Something went wrong. Please try again.");

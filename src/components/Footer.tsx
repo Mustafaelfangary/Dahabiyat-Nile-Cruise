@@ -47,7 +47,7 @@ function ContactDeveloperModal() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown text-xs rounded-full hover:from-egyptian-amber hover:to-orange-600 transition-colors duration-300"
+        className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown text-xs rounded-full hover:from-egyptian-amber hover:to-navy-blue-600 transition-colors duration-300"
       >
         <Mail className="w-3 h-3 mr-1" />
         {get('footer_developer_contact_text', 'Contact Developer')}
@@ -62,11 +62,11 @@ function ContactDeveloperModal() {
           <div
             className="relative w-full max-w-md max-h-[90vh] overflow-y-auto"
             style={{
-              background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(74, 20, 140, 0.9) 25%, rgba(139, 69, 19, 0.85) 50%, rgba(212, 175, 55, 0.9) 75%, rgba(255, 215, 0, 0.95) 100%)',
+              background: 'linear-gradient(135deg, rgba(26, 35, 126, 0.95) 0%, rgba(74, 20, 140, 0.9) 25%, rgba(139, 69, 19, 0.85) 50%, rgba(0, 128, 255, 0.9) 75%, rgba(51, 153, 255, 0.95) 100%)',
               backdropFilter: 'blur(25px)',
-              border: '3px solid rgba(212, 175, 55, 0.4)',
+              border: '3px solid rgba(0, 128, 255, 0.4)',
               borderRadius: '24px',
-              boxShadow: '0 25px 50px rgba(212, 175, 55, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 60px rgba(212, 175, 55, 0.2)'
+              boxShadow: '0 25px 50px rgba(0, 128, 255, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3), 0 0 60px rgba(0, 128, 255, 0.2)'
             }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -80,10 +80,10 @@ function ContactDeveloperModal() {
                   href={get('footer_developer_contact_url', 'mailto:developer@justx.com')}
                   className="flex items-center justify-center w-full px-6 py-3 rounded-xl font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl"
                   style={{
-                    background: 'linear-gradient(135deg, #D4AF37 0%, #FFD700 50%, #FFA500 100%)',
+                    background: 'linear-gradient(135deg, #0080ff 0%, #3399ff 50%, #0066cc 100%)',
                     color: '#FFFFFF',
                     textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-                    boxShadow: '0 8px 25px rgba(212, 175, 55, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
                     border: '2px solid rgba(255, 255, 255, 0.3)'
                   }}
                 >
@@ -154,7 +154,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
 
   if (contentLoading) {
     return (
-      <footer className="bg-gradient-to-b from-amber-50 to-orange-50 min-h-[200px] flex items-center justify-center">
+      <footer className="bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50 min-h-[200px] flex items-center justify-center">
         <div className="text-center">
           <EgyptHieroglyphic className="mx-auto mb-4" size="3rem" />
           <div className="text-egyptian-gold text-2xl mb-2">𓈖 𓂀 𓇳</div>
@@ -299,7 +299,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                   <Link
                     key={index}
                     href={social.href}
-                    className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center hover:bg-amber-200 transition-colors duration-300"
+                    className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors duration-300"
                   >
                     <social.icon className="w-5 h-5 text-egyptian-gold" />
                   </Link>
@@ -322,10 +322,10 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                 <input
                   type="email"
                   placeholder="Enter your email..."
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-egyptian-gold focus:ring-2 focus:ring-amber-200 text-gray-800 placeholder-gray-500"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-egyptian-gold focus:ring-2 focus:ring-blue-200 text-gray-800 placeholder-gray-500"
                 />
 
-                <button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown font-semibold py-3 px-6 rounded-lg hover:from-egyptian-amber hover:to-orange-600 transition-colors duration-300 flex items-center justify-center space-x-2">
+                <button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown font-semibold py-3 px-6 rounded-lg hover:from-egyptian-amber hover:to-navy-blue-600 transition-colors duration-300 flex items-center justify-center space-x-2">
                   <Send className="w-4 h-4" />
                   <span className="mr-1">𓇳</span>
                   <span>{get('footer_subscribe_button_text', 'Subscribe')}</span>

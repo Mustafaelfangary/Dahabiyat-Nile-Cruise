@@ -20,11 +20,16 @@ interface CleanBookingFormProps {
 }
 
 interface GuestDetail {
-  name: string;
-  email: string;
+  name?: string; // For backward compatibility
+  firstName?: string;
+  lastName?: string;
+  email?: string;
   phone?: string;
   age?: number;
   nationality?: string;
+  dateOfBirth?: string;
+  passport?: string;
+  dietaryRequirements?: string[];
 }
 
 export default function CleanBookingForm({

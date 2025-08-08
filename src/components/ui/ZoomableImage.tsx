@@ -112,13 +112,13 @@ export default function ZoomableImage({
           </div>
         </div>
 
-        {/* Egyptian-themed hover border */}
+        {/* Ocean blue themed hover border */}
         <div
-          className={`absolute inset-0 border-2 border-egyptian-gold transition-opacity duration-300 ${
+          className={`absolute inset-0 border-2 border-ocean-blue transition-opacity duration-300 ${
             isHovered ? 'opacity-100' : 'opacity-0'
           }`}
           style={{
-            background: 'linear-gradient(45deg, transparent 49%, rgba(218, 165, 32, 0.2) 50%, transparent 51%)',
+            background: 'linear-gradient(45deg, transparent 49%, rgba(0, 128, 255, 0.2) 50%, transparent 51%)',
           }}
         />
       </div>

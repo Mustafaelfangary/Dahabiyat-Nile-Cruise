@@ -71,7 +71,7 @@ export default function TermsPage() {
       <FloatingEgyptianElements />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-amber-900 via-orange-800 to-amber-900 overflow-hidden">
+      <section className="relative py-20 bg-gradient-to-br from-ocean-blue-900 via-navy-blue-800 to-deep-blue-900 overflow-hidden">
         <Container maxWidth="lg" className="relative z-10">
           <div className="text-center text-white">
             {/* Hieroglyphic Egypt at top */}
@@ -105,7 +105,7 @@ export default function TermsPage() {
       </section>
 
       {/* Terms Content */}
-      <section className="py-20 bg-gradient-to-b from-slate-50 to-amber-50/30 relative">
+      <section className="py-20 bg-gradient-to-b from-slate-50 to-deep-blue-50/30 relative">
         <Container maxWidth="md">
           <PharaohCard className="overflow-hidden">
             <div className="p-8 md:p-12">

@@ -118,7 +118,7 @@ export default function NewBlogPage() {
         <div className="flex items-center gap-4 mb-8">
           <a
             href="/admin/blogs"
-            className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-amber-600 text-black font-bold py-2 px-4 rounded transition-colors"
+            className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-blue-600 text-black font-bold py-2 px-4 rounded transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Blogs
@@ -129,7 +129,7 @@ export default function NewBlogPage() {
         <form onSubmit={handleSubmit} className="max-w-4xl mx-auto space-y-8">
           {/* Basic Information */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800 flex items-center gap-2">
                 <FileText className="w-5 h-5" />
                 Basic Information
@@ -145,7 +145,7 @@ export default function NewBlogPage() {
                     onChange={(e) => setFormData(prev => ({ ...prev, title: e.target.value }))}
                     placeholder="e.g., Discovering the Secrets of Ancient Temples"
                     required
-                    className="border-amber-200 focus:border-amber-400"
+                    className="border-amber-200 focus:border-blue-400"
                   />
                 </div>
                 <div>
@@ -155,7 +155,7 @@ export default function NewBlogPage() {
                     value={formData.slug}
                     onChange={(e) => setFormData(prev => ({ ...prev, slug: e.target.value }))}
                     placeholder="discovering-secrets-ancient-temples"
-                    className="border-amber-200 focus:border-amber-400"
+                    className="border-amber-200 focus:border-blue-400"
                   />
                   <p className="text-sm text-gray-500 mt-1">Leave empty to auto-generate from title</p>
                 </div>
@@ -168,7 +168,7 @@ export default function NewBlogPage() {
                   value={formData.excerpt}
                   onChange={(e) => setFormData(prev => ({ ...prev, excerpt: e.target.value }))}
                   placeholder="Brief summary for cards and previews"
-                  className="border-amber-200 focus:border-amber-400"
+                  className="border-amber-200 focus:border-blue-400"
                   rows={3}
                 />
               </div>
@@ -180,13 +180,13 @@ export default function NewBlogPage() {
                     id="author"
                     value={formData.author}
                     onChange={(e) => setFormData(prev => ({ ...prev, author: e.target.value }))}
-                    className="border-amber-200 focus:border-amber-400"
+                    className="border-amber-200 focus:border-blue-400"
                   />
                 </div>
                 <div>
                   <Label htmlFor="category">Category</Label>
                   <Select value={formData.category} onValueChange={(value) => setFormData(prev => ({ ...prev, category: value }))}>
-                    <SelectTrigger className="border-amber-200 focus:border-amber-400">
+                    <SelectTrigger className="border-amber-200 focus:border-blue-400">
                       <SelectValue placeholder="Select a category" />
                     </SelectTrigger>
                     <SelectContent>
@@ -204,7 +204,7 @@ export default function NewBlogPage() {
 
           {/* Content */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800">Content</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -216,7 +216,7 @@ export default function NewBlogPage() {
                   onChange={(e) => setFormData(prev => ({ ...prev, content: e.target.value }))}
                   placeholder="Write your ancient chronicle here... You can use HTML for formatting."
                   required
-                  className="border-amber-200 focus:border-amber-400 min-h-[400px]"
+                  className="border-amber-200 focus:border-blue-400 min-h-[400px]"
                   rows={20}
                 />
                 <p className="text-sm text-gray-500 mt-2">
@@ -228,7 +228,7 @@ export default function NewBlogPage() {
 
           {/* Media */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800">Media & Images</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
@@ -257,7 +257,7 @@ export default function NewBlogPage() {
 
           {/* Tags */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800">Tags</CardTitle>
             </CardHeader>
             <CardContent className="p-6">
@@ -268,7 +268,7 @@ export default function NewBlogPage() {
                       value={tag}
                       onChange={(e) => updateTag(index, e.target.value)}
                       placeholder="e.g., ancient-egypt, temples, history"
-                      className="border-amber-200 focus:border-amber-400"
+                      className="border-amber-200 focus:border-blue-400"
                     />
                     <Button
                       type="button"
@@ -285,7 +285,7 @@ export default function NewBlogPage() {
                   type="button"
                   variant="outline"
                   onClick={addTag}
-                  className="border-amber-300 text-amber-800 hover:bg-amber-50"
+                  className="border-amber-300 text-amber-800 hover:bg-blue-50"
                 >
                   <Plus className="w-4 h-4 mr-2" />
                   Add Tag
@@ -296,7 +296,7 @@ export default function NewBlogPage() {
 
           {/* SEO */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800">SEO Settings</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-6">
@@ -307,7 +307,7 @@ export default function NewBlogPage() {
                   value={formData.seoTitle}
                   onChange={(e) => setFormData(prev => ({ ...prev, seoTitle: e.target.value }))}
                   placeholder="Leave empty to use blog title"
-                  className="border-amber-200 focus:border-amber-400"
+                  className="border-amber-200 focus:border-blue-400"
                 />
               </div>
               <div>
@@ -317,7 +317,7 @@ export default function NewBlogPage() {
                   value={formData.seoDescription}
                   onChange={(e) => setFormData(prev => ({ ...prev, seoDescription: e.target.value }))}
                   placeholder="Meta description for search engines"
-                  className="border-amber-200 focus:border-amber-400"
+                  className="border-amber-200 focus:border-blue-400"
                   rows={2}
                 />
               </div>
@@ -326,7 +326,7 @@ export default function NewBlogPage() {
 
           {/* Settings */}
           <Card className="border-2 border-amber-200">
-            <CardHeader className="bg-gradient-to-r from-amber-100 to-orange-100">
+            <CardHeader className="bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100">
               <CardTitle className="text-amber-800">Publication Settings</CardTitle>
             </CardHeader>
             <CardContent className="p-6 space-y-4">
@@ -354,7 +354,7 @@ export default function NewBlogPage() {
             <Button
               type="submit"
               disabled={loading}
-              className="bg-amber-600 hover:bg-amber-700 text-black flex-1"
+              className="bg-amber-600 hover:bg-blue-700 text-black flex-1"
             >
               {loading ? (
                 <>Creating...</>
@@ -376,7 +376,7 @@ export default function NewBlogPage() {
                   toast.error('Please add title and content first');
                 }
               }}
-              className="border-amber-300 text-amber-800 hover:bg-amber-50"
+              className="border-amber-300 text-amber-800 hover:bg-blue-50"
             >
               <Eye className="w-4 h-4 mr-2" />
               Preview
@@ -385,7 +385,7 @@ export default function NewBlogPage() {
               type="button"
               variant="outline"
               onClick={() => window.location.href = '/admin/blogs'}
-              className="border-amber-300 text-amber-800 hover:bg-amber-50"
+              className="border-amber-300 text-amber-800 hover:bg-blue-50"
             >
               Cancel
             </Button>

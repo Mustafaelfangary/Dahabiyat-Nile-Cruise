@@ -113,7 +113,7 @@ export default function ManagerDashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-100">
+    <div className="min-h-screen bg-gradient-to-br from-ocean-blue-50 to-navy-blue-100">
       <div className="p-6">
         {/* Header */}
         <div className="mb-8">

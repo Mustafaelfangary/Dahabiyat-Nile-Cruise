@@ -42,7 +42,7 @@ export default function BookingsPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <div className="w-16 h-16 bg-gradient-to-br from-ocean-blue to-amber-600 rounded-full flex items-center justify-center mb-4 mx-auto animate-pulse">
+          <div className="w-16 h-16 bg-gradient-to-br from-ocean-blue to-deep-blue-600 rounded-full flex items-center justify-center mb-4 mx-auto animate-pulse">
             <Ship className="w-8 h-8 text-text-primary" />
           </div>
           <p className="text-ocean-blue text-xl">Loading your royal bookings...</p>
@@ -70,7 +70,7 @@ export default function BookingsPage() {
         <div className="text-center mb-12">
           <div className="flex items-center justify-center gap-4 mb-6">
             <span className="text-ocean-blue text-5xl animate-pulse">𓇳</span>
-            <div className="w-20 h-20 bg-gradient-to-br from-ocean-blue to-amber-600 rounded-full flex items-center justify-center shadow-2xl">
+            <div className="w-20 h-20 bg-gradient-to-br from-ocean-blue to-deep-blue-600 rounded-full flex items-center justify-center shadow-2xl">
               <Calendar className="w-10 h-10 text-text-primary" />
             </div>
             <span className="text-ocean-blue text-5xl animate-pulse">𓇳</span>
@@ -107,7 +107,7 @@ export default function BookingsPage() {
               <p className="text-text-secondary mb-6">Begin your royal adventure by booking a dahabiya cruise</p>
               <Link 
                 href="/booking"
-                className="bg-gradient-to-r from-ocean-blue to-amber-600 text-black px-8 py-3 rounded-xl font-bold hover:from-amber-600 hover:to-ocean-blue transition-all duration-300"
+                className="bg-gradient-to-r from-ocean-blue to-deep-blue-600 text-black px-8 py-3 rounded-xl font-bold hover:from-ocean-blue-600 hover:to-ocean-blue transition-all duration-300"
               >
                 Book Your First Journey
               </Link>
