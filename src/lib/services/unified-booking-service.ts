@@ -13,11 +13,16 @@ export const bookingSchema = z.object({
   specialRequests: z.string().optional(),
   totalPrice: z.number().min(0, "Total price must be positive"),
   guestDetails: z.array(z.object({
-    name: z.string().min(1, "Name is required"),
-    email: z.string().email("Valid email is required"),
+    name: z.string().min(1, "Name is required").optional(), // For backward compatibility
+    firstName: z.string().optional(),
+    lastName: z.string().optional(),
+    email: z.string().email("Valid email is required").optional(),
     phone: z.string().optional(),
     age: z.number().optional(),
     nationality: z.string().optional(),
+    dateOfBirth: z.string().optional(),
+    passport: z.string().optional(),
+    dietaryRequirements: z.array(z.string()).optional(),
   })).optional().default([]),
 });
 
@@ -146,11 +151,36 @@ export class CleanBookingService {
         let guestDetailsToCreate = validatedData.guestDetails;
         if (!guestDetailsToCreate || guestDetailsToCreate.length === 0) {
           if (user?.name && user?.email) {
+            // Split name into firstName and lastName
+            const nameParts = user.name.trim().split(' ');
+            const firstName = nameParts[0] || 'Guest';
+            const lastName = nameParts.slice(1).join(' ') || 'User';
+
             guestDetailsToCreate = [{
-              name: user.name,
-              email: user.email
+              firstName,
+              lastName,
+              dateOfBirth: new Date('1990-01-01'), // Default date of birth
+              nationality: 'Unknown', // Default nationality
+              passport: null,
+              dietaryRequirements: []
             }];
           }
+        } else {
+          // Transform existing guest details to match schema
+          guestDetailsToCreate = guestDetailsToCreate.map(guest => {
+            const nameParts = guest.name?.trim().split(' ') || ['Guest', 'User'];
+            const firstName = nameParts[0] || 'Guest';
+            const lastName = nameParts.slice(1).join(' ') || 'User';
+
+            return {
+              firstName,
+              lastName,
+              dateOfBirth: guest.dateOfBirth ? new Date(guest.dateOfBirth) : new Date('1990-01-01'),
+              nationality: guest.nationality || 'Unknown',
+              passport: guest.passport || null,
+              dietaryRequirements: guest.dietaryRequirements || []
+            };
+          });
         }
 
         // Create booking with guest details
@@ -208,6 +238,14 @@ export class CleanBookingService {
       } catch (emailError) {
         console.error('Failed to send booking emails:', emailError);
         // Don't fail the booking if email fails
+      }
+
+      // Create admin notification in database
+      try {
+        await this.createAdminNotification(result.booking, result.itemDetails);
+      } catch (notificationError) {
+        console.error('Failed to create admin notification:', notificationError);
+        // Don't fail the booking if notification fails
       }
 
       return { success: true, booking: result.booking };
@@ -317,35 +355,46 @@ export class CleanBookingService {
    * Get all bookings (admin only)
    */
   static async getAllBookings() {
-    return await prisma.booking.findMany({
-      include: {
-        user: {
-          select: {
-            id: true,
-            name: true,
-            email: true
-          }
+    try {
+      console.log("📋 Fetching all bookings from database...");
+
+      const bookings = await prisma.booking.findMany({
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true
+            }
+          },
+          dahabiya: {
+            select: {
+              id: true,
+              name: true,
+              mainImage: true,
+              pricePerDay: true
+            }
+          },
+          package: {
+            select: {
+              id: true,
+              name: true,
+              mainImageUrl: true,
+              price: true
+            }
+          },
+          guestDetails: true,
         },
-        dahabiya: {
-          select: {
-            id: true,
-            name: true,
-            mainImageUrl: true,
-            pricePerDay: true
-          }
-        },
-        package: {
-          select: {
-            id: true,
-            name: true,
-            mainImageUrl: true,
-            price: true
-          }
-        },
-        guestDetails: true,
-      },
-      orderBy: { createdAt: 'desc' }
-    });
+        orderBy: { createdAt: 'desc' }
+      });
+
+      console.log(`✅ Successfully fetched ${bookings.length} bookings`);
+      return bookings;
+
+    } catch (error) {
+      console.error("❌ Error in getAllBookings:", error);
+      throw new Error(`Failed to fetch bookings: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
   }
 
   /**
@@ -497,34 +546,119 @@ export class CleanBookingService {
    */
   private static async sendBookingEmails(booking: any, itemDetails: any) {
     try {
-      const itemName = booking.type === 'DAHABIYA' ? itemDetails.name : itemDetails.name;
-      const startDate = new Date(booking.startDate).toLocaleDateString();
-      const endDate = new Date(booking.endDate).toLocaleDateString();
+      console.log('📧 Sending booking confirmation emails...');
 
-      // Email to customer
-      await sendEmail({
-        to: booking.user.email,
-        subject: `Booking Confirmation - ${booking.bookingReference}`,
-        html: `
-          <h2>Booking Confirmation</h2>
-          <p>Dear ${booking.user.name},</p>
-          <p>Your booking has been received and is being processed.</p>
-          <div style="background: #f5f5f5; padding: 20px; margin: 20px 0; border-radius: 8px;">
-            <h3>Booking Details</h3>
-            <p><strong>Reference:</strong> ${booking.bookingReference}</p>
-            <p><strong>Type:</strong> ${booking.type}</p>
-            <p><strong>Item:</strong> ${itemName}</p>
-            <p><strong>Dates:</strong> ${startDate} - ${endDate}</p>
-            <p><strong>Guests:</strong> ${booking.guests}</p>
-            <p><strong>Total Price:</strong> $${booking.totalPrice}</p>
-            <p><strong>Status:</strong> ${booking.status}</p>
-          </div>
-          <p>We will contact you shortly to confirm your booking.</p>
-          <p>Best regards,<br>Cleopatra Dahabiyat Team</p>
-        `
-      });
+      // Prepare email data
+      const emailData = {
+        user: booking.user,
+        booking: {
+          ...booking,
+          bookingReference: booking.bookingReference,
+          startDate: booking.startDate,
+          endDate: booking.endDate,
+          guests: booking.guests,
+          totalPrice: booking.totalPrice,
+          status: booking.status,
+          specialRequests: booking.specialRequests
+        },
+        ...(booking.type === 'DAHABIYA' ? { dahabiya: itemDetails } : { package: itemDetails })
+      };
+
+      // Send customer confirmation email
+      console.log('📧 Sending customer confirmation email to:', booking.user.email);
+      if (booking.type === 'PACKAGE') {
+        await sendEmail({
+          to: booking.user.email,
+          subject: '🏺 Your Sacred Journey Awaits - Package Booking Confirmed',
+          template: 'package-booking-confirmation',
+          data: emailData
+        });
+      } else {
+        await sendEmail({
+          to: booking.user.email,
+          subject: '🏺 Your Sacred Journey Awaits - Booking Confirmed',
+          template: 'booking-confirmation',
+          data: emailData
+        });
+      }
+
+      // Send admin notification email
+      const adminEmail = process.env.ADMIN_EMAIL || 'admin@cleopatra-dahabiyat.com';
+      console.log('📧 Sending admin notification email to:', adminEmail);
+
+      if (booking.type === 'PACKAGE') {
+        await sendEmail({
+          to: adminEmail,
+          subject: `🚨 New Package Booking Received - ${booking.bookingReference}`,
+          template: 'admin-package-booking-notification',
+          data: emailData
+        });
+      } else {
+        await sendEmail({
+          to: adminEmail,
+          subject: `🚨 New Dahabiya Booking Received - ${booking.bookingReference}`,
+          template: 'admin-booking-notification',
+          data: emailData
+        });
+      }
+
+      console.log('✅ All booking emails sent successfully');
     } catch (error) {
-      console.error('Email sending error:', error);
+      console.error('❌ Email sending error:', error);
+      throw error; // Re-throw to see the actual error
+    }
+  }
+
+  /**
+   * Create admin notification in database
+   */
+  private static async createAdminNotification(booking: any, itemDetails: any) {
+    try {
+      console.log('🔔 Creating admin notification for booking:', booking.bookingReference);
+
+      const itemName = booking.type === 'DAHABIYA' ? itemDetails.name : itemDetails.name;
+
+      // Get all admin users
+      const adminUsers = await prisma.user.findMany({
+        where: { role: 'ADMIN' },
+        select: { id: true }
+      });
+
+      if (adminUsers.length === 0) {
+        console.log('⚠️ No admin users found, skipping notification creation');
+        return;
+      }
+
+      // Create notification for each admin user
+      const notificationPromises = adminUsers.map(admin =>
+        prisma.notification.create({
+          data: {
+            type: 'BOOKING_CREATED',
+            title: `New ${booking.type} Booking Received`,
+            message: `${booking.user.name || 'Guest'} booked ${itemName} for ${booking.guests} guests`,
+            data: {
+              bookingId: booking.id,
+              bookingReference: booking.bookingReference,
+              customerName: booking.user.name || 'Guest',
+              customerEmail: booking.user.email,
+              bookingType: booking.type,
+              itemName: itemName,
+              startDate: booking.startDate,
+              endDate: booking.endDate,
+              guests: booking.guests,
+              totalPrice: booking.totalPrice,
+              status: booking.status
+            },
+            userId: admin.id
+          }
+        })
+      );
+
+      await Promise.all(notificationPromises);
+      console.log(`✅ Admin notifications created for ${adminUsers.length} admin users`);
+    } catch (error) {
+      console.error('❌ Failed to create admin notification:', error);
+      throw error;
     }
   }
 

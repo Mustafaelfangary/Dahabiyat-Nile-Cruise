@@ -37,7 +37,7 @@ interface Dahabiya {
   name: string;
   description: string;
   shortDescription?: string;
-  mainImageUrl?: string;
+  mainImage?: string;
   maxGuests?: number;
   cabins?: number;
   length?: number;
@@ -255,7 +255,7 @@ const DahabiyatScreen: React.FC = () => {
               >
                 <Card style={styles.card}>
                   <Image
-                    source={{ uri: dahabiya.mainImageUrl || '/images/default-dahabiya.jpg' }}
+                    source={{ uri: dahabiya.mainImage || '/images/default-dahabiya.jpg' }}
                     style={styles.dahabiyaImage}
                     resizeMode="cover"
                   />
