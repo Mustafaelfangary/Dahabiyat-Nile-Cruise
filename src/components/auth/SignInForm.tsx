@@ -55,25 +55,46 @@ export default function SignInForm() {
         }
       }
 
-      // Get callback URL from search params
-      const urlParams = new URLSearchParams(window.location.search);
-      const callbackUrl = urlParams.get('callbackUrl') || '/profile';
-
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: callbackUrl,
-        redirect: true, // Let NextAuth handle the redirect
+        redirect: false, // Handle redirect manually to avoid baseUrl issues
       });
 
-      // This code will only run if there's an error (redirect: true means success redirects automatically)
       if (result?.error) {
         toast.error("Invalid email or password");
         return;
       }
 
-      // This shouldn't be reached if redirect: true and sign-in is successful
-      toast.success("Signed in successfully!");
+      if (result?.ok) {
+        toast.success("Signed in successfully!");
+
+        // Wait for session to be established
+        await new Promise(resolve => setTimeout(resolve, 500));
+
+        // Get callback URL from search params or determine based on role
+        const urlParams = new URLSearchParams(window.location.search);
+        const callbackUrl = urlParams.get('callbackUrl');
+
+        if (callbackUrl) {
+          // Use the callback URL but ensure it's relative
+          const targetUrl = callbackUrl.startsWith('/') ? callbackUrl : `/${callbackUrl}`;
+          window.location.href = targetUrl;
+        } else {
+          // Get session to determine role-based redirect
+          const session = await getSession();
+
+          if (session?.user?.role === 'ADMIN') {
+            window.location.href = '/admin';
+          } else if (session?.user?.role === 'MANAGER') {
+            window.location.href = '/admin/dashboard';
+          } else if (session?.user?.role === 'GUIDE') {
+            window.location.href = '/guide/dashboard';
+          } else {
+            window.location.href = '/profile';
+          }
+        }
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       toast.error("Something went wrong. Please try again.");
