@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { Upload } from "lucide-react";
 import Image from "next/image";
 import EmailVerificationForm from "./EmailVerificationForm";
@@ -182,29 +182,11 @@ export default function SignUpForm() {
       if (result?.ok) {
         toast.success("Account verified and signed in! Welcome to Dahabiyat!");
 
-        // Get the session to determine redirect
-        const session = await fetch('/api/auth/session').then(res => res.json());
+        // Wait a moment for the session to be established
+        await new Promise(resolve => setTimeout(resolve, 500));
 
-        if (session?.user?.role) {
-          // Role-based redirect
-          switch (session.user.role) {
-            case 'ADMIN':
-              router.push('/admin');
-              break;
-            case 'MANAGER':
-              router.push('/admin/dashboard');
-              break;
-            case 'GUIDE':
-              router.push('/guide/dashboard');
-              break;
-            default:
-              router.push('/profile');
-              break;
-          }
-        } else {
-          // Fallback to profile
-          router.push('/profile');
-        }
+        // Force full page reload to ensure middleware recognizes the session
+        window.location.href = '/profile'; // New users always go to profile first
       }
     } catch (error) {
       console.error('Auto sign-in error:', error);
