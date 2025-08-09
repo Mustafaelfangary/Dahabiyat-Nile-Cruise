@@ -128,7 +128,14 @@ export default function ProfilePage() {
       const response = await fetch('/api/user/stats');
       if (response.ok) {
         const data = await response.json();
-        setUserStats(data);
+        // Ensure all numeric values are properly set
+        setUserStats({
+          totalBookings: data.totalBookings || 0,
+          totalSpent: data.totalSpent || 0,
+          favoriteDestination: data.favoriteDestination || 'Egypt',
+          memberSince: data.memberSince || '2024',
+          rewardPoints: data.rewardPoints || 0
+        });
       }
     } catch (error) {
       console.error('Error fetching user stats:', error);
@@ -295,7 +302,7 @@ export default function ProfilePage() {
     };
   };
 
-  const rewardTier = getRewardTier(userStats.rewardPoints);
+  const rewardTier = getRewardTier(userStats.rewardPoints || 0);
   const RewardIcon = rewardTier.icon;
 
   return (
@@ -442,7 +449,7 @@ export default function ProfilePage() {
                           <Crown className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
                           <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓇳</div>
                         </div>
-                        <div className="text-2xl font-bold text-white drop-shadow-lg">{userStats.rewardPoints.toLocaleString()}</div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">{(userStats.rewardPoints || 0).toLocaleString()}</div>
                         <div className="text-sm text-white/90 font-medium">Points</div>
                       </div>
                       <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
@@ -450,7 +457,7 @@ export default function ProfilePage() {
                           <Gift className="w-6 h-6 mx-auto mb-2 text-ocean-blue" />
                           <div className="absolute -top-1 -right-1 text-xs text-ocean-blue">𓂀</div>
                         </div>
-                        <div className="text-2xl font-bold text-white drop-shadow-lg">${userStats.totalSpent.toLocaleString()}</div>
+                        <div className="text-2xl font-bold text-white drop-shadow-lg">${(userStats.totalSpent || 0).toLocaleString()}</div>
                         <div className="text-sm text-white/90 font-medium">Spent</div>
                       </div>
                       <div className="bg-gradient-to-br from-white/25 to-ocean-blue/20 backdrop-blur-sm rounded-lg p-4 text-center border border-ocean-blue/30 hover:border-ocean-blue/50 transition-all">
@@ -936,7 +943,7 @@ export default function ProfilePage() {
                           {rewardTier.name}
                           <span className="text-xl">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
                         </div>
-                        <div className="text-lg text-gray-700 font-semibold">{userStats.rewardPoints.toLocaleString()} points</div>
+                        <div className="text-lg text-gray-700 font-semibold">{(userStats.rewardPoints || 0).toLocaleString()} points</div>
                       </div>
                     </div>
                   </div>
@@ -949,14 +956,14 @@ export default function ProfilePage() {
                         <span className="text-ocean-blue">𓏏</span>
                       </span>
                       <span className="text-lg text-gray-600 font-medium">
-                        {Math.min(userStats.rewardPoints, 10000)}/10000 points
+                        {Math.min(userStats.rewardPoints || 0, 10000)}/10000 points
                       </span>
                     </div>
                     <div className="relative">
                       <div className="pharaonic-progress w-full h-4 shadow-inner">
                         <div
                           className="pharaonic-progress-fill h-4 rounded-full transition-all duration-700 shadow-lg relative overflow-hidden"
-                          style={{ width: `${Math.min((userStats.rewardPoints / 10000) * 100, 100)}%` }}
+                          style={{ width: `${Math.min(((userStats.rewardPoints || 0) / 10000) * 100, 100)}%` }}
                         >
                         </div>
                       </div>

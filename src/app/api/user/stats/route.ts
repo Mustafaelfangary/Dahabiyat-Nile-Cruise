@@ -57,7 +57,7 @@ export async function GET(request: NextRequest) {
       totalSpent,
       favoriteDestination,
       memberSince,
-      loyaltyPoints
+      rewardPoints: loyaltyPoints // Match the expected property name in profile page
     };
 
     return NextResponse.json(stats);
