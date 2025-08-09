@@ -240,11 +240,11 @@ const ContactDeveloperScreen: React.FC = () => {
 
             {/* Egyptian Decorative Elements */}
             <View style={styles.decorativeElements}>
-              <HieroglyphicText text="𓈖" size="small" animated={true} animationType="pulse" />
-              <HieroglyphicText text="𓂀" size="small" animated={true} animationType="bounce" />
-              <HieroglyphicText text="𓏏" size="small" animated={true} animationType="pulse" />
-              <HieroglyphicText text="𓇯" size="small" animated={true} animationType="bounce" />
-              <HieroglyphicText text="𓊃" size="small" animated={true} animationType="pulse" />
+              <HieroglyphicText text="𓎢" size="small" animated={true} animationType="pulse" />
+              <HieroglyphicText text="𓃭" size="small" animated={true} animationType="bounce" />
+              <HieroglyphicText text="𓅂" size="small" animated={true} animationType="pulse" />
+              <HieroglyphicText text="𓅱" size="small" animated={true} animationType="bounce" />
+              <HieroglyphicText text="𓄿" size="small" animated={true} animationType="pulse" />
             </View>
           </Card>
         </ScrollView>

@@ -54,25 +54,25 @@ interface PharaonicPageTemplateProps {
 const HIEROGLYPHIC_TEXTS = {
   dahabiya: {
     title: '',
-    subtitle: '𓇯 Golden Vessel of the Eternal Nile 𓇯',
-    loading: '𓈖 Loading Dahabiya... 𓊪',
-    loadingSubtitle: '𓇯 vessel of the Nile awakening 𓇯'
+    subtitle: 'Golden Vessel of the Eternal Nile',
+    loading: 'Loading Dahabiya...',
+    loadingSubtitle: 'vessel of the Nile awakening'
   },
   package: {
     title: '',
-    subtitle: '𓇯 Journey Through Ancient Egypt 𓇯',
-    loading: '𓈖 Loading Package... 𓊪',
-    loadingSubtitle: '𓇯 Ancient journey awakening 𓇯'
+    subtitle: 'Journey Through Ancient Egypt',
+    loading: 'Loading Package...',
+    loadingSubtitle: 'Ancient journey awakening'
   }
 };
 
 const STAT_HIEROGLYPHS = {
-  capacity: '𓂀 Max Guests 𓂀',
-  maxGuests: '𓂀 Max Guests 𓂀',
-  rating: '𓇳 Rating 𓇳',
-  pricePerDay: '𓊪 Per Day 𓊪',
-  price: '𓊪 Price 𓊪',
-  durationDays: '𓇯 Days 𓇯'
+  capacity: 'Max Guests',
+  maxGuests: 'Max Guests',
+  rating: 'Rating',
+  pricePerDay: 'Per Day',
+  price: 'Price',
+  durationDays: 'Days'
 };
 
 export function PharaonicPageTemplate({
@@ -165,7 +165,7 @@ export function PharaonicPageTemplate({
             {/* Hieroglyphic Egypt at top */}
             <div className="text-center mb-8">
               <div className="text-4xl font-bold mb-2">
-                <span className="text-blue-600">𓎢</span><span className="text-emerald-600">𓃭</span><span className="text-blue-600">𓅂</span><span className="text-emerald-600">𓅱</span><span className="text-blue-600">𓊪</span><span className="text-emerald-600">𓄿</span><span className="text-blue-600">𓏏</span><span className="text-emerald-600">𓂋</span><span className="text-blue-600">𓄿</span>
+                <span className="text-blue-600">𓎢</span><span className="text-emerald-600">𓃭</span><span className="text-blue-600">𓅂</span><span className="text-emerald-600">𓅱</span><span className="text-emerald-600">𓄿</span><span className="text-emerald-600">𓂋</span><span className="text-blue-600">𓄿</span>
               </div>
             </div>
 

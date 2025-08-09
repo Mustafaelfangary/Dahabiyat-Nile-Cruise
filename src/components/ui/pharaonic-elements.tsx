@@ -38,10 +38,10 @@ export const ObeliskContainer = ({ children, className = "" }: { children: React
         
         {/* Hieroglyphic Decorations */}
         <div className="absolute top-4 left-4 text-ocean-blue/60 text-sm">
-          𓂀 𓈖 𓇳
+          𓎢 𓃭 𓅂
         </div>
         <div className="absolute top-4 right-4 text-ocean-blue/60 text-sm">
-          𓊪 𓏏 𓇯
+          𓅱 𓄿 𓂋
         </div>
         
         {/* Content */}
@@ -50,9 +50,9 @@ export const ObeliskContainer = ({ children, className = "" }: { children: React
         </div>
         
         {/* Bottom Hieroglyphic Border */}
-        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-r from-ocean-blue/20 via-coral-bright/40 to-ocean-blue/20 
+        <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-r from-ocean-blue/20 via-coral-bright/40 to-ocean-blue/20
                         flex items-center justify-center text-ocean-blue/80 text-xs">
-          𓈖 𓊪 𓏏 𓇯 𓂀 𓈖 𓇳 𓊪 𓏏 𓇯
+          𓎢 𓃭 𓅂 𓅱 𓄿 𓎢 𓂋 𓃭 𓅂 𓅱
         </div>
       </div>
     </div>
@@ -72,15 +72,15 @@ export const PharaohCard = ({ children, className = "", title }: { children: Rea
       <div className="absolute bottom-0 right-0 w-16 h-16 bg-gradient-to-tl from-ocean-blue/30 to-transparent rounded-tl-full"></div>
       
       {/* Hieroglyphic Corner Elements */}
-      <div className="absolute top-2 left-2 text-ocean-blue/60 text-xs">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</div>
+      <div className="absolute top-2 left-2 text-ocean-blue/60 text-xs">𓎢𓃭𓅂𓅱𓄿𓂋𓄿</div>
       
       {/* Title with Hieroglyphic Accent */}
       {title && (
         <div className="p-6 pb-0">
           <h3 className="text-2xl font-heading font-bold text-ocean-blue mb-2 flex items-center gap-3">
-            <span className="text-coral-bright">𓈖</span>
+            <span className="text-coral-bright">𓎢</span>
             {title}
-            <span className="text-coral-bright">𓈖</span>
+            <span className="text-coral-bright">𓎢</span>
           </h3>
           <EgyptianBorder className="mb-4" />
         </div>
@@ -156,7 +156,7 @@ export const RoyalCrown = ({ className = "" }: { className?: string }) => {
         <circle cx="20" cy="10" r="2" fill="#3399ff" stroke="#B8860B" strokeWidth="0.8"/>
 
         {/* Hieroglyphic Symbols */}
-        <text x="10" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</text>
+        <text x="10" y="35" fontSize="6" fill="#0080ff" fontFamily="serif">𓎢𓃭𓅂𓅱𓄿𓂋𓄿</text>
 
         <defs>
           <linearGradient id="pharaoh-white-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -213,7 +213,7 @@ export const HieroglyphicDivider = ({ className = "" }: { className?: string }) 
     <div className={`flex items-center justify-center my-8 ${className}`}>
       <div className="flex-1 h-px bg-gradient-to-r from-transparent via-coral-bright/50 to-ocean-blue/50"></div>
       <div className="px-6 text-ocean-blue text-2xl">
-        𓈖 𓂀 𓇳 𓊪 𓏏 𓇯 𓂀 𓈖
+        𓎢𓃭𓅂𓅱𓄿𓂋𓄿
       </div>
       <div className="flex-1 h-px bg-gradient-to-l from-transparent via-coral-bright/50 to-ocean-blue/50"></div>
     </div>
@@ -395,8 +395,8 @@ export const PharaonicObelisk = ({ children, className = "" }: { children: React
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-coral-bright/5 to-transparent" />
 
       {/* Hieroglyphic borders */}
-      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓇳</div>
-      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓊪</div>
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓎢</div>
+      <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-ocean-blue text-2xl">𓃭</div>
 
       <div className="relative z-10 p-8">
         {children}
@@ -494,14 +494,14 @@ export const PharaohCrownSymbol = ({ className = "", size = "1em" }: { className
 // Hieroglyphic "Egypt" Component - Single unified text
 export const EgyptHieroglyphic = ({ className = "", size = "2rem" }: { className?: string; size?: string }) => (
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
-    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓄿𓂋𓄿</span>
   </div>
 );
 
 // Alternative Egypt Hieroglyphic - Same unified text
 export const EgyptHieroglyphicAlt = ({ className = "", size = "2rem" }: { className?: string; size?: string }) => (
   <div className={`inline-flex items-center justify-center ${className}`} style={{ fontSize: size }}>
-    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+    <span className="text-ocean-blue animate-pulse">𓎢𓃭𓅂𓅱𓄿𓂋𓄿</span>
   </div>
 );
 

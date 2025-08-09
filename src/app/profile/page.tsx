@@ -309,11 +309,11 @@ export default function ProfilePage() {
 
       {/* Enhanced Floating Hieroglyphic Elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 text-6xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow">𓇳</div>
-        <div className="absolute top-40 right-20 text-4xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '1s'}}>𓂀</div>
-        <div className="absolute bottom-40 left-20 text-5xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow" style={{animationDelay: '2s'}}>𓊪</div>
-        <div className="absolute bottom-20 right-10 text-3xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '0.5s'}}>𓈖</div>
-        <div className="absolute top-1/2 left-1/4 text-4xl text-ocean-blue/10 float-hieroglyph" style={{animationDelay: '1.5s'}}>𓏏</div>
+        <div className="absolute top-20 left-10 text-6xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow">𓎢</div>
+        <div className="absolute top-40 right-20 text-4xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '1s'}}>𓃭</div>
+        <div className="absolute bottom-40 left-20 text-5xl text-ocean-blue/20 float-hieroglyph hieroglyph-glow" style={{animationDelay: '2s'}}>𓅂</div>
+        <div className="absolute bottom-20 right-10 text-3xl text-ocean-blue/15 float-hieroglyph" style={{animationDelay: '0.5s'}}>𓅱</div>
+        <div className="absolute top-1/2 left-1/4 text-4xl text-ocean-blue/10 float-hieroglyph" style={{animationDelay: '1.5s'}}>𓄿</div>
         <div className="absolute top-1/3 right-1/3 text-5xl text-ocean-blue/15 float-hieroglyph hieroglyph-glow" style={{animationDelay: '3s'}}>𓇯</div>
       </div>
 

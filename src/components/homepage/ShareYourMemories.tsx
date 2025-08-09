@@ -84,19 +84,19 @@ export default function ShareYourMemories() {
         {/* Header */}
         <div className="text-center mb-16">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <span className="text-blue-600 text-5xl animate-pulse">𓇳</span>
+            <span className="text-blue-600 text-5xl animate-pulse">𓎢</span>
             <h2 className="text-4xl md:text-5xl font-heading font-bold text-text-primary">
               Share Your Memories
             </h2>
-            <span className="text-blue-600 text-5xl animate-pulse">𓇳</span>
+            <span className="text-blue-600 text-5xl animate-pulse">𓎢</span>
           </div>
 
           <div className="flex items-center justify-center gap-3 mb-6">
-            <span className="text-blue-600 text-xl">𓈖</span>
-            <span className="text-blue-600 text-xl">𓂀</span>
-            <span className="text-blue-600 text-xl">𓏏</span>
-            <span className="text-blue-600 text-xl">𓇯</span>
-            <span className="text-blue-600 text-xl">𓊃</span>
+            <span className="text-blue-600 text-xl">𓎢</span>
+            <span className="text-blue-600 text-xl">𓃭</span>
+            <span className="text-blue-600 text-xl">𓅂</span>
+            <span className="text-blue-600 text-xl">𓅱</span>
+            <span className="text-blue-600 text-xl">𓄿</span>
           </div>
           
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
@@ -226,7 +226,7 @@ export default function ShareYourMemories() {
             {/* Call to Action */}
             <div className="text-center">
               <div className="bg-white/80 backdrop-blur-sm border border-blue-200/30 rounded-2xl p-8 max-w-2xl mx-auto">
-                <div className="text-4xl text-blue-600 mb-4">𓊪</div>
+                <div className="text-4xl text-blue-600 mb-4">𓎢</div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-3">
                   Share Your Egyptian Adventure
                 </h3>

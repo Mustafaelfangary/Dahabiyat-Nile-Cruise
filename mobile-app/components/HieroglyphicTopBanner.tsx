@@ -28,7 +28,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   style
 }) => {
   const { colors } = useTheme();
-  const hieroglyphicText = '𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿';
+  const hieroglyphicText = '𓎢𓃭𓅂𓅱𓄿𓂋𓄿';
 
   // Animation values
   const fadeAnim = React.useRef(new Animated.Value(0)).current;
@@ -137,7 +137,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
         {/* Left decorative elements */}
         <View style={styles.decorativeLeft}>
           <HieroglyphicText
-            text="𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿"
+            text="𓎢𓃭𓅂𓅱𓄿𓂋𓄿"
             size="small"
             animated={animated}
             animationType="rotate"
@@ -159,7 +159,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
         {/* Right decorative elements */}
         <View style={styles.decorativeRight}>
           <HieroglyphicText
-            text="𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿"
+            text="𓎢𓃭𓅂𓅱𓄿𓂋𓄿"
             size="small"
             animated={animated}
             animationType="pulse"

@@ -14,7 +14,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   variant = 'default',
   animated = true
 }) => {
-  const hieroglyphicText = '𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿';
+  const hieroglyphicText = '𓎢𓃭𓅂𓅱𓄿𓂋𓄿';
 
   const bannerVariants = {
     default: {
@@ -26,10 +26,10 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
     },
     minimal: {
       background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 50%, #0080ff 100%)',
-      textColor: 'text-white',
-      shadow: 'shadow-sm',
-      padding: 'py-2 px-4',
-      border: 'border-b border-blue-300'
+      textColor: 'text-black',
+      shadow: 'shadow-md',
+      padding: 'py-1 px-4',
+      border: 'border-b border-blue-300/50'
     },
     elegant: {
       background: 'linear-gradient(135deg, #003d7a 0%, #001f3f 25%, #0080ff 50%, #001f3f 75%, #003d7a 100%)',
@@ -92,17 +92,23 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   return (
     <Component
       className={`
-        fixed top-0 left-0 right-0 z-[60]
-        ${currentVariant.background} 
-        ${currentVariant.shadow} 
-        ${currentVariant.padding} 
+        fixed top-0 left-0 right-0 z-[70] fixed-top-mobile
+        ${currentVariant.background}
+        ${currentVariant.shadow}
+        ${currentVariant.padding}
         ${currentVariant.border}
         backdrop-blur-sm
         ${className}
       `}
       style={variant === 'default' ? {
-        background: currentVariant.background
-      } : {}}
+        background: currentVariant.background,
+        paddingTop: 'max(env(safe-area-inset-top), 0.75rem)'
+      } : variant === 'minimal' ? {
+        background: currentVariant.background,
+        paddingTop: 'max(env(safe-area-inset-top), 0.25rem)'
+      } : {
+        paddingTop: 'max(env(safe-area-inset-top), 0.75rem)'
+      }}
       {...(animated ? containerAnimation : {})}
     >
       <div className="container mx-auto">
@@ -116,14 +122,14 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
                 transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
               } : {}}
             >
-              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+              𓎢𓃭𓅂𓅱𓄿𓂋𓄿
             </motion.span>
           </div>
 
           {/* Main hieroglyphic text */}
           <TextComponent
             className={`
-              text-2xl md:text-3xl lg:text-4xl font-bold 
+              ${variant === 'minimal' ? 'text-sm' : 'text-2xl md:text-3xl lg:text-4xl'} font-bold
               ${currentVariant.textColor}
               tracking-wider
               text-center
@@ -144,7 +150,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
                 transition: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }
               } : {}}
             >
-              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+              𓎢𓃭𓅂𓅱𓄿𓂋𓄿
             </motion.span>
           </div>
         </div>
@@ -158,25 +164,25 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
               transition: { duration: 2, repeat: Infinity, ease: "easeInOut" }
             } : {}}
           >
-            𓇳
+            𓎢
           </motion.span>
-          <motion.span 
+          <motion.span
             className={`text-sm ${currentVariant.textColor} opacity-60`}
             animate={animated ? {
               y: [0, 2, 0],
               transition: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 0.5 }
             } : {}}
           >
-            𓊪
+            𓃭
           </motion.span>
-          <motion.span 
+          <motion.span
             className={`text-sm ${currentVariant.textColor} opacity-60`}
             animate={animated ? {
               y: [0, -2, 0],
               transition: { duration: 2, repeat: Infinity, ease: "easeInOut", delay: 1 }
             } : {}}
           >
-            𓇯
+            𓅂
           </motion.span>
         </div>
       </div>

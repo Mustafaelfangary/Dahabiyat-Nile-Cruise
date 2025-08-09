@@ -29,7 +29,7 @@ export function AdminHeader() {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full">
+    <header className="bg-white border-b border-gray-200 shadow-sm sticky z-50 w-full" style={{ top: 'calc(4.8rem + 4rem)' }}>
       <div className="w-full px-2 sm:px-4 lg:px-6">
         <div className="flex justify-between items-center h-14 sm:h-16 w-full">
           {/* Left Side - Logo and Title */}

@@ -418,7 +418,7 @@ export default function HomePage() {
               {/* Hieroglyphic Header */}
               <div className="mb-8">
                 <div className="text-2xl text-emerald-600 mb-4">
-                  𓇯 𓊪 𓈖 𓂀 𓏏 𓇳
+                  𓎢 𓃭 𓅂 𓅱 𓄿 𓂋
                 </div>
                 <HieroglyphicDivider />
               </div>
@@ -770,7 +770,7 @@ export default function HomePage() {
               {/* Hieroglyphic Header */}
               <div className="mb-6 lg:mb-8">
                 <div className="text-lg lg:text-2xl mb-4">
-                  <span className="text-blue-600">𓇯</span> <span className="text-emerald-600">𓊪</span> <span className="text-blue-600">𓈖</span> <span className="text-yellow-600">𓂀</span> <span className="text-emerald-600">𓏏</span> <span className="text-blue-600">𓇳</span>
+                  <span className="text-blue-600">𓎢</span> <span className="text-emerald-600">𓃭</span> <span className="text-blue-600">𓅂</span> <span className="text-yellow-600">𓅱</span> <span className="text-emerald-600">𓄿</span> <span className="text-blue-600">𓂋</span>
                 </div>
                 <HieroglyphicDivider />
               </div>
@@ -883,7 +883,7 @@ export default function HomePage() {
                       </div>
 
                       {/* Quote or Tagline */}
-                      <p className="text-gray-600 text-xs lg:text-sm italic leading-relaxed pt-2 max-w-xs">
+                      <p className="text-gray-600 text-xs italic leading-tight pt-2 max-w-xs whitespace-nowrap overflow-hidden text-ellipsis">
                         {get('founder_quote', '"Preserving the ancient art of Nile navigation for future generations"')}
                       </p>
                     </div>

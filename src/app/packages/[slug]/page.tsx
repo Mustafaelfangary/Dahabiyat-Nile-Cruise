@@ -170,7 +170,7 @@ export default function IndividualPackagePage() {
               {/* Hieroglyphic Egypt at top */}
               <div className="text-center mb-8">
                 <div className="text-5xl font-bold text-blue-300 mb-4 drop-shadow-lg">
-                  𓇳 𓈖 𓊪 𓏏 𓇳
+                  𓎢 𓃭 𓅂 𓅱 𓄿
                 </div>
                 <HieroglyphicDivider />
               </div>
@@ -191,7 +191,7 @@ export default function IndividualPackagePage() {
                 variant="h4"
                 className="text-2xl md:text-3xl mb-8 text-blue-200 font-light drop-shadow-lg"
               >
-                𓊪 Royal Egyptian Adventure 𓊪
+                𓎢 Royal Egyptian Adventure 𓎢
               </Typography>
 
               {/* Key Stats */}

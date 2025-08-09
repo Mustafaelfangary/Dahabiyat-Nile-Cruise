@@ -37,6 +37,7 @@ export default function SignUpForm() {
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [showVerification, setShowVerification] = useState(false);
   const [userEmail, setUserEmail] = useState('');
+  const [formData, setFormData] = useState<SignUpFormData | null>(null);
   const router = useRouter();
 
   // Check URL parameters on component mount to handle page refresh
@@ -139,6 +140,7 @@ export default function SignUpForm() {
 
       // All new accounts now require email verification
       setUserEmail(data.email);
+      setFormData(data); // Store form data for auto sign-in after verification
       setShowVerification(true);
 
       // Update URL to persist verification state on page refresh
@@ -163,9 +165,29 @@ export default function SignUpForm() {
     newUrl.searchParams.delete('verification');
     window.history.replaceState({}, '', newUrl.toString());
 
-    // After email verification, redirect to sign-in page
-    toast.success("Email verified! Please sign in to continue.");
-    router.push("/auth/signin?verified=true");
+    try {
+      // Auto sign-in the user after email verification
+      const result = await signIn("credentials", {
+        email: userEmail,
+        password: formData?.password, // Use the password from the form
+        callbackUrl: "/profile", // Direct to profile after sign-in
+        redirect: true, // Let NextAuth handle the redirect
+      });
+
+      // This code will only run if there's an error
+      if (result?.error) {
+        toast.error("Verification successful, but sign-in failed. Please sign in manually.");
+        router.push("/auth/signin?verified=true");
+        return;
+      }
+
+      // Success message (user will be redirected by NextAuth)
+      toast.success("Account verified and signed in! Welcome to Dahabiyat!");
+    } catch (error) {
+      console.error('Auto sign-in error:', error);
+      toast.error("Verification successful, but sign-in failed. Please sign in manually.");
+      router.push("/auth/signin?verified=true");
+    }
   };
 
   // Show verification form if needed

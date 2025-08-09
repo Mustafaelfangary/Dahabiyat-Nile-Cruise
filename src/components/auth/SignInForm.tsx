@@ -39,12 +39,18 @@ export default function SignInForm() {
     try {
       setIsLoading(true);
 
+      // Get the callback URL from URL params
+      const urlParams = new URLSearchParams(window.location.search);
+      const callbackUrl = urlParams.get('callbackUrl') || undefined;
+
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        redirect: false,
+        callbackUrl: callbackUrl, // Let NextAuth handle the redirect
+        redirect: true, // Enable NextAuth's built-in redirect
       });
 
+      // This code will only run if redirect: false or if there's an error
       if (result?.error) {
         if (result.error === 'EMAIL_NOT_VERIFIED') {
           toast.error("Please verify your email address before signing in.");
@@ -56,47 +62,8 @@ export default function SignInForm() {
         return;
       }
 
-      toast.success("Signed in successfully! Redirecting...");
-
-      // Get the callback URL from URL params
-      const urlParams = new URLSearchParams(window.location.search);
-      let callbackUrl = urlParams.get('callbackUrl');
-
-      // Get fresh session to determine role-based redirect
-      const session = await getSession();
-
-      if (callbackUrl && callbackUrl !== '/auth/signin') {
-        // Use specified callback URL if it's not the sign-in page
-        setTimeout(() => {
-          router.push(callbackUrl);
-        }, 500);
-      } else if (session?.user?.role) {
-        // Role-based redirect
-        let redirectUrl = '/profile'; // Default for regular users
-
-        switch (session.user.role) {
-          case 'ADMIN':
-            redirectUrl = '/admin';
-            break;
-          case 'MANAGER':
-            redirectUrl = '/admin/dashboard';
-            break;
-          case 'GUIDE':
-            redirectUrl = '/guide/dashboard';
-            break;
-          default:
-            redirectUrl = '/profile';
-        }
-
-        setTimeout(() => {
-          router.push(redirectUrl);
-        }, 500);
-      } else {
-        // Fallback to homepage
-        setTimeout(() => {
-          router.push('/');
-        }, 500);
-      }
+      // If we reach here, sign-in was successful and NextAuth will handle redirect
+      toast.success("Signed in successfully!");
     } catch (error) {
       console.error('Sign in error:', error);
       toast.error("Something went wrong. Please try again.");

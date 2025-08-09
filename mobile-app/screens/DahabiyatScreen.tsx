@@ -163,7 +163,7 @@ const DahabiyatScreen: React.FC = () => {
         {/* Hero Section */}
         <View style={styles.heroSection}>
           <HieroglyphicText
-            text="𓊪 𓇳 𓊪"
+            text="𓎢 𓃭 𓅂"
             size="large"
             animated={true}
             animationType="pulse"

@@ -293,27 +293,28 @@ export default function Navbar() {
 
   const navbarStyle = getNavbarStyle();
   
-  // Calculate banner height based on variant
+  // Calculate banner height based on variant - accurate measurements
   const getBannerHeight = () => {
-    // Banner heights: py-2 (0.5rem * 2) + text height (~1.5rem) = ~2.5rem for minimal
-    // py-3 (0.75rem * 2) + text height (~1.5rem) = ~3rem for default
-    // py-4 (1rem * 2) + text height (~1.5rem) = ~3.5rem for elegant
+    // Accurate banner heights including padding, text, and borders:
+    // minimal: py-2 (16px) + text-2xl (~32px) + border (1px) = ~49px ≈ 3.1rem
+    // default: py-3 (24px) + text-3xl (~36px) + border (2px) = ~62px ≈ 3.9rem
+    // elegant: py-4 (32px) + text-4xl (~40px) + border (4px) = ~76px ≈ 4.8rem
     if (typeof window !== 'undefined') {
       const isMobile = window.innerWidth < 1024;
       const isAdmin = pathname.includes('/admin');
 
-      if (isMobile) return '2.5rem'; // minimal variant
-      if (isAdmin) return '3.5rem'; // elegant variant
-      return '3rem'; // default variant
+      if (isMobile) return '3.1rem'; // minimal variant
+      if (isAdmin) return '4.8rem'; // elegant variant
+      return '3.9rem'; // default variant
     }
-    return '3rem'; // fallback
+    return '3.9rem'; // fallback
   };
 
   return (
     <>
     <nav className="navbar-animate hidden lg:block" style={{
       position: 'fixed',
-      top: getBannerHeight(), // Dynamic position below HieroglyphicTopBanner
+      top: `calc(${getBannerHeight()} + 2px)`, // Dynamic position below HieroglyphicTopBanner with 2px buffer
       left: 0,
       right: 0,
       zIndex: 50,

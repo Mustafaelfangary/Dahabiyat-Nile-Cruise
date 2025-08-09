@@ -27,8 +27,14 @@ export default function MobileLayout({ children }: MobileLayoutProps) {
           ? 'bg-gradient-to-br from-white via-blue-50/10 to-blue-100/5'
           : 'bg-white'
       }`}>
-        {/* Mobile Top Spacing */}
-        <div className="pt-20">
+        {/* Mobile Top Spacing - Account for HieroglyphicTopBanner + Mobile Header + Safe Area */}
+        <div
+          className="pt-20"
+          style={{
+            paddingTop: 'calc(5rem + env(safe-area-inset-top, 0px))',
+            minHeight: 'calc(5rem + env(safe-area-inset-top, 0px))'
+          }}
+        >
           {/* Mobile Content Wrapper */}
           <div className={`${
             isAdminPage 

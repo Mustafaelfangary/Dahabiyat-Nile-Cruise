@@ -303,39 +303,57 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
     <>
       {/* Mobile Header */}
       <div
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-[50] mobile-header fixed-top-mobile transition-all duration-300 ${
           scrolled
-            ? 'bg-white/98 shadow-lg border-b border-gray-200 backdrop-blur-md'
-            : 'bg-white/95 backdrop-blur-md border-b border-gray-100'
+            ? 'bg-gradient-to-r from-ocean-blue/30 to-blue-400/30 shadow-xl border-b-2 border-blue-300/30 backdrop-blur-md'
+            : 'bg-gradient-to-r from-ocean-blue/25 to-blue-400/25 backdrop-blur-md border-b border-blue-200/20'
         }`}
-        style={{ top: '2.5rem' }} // Position below HieroglyphicTopBanner (minimal variant for mobile)
+        style={{
+          top: '0'
+        }}
       >
         <div className="flex items-center justify-between px-4 py-3">
-          {/* Dynamic Logo + Site Name */}
+          {/* Dynamic Logo + Site Name - Optimized for small screens */}
           <Link href="/" className="flex items-center space-x-2" onClick={onToggle}>
             <Image
               src={getMobileLogo()}
               alt="Site Logo"
               width={64}
               height={64}
-              className="h-16 w-16 object-contain rounded-lg shadow-sm"
+              className="h-12 w-12 sm:h-16 sm:w-16 object-contain rounded-lg shadow-sm border-2 border-white/20"
             />
             <div className="flex flex-col">
-              <span className="font-bold text-lg text-gray-900 leading-tight">
+              <span className="font-bold text-base sm:text-lg text-white leading-tight drop-shadow-sm">
                 {settings.siteName.split(' ')[0]}
               </span>
-              <span className="text-xs text-ocean-blue font-medium leading-tight">
+              <span className="text-xs text-blue-100 font-medium leading-tight drop-shadow-sm hidden xs:block">
                 {settings.siteName.split(' ').slice(1).join(' ')}
               </span>
             </div>
           </Link>
 
-          {/* Mobile Menu Button */}
+          {/* Enhanced Mobile Menu Button - Optimized for small screens */}
           <button
             onClick={onToggle}
-            className="p-2 rounded-lg bg-gradient-to-r from-ocean-blue to-deep-blue text-white shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105"
+            className={`relative p-2 sm:p-3 rounded-xl transition-all duration-300 transform ${
+              isOpen
+                ? 'bg-white/20 shadow-lg scale-105 rotate-180'
+                : 'bg-white/10 hover:bg-white/20 hover:shadow-lg hover:scale-110'
+            } border border-white/30 backdrop-blur-sm min-h-[44px] min-w-[44px] flex items-center justify-center`}
           >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            <div className="relative">
+              {isOpen ? (
+                <X className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-sm" />
+              ) : (
+                <Menu className="w-5 h-5 sm:w-6 sm:h-6 text-white drop-shadow-sm" />
+              )}
+              {/* Glow effect */}
+              <div className="absolute inset-0 rounded-xl bg-white/10 blur-sm -z-10"></div>
+            </div>
+            {/* Ripple effect indicator */}
+            <div className={`absolute inset-0 rounded-xl bg-white/20 transition-opacity duration-300 ${
+              isOpen ? 'opacity-100' : 'opacity-0'
+            }`}></div>
           </button>
         </div>
       </div>
@@ -349,35 +367,46 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/50 z-40"
+              className="fixed inset-0 bg-black/70 z-40"
               onClick={onToggle}
             />
 
-            {/* Menu Panel */}
+            {/* Enhanced Menu Panel */}
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-              className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 overflow-y-auto"
+              className="fixed top-0 right-0 h-full w-80 bg-gradient-to-b from-white via-blue-50/95 to-blue-100/90 shadow-2xl z-50 overflow-y-auto border-l-2 border-ocean-blue/20 backdrop-blur-sm"
             >
-              {/* Menu Header */}
-              <div className="bg-gradient-to-br from-ocean-blue to-deep-blue p-6 text-white">
-                <div className="flex items-center justify-between">
+              {/* Enhanced Menu Header */}
+              <div className="bg-gradient-to-br from-ocean-blue via-deep-blue to-ocean-blue p-6 text-white relative overflow-hidden">
+                {/* Background pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute inset-0" style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm0 0c0 5.5 4.5 10 10 10s10-4.5 10-10-4.5-10-10-10-10 4.5-10 10z'/%3E%3C/g%3E%3C/svg%3E")`,
+                    backgroundSize: '40px 40px'
+                  }}></div>
+                </div>
+
+                <div className="flex items-center justify-between relative z-10">
                   <div>
-                    <h2 className="text-xl font-bold flex items-center gap-2">
-                      <span className="text-2xl">𓇳</span>
+                    <h2 className="text-xl font-bold flex items-center gap-2 drop-shadow-sm">
+                      <span className="text-2xl animate-pulse">𓇳</span>
                       Dahabiyat
                     </h2>
-                    <p className="text-white/90 text-sm mt-1">Royal Nile Adventures</p>
+                    <p className="text-white/90 text-sm mt-1 drop-shadow-sm">Royal Nile Adventures</p>
                   </div>
                   <button
                     onClick={onToggle}
-                    className="p-2 rounded-lg bg-white/20 hover:bg-white/30 transition-colors"
+                    className="p-2 rounded-xl bg-white/20 hover:bg-white/30 transition-all duration-300 hover:scale-110 border border-white/30 backdrop-blur-sm"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="w-5 h-5 drop-shadow-sm" />
                   </button>
                 </div>
+
+                {/* Decorative bottom border */}
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               </div>
 
               {/* User Profile Section */}
@@ -442,20 +471,20 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                         {item.hasDropdown ? (
                           <button
                             onClick={() => toggleDropdown(item.href)}
-                            className={`w-full flex items-center justify-between p-3 rounded-xl transition-all duration-300 ${
+                            className={`w-full flex items-center justify-between p-3 sm:p-4 rounded-xl transition-all duration-300 min-h-[48px] ${
                               isActive || isExpanded
                                 ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
                                 : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
-                              <div className="w-8 h-8 rounded-lg bg-ocean-blue/10 flex items-center justify-center">
-                                <span className="text-lg">{item.hieroglyph}</span>
+                              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-ocean-blue/10 flex items-center justify-center flex-shrink-0">
+                                <span className="text-base sm:text-lg">{item.hieroglyph}</span>
                               </div>
-                              <span className="font-medium">{item.label}</span>
+                              <span className="font-medium text-sm sm:text-base">{item.label}</span>
                             </div>
                             <ChevronDown
-                              className={`w-4 h-4 transition-transform duration-200 ${
+                              className={`w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 flex-shrink-0 ${
                                 isExpanded ? 'rotate-180' : ''
                               }`}
                             />
@@ -464,16 +493,16 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                           <Link
                             href={item.href}
                             onClick={onToggle}
-                            className={`flex items-center space-x-3 p-3 rounded-xl transition-all duration-300 ${
+                            className={`flex items-center space-x-3 p-3 sm:p-4 rounded-xl transition-all duration-300 min-h-[48px] ${
                               isActive
                                 ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
                                 : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
                             }`}
                           >
-                            <div className="w-8 h-8 rounded-lg bg-ocean-blue/10 flex items-center justify-center">
-                              <span className="text-lg">{item.hieroglyph}</span>
+                            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-ocean-blue/10 flex items-center justify-center flex-shrink-0">
+                              <span className="text-base sm:text-lg">{item.hieroglyph}</span>
                             </div>
-                            <span className="font-medium">{item.label}</span>
+                            <span className="font-medium text-sm sm:text-base">{item.label}</span>
                           </Link>
                         )}
                       </div>

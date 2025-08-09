@@ -52,11 +52,13 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
 
   return (
     <AutoZoomProvider enabled={!isAdmin}>
-      {/* Hieroglyphic Top Banner - appears on ALL pages */}
-      <HieroglyphicTopBanner
-        variant={isMobile ? 'minimal' : isAdmin ? 'elegant' : 'default'}
-        animated={true}
-      />
+      {/* Hieroglyphic Top Banner - appears on desktop only */}
+      {!isMobile && (
+        <HieroglyphicTopBanner
+          variant={isAdmin ? 'elegant' : 'default'}
+          animated={true}
+        />
+      )}
 
       {showNavbar && (
         <>
@@ -75,11 +77,17 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
         style={{
           paddingTop: showNavbar
             ? isMobile
-              ? '9rem' // Mobile: HieroglyphicTopBanner (~3rem) + MobileNavigation (~6rem)
+              ? '6rem' // Mobile: MobileNavigation (~6rem) - no banner
               : scrolled
-                ? '7.5rem' // Desktop scrolled: HieroglyphicTopBanner (~3rem) + Navbar (~4.5rem)
-                : '8rem' // Desktop not scrolled: HieroglyphicTopBanner (~3rem) + Navbar (~5rem)
-            : '3rem' // Admin pages: just HieroglyphicTopBanner
+                ? '8.9rem' // Desktop scrolled: HieroglyphicTopBanner (~3.9rem) + buffer (2px) + Navbar (~4.5rem) + extra margin
+                : '9.4rem' // Desktop not scrolled: HieroglyphicTopBanner (~3.9rem) + buffer (2px) + Navbar (~5rem) + extra margin
+            : isAdmin
+              ? isMobile
+                ? '0' // Mobile admin pages: no banner, no navbar
+                : '9.8rem' // Desktop admin pages: HieroglyphicTopBanner (elegant variant ~4.8rem) + AdminHeader (~5rem)
+              : isMobile
+                ? '0' // Mobile non-admin pages without navbar: no banner
+                : '3.9rem' // Desktop non-admin pages without navbar: just HieroglyphicTopBanner (default variant)
         }}
       >
         {children}
