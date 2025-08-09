@@ -61,7 +61,8 @@ export const authOptions: NextAuthOptions = {
         // Check if email is verified
         if (!user.isEmailVerified) {
           console.log('Email not verified for user:', user.email);
-          throw new Error('EMAIL_NOT_VERIFIED');
+          // Return null instead of throwing error to let the client handle it
+          return null;
         }
 
         console.log('Authentication successful for user:', user.email);

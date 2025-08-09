@@ -39,6 +39,22 @@ export default function SignInForm() {
     try {
       setIsLoading(true);
 
+      // First check if user exists and if email is verified
+      const checkResponse = await fetch('/api/auth/check-user', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: data.email })
+      });
+
+      if (checkResponse.ok) {
+        const userData = await checkResponse.json();
+        if (userData.exists && !userData.isEmailVerified) {
+          toast.error("Please verify your email address before signing in.");
+          router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
+          return;
+        }
+      }
+
       // Get callback URL from search params
       const urlParams = new URLSearchParams(window.location.search);
       const callbackUrl = urlParams.get('callbackUrl') || '/profile';
@@ -52,11 +68,6 @@ export default function SignInForm() {
 
       // This code will only run if there's an error (redirect: true means success redirects automatically)
       if (result?.error) {
-        if (result.error === 'EMAIL_NOT_VERIFIED') {
-          toast.error("Please verify your email address before signing in.");
-          router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
-          return;
-        }
         toast.error("Invalid email or password");
         return;
       }
