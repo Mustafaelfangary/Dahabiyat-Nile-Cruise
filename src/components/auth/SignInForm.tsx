@@ -39,18 +39,12 @@ export default function SignInForm() {
     try {
       setIsLoading(true);
 
-      // Get the callback URL from URL params
-      const urlParams = new URLSearchParams(window.location.search);
-      const callbackUrl = urlParams.get('callbackUrl') || undefined;
-
       const result = await signIn("credentials", {
         email: data.email,
         password: data.password,
-        callbackUrl: callbackUrl, // Let NextAuth handle the redirect
-        redirect: true, // Enable NextAuth's built-in redirect
+        redirect: false, // Handle redirect manually for better control
       });
 
-      // This code will only run if redirect: false or if there's an error
       if (result?.error) {
         if (result.error === 'EMAIL_NOT_VERIFIED') {
           toast.error("Please verify your email address before signing in.");
@@ -62,8 +56,33 @@ export default function SignInForm() {
         return;
       }
 
-      // If we reach here, sign-in was successful and NextAuth will handle redirect
-      toast.success("Signed in successfully!");
+      if (result?.ok) {
+        toast.success("Signed in successfully!");
+
+        // Get the session to determine redirect
+        const session = await fetch('/api/auth/session').then(res => res.json());
+
+        if (session?.user?.role) {
+          // Role-based redirect
+          switch (session.user.role) {
+            case 'ADMIN':
+              router.push('/admin');
+              break;
+            case 'MANAGER':
+              router.push('/admin/dashboard');
+              break;
+            case 'GUIDE':
+              router.push('/guide/dashboard');
+              break;
+            default:
+              router.push('/profile');
+              break;
+          }
+        } else {
+          // Fallback to profile
+          router.push('/profile');
+        }
+      }
     } catch (error) {
       console.error('Sign in error:', error);
       toast.error("Something went wrong. Please try again.");

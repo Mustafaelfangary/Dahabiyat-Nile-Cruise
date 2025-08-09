@@ -87,46 +87,12 @@ export const authOptions: NextAuthOptions = {
         url = `${baseUrl}${url}`;
       }
 
-      // If it's the same origin and not a sign-in page, allow it
+      // If it's the same origin, allow it (let client-side handle role-based redirects)
       if (url && new URL(url).origin === baseUrl) {
-        const urlPath = new URL(url).pathname;
-        // Prevent redirect loops to sign-in page
-        if (urlPath === '/auth/signin' || urlPath === '/auth/signup') {
-          // If user is authenticated and trying to access auth pages, redirect to appropriate page
-          if (token?.role) {
-            switch (token.role) {
-              case 'ADMIN':
-                return `${baseUrl}/admin`;
-              case 'MANAGER':
-                return `${baseUrl}/admin/dashboard`;
-              case 'GUIDE':
-                return `${baseUrl}/guide/dashboard`;
-              default:
-                return `${baseUrl}/profile`;
-            }
-          }
-          return `${baseUrl}/`;
-        }
         return url;
       }
 
-      // Role-based redirect after successful sign-in
-      if (token?.role) {
-        console.log('Redirecting based on role:', token.role);
-
-        switch (token.role) {
-          case 'ADMIN':
-            return `${baseUrl}/admin`;
-          case 'MANAGER':
-            return `${baseUrl}/admin/dashboard`; // Manager dashboard
-          case 'GUIDE':
-            return `${baseUrl}/guide/dashboard`; // Guide dashboard
-          default:
-            return `${baseUrl}/profile`; // Regular users
-        }
-      }
-
-      // Default to homepage for unauthenticated users
+      // Default to homepage for external URLs or no URL
       return `${baseUrl}/`;
     },
     async session({ token, session }) {

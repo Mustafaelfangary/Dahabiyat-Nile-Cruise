@@ -170,19 +170,42 @@ export default function SignUpForm() {
       const result = await signIn("credentials", {
         email: userEmail,
         password: formData?.password, // Use the password from the form
-        callbackUrl: "/profile", // Direct to profile after sign-in
-        redirect: true, // Let NextAuth handle the redirect
+        redirect: false, // Handle redirect manually
       });
 
-      // This code will only run if there's an error
       if (result?.error) {
         toast.error("Verification successful, but sign-in failed. Please sign in manually.");
         router.push("/auth/signin?verified=true");
         return;
       }
 
-      // Success message (user will be redirected by NextAuth)
-      toast.success("Account verified and signed in! Welcome to Dahabiyat!");
+      if (result?.ok) {
+        toast.success("Account verified and signed in! Welcome to Dahabiyat!");
+
+        // Get the session to determine redirect
+        const session = await fetch('/api/auth/session').then(res => res.json());
+
+        if (session?.user?.role) {
+          // Role-based redirect
+          switch (session.user.role) {
+            case 'ADMIN':
+              router.push('/admin');
+              break;
+            case 'MANAGER':
+              router.push('/admin/dashboard');
+              break;
+            case 'GUIDE':
+              router.push('/guide/dashboard');
+              break;
+            default:
+              router.push('/profile');
+              break;
+          }
+        } else {
+          // Fallback to profile
+          router.push('/profile');
+        }
+      }
     } catch (error) {
       console.error('Auto sign-in error:', error);
       toast.error("Verification successful, but sign-in failed. Please sign in manually.");
