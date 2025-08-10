@@ -1,0 +1,138 @@
+# Dahabiyat Nile Cruise Android App Configuration
+# Copy this file to local.properties and update with your values
+
+# ============================================================================
+# LIVE BACKEND CONFIGURATION (Your Production Server)
+# ============================================================================
+
+# Your live backend API URL
+API_BASE_URL=https://www.dahabiyatnilecruise.com/api/
+
+# Your website URL
+WEBSITE_URL=https://www.dahabiyatnilecruise.com
+
+# ============================================================================
+# GOOGLE MAPS CONFIGURATION
+# ============================================================================
+
+# Google Maps API Key (get from Google Cloud Console)
+# 1. Go to https://console.cloud.google.com/
+# 2. Enable Maps SDK for Android
+# 3. Create API key and restrict to Android apps
+MAPS_API_KEY=your_google_maps_api_key_here
+
+# ============================================================================
+# TESTING CONFIGURATION
+# ============================================================================
+
+# Enable testing features in the app
+ENABLE_LIVE_TESTING=true
+
+# Enable debug logging for API calls
+DEBUG_API_CALLS=true
+
+# Admin verification key (same as your website)
+ADMIN_VERIFY_KEY=admin-verify-2024
+
+# Test user credentials (optional, for automated testing)
+TEST_USER_EMAIL=test@dahabiyatnilecruise.com
+TEST_USER_PASSWORD=TestPassword123
+
+# ============================================================================
+# DEVELOPMENT CONFIGURATION (Optional)
+# ============================================================================
+
+# Local development server (if you want to test locally)
+# DEV_API_BASE_URL=http://10.0.2.2:3000/api/
+# DEV_WEBSITE_URL=http://10.0.2.2:3000
+
+# ============================================================================
+# SECURITY CONFIGURATION
+# ============================================================================
+
+# Enable certificate pinning for production (recommended)
+ENABLE_CERT_PINNING=true
+
+# Enable network security config
+ENABLE_NETWORK_SECURITY=true
+
+# ============================================================================
+# FEATURE FLAGS
+# ============================================================================
+
+# Enable biometric authentication
+ENABLE_BIOMETRIC_AUTH=true
+
+# Enable offline mode
+ENABLE_OFFLINE_MODE=true
+
+# Enable push notifications
+ENABLE_PUSH_NOTIFICATIONS=true
+
+# Enable social sharing
+ENABLE_SOCIAL_SHARING=true
+
+# ============================================================================
+# ANALYTICS CONFIGURATION (Optional)
+# ============================================================================
+
+# Enable analytics tracking
+ENABLE_ANALYTICS=true
+
+# Analytics endpoint (uses your backend by default)
+ANALYTICS_ENDPOINT=https://www.dahabiyatnilecruise.com/api/analytics/track
+
+# ============================================================================
+# INSTRUCTIONS
+# ============================================================================
+
+# 1. Copy this file to local.properties
+# 2. Update API_BASE_URL with your backend URL
+# 3. Add your Google Maps API key
+# 4. Update any other configuration as needed
+# 5. Build and run the Android app
+
+# ============================================================================
+# TESTING YOUR CONFIGURATION
+# ============================================================================
+
+# Before building the Android app, test your backend connection:
+# 1. Run: node test-connection.js
+# 2. Verify all endpoints return 200 OK
+# 3. Fix any issues before building the app
+
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+
+# If you get connection errors:
+# 1. Check that your backend is running
+# 2. Verify SSL certificate is valid
+# 3. Check firewall settings
+# 4. Test endpoints manually with curl or Postman
+
+# If you get CORS errors:
+# 1. Add your Android app to CORS allowed origins
+# 2. Update your backend CORS configuration
+
+# If authentication fails:
+# 1. Verify your JWT secret is correct
+# 2. Check token expiration settings
+# 3. Test authentication endpoints manually
+
+# ============================================================================
+# EXAMPLE CURL TESTS
+# ============================================================================
+
+# Test basic connectivity:
+# curl -X GET "https://www.dahabiyatnilecruise.com/api/dahabiyas"
+
+# Test authentication:
+# curl -X POST "https://www.dahabiyatnilecruise.com/api/auth/signin" \
+#   -H "Content-Type: application/json" \
+#   -d '{"email":"test@example.com","password":"password"}'
+
+# Test admin verification:
+# curl -X POST "https://www.dahabiyatnilecruise.com/api/auth/verify-admin" \
+#   -H "Content-Type: application/json" \
+#   -d '{"email":"admin@dahabiyatnilecruise.com","adminKey":"admin-verify-2024"}'

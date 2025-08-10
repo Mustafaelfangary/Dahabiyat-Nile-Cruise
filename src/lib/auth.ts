@@ -58,8 +58,8 @@ export const authOptions: NextAuthOptions = {
           return null;
         }
 
-        // Check if email is verified
-        if (!user.isEmailVerified) {
+        // Check if email is verified (bypass for admin users)
+        if (!user.isEmailVerified && user.role !== 'ADMIN') {
           console.log('Email not verified for user:', user.email);
           // Return null instead of throwing error to let the client handle it
           return null;

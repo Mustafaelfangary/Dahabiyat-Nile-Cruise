@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.dahabiyat.nilecruise.app-mergeDebugResources-65:/values-v18/values-v18.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Just_x\\.gradle\\caches\\transforms-3\\923f96da68552d1d7db12ebc969bb374\\transformed\\appcompat-1.6.1\\res\\values-v18\\values-v18.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "48",
+                        "endOffsets": "99"
+                    }
+                }
+            ]
+        }
+    ]
+}

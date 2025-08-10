@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary Colors - Ocean Blue Theme -->
+    <color name="ocean_blue">#0080FF</color>
+    <color name="ocean_blue_light">#4DA6FF</color>
+    <color name="ocean_blue_dark">#0066CC</color>
+    
+    <!-- Secondary Colors - Deep Blue -->
+    <color name="deep_blue">#003D7A</color>
+    <color name="deep_blue_light">#1A5490</color>
+    <color name="deep_blue_dark">#002952</color>
+    
+    <!-- Navy Blue -->
+    <color name="navy_blue">#001F3F</color>
+    <color name="navy_blue_light">#1A3A5C</color>
+    <color name="navy_blue_dark">#000F1F</color>
+    
+    <!-- Accent Colors -->
+    <color name="gold">#FFD700</color>
+    <color name="gold_light">#FFE55C</color>
+    <color name="gold_dark">#B8860B</color>
+    
+    <!-- Neutral Colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="off_white">#F8F9FA</color>
+    <color name="light_gray">#F5F5F5</color>
+    <color name="gray">#9E9E9E</color>
+    <color name="dark_gray">#424242</color>
+    <color name="black">#000000</color>
+    
+    <!-- Background Colors -->
+    <color name="background_light">#F8F9FA</color>
+    <color name="background_dark">#121212</color>
+    <color name="surface_light">#FFFFFF</color>
+    <color name="surface_dark">#1E1E1E</color>
+    
+    <!-- Text Colors -->
+    <color name="text_primary">#000000</color>
+    <color name="text_secondary">#666666</color>
+    <color name="text_tertiary">#999999</color>
+    <color name="text_on_primary">#FFFFFF</color>
+    <color name="text_on_secondary">#FFFFFF</color>
+    
+    <!-- Status Colors -->
+    <color name="success">#4CAF50</color>
+    <color name="warning">#FF9800</color>
+    <color name="error">#F44336</color>
+    <color name="info">#2196F3</color>
+    
+    <!-- Pharaonic Colors (Egyptian Theme) -->
+    <color name="pharaoh_gold">#FFD700</color>
+    <color name="pharaoh_blue">#4169E1</color>
+    <color name="papyrus_beige">#F5F5DC</color>
+    <color name="sand_stone">#DEB887</color>
+    <color name="nile_blue">#0080FF</color>
+    <color name="desert_sand">#EDC9AF</color>
+    
+    <!-- Gradient Colors -->
+    <color name="gradient_start">#0080FF</color>
+    <color name="gradient_middle">#003D7A</color>
+    <color name="gradient_end">#001F3F</color>
+    
+    <!-- Overlay Colors -->
+    <color name="overlay_light">#80FFFFFF</color>
+    <color name="overlay_dark">#80000000</color>
+    <color name="overlay_blue">#800080FF</color>
+    
+    <!-- Border Colors -->
+    <color name="border_light">#E0E0E0</color>
+    <color name="border_dark">#333333</color>
+    <color name="border_accent">#0080FF</color>
+    
+    <!-- Card Colors -->
+    <color name="card_background_light">#FFFFFF</color>
+    <color name="card_background_dark">#2C2C2C</color>
+    <color name="card_elevation_light">#1F000000</color>
+    <color name="card_elevation_dark">#1FFFFFFF</color>
+    
+    <!-- Button Colors -->
+    <color name="button_primary">#0080FF</color>
+    <color name="button_secondary">#003D7A</color>
+    <color name="button_tertiary">#9E9E9E</color>
+    <color name="button_disabled">#BDBDBD</color>
+    
+    <!-- Input Colors -->
+    <color name="input_background">#F5F5F5</color>
+    <color name="input_border">#E0E0E0</color>
+    <color name="input_focused">#0080FF</color>
+    <color name="input_error">#F44336</color>
+    
+    <!-- Navigation Colors -->
+    <color name="navigation_background">#FFFFFF</color>
+    <color name="navigation_selected">#0080FF</color>
+    <color name="navigation_unselected">#9E9E9E</color>
+    
+    <!-- Shimmer Colors -->
+    <color name="shimmer_base">#F1F1F1</color>
+    <color name="shimmer_highlight">#FFFFFF</color>
+    
+    <!-- Rating Colors -->
+    <color name="rating_filled">#FFD700</color>
+    <color name="rating_empty">#E0E0E0</color>
+    
+    <!-- Booking Status Colors -->
+    <color name="booking_pending">#FF9800</color>
+    <color name="booking_confirmed">#4CAF50</color>
+    <color name="booking_cancelled">#F44336</color>
+    <color name="booking_completed">#2196F3</color>
+    
+    <!-- Material Design 3 Colors -->
+    <color name="md_theme_light_primary">#0080FF</color>
+    <color name="md_theme_light_onPrimary">#FFFFFF</color>
+    <color name="md_theme_light_primaryContainer">#4DA6FF</color>
+    <color name="md_theme_light_onPrimaryContainer">#000000</color>
+    <color name="md_theme_light_secondary">#003D7A</color>
+    <color name="md_theme_light_onSecondary">#FFFFFF</color>
+    <color name="md_theme_light_secondaryContainer">#1A5490</color>
+    <color name="md_theme_light_onSecondaryContainer">#000000</color>
+    <color name="md_theme_light_tertiary">#FFD700</color>
+    <color name="md_theme_light_onTertiary">#000000</color>
+    <color name="md_theme_light_tertiaryContainer">#FFE55C</color>
+    <color name="md_theme_light_onTertiaryContainer">#000000</color>
+    <color name="md_theme_light_error">#F44336</color>
+    <color name="md_theme_light_errorContainer">#FFCDD2</color>
+    <color name="md_theme_light_onError">#FFFFFF</color>
+    <color name="md_theme_light_onErrorContainer">#000000</color>
+    <color name="md_theme_light_background">#F8F9FA</color>
+    <color name="md_theme_light_onBackground">#000000</color>
+    <color name="md_theme_light_surface">#FFFFFF</color>
+    <color name="md_theme_light_onSurface">#000000</color>
+    <color name="md_theme_light_surfaceVariant">#E7E0EC</color>
+    <color name="md_theme_light_onSurfaceVariant">#49454F</color>
+    <color name="md_theme_light_outline">#79747E</color>
+    <color name="md_theme_light_inverseOnSurface">#F4EFF4</color>
+    <color name="md_theme_light_inverseSurface">#313033</color>
+    <color name="md_theme_light_inversePrimary">#4DA6FF</color>
+    <color name="md_theme_light_shadow">#000000</color>
+    <color name="md_theme_light_surfaceTint">#0080FF</color>
+    <color name="md_theme_light_outlineVariant">#CAC4D0</color>
+    <color name="md_theme_light_scrim">#000000</color>
+    
+    <color name="md_theme_dark_primary">#4DA6FF</color>
+    <color name="md_theme_dark_onPrimary">#000000</color>
+    <color name="md_theme_dark_primaryContainer">#0066CC</color>
+    <color name="md_theme_dark_onPrimaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_secondary">#1A5490</color>
+    <color name="md_theme_dark_onSecondary">#FFFFFF</color>
+    <color name="md_theme_dark_secondaryContainer">#002952</color>
+    <color name="md_theme_dark_onSecondaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_tertiary">#FFE55C</color>
+    <color name="md_theme_dark_onTertiary">#000000</color>
+    <color name="md_theme_dark_tertiaryContainer">#B8860B</color>
+    <color name="md_theme_dark_onTertiaryContainer">#FFFFFF</color>
+    <color name="md_theme_dark_error">#FFCDD2</color>
+    <color name="md_theme_dark_errorContainer">#93000A</color>
+    <color name="md_theme_dark_onError">#000000</color>
+    <color name="md_theme_dark_onErrorContainer">#FFFFFF</color>
+    <color name="md_theme_dark_background">#121212</color>
+    <color name="md_theme_dark_onBackground">#FFFFFF</color>
+    <color name="md_theme_dark_surface">#1E1E1E</color>
+    <color name="md_theme_dark_onSurface">#FFFFFF</color>
+    <color name="md_theme_dark_surfaceVariant">#424242</color>
+    <color name="md_theme_dark_onSurfaceVariant">#CAC4D0</color>
+    <color name="md_theme_dark_outline">#938F99</color>
+    <color name="md_theme_dark_inverseOnSurface">#313033</color>
+    <color name="md_theme_dark_inverseSurface">#E6E1E5</color>
+    <color name="md_theme_dark_inversePrimary">#0066CC</color>
+    <color name="md_theme_dark_shadow">#000000</color>
+    <color name="md_theme_dark_surfaceTint">#4DA6FF</color>
+    <color name="md_theme_dark_outlineVariant">#49454F</color>
+    <color name="md_theme_dark_scrim">#000000</color>
+</resources>

@@ -19,19 +19,22 @@ export async function POST(request: NextRequest) {
         id: true,
         email: true,
         isEmailVerified: true,
+        role: true,
       }
     });
 
     if (!user) {
       return NextResponse.json({
         exists: false,
-        isEmailVerified: false
+        isEmailVerified: false,
+        role: null
       });
     }
 
     return NextResponse.json({
       exists: true,
-      isEmailVerified: user.isEmailVerified
+      isEmailVerified: user.isEmailVerified,
+      role: user.role
     });
 
   } catch (error) {

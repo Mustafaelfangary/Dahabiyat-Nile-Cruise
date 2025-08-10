@@ -172,12 +172,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
             </div>
           )}
 
-          {/* Enhanced Price Display */}
-          <div className="absolute bottom-4 right-4 bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-4 py-2 rounded-full shadow-lg font-bold border border-blue-600">
-            <Typography variant="body2" className="font-bold text-white" style={{ textShadow: '1px 1px 2px rgba(0,0,0,0.7)' }}>
-              {formatPrice(dahabiya.pricePerDay)}/day
-            </Typography>
-          </div>
+
         </div>
 
         <CardContent className="p-6 bg-gradient-to-b from-blue-50 to-sky-50">
@@ -208,9 +203,9 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
           {/* Enhanced Specifications */}
           <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-            <div className="flex items-center gap-2 text-hieroglyph-brown bg-amber-100 rounded-lg p-2">
-              <Users className="w-4 h-4 text-egyptian-gold" />
-              <span className="font-medium">{dahabiya.capacity} guests</span>
+            <div className="flex items-center gap-2 text-white bg-gradient-to-r from-ocean-blue to-blue-600 rounded-lg p-3 shadow-lg">
+              <DollarSign className="w-5 h-5 text-white" />
+              <span className="font-bold text-lg">{formatPrice(dahabiya.pricePerDay)}/day</span>
             </div>
             {dahabiya.cabins && dahabiya.cabins > 0 && (
               <div className="flex items-center gap-2 text-hieroglyph-brown bg-amber-100 rounded-lg p-2">

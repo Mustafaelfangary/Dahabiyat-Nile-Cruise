@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- App Information -->
+    <string name="app_name">Dahabiyat Nile Cruise</string>
+    <string name="app_tagline">Royal Nile Adventures</string>
+    <string name="app_description">Experience the magic of ancient Egypt aboard our luxury dahabiyas</string>
+    
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_dahabiyas">Dahabiyas</string>
+    <string name="nav_packages">Packages</string>
+    <string name="nav_itineraries">Itineraries</string>
+    <string name="nav_gallery">Gallery</string>
+    <string name="nav_about">About</string>
+    <string name="nav_contact">Contact</string>
+    <string name="nav_blog">Blog</string>
+    <string name="nav_profile">Profile</string>
+    <string name="nav_settings">Settings</string>
+    
+    <!-- Authentication -->
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_sign_up">Sign Up</string>
+    <string name="auth_sign_out">Sign Out</string>
+    <string name="auth_forgot_password">Forgot Password?</string>
+    <string name="auth_reset_password">Reset Password</string>
+    <string name="auth_email">Email</string>
+    <string name="auth_password">Password</string>
+    <string name="auth_confirm_password">Confirm Password</string>
+    <string name="auth_name">Full Name</string>
+    <string name="auth_phone">Phone Number</string>
+    <string name="auth_create_account">Create Account</string>
+    <string name="auth_already_have_account">Already have an account?</string>
+    <string name="auth_dont_have_account">Don\'t have an account?</string>
+    <string name="auth_verify_email">Verify Email</string>
+    <string name="auth_verification_sent">Verification email sent</string>
+    <string name="auth_biometric_enable">Enable Biometric Login</string>
+    <string name="auth_biometric_prompt_title">Biometric Authentication</string>
+    <string name="auth_biometric_prompt_subtitle">Use your fingerprint or face to sign in</string>
+    
+    <!-- Home Screen -->
+    <string name="home_welcome">Welcome to Dahabiyat</string>
+    <string name="home_hero_title">Sail the Eternal Nile</string>
+    <string name="home_hero_subtitle">Experience pharaonic luxury aboard our traditional dahabiyas</string>
+    <string name="home_featured_dahabiyas">Featured Dahabiyas</string>
+    <string name="home_popular_packages">Popular Packages</string>
+    <string name="home_latest_blog">Latest from Blog</string>
+    <string name="home_testimonials">What Our Guests Say</string>
+    <string name="home_explore_all">Explore All</string>
+    <string name="home_book_now">Book Now</string>
+    <string name="home_learn_more">Learn More</string>
+    
+    <!-- Dahabiyas -->
+    <string name="dahabiyas_title">Luxury Dahabiyas</string>
+    <string name="dahabiyas_subtitle">Traditional sailing vessels with modern comfort</string>
+    <string name="dahabiya_capacity">Capacity</string>
+    <string name="dahabiya_cabins">Cabins</string>
+    <string name="dahabiya_crew">Crew</string>
+    <string name="dahabiya_amenities">Amenities</string>
+    <string name="dahabiya_features">Features</string>
+    <string name="dahabiya_cabin_types">Cabin Types</string>
+    <string name="dahabiya_price_per_night">Per Night</string>
+    <string name="dahabiya_view_details">View Details</string>
+    <string name="dahabiya_book_now">Book This Dahabiya</string>
+    
+    <!-- Packages -->
+    <string name="packages_title">Tour Packages</string>
+    <string name="packages_subtitle">Carefully crafted journeys through ancient Egypt</string>
+    <string name="package_duration">Duration</string>
+    <string name="package_nights">Nights</string>
+    <string name="package_price_from">From</string>
+    <string name="package_includes">Includes</string>
+    <string name="package_excludes">Excludes</string>
+    <string name="package_highlights">Highlights</string>
+    <string name="package_itinerary">Itinerary</string>
+    <string name="package_difficulty">Difficulty</string>
+    <string name="package_group_size">Group Size</string>
+    <string name="package_min_age">Minimum Age</string>
+    <string name="package_book_now">Book Package</string>
+    
+    <!-- Booking -->
+    <string name="booking_title">Book Your Journey</string>
+    <string name="booking_guest_details">Guest Details</string>
+    <string name="booking_travel_dates">Travel Dates</string>
+    <string name="booking_check_in">Check-in Date</string>
+    <string name="booking_check_out">Check-out Date</string>
+    <string name="booking_guests">Number of Guests</string>
+    <string name="booking_adults">Adults</string>
+    <string name="booking_children">Children</string>
+    <string name="booking_special_requests">Special Requests</string>
+    <string name="booking_total_price">Total Price</string>
+    <string name="booking_confirm">Confirm Booking</string>
+    <string name="booking_payment">Payment</string>
+    <string name="booking_success">Booking Confirmed!</string>
+    <string name="booking_reference">Booking Reference</string>
+    
+    <!-- Profile -->
+    <string name="profile_title">My Profile</string>
+    <string name="profile_edit">Edit Profile</string>
+    <string name="profile_save">Save Changes</string>
+    <string name="profile_my_bookings">My Bookings</string>
+    <string name="profile_preferences">Preferences</string>
+    <string name="profile_language">Language</string>
+    <string name="profile_currency">Currency</string>
+    <string name="profile_notifications">Notifications</string>
+    <string name="profile_privacy">Privacy</string>
+    <string name="profile_change_password">Change Password</string>
+    <string name="profile_stats">My Stats</string>
+    <string name="profile_total_bookings">Total Bookings</string>
+    <string name="profile_total_spent">Total Spent</string>
+    <string name="profile_reward_points">Reward Points</string>
+    <string name="profile_member_since">Member Since</string>
+    
+    <!-- Gallery -->
+    <string name="gallery_title">Photo Gallery</string>
+    <string name="gallery_subtitle">Discover the beauty of the Nile</string>
+    <string name="gallery_categories">Categories</string>
+    <string name="gallery_all">All Photos</string>
+    <string name="gallery_dahabiyas">Dahabiyas</string>
+    <string name="gallery_destinations">Destinations</string>
+    <string name="gallery_experiences">Experiences</string>
+    <string name="gallery_view_fullscreen">View Fullscreen</string>
+    <string name="gallery_share">Share Photo</string>
+    
+    <!-- Contact -->
+    <string name="contact_title">Contact Us</string>
+    <string name="contact_subtitle">Get in touch with our travel experts</string>
+    <string name="contact_name">Your Name</string>
+    <string name="contact_email">Your Email</string>
+    <string name="contact_phone">Your Phone</string>
+    <string name="contact_subject">Subject</string>
+    <string name="contact_message">Your Message</string>
+    <string name="contact_send">Send Message</string>
+    <string name="contact_call_us">Call Us</string>
+    <string name="contact_email_us">Email Us</string>
+    <string name="contact_visit_us">Visit Us</string>
+    <string name="contact_follow_us">Follow Us</string>
+    
+    <!-- About -->
+    <string name="about_title">About Dahabiyat</string>
+    <string name="about_subtitle">Your gateway to ancient Egypt</string>
+    <string name="about_our_story">Our Story</string>
+    <string name="about_our_mission">Our Mission</string>
+    <string name="about_our_team">Our Team</string>
+    <string name="about_why_choose_us">Why Choose Us</string>
+    
+    <!-- Blog -->
+    <string name="blog_title">Travel Blog</string>
+    <string name="blog_subtitle">Stories from the eternal river</string>
+    <string name="blog_read_more">Read More</string>
+    <string name="blog_share">Share Article</string>
+    <string name="blog_related">Related Articles</string>
+    <string name="blog_categories">Categories</string>
+    <string name="blog_recent">Recent Posts</string>
+    
+    <!-- Common Actions -->
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_share">Share</string>
+    <string name="action_search">Search</string>
+    <string name="action_filter">Filter</string>
+    <string name="action_sort">Sort</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_back">Back</string>
+    <string name="action_next">Next</string>
+    <string name="action_previous">Previous</string>
+    <string name="action_close">Close</string>
+    <string name="action_ok">OK</string>
+    <string name="action_yes">Yes</string>
+    <string name="action_no">No</string>
+    
+    <!-- Status Messages -->
+    <string name="status_loading">Loading…</string>
+    <string name="status_error">Something went wrong</string>
+    <string name="status_no_internet">No internet connection</string>
+    <string name="status_empty">No items found</string>
+    <string name="status_success">Success!</string>
+    
+    <!-- Booking Status -->
+    <string name="booking_status_pending">Pending</string>
+    <string name="booking_status_confirmed">Confirmed</string>
+    <string name="booking_status_cancelled">Cancelled</string>
+    <string name="booking_status_completed">Completed</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_account">Account</string>
+    <string name="settings_notifications">Notifications</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_language">Language</string>
+    <string name="settings_theme">Theme</string>
+    <string name="settings_about">About</string>
+    <string name="settings_help">Help &amp; Support</string>
+    <string name="settings_terms">Terms of Service</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    
+    <!-- Onboarding -->
+    <string name="onboarding_welcome">Welcome to Dahabiyat</string>
+    <string name="onboarding_slide1_title">Luxury Nile Cruises</string>
+    <string name="onboarding_slide1_desc">Experience the magic of ancient Egypt aboard our traditional dahabiyas</string>
+    <string name="onboarding_slide2_title">Personalized Service</string>
+    <string name="onboarding_slide2_desc">Enjoy intimate cruises with dedicated crew and personalized attention</string>
+    <string name="onboarding_slide3_title">Ancient Wonders</string>
+    <string name="onboarding_slide3_desc">Discover temples, tombs, and treasures along the eternal Nile</string>
+    <string name="onboarding_get_started">Get Started</string>
+    <string name="onboarding_skip">Skip</string>
+    
+    <!-- Permissions -->
+    <string name="permission_location_title">Location Permission</string>
+    <string name="permission_location_message">We need location access to show nearby attractions and services</string>
+    <string name="permission_camera_title">Camera Permission</string>
+    <string name="permission_camera_message">We need camera access to let you capture and share memories</string>
+    <string name="permission_storage_title">Storage Permission</string>
+    <string name="permission_storage_message">We need storage access to save photos and offline content</string>
+    
+    <!-- Egyptian/Pharaonic Elements -->
+    <string name="pharaoh_welcome">𓋹 Welcome, Noble Traveler 𓋹</string>
+    <string name="hieroglyph_boat">𓊪</string>
+    <string name="hieroglyph_sun">𓇳</string>
+    <string name="hieroglyph_water">𓈖</string>
+    <string name="hieroglyph_crown">𓂀</string>
+    <string name="pharaonic_blessing">May the gods bless your journey</string>
+</resources>

@@ -39,7 +39,7 @@ export default function SignInForm() {
     try {
       setIsLoading(true);
 
-      // First check if user exists and if email is verified
+      // First check if user exists and if email is verified (bypass for admin users)
       const checkResponse = await fetch('/api/auth/check-user', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -48,7 +48,7 @@ export default function SignInForm() {
 
       if (checkResponse.ok) {
         const userData = await checkResponse.json();
-        if (userData.exists && !userData.isEmailVerified) {
+        if (userData.exists && !userData.isEmailVerified && userData.role !== 'ADMIN') {
           toast.error("Please verify your email address before signing in.");
           router.push(`/auth/verify-email?email=${encodeURIComponent(data.email)}`);
           return;
