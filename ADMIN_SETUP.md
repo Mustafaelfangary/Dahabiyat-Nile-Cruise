@@ -4,7 +4,7 @@
 
 A permanent admin user has been created in the system with the following credentials:
 
-- **Email**: `dark1devil2025@gmail.com`
+- **Email**: `dark1devil2025@outlook.com`
 - **Password**: `1082034D1d@#`
 - **Role**: `ADMIN`
 - **Email Verified**: `true`
@@ -36,7 +36,7 @@ A permanent admin user has been created in the system with the following credent
 
 ### Sign In as Admin
 1. Go to `/auth/signin`
-2. Enter email: `dark1devil2025@gmail.com`
+2. Enter email: `dark1devil2025@outlook.com`
 3. Enter password: `1082034D1d@#`
 4. Click "Sign in"
 5. You will be signed in directly without any verification code prompts

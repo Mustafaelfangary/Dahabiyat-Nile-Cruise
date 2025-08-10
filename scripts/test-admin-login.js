@@ -2,7 +2,7 @@ async function testAdminLogin() {
   try {
     console.log('🧪 Testing admin login flow...\n');
 
-    const adminEmail = 'dark1devil2025@gmail.com';
+    const adminEmail = 'dark1devil2025@outlook.com';
 
     // Test: Test credentials authentication directly from database
     console.log('1️⃣ Testing admin credentials...');
@@ -30,7 +30,7 @@ async function testAdminLogin() {
         console.log('✅ Role is ADMIN');
         console.log('✅ Email is verified');
         console.log('\n📝 Summary:');
-        console.log('   📧 Email: dark1devil2025@gmail.com');
+        console.log('   📧 Email: dark1devil2025@outlook.com');
         console.log('   🔑 Password: 1082034D1d@#');
         console.log('   👑 Role: ADMIN');
         console.log('   ✅ Can sign in without verification code');
