@@ -84,7 +84,7 @@ export function LayoutWrapper({ children }: LayoutWrapperProps) {
             : isAdmin
               ? isMobile
                 ? '0' // Mobile admin pages: no banner, no navbar
-                : '9.8rem' // Desktop admin pages: HieroglyphicTopBanner (elegant variant ~4.8rem) + AdminHeader (~5rem)
+                : '5.5rem' // Desktop admin pages: Reduced padding for admin
               : isMobile
                 ? '0' // Mobile non-admin pages without navbar: no banner
                 : '3.9rem' // Desktop non-admin pages without navbar: just HieroglyphicTopBanner (default variant)

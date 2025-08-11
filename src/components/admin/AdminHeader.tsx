@@ -14,7 +14,12 @@ import {
   LayoutDashboard,
   Menu,
   X,
-  Calendar
+  Calendar,
+  Ship,
+  Package,
+  Users,
+  FileText,
+  Mail
 } from 'lucide-react';
 import { useContent } from '@/hooks/useContent';
 
@@ -23,13 +28,25 @@ export function AdminHeader() {
   const { getContent } = useContent();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Main admin navigation items
+  const adminNavItems = [
+    { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
+    { href: '/admin/dahabiyas', label: 'Dahabiyas', icon: Ship },
+    { href: '/admin/packages', label: 'Packages', icon: Package },
+    { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
+    { href: '/admin/users', label: 'Users', icon: Users },
+    { href: '/admin/website', label: 'Website', icon: FileText },
+    { href: '/admin/settings', label: 'Settings', icon: Settings },
+  ];
+
   // Get dynamic logo from database, fallback to static
   const getAdminLogo = () => {
     return getContent('navbar_logo', '/images/logo.png');
   };
 
   return (
-    <header className="bg-white border-b border-gray-200 shadow-sm sticky z-50 w-full" style={{ top: 'calc(4.8rem + 4rem)' }}>
+    <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full">
+      {/* Main Admin Header */}
       <div className="w-full px-2 sm:px-4 lg:px-6">
         <div className="flex justify-between items-center h-14 sm:h-16 w-full">
           {/* Left Side - Logo and Title */}
@@ -164,19 +181,17 @@ export function AdminHeader() {
                 </Button>
               </Link>
 
-              <Link href="/admin/bookings" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
-                  <Calendar className="w-4 h-4 mr-3" />
-                  Bookings
-                </Button>
-              </Link>
-
-              <Link href="/admin/settings" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
-                  <Settings className="w-4 h-4 mr-3" />
-                  Settings
-                </Button>
-              </Link>
+              {adminNavItems.slice(1).map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                    <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                      <Icon className="w-4 h-4 mr-3" />
+                      {item.label}
+                    </Button>
+                  </Link>
+                );
+              })}
 
               {session && (
                 <Button
@@ -195,6 +210,27 @@ export function AdminHeader() {
             </div>
           </div>
         )}
+      </div>
+
+      {/* Admin Navigation Tabs */}
+      <div className="bg-gray-50 border-b border-gray-200">
+        <div className="w-full px-2 sm:px-4 lg:px-6">
+          <div className="flex items-center space-x-1 overflow-x-auto py-2">
+            {adminNavItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-white transition-colors whitespace-nowrap"
+                >
+                  <Icon className="w-4 h-4" />
+                  <span className="hidden sm:inline">{item.label}</span>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </header>
   );
