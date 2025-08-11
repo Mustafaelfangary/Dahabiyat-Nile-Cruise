@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
-import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock } from 'lucide-react';
+import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock, DollarSign } from 'lucide-react';
 import {
   EgyptHieroglyphic,
   HieroglyphicDivider,
@@ -346,10 +346,10 @@ export default function HomePage() {
                   {/* Enhanced overlay with gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Capacity badge with enhanced design */}
+                  {/* Price badge with enhanced design */}
                   <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
-                    <Users className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
-                    {dahabiya.capacity || 12} {get('guests_label', 'Guests')}
+                    <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
+                    ${dahabiya.pricePerDay || 250}/day
                   </div>
 
                   {/* Featured badge */}
