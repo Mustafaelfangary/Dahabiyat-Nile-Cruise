@@ -119,6 +119,13 @@ if [ -f "fix-blogs.sh" ]; then
     log "✅ Blog pages fixed"
 fi
 
+# Fix Android app API integration
+if [ -f "fix-android-app-api.sh" ]; then
+    chmod +x fix-android-app-api.sh
+    ./fix-android-app-api.sh
+    log "✅ Android app API integration fixed"
+fi
+
 log "🔄 Step 8: Restarting services..."
 # Restart PM2 processes
 if command -v pm2 &> /dev/null; then
