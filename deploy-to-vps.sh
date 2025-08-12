@@ -104,7 +104,22 @@ chown -R www-data:www-data "$PROJECT_DIR" 2>/dev/null || true
 chmod -R 755 "$PROJECT_DIR" 2>/dev/null || true
 log "✅ Permissions updated"
 
-log "🔄 Step 7: Restarting services..."
+log "🔧 Step 7: Fixing application pages..."
+# Fix itineraries pages
+if [ -f "fix-itineraries.sh" ]; then
+    chmod +x fix-itineraries.sh
+    ./fix-itineraries.sh
+    log "✅ Itineraries pages fixed"
+fi
+
+# Fix blog pages
+if [ -f "fix-blogs.sh" ]; then
+    chmod +x fix-blogs.sh
+    ./fix-blogs.sh
+    log "✅ Blog pages fixed"
+fi
+
+log "🔄 Step 8: Restarting services..."
 # Restart PM2 processes
 if command -v pm2 &> /dev/null; then
     pm2 restart all 2>/dev/null || pm2 start ecosystem.config.js 2>/dev/null || true
@@ -123,7 +138,7 @@ if systemctl is-active --quiet apache2; then
     log "✅ Apache reloaded"
 fi
 
-log "🧹 Step 8: Cleanup..."
+log "🧹 Step 9: Cleanup..."
 # Remove old backups (keep last 5)
 cd "$BACKUP_DIR"
 ls -t backup_*.tar.gz 2>/dev/null | tail -n +6 | xargs rm -f 2>/dev/null || true

@@ -1,11 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useParams } from 'next/navigation';
+import { useParams, notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, User, Tag, Clock, ChevronRight, Share2, BookOpen, Heart, ArrowLeft } from 'lucide-react';
+import { Calendar, User, Clock, ChevronRight, Share2, BookOpen, Heart, ArrowLeft } from 'lucide-react';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
+import Image from 'next/image';
 
 interface Blog {
   id: string;
@@ -58,6 +60,7 @@ export default function BlogDetailPage() {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (params.slug) {
@@ -67,18 +70,35 @@ export default function BlogDetailPage() {
 
   const fetchBlog = async () => {
     try {
-      const response = await fetch(`/api/blogs/${params.slug}`);
+      setLoading(true);
+      setError(null);
+
+      const response = await fetch(`/api/blogs/${params.slug}`, {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        }
+      });
+
+      if (response.status === 404) {
+        notFound();
+        return;
+      }
+
       if (response.ok) {
         const data = await response.json();
         setBlog(data);
-        
+
         // Fetch related blogs
         if (data.category || data.tags.length > 0) {
           fetchRelatedBlogs(data);
         }
+      } else {
+        setError('Failed to load blog post');
       }
     } catch (error) {
       console.error('Error fetching blog:', error);
+      setError('Failed to load blog post');
     } finally {
       setLoading(false);
     }
@@ -227,10 +247,13 @@ export default function BlogDetailPage() {
           <div className="container mx-auto px-4">
             <AnimatedSection animation="fade-up">
               <div className="max-w-4xl mx-auto">
-                <img
-                  src={blog.mainImageUrl}
+                <Image
+                  src={blog.mainImageUrl || '/images/default-blog.jpg'}
                   alt={blog.title}
+                  width={800}
+                  height={400}
                   className="w-full h-96 object-cover rounded-lg shadow-2xl border-4 border-blue-200"
+                  priority
                 />
               </div>
             </AnimatedSection>
@@ -269,14 +292,17 @@ export default function BlogDetailPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
               {relatedBlogs.map((relatedBlog, index) => (
                 <AnimatedSection key={relatedBlog.id} animation="fade-up" delay={index * 100}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-ocean-blue overflow-hidden h-full">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={relatedBlog.mainImageUrl || '/images/default-blog.jpg'}
-                        alt={relatedBlog.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                  <Link href={`/blogs/${relatedBlog.slug || relatedBlog.id}`}>
+                    <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-ocean-blue overflow-hidden h-full cursor-pointer">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={relatedBlog.mainImageUrl || '/images/default-blog.jpg'}
+                          alt={relatedBlog.title}
+                          width={300}
+                          height={200}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                       {relatedBlog.category && (
                         <div className="absolute top-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
                           {relatedBlog.category}
@@ -307,15 +333,15 @@ export default function BlogDetailPage() {
                         )}
                       </div>
 
-                      <PharaohButton 
-                        className="w-full text-sm mt-auto"
-                        onClick={() => window.location.href = `/blogs/${relatedBlog.slug || relatedBlog.id}`}
-                      >
-                        Read Blog
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </PharaohButton>
+                      <div className="mt-auto">
+                        <PharaohButton className="w-full text-sm">
+                          Read Blog
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </PharaohButton>
+                      </div>
                     </CardContent>
-                  </Card>
+                    </Card>
+                  </Link>
                 </AnimatedSection>
               ))}
             </div>
@@ -335,13 +361,12 @@ export default function BlogDetailPage() {
               and secrets of ancient Egypt.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <PharaohButton 
-                className="bg-white text-ocean-blue-dark hover:bg-blue-50"
-                onClick={() => window.location.href = '/blogs'}
-              >
-                <BookOpen className="w-5 h-5 mr-2" />
-                All Blogs
-              </PharaohButton>
+              <Link href="/blogs">
+                <PharaohButton className="bg-white text-ocean-blue-dark hover:bg-blue-50">
+                  <BookOpen className="w-5 h-5 mr-2" />
+                  All Blogs
+                </PharaohButton>
+              </Link>
               <PharaohButton 
                 className="bg-transparent border-2 border-white text-white hover:bg-white/10"
                 onClick={() => window.location.href = '/itineraries'}

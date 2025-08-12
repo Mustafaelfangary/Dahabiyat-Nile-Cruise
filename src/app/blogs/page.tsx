@@ -3,9 +3,17 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, User, Tag, Clock, ChevronRight, Search, BookOpen, Star } from 'lucide-react';
+import { Calendar, User, Tag, Clock, ChevronRight, Search, BookOpen, Star, Filter } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Ancient Egypt Blog | Dahabiyat Nile Cruise',
+  description: 'Discover the secrets of ancient Egypt through our curated collection of articles about pharaohs, temples, and Nile cruise adventures.',
+};
 
 interface Blog {
   id: string;
@@ -53,20 +61,41 @@ const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) =>
 
 export default function BlogsPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
+  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
     fetchBlogs();
   }, []);
 
+  useEffect(() => {
+    filterBlogs();
+  }, [blogs, searchTerm, selectedCategory]);
+
   const fetchBlogs = async () => {
     try {
-      const response = await fetch('/api/blogs');
+      const response = await fetch('/api/blogs', {
+        cache: 'no-store',
+        headers: {
+          'Cache-Control': 'no-cache, no-store, must-revalidate',
+        }
+      });
       if (response.ok) {
         const data = await response.json();
-        setBlogs(data.filter((blog: Blog) => blog.isPublished));
+        const publishedBlogs = data.filter((blog: Blog) => blog.isPublished);
+        setBlogs(publishedBlogs);
+        setFeaturedBlogs(publishedBlogs.filter((blog: Blog) => blog.featured));
+
+        // Extract unique categories
+        const uniqueCategories = [...new Set(publishedBlogs
+          .map((blog: Blog) => blog.category)
+          .filter(Boolean)
+        )] as string[];
+        setCategories(uniqueCategories);
       }
     } catch (error) {
       console.error('Error fetching blogs:', error);
@@ -75,17 +104,33 @@ export default function BlogsPage() {
     }
   };
 
-  const categories = ['all', ...Array.from(new Set(blogs.map(blog => blog.category).filter(Boolean)))];
+  const filterBlogs = () => {
+    let filtered = blogs;
 
-  const filteredBlogs = blogs.filter(blog => {
-    const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === 'all' || blog.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+    // Filter by search term
+    if (searchTerm) {
+      filtered = filtered.filter(blog =>
+        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
 
-  const featuredBlogs = blogs.filter(blog => blog.featured);
+    // Filter by category
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(blog => blog.category === selectedCategory);
+    }
+
+    setFilteredBlogs(filtered);
+  };
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  };
 
   if (loading) {
     return (
@@ -151,6 +196,19 @@ export default function BlogsPage() {
 
               {/* Category Filters */}
               <div className="flex flex-wrap justify-center gap-4">
+                <Button
+                  key="all"
+                  variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                  onClick={() => setSelectedCategory('all')}
+                  className={`${
+                    selectedCategory === 'all'
+                      ? 'bg-ocean-blue text-white'
+                      : 'bg-white text-ocean-blue border-ocean-blue hover:bg-ocean-blue hover:text-white'
+                  } transition-all duration-300`}
+                >
+                  <Filter className="w-4 h-4 mr-2" />
+                  All Categories
+                </Button>
                 {categories.map((category) => (
                   <Button
                     key={category}
@@ -254,12 +312,15 @@ export default function BlogsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredBlogs.map((blog, index) => (
                 <AnimatedSection key={blog.id} animation="fade-up" delay={index * 100}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-ocean-blue overflow-hidden h-full">
-                    <div className="relative h-48 overflow-hidden">
-                      <img
-                        src={blog.mainImageUrl || '/images/default-blog.jpg'}
-                        alt={blog.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  <Link href={`/blogs/${blog.slug || blog.id}`}>
+                    <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-ocean-blue overflow-hidden h-full cursor-pointer">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image
+                          src={blog.mainImageUrl || '/images/default-blog.jpg'}
+                          alt={blog.title}
+                          width={400}
+                          height={200}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                       {blog.category && (
@@ -316,15 +377,15 @@ export default function BlogsPage() {
                         </div>
                       </div>
 
-                      <PharaohButton 
-                        className="w-full text-sm mt-auto"
-                        onClick={() => window.location.href = `/blogs/${blog.slug || blog.id}`}
-                      >
-                        Read Full Chronicle
-                        <ChevronRight className="w-4 h-4 ml-1" />
-                      </PharaohButton>
+                      <div className="mt-auto">
+                        <PharaohButton className="w-full text-sm">
+                          Read Full Chronicle
+                          <ChevronRight className="w-4 h-4 ml-1" />
+                        </PharaohButton>
+                      </div>
                     </CardContent>
-                  </Card>
+                    </Card>
+                  </Link>
                 </AnimatedSection>
               ))}
             </div>
