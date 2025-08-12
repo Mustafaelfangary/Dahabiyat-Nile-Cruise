@@ -36,6 +36,32 @@ yarn-error.log*
 # Yarn lock file
 yarn.lock
 
+# Android build files
+android-app/.gradle/
+android-app/app/build/
+android-app/build/
+android-app/local.properties
+android-app/.idea/
+android-app/*.iml
+android-app/app/release/
+android-app/app/debug/
+
+# React Native
+final-android-app/android/app/build/
+final-android-app/android/build/
+final-android-app/android/.gradle/
+final-android-app/node_modules/
+
+# Mobile app builds
+mobile-app/android/app/build/
+mobile-app/android/build/
+mobile-app/android/.gradle/
+mobile-app/ios/build/
+
+# Backup files
+*.bak
+*.backup
+
 
 # Cleanup and analysis files
 *.analysis.js
