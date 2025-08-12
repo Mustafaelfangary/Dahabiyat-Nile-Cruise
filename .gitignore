@@ -45,22 +45,46 @@ android-app/.idea/
 android-app/*.iml
 android-app/app/release/
 android-app/app/debug/
+android-app/gradle/
+android-app/.gradle
 
 # React Native
 final-android-app/android/app/build/
 final-android-app/android/build/
 final-android-app/android/.gradle/
 final-android-app/node_modules/
+final-android-app/.gradle/
 
 # Mobile app builds
 mobile-app/android/app/build/
 mobile-app/android/build/
 mobile-app/android/.gradle/
 mobile-app/ios/build/
+mobile-app/.gradle/
+
+# Gradle files
+**/.gradle/
+**/build/
+**/gradle/wrapper/gradle-wrapper.jar
+**/gradle/wrapper/gradle-wrapper.properties
+gradle-wrapper.jar
+gradle-wrapper.properties
+
+# Android Studio files
+*.iml
+.idea/
+local.properties
+captures/
+.externalNativeBuild/
+.cxx/
 
 # Backup files
 *.bak
 *.backup
+
+# Temporary files
+*.tmp
+*.temp
 
 
 # Cleanup and analysis files
