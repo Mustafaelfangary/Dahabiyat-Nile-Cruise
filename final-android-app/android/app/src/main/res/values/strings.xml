@@ -1,0 +1,36 @@
+<resources>
+    <!-- App Name -->
+    <string name="app_name">Dahabiyat Nile Cruise</string>
+
+    <!-- App Description -->
+    <string name="app_description">Experience luxury Nile cruises aboard traditional dahabiyas. Discover ancient Egypt in comfort and style.</string>
+
+    <!-- App Tagline -->
+    <string name="app_tagline">Luxury Nile River Experience</string>
+
+    <!-- Contact Information -->
+    <string name="contact_phone">+20 123 456 7890</string>
+    <string name="contact_email">info@dahabiyatnilecruise.com</string>
+    <string name="contact_whatsapp">+20 123 456 7890</string>
+    <string name="contact_website">www.dahabiyatnilecruise.com</string>
+
+    <!-- Common Actions -->
+    <string name="action_book_now">Book Now</string>
+    <string name="action_view_details">View Details</string>
+    <string name="action_call">Call</string>
+    <string name="action_email">Email</string>
+    <string name="action_whatsapp">WhatsApp</string>
+    <string name="action_share">Share</string>
+    <string name="action_refresh">Refresh</string>
+    <string name="action_retry">Retry</string>
+
+    <!-- Error Messages -->
+    <string name="error_network">No internet connection. Please check your network and try again.</string>
+    <string name="error_loading">Failed to load data. Please try again.</string>
+    <string name="error_generic">Something went wrong. Please try again later.</string>
+
+    <!-- Loading Messages -->
+    <string name="loading_dahabiyas">Loading dahabiyas...</string>
+    <string name="loading_packages">Loading packages...</string>
+    <string name="loading_details">Loading details...</string>
+</resources>

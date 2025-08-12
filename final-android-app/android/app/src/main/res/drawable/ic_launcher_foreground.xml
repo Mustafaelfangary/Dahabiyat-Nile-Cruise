@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group android:scaleX="0.6"
+           android:scaleY="0.6"
+           android:pivotX="54"
+           android:pivotY="54">
+        <!-- Outer decorative circle -->
+        <path android:fillColor="#FFD700"
+              android:pathData="M54,18C35.2,18 20,33.2 20,52s15.2,34 34,34s34,-15.2 34,-34S72.8,18 54,18z
+                             M54,82C37.4,82 24,68.6 24,52s13.4,-30 30,-30s30,13.4 30,30S70.6,82 54,82z"/>
+
+        <!-- Inner decorative pattern -->
+        <path android:fillColor="#FFFFFF"
+              android:pathData="M54,26C39.6,26 28,37.6 28,52s11.6,26 26,26s26,-11.6 26,-26S68.4,26 54,26z"/>
+
+        <!-- Egyptian goddess profile -->
+        <path android:fillColor="#1B4B73"
+              android:pathData="M42,38c0,-2 1.5,-3.5 3.5,-3.5S49,36 49,38v2c2,-1 4,-1 6,0v-2c0,-2 1.5,-3.5 3.5,-3.5S62,36 62,38v8
+                             c0,4 -2,7 -5,9l-3,2l-3,-2c-3,-2 -5,-5 -5,-9V38z"/>
+
+        <!-- Decorative elements as circles using path -->
+        <path android:fillColor="#FFD700"
+              android:pathData="M45,40.5a1.5,1.5 0,1 1,0 3a1.5,1.5 0,1 1,0 -3z"/>
+        <path android:fillColor="#FFD700"
+              android:pathData="M63,40.5a1.5,1.5 0,1 1,0 3a1.5,1.5 0,1 1,0 -3z"/>
+        <path android:fillColor="#FFD700"
+              android:pathData="M54,43a2,2 0,1 1,0 4a2,2 0,1 1,0 -4z"/>
+
+        <!-- Bottom decorative line -->
+        <path android:fillColor="#1B4B73"
+              android:pathData="M38,60h32c1,0 2,1 2,2s-1,2 -2,2H38c-1,0 -2,-1 -2,-2S37,60 38,60z"/>
+    </group>
+</vector>
