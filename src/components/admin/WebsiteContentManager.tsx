@@ -464,7 +464,7 @@ export default function WebsiteContentManager() {
               Add Logo & Media
             </Button>
           )}
-          <Button onClick={loadContent} variant="outline">
+          <Button onClick={loadContent} variant="outline" className="ml-2">
             <RefreshCw className="w-4 h-4 mr-2" />
             Refresh
           </Button>
@@ -530,9 +530,9 @@ export default function WebsiteContentManager() {
                 </Badge>
               </div>
               
-              {content[section.id]?.length > 0 ? (
+              {Array.isArray(content[section.id]) && (content[section.id] as ContentField[]).length > 0 ? (
                 <div className="space-y-4">
-                  {content[section.id]
+                  {(content[section.id] as ContentField[])
                     .sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order)
                     .map(renderField)}
                 </div>

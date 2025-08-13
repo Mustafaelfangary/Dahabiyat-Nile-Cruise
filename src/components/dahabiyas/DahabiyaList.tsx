@@ -145,7 +145,7 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
           <Typography variant="h5" className="text-black font-bold mb-2" style={{ fontFamily: 'serif' }}>
             {getContent('dahabiyas_fleet_title') || 'Fleet Collection'}
           </Typography>
-          <Typography variant="h6" className="text-blue-700">
+          <Typography variant="h6" className="text-white">
             {getContent('dahabiyas_fleet_description') || 'Showing'} {data.dahabiyas.length} of {data.total} divine vessels
           </Typography>
           <div className="flex justify-center items-center gap-2 mt-2">
@@ -189,11 +189,11 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
                   fontWeight: 'bold',
                   '&:hover': {
                     backgroundColor: '#0080ff',
-                    color: '#8B4513',
+                    color: '#fff',
                   },
                   '&.Mui-selected': {
                     backgroundColor: '#0080ff',
-                    color: '#8B4513',
+                    color: '#fff',
                     '&:hover': {
                       backgroundColor: '#B8860B',
                     },

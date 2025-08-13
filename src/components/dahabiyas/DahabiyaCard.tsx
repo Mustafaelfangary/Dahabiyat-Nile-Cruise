@@ -214,14 +214,14 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               </div>
             )}
             {dahabiya.length && (
-              <div className="flex items-center gap-2 text-ocean-blue bg-blue-50 rounded-lg p-2">
-                <MapPin className="w-4 h-4 text-ocean-blue" />
+              <div className="flex items-center gap-2 text-white bg-blue-500 rounded-lg p-2">
+                <MapPin className="w-4 h-4 text-white" />
                 <span className="font-medium">{dahabiya.length}m long</span>
               </div>
             )}
             {dahabiya.yearBuilt && (
-              <div className="flex items-center gap-2 text-ocean-blue bg-blue-50 rounded-lg p-2">
-                <Calendar className="w-4 h-4 text-ocean-blue" />
+              <div className="flex items-center gap-2 text-white bg-blue-500 rounded-lg p-2">
+                <Calendar className="w-4 h-4 text-white" />
                 <span className="font-medium">Built {dahabiya.yearBuilt}</span>
               </div>
             )}
@@ -279,7 +279,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
             {/* Ocean Blue View Details Button */}
             <div
-              className="bg-gradient-to-r from-ocean-blue/20 to-blue-400/20 text-black px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-ocean-blue/40 hover:border-ocean-blue/60 text-center cursor-pointer backdrop-blur-sm"
+              className="bg-gradient-to-r from-ocean-blue/20 to-blue-400/20 text-white px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-ocean-blue/40 hover:border-ocean-blue/60 text-center cursor-pointer backdrop-blur-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 // Navigate to the dahabiya detail page which has the unified booking form
@@ -287,7 +287,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               }}
             >
               <div className="flex items-center justify-center gap-1.5">
-                <Typography variant="caption" className="font-bold text-xs">
+                <Typography variant="caption" className="font-bold text-xs text-white">
                   {getContent('dahabiyas_card_full_booking_text') || 'View Details'}
                 </Typography>
                 <Typography className="text-xs text-ocean-blue">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</Typography>
