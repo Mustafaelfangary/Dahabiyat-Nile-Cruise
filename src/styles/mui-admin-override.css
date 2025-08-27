@@ -1,15 +1,26 @@
-/* Material-UI Admin Form Override - Fix White Text Issue */
+/* ULTIMATE Material-UI Admin Form Override - Fix White Text Issue */
 
-/* Force all Material-UI components in admin to have black text */
-.admin-layout .MuiTextField-root,
-.admin-layout .MuiFormControl-root,
-.admin-layout .MuiSelect-root,
-.admin-layout .MuiMenuItem-root,
-.admin-layout .MuiTypography-root,
-.admin-layout .MuiInputLabel-root,
-.admin-layout .MuiOutlinedInput-root,
-.admin-layout .MuiInputBase-root {
+/* NUCLEAR OPTION: Force ALL text to be black in admin */
+* {
   color: #000000 !important;
+}
+
+/* Force all Material-UI components to have black text - MAXIMUM SPECIFICITY */
+.MuiTextField-root,
+.MuiFormControl-root,
+.MuiSelect-root,
+.MuiMenuItem-root,
+.MuiTypography-root,
+.MuiInputLabel-root,
+.MuiOutlinedInput-root,
+.MuiInputBase-root,
+.MuiInputBase-input,
+.MuiOutlinedInput-input,
+.MuiFilledInput-input,
+.MuiInput-input {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
 }
 
 /* TextField Labels */
@@ -280,9 +291,57 @@
   .admin-layout .MuiTextField-root .MuiInputLabel-root {
     font-size: 0.75rem !important;
   }
-  
+
   .admin-layout .MuiOutlinedInput-root input,
   .admin-layout .MuiOutlinedInput-root textarea {
     font-size: 0.75rem !important;
   }
+}
+
+/* NUCLEAR OPTION - FORCE ALL TEXT TO BE BLACK */
+html * {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Override any remaining white text */
+[style*="color: white"],
+[style*="color: #fff"],
+[style*="color: #ffffff"],
+[style*="color: rgb(255, 255, 255)"] {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Force Material-UI components with maximum specificity */
+.MuiInputLabel-root.MuiInputLabel-formControl.MuiInputLabel-animated.MuiInputLabel-shrink.MuiInputLabel-outlined,
+.MuiOutlinedInput-root.MuiInputBase-root.MuiInputBase-colorPrimary.MuiInputBase-fullWidth .MuiOutlinedInput-input,
+.MuiSelect-root.MuiSelect-select.MuiSelect-outlined.MuiInputBase-input,
+.MuiMenuItem-root.MuiMenuItem-gutters.MuiButtonBase-root {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  text-shadow: none !important;
+}
+
+/* Force all input elements */
+input, textarea, select, label {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Force all text elements */
+h1, h2, h3, h4, h5, h6, p, span, div, a, li, td, th {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+/* Preserve only specific elements that should be white */
+.MuiButton-contained,
+.MuiButton-contained *,
+.MuiDialogTitle-root,
+.MuiDialogTitle-root *,
+.MuiChip-colorPrimary,
+.MuiChip-colorPrimary * {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
 }

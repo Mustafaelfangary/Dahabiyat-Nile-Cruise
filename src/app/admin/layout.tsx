@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useState } from 'react';
 import { SessionProvider } from 'next-auth/react';
 import { AdminHeader } from '@/components/admin/AdminHeader';
+import AdminTextFixer from '@/components/admin/AdminTextFixer';
 import '../globals.css';
 import '../../styles/admin.css';
 import '../../styles/admin-contrast-fix.css';
@@ -26,7 +27,8 @@ export default function AdminLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
-        <div className="admin-layout min-h-screen bg-gray-50 text-gray-900 overflow-x-hidden">
+        <div className="admin-layout min-h-screen bg-white text-black overflow-x-hidden" style={{ color: '#000000' }}>
+          <AdminTextFixer />
           <div className="admin-header-mobile">
             <AdminHeader />
           </div>
