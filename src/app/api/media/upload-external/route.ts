@@ -10,18 +10,65 @@ export async function POST(request: NextRequest) {
     // Check authentication
     const session = await getServerSession(authOptions);
     if (!session || !["ADMIN", "MANAGER"].includes(session.user.role)) {
-      return NextResponse.json({ 
-        error: "Unauthorized access. Admin or Manager role required." 
+      return NextResponse.json({
+        error: "Unauthorized access. Admin or Manager role required."
       }, { status: 401 });
     }
 
-    const formData = await request.formData();
-    const file = formData.get("file") as File;
+    const contentType = request.headers.get('content-type');
+    let file: File;
+    let originalUrl: string | null = null;
 
-    if (!file) {
-      return NextResponse.json({ 
-        error: "No file provided" 
-      }, { status: 400 });
+    if (contentType?.includes('application/json')) {
+      // Handle URL-based upload
+      const body = await request.json();
+      const { url } = body;
+
+      if (!url) {
+        return NextResponse.json({
+          error: "No URL provided"
+        }, { status: 400 });
+      }
+
+      originalUrl = url;
+
+      // Validate URL
+      try {
+        new URL(url);
+      } catch {
+        return NextResponse.json({
+          error: "Invalid URL format"
+        }, { status: 400 });
+      }
+
+      // Fetch the file from the external URL
+      const response = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+        }
+      });
+
+      if (!response.ok) {
+        return NextResponse.json({
+          error: `Failed to fetch file from URL: ${response.status} ${response.statusText}`
+        }, { status: 400 });
+      }
+
+      const blob = await response.blob();
+      const filename = url.split('/').pop()?.split('?')[0] || 'external-file';
+
+      // Create a File object from the blob
+      file = new File([blob], filename, { type: blob.type });
+    } else {
+      // Handle FormData upload (existing functionality)
+      const formData = await request.formData();
+      file = formData.get("file") as File;
+
+      if (!file) {
+        return NextResponse.json({
+          error: "No file provided"
+        }, { status: 400 });
+      }
     }
 
     // Enhanced file validation for external sources
@@ -106,7 +153,8 @@ export async function POST(request: NextRequest) {
       savedAs: filename,
       size: `${(file.size / 1024 / 1024).toFixed(2)}MB`,
       type: file.type,
-      url: fileUrl
+      url: fileUrl,
+      sourceUrl: originalUrl
     });
 
     return NextResponse.json({
@@ -116,7 +164,8 @@ export async function POST(request: NextRequest) {
       originalName: file.name,
       size: file.size,
       type: file.type,
-      uploadDir: uploadDir
+      uploadDir: uploadDir,
+      sourceUrl: originalUrl
     });
 
   } catch (error) {

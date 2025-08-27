@@ -141,27 +141,26 @@ const MediaManager: React.FC = () => {
       return;
     }
 
+    // Validate URL format
+    try {
+      new URL(externalUrl);
+    } catch {
+      toast.error('Please enter a valid URL');
+      return;
+    }
+
     setUploadingExternal(true);
     try {
-      // First, fetch the file from the external URL
-      const response = await fetch(externalUrl);
-      if (!response.ok) {
-        throw new Error(`Failed to fetch file: ${response.status} ${response.statusText}`);
-      }
-
-      const blob = await response.blob();
-      const filename = externalUrl.split('/').pop() || 'external-file';
-
-      // Create a File object from the blob
-      const file = new File([blob], filename, { type: blob.type });
-
-      // Create FormData and upload using the external upload endpoint
-      const formData = new FormData();
-      formData.append('file', file);
-
+      // Send the URL to the server-side endpoint to handle the download and upload
       const uploadResponse = await fetch('/api/media/upload-external', {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          url: externalUrl,
+          source: 'external'
+        }),
       });
 
       if (!uploadResponse.ok) {
@@ -170,7 +169,7 @@ const MediaManager: React.FC = () => {
       }
 
       const data = await uploadResponse.json();
-      toast.success(`Successfully uploaded file from external URL`);
+      toast.success(`Successfully uploaded file from external URL: ${data.originalName}`);
       fetchFiles();
       setExternalUrl('');
       setExternalUrlDialogOpen(false);
@@ -239,8 +238,8 @@ const MediaManager: React.FC = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Media Manager</h1>
-          <p className="text-gray-600">Manage your media files and assets</p>
+          <h1 className="text-2xl font-bold text-black">Media Manager</h1>
+          <p className="text-black font-semibold">Manage your media files and assets</p>
         </div>
         
         <div className="flex items-center gap-2">

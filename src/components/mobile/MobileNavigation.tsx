@@ -473,8 +473,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={() => toggleDropdown(item.href)}
                             className={`w-full flex items-center justify-between p-3 sm:p-4 rounded-xl transition-all duration-300 min-h-[48px] ${
                               isActive || isExpanded
-                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
-                                : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
+                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-black border border-ocean-blue/30 font-semibold'
+                                : 'hover:bg-gray-50 text-black hover:text-ocean-blue font-medium'
                             }`}
                           >
                             <div className="flex items-center space-x-3">
@@ -495,8 +495,8 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             onClick={onToggle}
                             className={`flex items-center space-x-3 p-3 sm:p-4 rounded-xl transition-all duration-300 min-h-[48px] ${
                               isActive
-                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-gray-900 border border-ocean-blue/30'
-                                : 'hover:bg-gray-50 text-gray-800 hover:text-ocean-blue'
+                                ? 'bg-gradient-to-r from-ocean-blue/10 to-deep-blue/10 text-black border border-ocean-blue/30 font-semibold'
+                                : 'hover:bg-gray-50 text-black hover:text-ocean-blue font-medium'
                             }`}
                           >
                             <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg bg-ocean-blue/10 flex items-center justify-center flex-shrink-0">
@@ -521,7 +521,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                             <Link
                               href={item.href}
                               onClick={onToggle}
-                              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-egyptian-gold/10 text-sm text-hieroglyph-brown transition-colors"
+                              className="flex items-center space-x-3 p-2 rounded-lg hover:bg-egyptian-gold/10 text-sm text-black font-medium transition-colors"
                             >
                               <div className="w-6 h-6 rounded bg-egyptian-gold/20 flex items-center justify-center">
                                 <Compass className="w-3 h-3 text-egyptian-gold" />
@@ -535,7 +535,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                                 key={dropdownItem.href}
                                 href={dropdownItem.href}
                                 onClick={onToggle}
-                                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-egyptian-gold/10 text-sm text-hieroglyph-brown transition-colors"
+                                className="flex items-center space-x-3 p-2 rounded-lg hover:bg-egyptian-gold/10 text-sm text-black font-medium transition-colors"
                               >
                                 <div className="w-6 h-6 rounded bg-egyptian-gold/20 flex items-center justify-center">
                                   <span className="text-xs">{dropdownItem.hieroglyph}</span>
@@ -553,7 +553,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
 
               {/* Quick Actions */}
               <div className="p-4 border-t border-egyptian-gold/20">
-                <h3 className="text-sm font-semibold text-hieroglyph-brown uppercase tracking-wider mb-3 flex items-center gap-2">
+                <h3 className="text-sm font-bold text-black uppercase tracking-wider mb-3 flex items-center gap-2">
                   <Crown className="w-4 h-4" />
                   Quick Actions
                 </h3>
@@ -561,7 +561,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                   <Link
                     href="/booking"
                     onClick={onToggle}
-                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown rounded-lg hover:shadow-lg transition-all duration-300"
+                    className="flex items-center space-x-3 p-3 bg-gradient-to-r from-egyptian-gold to-sunset-orange text-black rounded-lg hover:shadow-lg transition-all duration-300"
                   >
                     <Calendar className="w-5 h-5" />
                     <span className="font-medium">Book Dahabiya</span>
@@ -570,7 +570,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                   {status === "loading" ? (
                     <div className="flex items-center space-x-3 p-3 border border-egyptian-gold/30 rounded-lg">
                       <User className="w-5 h-5 text-egyptian-gold animate-pulse" />
-                      <span className="text-hieroglyph-brown font-medium">Loading...</span>
+                      <span className="text-black font-semibold">Loading...</span>
                     </div>
                   ) : session ? (
                     <Link
@@ -579,7 +579,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                       className="flex items-center space-x-3 p-3 border border-egyptian-gold/30 rounded-lg hover:bg-egyptian-gold/10 transition-all duration-300"
                     >
                       <User className="w-5 h-5 text-egyptian-gold" />
-                      <span className="text-hieroglyph-brown font-medium">My Profile</span>
+                      <span className="text-black font-semibold">My Profile</span>
                     </Link>
                   ) : (
                     <Link
@@ -588,7 +588,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
                       className="flex items-center space-x-3 p-3 border border-egyptian-gold/30 rounded-lg hover:bg-egyptian-gold/10 transition-all duration-300"
                     >
                       <User className="w-5 h-5 text-egyptian-gold" />
-                      <span className="text-hieroglyph-brown font-medium">Sign In</span>
+                      <span className="text-black font-semibold">Sign In</span>
                     </Link>
                   )}
                 </div>
