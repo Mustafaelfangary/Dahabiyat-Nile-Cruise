@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import '../styles/mobile-enhancements.css';
 import '../styles/admin-contrast-fix.css';
+import '../styles/mui-admin-override.css';
 import { Providers } from './providers';
 import { LayoutWrapper } from '@/components/LayoutWrapper';
 import MobileOptimizedLayout from '@/components/mobile/MobileOptimizedLayout';

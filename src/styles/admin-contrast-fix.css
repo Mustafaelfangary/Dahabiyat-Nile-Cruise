@@ -344,6 +344,142 @@ button {
   }
 }
 
+/* Material-UI Component Overrides for Admin Panel */
+.MuiTextField-root .MuiInputLabel-root,
+.MuiFormControl-root .MuiInputLabel-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiTextField-root .MuiInputLabel-root.Mui-focused,
+.MuiFormControl-root .MuiInputLabel-root.Mui-focused {
+  color: #0080ff !important;
+  font-weight: 700 !important;
+}
+
+.MuiOutlinedInput-root input,
+.MuiOutlinedInput-root textarea,
+.MuiSelect-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiMenuItem-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiTypography-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.MuiFormControlLabel-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiTableCell-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiTableCell-head {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.MuiChip-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiTab-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiTab-root.Mui-selected {
+  color: #0080ff !important;
+  font-weight: 700 !important;
+}
+
+.MuiDialogTitle-root {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  background-color: #0080ff !important;
+}
+
+.MuiDialogContent-root {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.MuiDialogContent-root * {
+  color: #000000 !important;
+}
+
+/* Force Material-UI form elements to have black text */
+.MuiInputBase-input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiInputBase-root {
+  color: #000000 !important;
+}
+
+/* Fix Material-UI placeholder text */
+.MuiInputBase-input::placeholder {
+  color: #666666 !important;
+  opacity: 1 !important;
+}
+
+/* Fix Material-UI helper text */
+.MuiFormHelperText-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Fix Material-UI error text */
+.MuiFormHelperText-root.Mui-error {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+/* Fix Material-UI disabled text */
+.MuiInputBase-input.Mui-disabled {
+  color: #666666 !important;
+  -webkit-text-fill-color: #666666 !important;
+}
+
+/* Fix Material-UI Autocomplete */
+.MuiAutocomplete-input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiAutocomplete-option {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Fix Material-UI Switch labels */
+.MuiSwitch-root + .MuiFormControlLabel-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
 /* Print styles */
 @media print {
   .admin-layout * {

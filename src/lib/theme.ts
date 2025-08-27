@@ -21,7 +21,168 @@ export const theme = createTheme({
     },
     text: {
       primary: 'hsl(0, 0%, 0%)', // Black
-      secondary: 'hsl(220, 20%, 45%)',
+      secondary: 'hsl(0, 0%, 0%)', // Changed to black for better contrast
+    },
+  },
+  components: {
+    // Fix Material-UI TextField labels and text
+    MuiTextField: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputLabel-root': {
+            color: '#000000 !important',
+            fontWeight: 600,
+          },
+          '& .MuiInputLabel-root.Mui-focused': {
+            color: '#0080ff !important',
+          },
+          '& .MuiOutlinedInput-root': {
+            '& input': {
+              color: '#000000 !important',
+              fontWeight: 500,
+            },
+            '& textarea': {
+              color: '#000000 !important',
+              fontWeight: 500,
+            },
+          },
+        },
+      },
+    },
+    // Fix Material-UI FormControl labels
+    MuiFormControl: {
+      styleOverrides: {
+        root: {
+          '& .MuiInputLabel-root': {
+            color: '#000000 !important',
+            fontWeight: 600,
+          },
+          '& .MuiInputLabel-root.Mui-focused': {
+            color: '#0080ff !important',
+          },
+        },
+      },
+    },
+    // Fix Material-UI Select components
+    MuiSelect: {
+      styleOverrides: {
+        root: {
+          color: '#000000 !important',
+          fontWeight: 500,
+        },
+      },
+    },
+    // Fix Material-UI MenuItem text
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          color: '#000000 !important',
+          fontWeight: 500,
+        },
+      },
+    },
+    // Fix Material-UI Typography
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          color: '#000000 !important',
+          fontWeight: 500,
+        },
+        h1: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+        h2: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+        h3: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+        h4: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+        h5: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+        h6: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+      },
+    },
+    // Fix Material-UI FormControlLabel
+    MuiFormControlLabel: {
+      styleOverrides: {
+        label: {
+          color: '#000000 !important',
+          fontWeight: 600,
+        },
+      },
+    },
+    // Fix Material-UI TableCell
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          color: '#000000 !important',
+          fontWeight: 500,
+        },
+        head: {
+          color: '#000000 !important',
+          fontWeight: 700,
+        },
+      },
+    },
+    // Fix Material-UI Button text
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontWeight: 600,
+        },
+      },
+    },
+    // Fix Material-UI Chip text
+    MuiChip: {
+      styleOverrides: {
+        label: {
+          color: '#000000 !important',
+          fontWeight: 600,
+        },
+      },
+    },
+    // Fix Material-UI Dialog components
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          color: '#ffffff !important',
+          fontWeight: 700,
+          backgroundColor: '#0080ff !important',
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff !important',
+          color: '#000000 !important',
+        },
+      },
+    },
+    // Fix Material-UI Tab components
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: '#000000 !important',
+          fontWeight: 600,
+          '&.Mui-selected': {
+            color: '#0080ff !important',
+            fontWeight: 700,
+          },
+        },
+      },
     },
   },
   typography: {

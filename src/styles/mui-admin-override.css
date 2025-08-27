@@ -1,0 +1,288 @@
+/* Material-UI Admin Form Override - Fix White Text Issue */
+
+/* Force all Material-UI components in admin to have black text */
+.admin-layout .MuiTextField-root,
+.admin-layout .MuiFormControl-root,
+.admin-layout .MuiSelect-root,
+.admin-layout .MuiMenuItem-root,
+.admin-layout .MuiTypography-root,
+.admin-layout .MuiInputLabel-root,
+.admin-layout .MuiOutlinedInput-root,
+.admin-layout .MuiInputBase-root {
+  color: #000000 !important;
+}
+
+/* TextField Labels */
+.admin-layout .MuiTextField-root .MuiInputLabel-root,
+.admin-layout .MuiFormControl-root .MuiInputLabel-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+}
+
+/* Focused TextField Labels */
+.admin-layout .MuiTextField-root .MuiInputLabel-root.Mui-focused,
+.admin-layout .MuiFormControl-root .MuiInputLabel-root.Mui-focused {
+  color: #0080ff !important;
+  font-weight: 700 !important;
+}
+
+/* TextField Input Text */
+.admin-layout .MuiOutlinedInput-root input,
+.admin-layout .MuiOutlinedInput-root textarea,
+.admin-layout .MuiInputBase-input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+  font-size: 1rem !important;
+}
+
+/* Select Dropdown Text */
+.admin-layout .MuiSelect-root,
+.admin-layout .MuiSelect-select {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* MenuItem Text */
+.admin-layout .MuiMenuItem-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Typography Components */
+.admin-layout .MuiTypography-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-layout .MuiTypography-h1,
+.admin-layout .MuiTypography-h2,
+.admin-layout .MuiTypography-h3,
+.admin-layout .MuiTypography-h4,
+.admin-layout .MuiTypography-h5,
+.admin-layout .MuiTypography-h6 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* FormControlLabel Text */
+.admin-layout .MuiFormControlLabel-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Table Text */
+.admin-layout .MuiTableCell-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-layout .MuiTableCell-head {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* Button Text */
+.admin-layout .MuiButton-root {
+  font-weight: 600 !important;
+}
+
+/* Chip Text */
+.admin-layout .MuiChip-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Tab Text */
+.admin-layout .MuiTab-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.admin-layout .MuiTab-root.Mui-selected {
+  color: #0080ff !important;
+  font-weight: 700 !important;
+}
+
+/* Dialog Components */
+.admin-layout .MuiDialogTitle-root {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  background-color: #0080ff !important;
+}
+
+.admin-layout .MuiDialogContent-root {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+}
+
+.admin-layout .MuiDialogContent-root * {
+  color: #000000 !important;
+}
+
+/* Helper Text */
+.admin-layout .MuiFormHelperText-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Error Text */
+.admin-layout .MuiFormHelperText-root.Mui-error {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+/* Placeholder Text */
+.admin-layout .MuiInputBase-input::placeholder {
+  color: #666666 !important;
+  opacity: 1 !important;
+}
+
+/* Disabled Text */
+.admin-layout .MuiInputBase-input.Mui-disabled {
+  color: #666666 !important;
+  -webkit-text-fill-color: #666666 !important;
+}
+
+/* Autocomplete */
+.admin-layout .MuiAutocomplete-input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-layout .MuiAutocomplete-option {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Switch Labels */
+.admin-layout .MuiSwitch-root + .MuiFormControlLabel-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Specific Dialog Form Overrides */
+.MuiDialog-root .MuiTextField-root .MuiInputLabel-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiDialog-root .MuiOutlinedInput-root input,
+.MuiDialog-root .MuiOutlinedInput-root textarea {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiDialog-root .MuiSelect-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiDialog-root .MuiMenuItem-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.MuiDialog-root .MuiFormControlLabel-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+/* Force override for any remaining white text */
+.admin-layout * {
+  color: inherit !important;
+}
+
+.admin-layout input,
+.admin-layout textarea,
+.admin-layout select,
+.admin-layout label {
+  color: #000000 !important;
+}
+
+/* Ensure form backgrounds are white */
+.admin-layout .MuiDialog-paper,
+.admin-layout .MuiDialogContent-root,
+.admin-layout .MuiTextField-root,
+.admin-layout .MuiFormControl-root {
+  background-color: #ffffff !important;
+}
+
+/* Fix any remaining Material-UI text color issues */
+.MuiInputLabel-root,
+.MuiInputLabel-formControl,
+.MuiInputLabel-animated,
+.MuiInputLabel-shrink,
+.MuiInputLabel-outlined {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.MuiOutlinedInput-input,
+.MuiFilledInput-input,
+.MuiInput-input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* High specificity overrides */
+.admin-layout .MuiDialog-root .MuiDialogContent-root .MuiTextField-root .MuiInputLabel-root {
+  color: #000000 !important;
+  font-weight: 600 !important;
+}
+
+.admin-layout .MuiDialog-root .MuiDialogContent-root .MuiOutlinedInput-root input {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-layout .MuiDialog-root .MuiDialogContent-root .MuiSelect-root {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Ultimate fallback - force all text to be black in admin */
+.admin-layout,
+.admin-layout * {
+  color: #000000 !important;
+}
+
+/* But preserve button and accent colors */
+.admin-layout .MuiButton-contained {
+  color: #ffffff !important;
+}
+
+.admin-layout .MuiDialogTitle-root {
+  color: #ffffff !important;
+}
+
+.admin-layout .MuiChip-colorPrimary {
+  color: #ffffff !important;
+}
+
+.admin-layout .MuiTab-root.Mui-selected {
+  color: #0080ff !important;
+}
+
+/* Mobile responsive fixes */
+@media (max-width: 768px) {
+  .admin-layout .MuiTextField-root .MuiInputLabel-root {
+    font-size: 0.875rem !important;
+  }
+  
+  .admin-layout .MuiOutlinedInput-root input,
+  .admin-layout .MuiOutlinedInput-root textarea {
+    font-size: 0.875rem !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-layout .MuiTextField-root .MuiInputLabel-root {
+    font-size: 0.75rem !important;
+  }
+  
+  .admin-layout .MuiOutlinedInput-root input,
+  .admin-layout .MuiOutlinedInput-root textarea {
+    font-size: 0.75rem !important;
+  }
+}

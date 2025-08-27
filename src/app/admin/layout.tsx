@@ -7,6 +7,7 @@ import { AdminHeader } from '@/components/admin/AdminHeader';
 import '../globals.css';
 import '../../styles/admin.css';
 import '../../styles/admin-contrast-fix.css';
+import '../../styles/mui-admin-override.css';
 
 export default function AdminLayout({
   children,
