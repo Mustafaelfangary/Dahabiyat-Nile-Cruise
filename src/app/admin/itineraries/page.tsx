@@ -133,6 +133,50 @@ export default function ItinerariesManagementPage() {
     }
   };
 
+  const handleItineraryFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, itineraryId: string) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      toast.error('Only PDF files are allowed');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      toast.error('File size must be less than 10MB');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', 'ITINERARY');
+      formData.append('itineraryId', itineraryId);
+
+      const response = await fetch('/api/admin/documents/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+      toast.success('Itinerary PDF uploaded successfully!');
+
+      // Refresh the itineraries list
+      fetchItineraries();
+
+    } catch (error) {
+      console.error('File upload error:', error);
+      toast.error('Failed to upload file. Please try again.');
+    }
+
+    // Clear the input
+    event.target.value = '';
+  };
+
   if (status === 'loading' || loading) {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
@@ -338,6 +382,22 @@ export default function ItinerariesManagementPage() {
                   >
                     <Download className="w-4 h-4" />
                   </Button>
+                  <div className="relative">
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handleItineraryFileUpload(e, itinerary.id)}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                      title="Upload Itinerary PDF"
+                    />
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="text-green-600 hover:text-green-700"
+                    >
+                      <Plus className="w-4 h-4" />
+                    </Button>
+                  </div>
                   <Button
                     variant="outline"
                     size="sm"

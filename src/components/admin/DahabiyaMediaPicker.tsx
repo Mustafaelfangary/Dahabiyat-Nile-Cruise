@@ -283,14 +283,34 @@ export default function DahabiyaMediaPicker({
         onClose={() => setPreviewOpen(false)}
         maxWidth="md"
         fullWidth
+        PaperProps={{
+          style: {
+            backgroundColor: '#ffffff',
+            backgroundImage: 'none',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          }
+        }}
+        BackdropProps={{
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(4px)',
+          }
+        }}
       >
-        <DialogTitle className="flex justify-between items-center">
+        <DialogTitle className="flex justify-between items-center" style={{
+          backgroundColor: '#0080ff',
+          color: 'white',
+          borderBottom: '1px solid #e0e0e0'
+        }}>
           <span className="text-lg font-semibold">Media Preview</span>
-          <IconButton onClick={() => setPreviewOpen(false)}>
+          <IconButton onClick={() => setPreviewOpen(false)} style={{ color: 'white' }}>
             <Close />
           </IconButton>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{
+          backgroundColor: '#ffffff',
+          padding: '24px'
+        }}>
           {previewUrl && (
             <Box className="text-center">
               {isImage(previewUrl) ? (
