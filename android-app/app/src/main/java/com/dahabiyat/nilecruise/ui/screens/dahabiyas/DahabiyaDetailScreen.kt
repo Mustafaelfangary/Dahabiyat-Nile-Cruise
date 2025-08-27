@@ -12,12 +12,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.dahabiyat.nilecruise.data.models.Dahabiya
+import com.dahabiyat.nilecruise.ui.components.EgyptianHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,60 +32,37 @@ fun DahabiyaDetailScreen(
     isFavorite: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
-        // Top App Bar
-        TopAppBar(
-            title = {
-                Text(
-                    text = dahabiya.name,
-                    fontWeight = FontWeight.Bold
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back"
-                    )
+        item {
+            // Egyptian Header with hero image
+            EgyptianHeader(
+                title = dahabiya.name,
+                subtitle = dahabiya.shortDescription ?: "Luxury Nile Cruise Experience",
+                backgroundImage = dahabiya.mainImage,
+                onBackClick = onBackClick,
+                actions = {
+                    IconButton(onClick = onShareClick) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Share",
+                            tint = Color.White
+                        )
+                    }
+                    IconButton(onClick = onFavoriteClick) {
+                        Icon(
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                            tint = if (isFavorite) MaterialTheme.colorScheme.error else Color.White
+                        )
+                    }
                 }
-            },
-            actions = {
-                IconButton(onClick = onShareClick) {
-                    Icon(
-                        imageVector = Icons.Default.Share,
-                        contentDescription = "Share"
-                    )
-                }
-                IconButton(onClick = onFavoriteClick) {
-                    Icon(
-                        imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
-                        tint = if (isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            }
-        )
-        
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(bottom = 80.dp) // Account for bottom button
-        ) {
-            item {
-                // Main Image
-                AsyncImage(
-                    model = dahabiya.mainImage ?: "",
-                    contentDescription = dahabiya.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
-            
-            item {
-                // Basic Info
+            )
+        }
+
+        item {
+            // Basic Info
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
@@ -198,23 +177,25 @@ fun DahabiyaDetailScreen(
                 }
             }
         }
-        
-        // Bottom Book Now Button
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shadowElevation = 8.dp
-        ) {
-            Button(
-                onClick = onBookNowClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+
+        item {
+            // Bottom Book Now Button
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shadowElevation = 8.dp
             ) {
-                Text(
-                    text = "Book Now - $${dahabiya.pricePerDay.toInt()}/day",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
+                Button(
+                    onClick = onBookNowClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = "Book Now - $${dahabiya.pricePerDay.toInt()}/day",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }

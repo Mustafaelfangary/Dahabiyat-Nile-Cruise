@@ -11,12 +11,15 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.dahabiyat.nilecruise.data.models.Package
+import com.dahabiyat.nilecruise.ui.components.EgyptianHeader
+import com.dahabiyat.nilecruise.ui.components.ItineraryCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -29,60 +32,37 @@ fun PackageDetailScreen(
     isFavorite: Boolean = false,
     modifier: Modifier = Modifier
 ) {
-    Column(
+    LazyColumn(
         modifier = modifier.fillMaxSize()
     ) {
-        // Top App Bar
-        TopAppBar(
-            title = {
-                Text(
-                    text = packageItem.name,
-                    fontWeight = FontWeight.Bold
-                )
-            },
-            navigationIcon = {
-                IconButton(onClick = onBackClick) {
-                    Icon(
-                        imageVector = Icons.Default.ArrowBack,
-                        contentDescription = "Back"
-                    )
+        item {
+            // Egyptian Header with hero image
+            EgyptianHeader(
+                title = packageItem.name,
+                subtitle = "${packageItem.duration} days • ${packageItem.minGuests}-${packageItem.maxGuests} guests • From $${packageItem.price.toInt()}",
+                backgroundImage = packageItem.mainImageUrl,
+                onBackClick = onBackClick,
+                actions = {
+                    IconButton(onClick = onShareClick) {
+                        Icon(
+                            imageVector = Icons.Default.Share,
+                            contentDescription = "Share",
+                            tint = Color.White
+                        )
+                    }
+                    IconButton(onClick = onFavoriteClick) {
+                        Icon(
+                            imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                            contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
+                            tint = if (isFavorite) MaterialTheme.colorScheme.error else Color.White
+                        )
+                    }
                 }
-            },
-            actions = {
-                IconButton(onClick = onShareClick) {
-                    Icon(
-                        imageVector = Icons.Default.Share,
-                        contentDescription = "Share"
-                    )
-                }
-                IconButton(onClick = onFavoriteClick) {
-                    Icon(
-                        imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                        contentDescription = if (isFavorite) "Remove from favorites" else "Add to favorites",
-                        tint = if (isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface
-                    )
-                }
-            }
-        )
-        
-        LazyColumn(
-            modifier = Modifier.weight(1f),
-            contentPadding = PaddingValues(bottom = 80.dp) // Account for bottom button
-        ) {
-            item {
-                // Main Image
-                AsyncImage(
-                    model = packageItem.mainImageUrl ?: "",
-                    contentDescription = packageItem.name,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(250.dp),
-                    contentScale = ContentScale.Crop
-                )
-            }
-            
-            item {
-                // Basic Info
+            )
+        }
+
+        item {
+            // Basic Info
                 Column(
                     modifier = Modifier.padding(16.dp)
                 ) {
@@ -184,9 +164,30 @@ fun PackageDetailScreen(
             item {
                 // Itinerary Section
                 if (packageItem.itinerary.isNotEmpty()) {
-                    ItinerarySection(
-                        itinerary = packageItem.itinerary,
+                    Column(
                         modifier = Modifier.padding(horizontal = 16.dp)
+                    ) {
+                        Text(
+                            text = "Detailed Itinerary",
+                            style = MaterialTheme.typography.headlineMedium,
+                            fontWeight = FontWeight.Bold,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+                    }
+                }
+            }
+
+            // Itinerary items
+            if (packageItem.itinerary.isNotEmpty()) {
+                items(packageItem.itinerary) { day ->
+                    var isExpanded by remember { mutableStateOf(false) }
+
+                    ItineraryCard(
+                        itineraryDay = day,
+                        isExpanded = isExpanded,
+                        onExpandClick = { isExpanded = !isExpanded },
+                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
                     )
                 }
             }
@@ -205,23 +206,25 @@ fun PackageDetailScreen(
                 }
             }
         }
-        
-        // Bottom Book Now Button
-        Surface(
-            modifier = Modifier.fillMaxWidth(),
-            shadowElevation = 8.dp
-        ) {
-            Button(
-                onClick = onBookNowClick,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+
+        item {
+            // Bottom Book Now Button
+            Surface(
+                modifier = Modifier.fillMaxWidth(),
+                shadowElevation = 8.dp
             ) {
-                Text(
-                    text = "Book Now - $${packageItem.price.toInt()}",
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold
-                )
+                Button(
+                    onClick = onBookNowClick,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    Text(
+                        text = "Book Now - $${packageItem.price.toInt()}",
+                        style = MaterialTheme.typography.titleMedium,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
             }
         }
     }
@@ -330,46 +333,7 @@ private fun HighlightsSection(
     }
 }
 
-@Composable
-private fun ItinerarySection(
-    itinerary: List<com.dahabiyat.nilecruise.data.models.ItineraryDay>,
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier.fillMaxWidth()
-    ) {
-        Text(
-            text = "Itinerary",
-            style = MaterialTheme.typography.titleLarge,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(bottom = 12.dp)
-        )
-        
-        itinerary.forEach { day ->
-            Card(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 4.dp),
-                elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)
-            ) {
-                Column(
-                    modifier = Modifier.padding(12.dp)
-                ) {
-                    Text(
-                        text = "Day ${day.day}: ${day.title}",
-                        style = MaterialTheme.typography.titleMedium,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = day.description,
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                }
-            }
-        }
-    }
-}
+
 
 @Composable
 private fun InclusionsSection(
