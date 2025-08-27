@@ -25,10 +25,16 @@ export default function AdminLayout({
     <QueryClientProvider client={queryClient}>
       <SessionProvider>
         <div className="admin-layout min-h-screen bg-gray-50 text-gray-900 overflow-x-hidden">
-          <AdminHeader />
-          <main className="admin-content w-full">
+          <div className="admin-header-mobile">
+            <AdminHeader />
+          </div>
+          <main className="admin-content w-full px-2 sm:px-4 lg:px-6">
             <div className="w-full max-w-full overflow-x-hidden">
-              {children}
+              <div className="py-3 sm:py-4 md:py-6 lg:py-8">
+                <div className="admin-mobile-container">
+                  {children}
+                </div>
+              </div>
             </div>
           </main>
         </div>

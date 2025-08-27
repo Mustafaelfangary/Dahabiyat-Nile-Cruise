@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter, Playfair_Display } from 'next/font/google';
 import './globals.css';
+import '../styles/mobile-enhancements.css';
 import { Providers } from './providers';
 import { LayoutWrapper } from '@/components/LayoutWrapper';
 import MobileOptimizedLayout from '@/components/mobile/MobileOptimizedLayout';

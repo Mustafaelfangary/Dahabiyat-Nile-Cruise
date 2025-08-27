@@ -187,48 +187,48 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
       </div>
 
       <Container maxWidth="xl" className="relative z-10">
-        <div className="py-16">
-          {/* Modern Header */}
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center mb-6">
+        <div className="py-8 sm:py-12 md:py-16 px-4 sm:px-6">
+          {/* Modern Header - Mobile Optimized */}
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <div className="flex items-center justify-center mb-4 sm:mb-6">
               <Image
                 src={getFooterLogo()}
                 alt="Site Logo"
                 width={120}
                 height={120}
-                className="h-32 w-auto object-contain"
+                className="h-20 sm:h-24 md:h-32 w-auto object-contain"
               />
             </div>
 
             {/* Hieroglyphic Egypt Header */}
-            <div className="mb-6">
-              <EgyptHieroglyphic className="mx-auto mb-4" size="2.5rem" />
+            <div className="mb-4 sm:mb-6">
+              <EgyptHieroglyphic className="mx-auto mb-2 sm:mb-4" size="1.5rem sm:2rem md:2.5rem" />
               <HieroglyphicDivider />
             </div>
 
-            <h2 className="text-2xl md:text-3xl font-bold text-white mb-4">
-              <span className="text-blue-300 mr-3">𓇳</span>
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-white mb-3 sm:mb-4 px-4">
+              <span className="text-egyptian-gold mr-2 sm:mr-3">𓇳</span>
               {get('footer-title', 'Cleopatra Dahabiyat')}
-              <span className="text-blue-300 ml-3">𓇳</span>
+              <span className="text-egyptian-gold ml-2 sm:ml-3">𓇳</span>
             </h2>
-            <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed">
-              <span className="text-blue-300 mr-2">𓊪</span>
+            <p className="text-white text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-4 font-medium">
+              <span className="text-egyptian-gold mr-1 sm:mr-2">𓊪</span>
               {get('footer-description', 'Experience the magic of the Nile with our luxury dahabiya cruises. Authentic Egyptian hospitality meets modern comfort.')}
-              <span className="text-blue-300 ml-2">𓊪</span>
+              <span className="text-egyptian-gold ml-1 sm:ml-2">𓊪</span>
             </p>
           </div>
 
-          {/* Modern Content Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+          {/* Modern Content Grid - Mobile Enhanced */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-8 sm:mb-10 md:mb-12">
 
             {/* Navigation */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">
-                <span className="text-blue-300 mr-2">𓊪</span>
+            <div className="text-center sm:text-left">
+              <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
+                <span className="text-egyptian-gold mr-1 sm:mr-2">𓊪</span>
                 {get('footer_quick_links_title', 'Quick Links')}
-                <span className="text-egyptian-gold ml-2">𓊪</span>
+                <span className="text-egyptian-gold ml-1 sm:ml-2">𓊪</span>
               </h3>
-              <ul className="space-y-2">
+              <ul className="space-y-2 sm:space-y-3">
                 {[
                   { name: get('footer-link-home', 'Home'), href: '/' },
                   { name: get('footer-link-dahabiyat', 'Dahabiyas'), href: '/dahabiyas' },
@@ -239,7 +239,7 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                   <li key={index}>
                     <Link
                       href={link.href}
-                      className="text-white hover:text-blue-200 transition-colors duration-300 font-medium"
+                      className="text-white hover:text-egyptian-gold transition-colors duration-300 font-medium text-sm sm:text-base block py-1 px-2 rounded hover:bg-white/10"
                     >
                       {link.name}
                     </Link>
@@ -248,14 +248,14 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
               </ul>
             </div>
 
-            {/* Contact Info */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">
-                <span className="text-blue-300 mr-2">𓇳</span>
+            {/* Contact Info - Mobile Enhanced */}
+            <div className="text-center sm:text-left">
+              <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
+                <span className="text-egyptian-gold mr-1 sm:mr-2">𓇳</span>
                 Contact Info
-                <span className="text-egyptian-gold ml-2">𓇳</span>
+                <span className="text-egyptian-gold ml-1 sm:ml-2">𓇳</span>
               </h3>
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3">
                 {[
                   {
                     icon: MapPin,
@@ -272,9 +272,9 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
                 ].map((contact, index) => {
                   const Icon = contact.icon;
                   return (
-                    <div key={index} className="flex items-center space-x-3">
-                      <Icon className="w-5 h-5 text-egyptian-gold" />
-                      <span className="text-blue-100 font-medium">
+                    <div key={index} className="flex items-center justify-center sm:justify-start space-x-2 sm:space-x-3 py-1">
+                      <Icon className="w-4 h-4 sm:w-5 sm:h-5 text-egyptian-gold flex-shrink-0" />
+                      <span className="text-white font-medium text-sm sm:text-base break-all sm:break-normal">
                         {contact.text}
                       </span>
                     </div>
@@ -283,49 +283,50 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
               </div>
             </div>
 
-            {/* Social Media */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">
-                <span className="text-blue-300 mr-2">𓈖</span>
+            {/* Social Media - Mobile Enhanced */}
+            <div className="text-center sm:text-left">
+              <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
+                <span className="text-egyptian-gold mr-1 sm:mr-2">𓈖</span>
                 {get('footer_follow_us_title', 'Follow Us')}
-                <span className="text-egyptian-gold ml-2">𓈖</span>
+                <span className="text-egyptian-gold ml-1 sm:ml-2">𓈖</span>
               </h3>
-              <div className="flex space-x-4">
+              <div className="flex justify-center sm:justify-start space-x-3 sm:space-x-4">
                 {[
-                  { icon: Facebook, href: get('footer-facebook', '#') },
-                  { icon: Twitter, href: get('footer-twitter', '#') },
-                  { icon: Instagram, href: get('footer-instagram', '#') }
+                  { icon: Facebook, href: get('footer-facebook', '#'), label: 'Facebook' },
+                  { icon: Twitter, href: get('footer-twitter', '#'), label: 'Twitter' },
+                  { icon: Instagram, href: get('footer-instagram', '#'), label: 'Instagram' }
                 ].map((social, index) => (
                   <Link
                     key={index}
                     href={social.href}
-                    className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center hover:bg-blue-200 transition-colors duration-300"
+                    className="w-10 h-10 sm:w-12 sm:h-12 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center hover:bg-egyptian-gold hover:scale-110 transition-all duration-300 group"
+                    aria-label={social.label}
                   >
-                    <social.icon className="w-5 h-5 text-egyptian-gold" />
+                    <social.icon className="w-5 h-5 sm:w-6 sm:h-6 text-white group-hover:text-deep-blue" />
                   </Link>
                 ))}
               </div>
             </div>
 
-            {/* Newsletter */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">
-                <span className="text-blue-300 mr-2">𓂀</span>
+            {/* Newsletter - Mobile Enhanced */}
+            <div className="text-center sm:text-left">
+              <h3 className="text-white font-bold text-base sm:text-lg mb-3 sm:mb-4">
+                <span className="text-egyptian-gold mr-1 sm:mr-2">𓂀</span>
                 {get('footer_newsletter_title', 'Newsletter')}
-                <span className="text-blue-300 ml-2">𓂀</span>
+                <span className="text-egyptian-gold ml-1 sm:ml-2">𓂀</span>
               </h3>
-              <p className="text-blue-100 mb-4">
+              <p className="text-white mb-3 sm:mb-4 text-sm sm:text-base font-medium px-2 sm:px-0">
                 {get('footer-newsletter-text', 'Subscribe to get updates on our latest offers and journeys.')}
               </p>
 
-              <div className="space-y-3">
+              <div className="space-y-2 sm:space-y-3 px-2 sm:px-0">
                 <input
                   type="email"
                   placeholder="Enter your email..."
-                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-egyptian-gold focus:ring-2 focus:ring-blue-200 text-gray-800 placeholder-gray-500"
+                  className="w-full px-3 sm:px-4 py-2 sm:py-3 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-egyptian-gold focus:ring-2 focus:ring-egyptian-gold/20 text-gray-800 placeholder-gray-500 text-sm sm:text-base"
                 />
 
-                <button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-hieroglyph-brown font-semibold py-3 px-6 rounded-lg hover:from-egyptian-amber hover:to-navy-blue-600 transition-colors duration-300 flex items-center justify-center space-x-2">
+                <button className="w-full bg-gradient-to-r from-egyptian-gold to-sunset-orange text-deep-blue font-semibold py-2 sm:py-3 px-4 sm:px-6 rounded-lg hover:from-egyptian-amber hover:to-egyptian-gold hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 text-sm sm:text-base shadow-lg">
                   <Send className="w-4 h-4" />
                   <span className="mr-1">𓇳</span>
                   <span>{get('footer_subscribe_button_text', 'Subscribe')}</span>
@@ -360,35 +361,43 @@ export default function Footer({ settings = {}, footerSettings = {} }: FooterPro
             <HieroglyphicDivider />
           </div>
 
-          {/* Developer Contact Section */}
-          <div className="flex justify-center items-center gap-3 mb-8">
+          {/* Developer Contact Section - Mobile Enhanced */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 mb-6 sm:mb-8 px-4">
             {/* Developer Logo */}
-            <div className="w-8 h-8 rounded-full overflow-hidden bg-white shadow-sm flex-shrink-0">
+            <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full overflow-hidden bg-white shadow-lg flex-shrink-0">
               <Image
                 src={get('footer_developer_logo', '/images/logo-white.png')}
                 alt="Developer Logo"
-                width={32}
-                height={32}
+                width={40}
+                height={40}
                 className="w-full h-full object-cover"
               />
             </div>
 
             {/* Contact Developer Button */}
-            <ContactDeveloperModal />
+            <div className="mt-2 sm:mt-0">
+              <ContactDeveloperModal />
+            </div>
           </div>
 
-          {/* Modern Bottom Section */}
-          <div className="border-t border-gray-200 pt-8">
+          {/* Modern Bottom Section - Enhanced Contrast */}
+          <div className="border-t border-white/20 pt-8">
             <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-              <p className="text-white">
+              <p className="text-white font-medium text-sm md:text-base text-center md:text-left">
                 © {new Date().getFullYear()} {get('footer-company-name', 'Cleopatra Dahabiyat')}. All Rights Reserved.
               </p>
 
-              <div className="flex items-center space-x-6">
-                <Link href="/privacy" className="text-blue-200 hover:text-white transition-colors duration-300 font-medium">
+              <div className="flex flex-col sm:flex-row items-center space-y-2 sm:space-y-0 sm:space-x-4 md:space-x-6">
+                <Link
+                  href="/privacy"
+                  className="text-white hover:text-egyptian-gold transition-colors duration-300 font-medium text-sm md:text-base px-2 py-1 rounded hover:bg-white/10"
+                >
                   Privacy Policy
                 </Link>
-                <Link href="/terms" className="text-blue-200 hover:text-white transition-colors duration-300 font-medium">
+                <Link
+                  href="/terms"
+                  className="text-white hover:text-egyptian-gold transition-colors duration-300 font-medium text-sm md:text-base px-2 py-1 rounded hover:bg-white/10"
+                >
                   Terms of Service
                 </Link>
               </div>

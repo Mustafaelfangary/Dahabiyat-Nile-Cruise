@@ -30,6 +30,22 @@ import {
   MessageSquare
 } from 'lucide-react';
 
+// Helper function for status colors
+const getStatusColor = (status: string) => {
+  switch (status.toLowerCase()) {
+    case 'confirmed':
+      return 'bg-green-100 text-green-800';
+    case 'pending':
+      return 'bg-yellow-100 text-yellow-800';
+    case 'cancelled':
+      return 'bg-red-100 text-red-800';
+    case 'completed':
+      return 'bg-blue-100 text-blue-800';
+    default:
+      return 'bg-gray-100 text-gray-800';
+  }
+};
+
 interface Booking {
   id: string;
   bookingReference: string;
@@ -282,19 +298,59 @@ export default function EnhancedBookingManager() {
               No bookings found matching your criteria
             </div>
           ) : (
-            <div className="overflow-x-auto">
-              <table className="w-full min-w-[800px]">
-                <thead>
-                  <tr className="border-b bg-gray-50">
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Customer</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Booking</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Dates</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Guests</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Status</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Total</th>
-                    <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Actions</th>
-                  </tr>
-                </thead>
+            <>
+              {/* Mobile Card View for Small Screens */}
+              <div className="block sm:hidden space-y-3">
+                {filteredBookings.map((booking) => (
+                  <Card key={booking.id} className="border border-gray-200">
+                    <CardContent className="p-3">
+                      <div className="space-y-2">
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <p className="font-semibold text-sm text-gray-900">{booking.customerName}</p>
+                            <p className="text-xs text-gray-600">{booking.customerEmail}</p>
+                          </div>
+                          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(booking.status)}`}>
+                            {booking.status}
+                          </span>
+                        </div>
+                        <div className="text-xs text-gray-600 space-y-1">
+                          <p><strong>Package:</strong> {booking.packageName}</p>
+                          <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}</p>
+                          <p><strong>Guests:</strong> {booking.numberOfGuests}</p>
+                          <p><strong>Total:</strong> <span className="font-semibold text-green-600">${booking.totalAmount}</span></p>
+                        </div>
+                        <div className="flex gap-1 pt-2">
+                          <Button size="sm" variant="outline" className="text-xs px-2 py-1 h-auto">
+                            View
+                          </Button>
+                          <Button size="sm" variant="outline" className="text-xs px-2 py-1 h-auto">
+                            Edit
+                          </Button>
+                          <Button size="sm" variant="outline" className="text-xs px-2 py-1 h-auto text-red-600">
+                            Delete
+                          </Button>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+
+              {/* Desktop Table View */}
+              <div className="hidden sm:block overflow-x-auto">
+                <table className="w-full min-w-[800px]">
+                  <thead>
+                    <tr className="border-b bg-gray-50">
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Customer</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Booking</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Dates</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Guests</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Status</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Total</th>
+                      <th className="text-left py-3 px-2 sm:px-4 font-semibold text-xs sm:text-sm">Actions</th>
+                    </tr>
+                  </thead>
                 <tbody>
                   {bookings.map((booking) => (
                     <tr key={booking.id} className="border-b hover:bg-gray-50">
@@ -388,9 +444,10 @@ export default function EnhancedBookingManager() {
                       </td>
                     </tr>
                   ))}
-                </tbody>
-              </table>
-            </div>
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>

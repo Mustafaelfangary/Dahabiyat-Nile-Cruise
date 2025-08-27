@@ -8,12 +8,6 @@ import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Ancient Egypt Blog | Dahabiyat Nile Cruise',
-  description: 'Discover the secrets of ancient Egypt through our curated collection of articles about pharaohs, temples, and Nile cruise adventures.',
-};
 
 interface Blog {
   id: string;
