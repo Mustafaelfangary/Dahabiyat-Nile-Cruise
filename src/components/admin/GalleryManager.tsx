@@ -592,11 +592,36 @@ export default function GalleryManager() {
       </Dialog>
 
       {/* Image Dialog */}
-      <Dialog open={imageDialogOpen} onClose={() => setImageDialogOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>
+      <Dialog
+        open={imageDialogOpen}
+        onClose={() => setImageDialogOpen(false)}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          style: {
+            backgroundColor: '#ffffff',
+            backgroundImage: 'none',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          }
+        }}
+        BackdropProps={{
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(4px)',
+          }
+        }}
+      >
+        <DialogTitle style={{
+          backgroundColor: '#0080ff',
+          color: 'white',
+          borderBottom: '1px solid #e0e0e0'
+        }}>
           {editingImage ? 'Edit Image' : 'Add New Image'}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{
+          backgroundColor: '#ffffff',
+          padding: '24px'
+        }}>
           <Box display="flex" flexDirection="column" gap={2} pt={1}>
             <MediaPicker
               label="Image URL"

@@ -33,6 +33,16 @@ const adminNavItems = [
   { href: '/admin/website', label: 'Website Content', icon: FileText, hieroglyph: '𓂋' },
   { href: '/admin/dahabiyas', label: 'Dahabiyas', icon: Ship, hieroglyph: '𓊪' },
   { href: '/admin/packages', label: 'Packages', icon: Package, hieroglyph: '𓈖' },
+  {
+    href: '/admin/blogs',
+    label: 'Blogs',
+    icon: FileText,
+    hieroglyph: '📜',
+    submenu: [
+      { href: '/admin/blogs', label: 'Manage Blogs', icon: FileText, hieroglyph: '📜' },
+      { href: '/admin/blogs/new', label: 'Add New Blog', icon: Settings, hieroglyph: '➕' }
+    ]
+  },
   { href: '/admin/bookings', label: 'Bookings', icon: FileText, hieroglyph: '𓂋' },
   { href: '/admin/users', label: 'Users', icon: Users, hieroglyph: '𓂀' },
   { href: '/admin/loyalty-system', label: 'Loyalty System', icon: Settings, hieroglyph: '𓇳' },
@@ -122,7 +132,7 @@ export default function MobileAdminLayout({
 
           {/* Right Side */}
           <div className="flex items-center gap-2">
-            <Link href="/admin" className="p-2 rounded-lg hover:bg-gray-100 transition-colors">
+            <Link href="/admin" className="p-2 rounded-lg">
               <Home className="w-5 h-5 text-gray-600" />
             </Link>
             <Button
@@ -197,24 +207,50 @@ export default function MobileAdminLayout({
               <div className="p-4 space-y-2">
                 {adminNavItems.map((item, index) => {
                   const Icon = item.icon;
-                  
+
                   return (
                     <motion.div
                       key={item.href}
                       initial={{ opacity: 0, x: 20 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: index * 0.05 }}
+                      className="space-y-1"
                     >
                       <Link
                         href={item.href}
                         onClick={() => setSidebarOpen(false)}
-                        className="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-100 text-gray-700 transition-colors"
+                        className="flex items-center space-x-3 p-3 rounded-lg text-gray-700"
                       >
                         <div className="w-8 h-8 rounded-lg bg-blue-100 flex items-center justify-center">
                           <span className="text-lg">{item.hieroglyph}</span>
                         </div>
                         <span className="font-medium">{item.label}</span>
                       </Link>
+
+                      {/* Submenu for blogs */}
+                      {item.submenu && (
+                        <div className="ml-6 space-y-1">
+                          {item.submenu.map((subItem, subIndex) => (
+                            <motion.div
+                              key={subItem.href}
+                              initial={{ opacity: 0, x: 10 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: (index * 0.05) + (subIndex * 0.02) }}
+                            >
+                              <Link
+                                href={subItem.href}
+                                onClick={() => setSidebarOpen(false)}
+                                className="flex items-center space-x-3 p-2 rounded-lg text-gray-600 text-sm"
+                              >
+                                <div className="w-6 h-6 rounded-lg bg-blue-50 flex items-center justify-center">
+                                  <span className="text-sm">{subItem.hieroglyph}</span>
+                                </div>
+                                <span className="font-medium">{subItem.label}</span>
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      )}
                     </motion.div>
                   );
                 })}

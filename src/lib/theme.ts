@@ -132,5 +132,44 @@ export const theme = createTheme({
         },
       },
     },
+    MuiDialog: {
+      styleOverrides: {
+        paper: {
+          backgroundColor: '#ffffff !important',
+          backgroundImage: 'none !important',
+          opacity: '1 !important',
+          borderRadius: '1rem',
+          boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          '&:hover': {
+            transform: 'none',
+          },
+        },
+      },
+    },
+    MuiDialogTitle: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#0080ff !important',
+          color: '#ffffff !important',
+          opacity: '1 !important',
+        },
+      },
+    },
+    MuiDialogContent: {
+      styleOverrides: {
+        root: {
+          backgroundColor: '#ffffff !important',
+          opacity: '1 !important',
+        },
+      },
+    },
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(0, 0, 0, 0.9) !important',
+          backdropFilter: 'blur(8px) !important',
+        },
+      },
+    },
   },
 }); 

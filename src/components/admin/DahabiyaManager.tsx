@@ -103,8 +103,17 @@ interface Dahabiya {
   metaTitle?: string;
   metaDescription?: string;
   tags?: string[];
+  documents?: PDFDocument[];
   createdAt: string;
   updatedAt: string;
+}
+
+interface PDFDocument {
+  id?: string;
+  name: string;
+  type: 'FACTSHEET' | 'BROCHURE' | 'SPECIFICATION';
+  url: string;
+  size: number;
 }
 
 interface Itinerary {
@@ -162,6 +171,7 @@ const DahabiyaManager = () => {
     metaTitle: '',
     metaDescription: '',
     tags: '',
+    documents: [] as PDFDocument[],
     selectedItineraries: [] as string[],
   });
 
@@ -279,6 +289,61 @@ const DahabiyaManager = () => {
     setDialogOpen(false);
     setEditingDahabiya(null);
     setError(null);
+  };
+
+  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: 'FACTSHEET' | 'BROCHURE' | 'SPECIFICATION') => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      setError('Only PDF files are allowed');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      setError('File size must be less than 10MB');
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('type', type);
+
+      const response = await fetch('/api/admin/documents/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+
+      const newDocument: PDFDocument = {
+        name: file.name,
+        type: type,
+        url: result.url,
+        size: file.size,
+      };
+
+      setFormData(prev => ({
+        ...prev,
+        documents: [...prev.documents, newDocument]
+      }));
+
+    } catch (error) {
+      console.error('File upload error:', error);
+      setError('Failed to upload file. Please try again.');
+    }
+  };
+
+  const removeDocument = (index: number) => {
+    setFormData(prev => ({
+      ...prev,
+      documents: prev.documents.filter((_, i) => i !== index)
+    }));
   };
 
   const handleSubmit = async () => {
@@ -437,16 +502,61 @@ const DahabiyaManager = () => {
         maxWidth="md"
         fullWidth
         fullScreen={isMobile}
+        PaperProps={{
+          className: 'admin-dialog-paper',
+          style: {
+            backgroundColor: '#ffffff !important',
+            backgroundImage: 'none !important',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12) !important',
+            zIndex: 1300,
+            opacity: '1 !important',
+            position: 'relative',
+          }
+        }}
+        BackdropProps={{
+          className: 'admin-dialog-backdrop',
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.9) !important',
+            backdropFilter: 'blur(8px) !important',
+            zIndex: 1299,
+          }
+        }}
       >
-        <DialogTitle>
+        <DialogTitle
+          className="admin-dialog-title"
+          style={{
+            backgroundColor: '#0080ff !important',
+            color: 'white !important',
+            borderBottom: '1px solid #e0e0e0 !important',
+            opacity: 1,
+            zIndex: 1301,
+          }}
+        >
+          <DirectionsBoat style={{ marginRight: '8px' }} />
           {editingDahabiya ? 'Edit Dahabiya' : 'Add New Dahabiya'}
         </DialogTitle>
-        <DialogContent>
-          {error && (
-            <Alert severity="error" style={{ marginBottom: '16px' }}>
-              {error}
-            </Alert>
-          )}
+        <DialogContent
+          className="admin-dialog-content"
+          style={{
+            backgroundColor: '#ffffff !important',
+            padding: '0 !important',
+            opacity: '1 !important',
+            zIndex: 1301,
+            position: 'relative',
+          }}
+        >
+          <div style={{
+            backgroundColor: '#ffffff',
+            padding: '24px',
+            minHeight: '100%',
+            position: 'relative',
+            zIndex: 1,
+          }}>
+            {error && (
+              <Alert severity="error" style={{ marginBottom: '16px' }}>
+                {error}
+              </Alert>
+            )}
 
           <Tabs
             value={formTab}
@@ -458,6 +568,7 @@ const DahabiyaManager = () => {
             <Tab label={isMobile ? "Basic" : "Basic Information"} />
             <Tab label={isMobile ? "Specs" : "Specifications"} />
             <Tab label={isMobile ? "Media" : "Media & Content"} />
+            <Tab label={isMobile ? "Files" : "Documents & Files"} />
             <Tab label={isMobile ? "Features" : "Features & Amenities"} />
             <Tab label={isMobile ? "Routes" : "Itineraries"} />
             <Tab label={isMobile ? "SEO" : "SEO & Marketing"} />
@@ -684,8 +795,107 @@ const DahabiyaManager = () => {
               </div>
             )}
 
-            {/* Tab 3: Features & Amenities */}
+            {/* Tab 3: Documents & Files */}
             {formTab === 3 && (
+              <div className="space-y-6">
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#0080ff' }}>
+                    Factsheet & Brochures
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Upload PDF documents like factsheets, brochures, and specifications for this dahabiya
+                  </Typography>
+                </Box>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: '#0080ff' }}>
+                      Factsheet PDF
+                    </Typography>
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handleFileUpload(e, 'FACTSHEET')}
+                      style={{ marginBottom: '8px' }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      Upload the main factsheet PDF for this dahabiya
+                    </Typography>
+                  </div>
+
+                  <div>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: '#0080ff' }}>
+                      Brochure PDF
+                    </Typography>
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handleFileUpload(e, 'BROCHURE')}
+                      style={{ marginBottom: '8px' }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      Upload marketing brochure or detailed information PDF
+                    </Typography>
+                  </div>
+
+                  <div>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: '#0080ff' }}>
+                      Specifications PDF
+                    </Typography>
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handleFileUpload(e, 'SPECIFICATION')}
+                      style={{ marginBottom: '8px' }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      Upload technical specifications and deck plans
+                    </Typography>
+                  </div>
+                </div>
+
+                {/* Display uploaded documents */}
+                {formData.documents && formData.documents.length > 0 && (
+                  <Box sx={{ mt: 3 }}>
+                    <Typography variant="h6" sx={{ mb: 2, color: '#0080ff' }}>
+                      Uploaded Documents
+                    </Typography>
+                    <div className="space-y-2">
+                      {formData.documents.map((doc, index) => (
+                        <div key={index} style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          padding: '8px 12px',
+                          border: '1px solid #e0e0e0',
+                          borderRadius: '4px',
+                          backgroundColor: '#f9f9f9'
+                        }}>
+                          <div>
+                            <Typography variant="body2" fontWeight="medium">
+                              {doc.name}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                              {doc.type} • {(doc.size / 1024 / 1024).toFixed(2)} MB
+                            </Typography>
+                          </div>
+                          <IconButton
+                            size="small"
+                            color="error"
+                            onClick={() => removeDocument(index)}
+                          >
+                            <Delete />
+                          </IconButton>
+                        </div>
+                      ))}
+                    </div>
+                  </Box>
+                )}
+              </div>
+            )}
+
+            {/* Tab 4: Features & Amenities */}
+            {formTab === 4 && (
               <div className="space-y-6">
                 <TextField
                   label="Features (comma-separated)"
@@ -737,8 +947,8 @@ const DahabiyaManager = () => {
               </div>
             )}
 
-            {/* Tab 4: Itineraries */}
-            {formTab === 4 && (
+            {/* Tab 5: Itineraries */}
+            {formTab === 5 && (
               <div className="space-y-6">
                 <Typography variant="h6" gutterBottom>
                   Select Itineraries for this Dahabiya
@@ -807,8 +1017,8 @@ const DahabiyaManager = () => {
               </div>
             )}
 
-            {/* Tab 5: SEO & Marketing */}
-            {formTab === 5 && (
+            {/* Tab 6: SEO & Marketing */}
+            {formTab === 6 && (
               <div className="space-y-6">
                 <TextField
                   label="Meta Title"
@@ -838,16 +1048,33 @@ const DahabiyaManager = () => {
               </div>
             )}
           </div>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
+        <DialogActions style={{
+          backgroundColor: '#ffffff',
+          borderTop: '1px solid #e0e0e0',
+          padding: '16px 24px'
+        }}>
+          <Button
+            onClick={handleCloseDialog}
+            style={{
+              color: '#666666',
+              backgroundColor: 'transparent'
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             onClick={handleSubmit}
             variant="contained"
             disabled={submitting}
-            style={{ backgroundColor: '#0080ff', color: 'white' }}
+            style={{
+              backgroundColor: '#0080ff',
+              color: 'white',
+              boxShadow: '0 2px 8px rgba(0, 128, 255, 0.3)'
+            }}
           >
-            {submitting ? <CircularProgress size={20} /> : (editingDahabiya ? 'Update' : 'Create')}
+            {submitting ? <CircularProgress size={20} color="inherit" /> : (editingDahabiya ? 'Update' : 'Create')}
           </Button>
         </DialogActions>
       </Dialog>

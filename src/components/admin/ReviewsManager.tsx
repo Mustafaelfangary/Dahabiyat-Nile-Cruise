@@ -467,11 +467,31 @@ export default function ReviewsManager() {
         onClose={() => setReviewDialogOpen(false)}
         maxWidth="md"
         fullWidth
+        PaperProps={{
+          style: {
+            backgroundColor: '#ffffff',
+            backgroundImage: 'none',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12)',
+          }
+        }}
+        BackdropProps={{
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            backdropFilter: 'blur(4px)',
+          }
+        }}
       >
-        <DialogTitle>
+        <DialogTitle style={{
+          backgroundColor: '#0080ff',
+          color: 'white',
+          borderBottom: '1px solid #e0e0e0'
+        }}>
           Review: {selectedReview?.dahabiya.name}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent style={{
+          backgroundColor: '#ffffff',
+          padding: '24px'
+        }}>
           {selectedReview && (
             <Box>
               <Box display="flex" alignItems="center" gap={2} mb={3}>

@@ -364,18 +364,105 @@
     color: #000000 !important; /* Dark text for contrast */
   }
 
-  /* Fix button hover states globally */
-  button:hover, .btn:hover, [role="button"]:hover {
-    background-color: var(--ocean-blue, #0080ff) !important;
-    color: white !important;
-    transition: all 0.3s ease !important;
+  /* COMPLETELY DISABLE ALL BLUE/OCEAN BLUE HOVER EFFECTS FOR ADMIN PANEL */
+
+  /* Disable all button hover effects */
+  .admin-panel button:hover,
+  .admin-panel .btn:hover,
+  .admin-panel [role="button"]:hover,
+  button:hover,
+  .btn:hover,
+  [role="button"]:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    transition: none !important;
   }
 
-  /* Fix link hover states */
-  a:hover:not(.no-hover) {
-    color: var(--ocean-blue, #0080ff) !important;
-    text-decoration: underline !important;
+  /* Disable all link hover effects */
+  .admin-panel a:hover,
+  a:hover {
+    color: inherit !important;
+    text-decoration: none !important;
+    background-color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
   }
+
+  /* Disable all card hover effects */
+  .admin-panel .card:hover,
+  .admin-panel [class*="card"]:hover,
+  .card:hover,
+  [class*="card"]:hover {
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    background-color: inherit !important;
+  }
+
+  /* Disable all dropdown hover effects */
+  .admin-panel .dropdown-item:hover,
+  .admin-panel [role="menuitem"]:hover,
+  .dropdown-item:hover,
+  [role="menuitem"]:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+  }
+
+  /* Disable all blue/ocean blue color variations */
+  .admin-panel *:hover,
+  *:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+  }
+
+  /* Specifically target blue hover classes */
+  .hover\\:bg-blue-50:hover,
+  .hover\\:bg-blue-100:hover,
+  .hover\\:bg-blue-200:hover,
+  .hover\\:bg-blue-300:hover,
+  .hover\\:bg-blue-400:hover,
+  .hover\\:bg-blue-500:hover,
+  .hover\\:bg-blue-600:hover,
+  .hover\\:bg-blue-700:hover,
+  .hover\\:bg-blue-800:hover,
+  .hover\\:bg-blue-900:hover,
+  .hover\\:text-blue-50:hover,
+  .hover\\:text-blue-100:hover,
+  .hover\\:text-blue-200:hover,
+  .hover\\:text-blue-300:hover,
+  .hover\\:text-blue-400:hover,
+  .hover\\:text-blue-500:hover,
+  .hover\\:text-blue-600:hover,
+  .hover\\:text-blue-700:hover,
+  .hover\\:text-blue-800:hover,
+  .hover\\:text-blue-900:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+  }
+
+  /* Target ocean blue and any blue variations */
+  *[class*="ocean-blue"]:hover,
+  *[class*="blue"]:hover,
+  *[style*="blue"]:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    border-color: inherit !important;
+  }
+
+  /* Disable all Tailwind hover utilities */
+  *[class*="hover:"]:hover {
+    background-color: inherit !important;
+    color: inherit !important;
+    transform: none !important;
+    box-shadow: none !important;
+    border-color: inherit !important;
+    opacity: inherit !important;
+  }
+
+  /* Disabled link hover states for admin panel */
 
   /* Fix card hover effects */
   .card:hover, [class*="card"]:hover {
@@ -403,11 +490,7 @@
     color: white !important;
   }
 
-  /* Fix dropdown hover states */
-  .dropdown-item:hover, [role="menuitem"]:hover {
-    background-color: rgba(0, 128, 255, 0.1) !important;
-    color: var(--ocean-blue, #0080ff) !important;
-  }
+  /* Disabled dropdown hover states for admin panel */
 
   /* Ensure sufficient contrast for all text elements */
   * {
@@ -902,6 +985,101 @@
     [class*="text-blue-9"] {
       color: inherit !important;
     }
+
+    /* Force white text for elements that explicitly have text-white class */
+    &.text-white,
+    &[class*="text-white"] {
+      color: white !important;
+
+      * {
+        color: white !important;
+      }
+    }
+
+    /* CRITICAL OVERRIDE: Force white text for elements with force-white-text class */
+    &.force-white-text,
+    .force-white-text {
+      color: white !important;
+
+      * {
+        color: white !important;
+      }
+    }
+  }
+
+  /* Additional nuclear override to completely disable the problematic rule for force-white-text elements */
+  .force-white-text[class*="from-blue"],
+  .force-white-text[class*="to-blue"],
+  .force-white-text[class*="from-ocean-blue"],
+  .force-white-text[class*="to-ocean-blue"] {
+    color: white !important;
+  }
+
+  .force-white-text[class*="from-blue"] *,
+  .force-white-text[class*="to-blue"] *,
+  .force-white-text[class*="from-ocean-blue"] *,
+  .force-white-text[class*="to-ocean-blue"] * {
+    color: white !important;
+  }
+
+  /* ULTIMATE NUCLEAR OVERRIDE - Disable the problematic rule completely for homepage dahabiya cards */
+  .homepage-dahabiya-card [class*="from-blue"],
+  .homepage-dahabiya-card [class*="to-blue"],
+  .homepage-dahabiya-card [class*="from-ocean-blue"],
+  .homepage-dahabiya-card [class*="to-ocean-blue"],
+  .homepage-dahabiya-card [style*="background"] {
+    color: white !important;
+  }
+
+  .homepage-dahabiya-card [class*="from-blue"] *,
+  .homepage-dahabiya-card [class*="to-blue"] *,
+  .homepage-dahabiya-card [class*="from-ocean-blue"] *,
+  .homepage-dahabiya-card [class*="to-ocean-blue"] *,
+  .homepage-dahabiya-card [style*="background"] * {
+    color: white !important;
+  }
+
+  /* Target the specific inline styles we're using */
+  .homepage-dahabiya-card div[style*="linear-gradient"],
+  .homepage-dahabiya-card button[style*="linear-gradient"],
+  .homepage-dahabiya-card span[style*="linear-gradient"] {
+    color: white !important;
+  }
+
+  .homepage-dahabiya-card div[style*="linear-gradient"] *,
+  .homepage-dahabiya-card button[style*="linear-gradient"] *,
+  .homepage-dahabiya-card span[style*="linear-gradient"] * {
+    color: white !important;
+  }
+
+  /* Removed problematic CSS classes - using simple Tailwind classes instead */
+
+  /* Override for specific dahabiya card elements that should have white text */
+  /* Target elements with explicit text-white class on gradient backgrounds */
+  [class*="bg-gradient-to-r"][class*="text-white"] {
+    color: white !important;
+
+    /* White text for all text elements inside these specific gradients */
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, a, .MuiTypography-root, .MuiChip-label {
+      color: white !important;
+    }
+  }
+
+  /* Specific override for Material-UI Chip components with text-white */
+  .MuiChip-root.text-white,
+  .MuiChip-root[class*="text-white"] {
+    color: white !important;
+
+    .MuiChip-label {
+      color: white !important;
+    }
+  }
+
+  /* Override for Typography components with text-white */
+  .MuiTypography-root.text-white,
+  .MuiTypography-root[class*="text-white"] {
+    color: white !important;
   }
 
   @media (min-width: 768px) {
@@ -1411,6 +1589,809 @@
   text-transform: none !important;
 }
 
+/* High specificity override for white text on gradient backgrounds */
+[class*="bg-gradient-to-r"][class*="from-ocean-blue"][class*="text-white"],
+[class*="bg-gradient-to-r"][class*="from-blue"][class*="text-white"],
+[class*="bg-gradient-to-r"][class*="to-ocean-blue"][class*="text-white"],
+[class*="bg-gradient-to-r"][class*="to-blue"][class*="text-white"] {
+  color: white !important;
+}
+
+[class*="bg-gradient-to-r"][class*="from-ocean-blue"][class*="text-white"] *,
+[class*="bg-gradient-to-r"][class*="from-blue"][class*="text-white"] *,
+[class*="bg-gradient-to-r"][class*="to-ocean-blue"][class*="text-white"] *,
+[class*="bg-gradient-to-r"][class*="to-blue"][class*="text-white"] * {
+  color: white !important;
+}
+
+/* Specific Material-UI component overrides */
+.MuiChip-root[class*="text-white"] .MuiChip-label {
+  color: white !important;
+}
+
+.MuiTypography-root[class*="text-white"] {
+  color: white !important;
+}
+
+/* Ultra-specific overrides for homepage featured dahabiya cards */
+.absolute.top-3.left-3[class*="bg-gradient-to-r"][class*="from-blue"],
+.absolute.top-3.left-3[class*="bg-gradient-to-r"][class*="via-blue"],
+.absolute.top-3.left-3[class*="bg-gradient-to-r"][class*="to-blue"] {
+  color: white !important;
+}
+
+.absolute.top-3.left-3[class*="bg-gradient-to-r"] *,
+.absolute.top-3.right-3[class*="bg-gradient-to-r"] *,
+[class*="bg-gradient-to-r"][class*="from-blue-600"] *,
+[class*="bg-gradient-to-r"][class*="to-blue-700"] * {
+  color: white !important;
+}
+
+/* Force white text on all gradient backgrounds with blue colors */
+[class*="bg-gradient-to-r"][class*="blue"] {
+  color: white !important;
+}
+
+[class*="bg-gradient-to-r"][class*="blue"] * {
+  color: white !important;
+}
+
+/* Homepage specific overrides - nuclear option */
+.homepage-dahabiya-card .absolute.top-3 {
+  color: white !important;
+}
+
+.homepage-dahabiya-card .absolute.top-3 * {
+  color: white !important;
+}
+
+.homepage-dahabiya-card [class*="bg-gradient-to-r"] {
+  color: white !important;
+}
+
+.homepage-dahabiya-card [class*="bg-gradient-to-r"] * {
+  color: white !important;
+}
+
+/* Ultra aggressive white text enforcement */
+.homepage-dahabiya-card div[style*="background"] {
+  color: white !important;
+}
+
+.homepage-dahabiya-card div[style*="background"] * {
+  color: white !important;
+}
+
+.homepage-dahabiya-card span[style*="color"] {
+  color: white !important;
+}
+
+.homepage-dahabiya-card svg[style*="color"] {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Nuclear option - force white text with maximum specificity */
+.force-white-text,
+.force-white-text *,
+.force-white-text span,
+.force-white-text div,
+.force-white-text svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Even more specific targeting */
+div.force-white-text[style*="background"] {
+  color: white !important;
+}
+
+div.force-white-text[style*="background"] * {
+  color: white !important;
+}
+
+span.force-white-text {
+  color: white !important;
+}
+
+svg.force-white-text {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Specific targeting for View Details buttons in homepage cards */
+.homepage-dahabiya-card button[class*="bg-blue"],
+.homepage-package-card button[class*="bg-blue"],
+.homepage-dahabiya-card button[class*="bg-gradient"],
+.homepage-package-card button[class*="bg-gradient"] {
+  color: white !important;
+}
+
+.homepage-dahabiya-card button[class*="bg-blue"] *,
+.homepage-package-card button[class*="bg-blue"] *,
+.homepage-dahabiya-card button[class*="bg-gradient"] *,
+.homepage-package-card button[class*="bg-gradient"] * {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Ultra-specific targeting for the View Details buttons */
+button[class*="bg-blue-600"] span,
+button[class*="bg-gradient-to-r"] span,
+button[class*="from-blue-600"] span,
+button[class*="to-blue-700"] span {
+  color: white !important;
+}
+
+button[class*="bg-blue-600"] svg,
+button[class*="bg-gradient-to-r"] svg,
+button[class*="from-blue-600"] svg,
+button[class*="to-blue-700"] svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Nuclear option - target all elements in homepage cards with blue backgrounds */
+.homepage-dahabiya-card button,
+.homepage-package-card button,
+.homepage-dahabiya-card button *,
+.homepage-package-card button * {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Even more specific - target by exact class combinations */
+button.bg-blue-600,
+button.bg-blue-600 *,
+button[class*="bg-blue-600"],
+button[class*="bg-blue-600"] *,
+button[class*="bg-gradient"],
+button[class*="bg-gradient"] * {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Target the specific button structure in the homepage */
+.homepage-dahabiya-card .bg-blue-600,
+.homepage-dahabiya-card .bg-blue-600 span,
+.homepage-dahabiya-card .bg-blue-600 svg,
+.homepage-package-card .bg-gradient-to-r,
+.homepage-package-card .bg-gradient-to-r span,
+.homepage-package-card .bg-gradient-to-r svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* NUCLEAR OPTION - Override everything with maximum specificity */
+.dahabiya-view-details-btn,
+.dahabiya-view-details-btn *,
+.dahabiya-view-details-btn span,
+.dahabiya-view-details-btn svg,
+.package-view-details-btn,
+.package-view-details-btn *,
+.package-view-details-btn span,
+.package-view-details-btn svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Even more specific - target by exact HTML structure */
+button.dahabiya-view-details-btn {
+  color: white !important;
+}
+
+button.dahabiya-view-details-btn span {
+  color: white !important;
+}
+
+button.dahabiya-view-details-btn svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+button.package-view-details-btn {
+  color: white !important;
+}
+
+button.package-view-details-btn span {
+  color: white !important;
+}
+
+button.package-view-details-btn svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Override any Tailwind text color classes */
+.dahabiya-view-details-btn.text-xs,
+.dahabiya-view-details-btn .text-xs,
+.package-view-details-btn.text-xs,
+.package-view-details-btn .text-xs {
+  color: white !important;
+}
+
+/* Override any potential black text classes */
+.dahabiya-view-details-btn,
+.dahabiya-view-details-btn *,
+.package-view-details-btn,
+.package-view-details-btn * {
+  color: white !important;
+}
+
+/* Target by background color classes */
+.bg-blue-600.dahabiya-view-details-btn,
+.bg-blue-600.dahabiya-view-details-btn *,
+.bg-gradient-to-r.package-view-details-btn,
+.bg-gradient-to-r.package-view-details-btn * {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* ULTIMATE NUCLEAR OPTION - Maximum CSS specificity */
+html body div div div div button.dahabiya-view-details-btn,
+html body div div div div button.dahabiya-view-details-btn span,
+html body div div div div button.dahabiya-view-details-btn svg,
+html body div div div div .package-view-details-btn,
+html body div div div div .package-view-details-btn span,
+html body div div div div .package-view-details-btn svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Target by attribute selectors */
+button[class*="dahabiya-view-details-btn"],
+button[class*="dahabiya-view-details-btn"] *,
+button[class*="package-view-details-btn"],
+button[class*="package-view-details-btn"] * {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+}
+
+/* Override any potential Tailwind utility classes */
+.dahabiya-view-details-btn.text-black,
+.dahabiya-view-details-btn .text-black,
+.package-view-details-btn.text-black,
+.package-view-details-btn .text-black,
+.dahabiya-view-details-btn.text-gray-900,
+.dahabiya-view-details-btn .text-gray-900,
+.package-view-details-btn.text-gray-900,
+.package-view-details-btn .text-gray-900 {
+  color: white !important;
+}
+
+/* Enhanced Dahabiya Cards Styling */
+.homepage-dahabiya-card {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+}
+
+.homepage-dahabiya-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, rgba(147, 51, 234, 0.05) 50%, rgba(245, 158, 11, 0.05) 100%);
+  border-radius: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.homepage-dahabiya-card:hover::before {
+  opacity: 1;
+}
+
+/* Enhanced text visibility for all overlay badges */
+.homepage-dahabiya-card .absolute {
+  backdrop-filter: blur(12px);
+}
+
+.homepage-dahabiya-card .absolute span,
+.homepage-dahabiya-card .absolute svg,
+.homepage-package-card .absolute span,
+.homepage-package-card .absolute svg {
+  color: white !important;
+  fill: white !important;
+  stroke: white !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6) !important;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) !important;
+}
+
+/* Enhanced text visibility for Dahabiya Detail Hero Section */
+.dahabiya-hero-section {
+  position: relative;
+}
+
+.dahabiya-hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.2) 25%,
+    rgba(0, 0, 0, 0.1) 50%,
+    rgba(0, 0, 0, 0.2) 75%,
+    rgba(0, 0, 0, 0.3) 100%
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.dahabiya-hero-section .MuiContainer-root {
+  position: relative;
+  z-index: 10;
+}
+
+/* Force maximum text visibility for all hero text elements */
+.dahabiya-hero-section h1,
+.dahabiya-hero-section h2,
+.dahabiya-hero-section h3,
+.dahabiya-hero-section h4,
+.dahabiya-hero-section h5,
+.dahabiya-hero-section h6,
+.dahabiya-hero-section p,
+.dahabiya-hero-section span,
+.dahabiya-hero-section .MuiTypography-root {
+  color: #FFFFFF !important;
+  text-shadow:
+    4px 4px 12px rgba(0,0,0,0.95),
+    0 0 20px rgba(0,0,0,0.8),
+    0 0 40px rgba(255,255,255,0.3) !important;
+  filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.9)) !important;
+}
+
+/* Enhanced visibility for all icons in hero section */
+.dahabiya-hero-section svg {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9)) !important;
+}
+
+/* Enhanced chip/badge backgrounds in hero section */
+.dahabiya-hero-section .MuiChip-root {
+  background: linear-gradient(135deg, rgba(0, 128, 255, 0.98) 0%, rgba(0, 102, 204, 0.95) 50%, rgba(0, 68, 153, 0.98) 100%) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.8) !important;
+  box-shadow: 0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.dahabiya-hero-section .MuiChip-root .MuiChip-label {
+  color: #FFFFFF !important;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+  font-weight: bold !important;
+}
+
+/* Ensure all chip icons are white */
+.dahabiya-hero-section .MuiChip-root .MuiChip-icon,
+.dahabiya-hero-section .MuiChip-root svg {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  filter: drop-shadow(3px 3px 6px rgba(0,0,0,0.9)) !important;
+}
+
+/* NUCLEAR OPTION - FORCE WHITE TEXT EVERYWHERE */
+.force-white-text,
+.force-white-text *,
+.force-white-text span,
+.force-white-text div,
+.force-white-text p,
+.force-white-text h1,
+.force-white-text h2,
+.force-white-text h3,
+.force-white-text h4,
+.force-white-text h5,
+.force-white-text h6 {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+}
+
+.force-white-text svg,
+.force-white-text svg *,
+.force-white-text path,
+.force-white-text circle,
+.force-white-text rect {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  filter: none !important;
+}
+
+/* SPECIFIC OVERRIDES FOR HOMEPAGE CARDS */
+.homepage-dahabiya-card .force-white-text,
+.homepage-dahabiya-card .force-white-text *,
+.homepage-dahabiya-card span,
+.homepage-dahabiya-card div {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-shadow: none !important;
+}
+
+/* SPECIFIC OVERRIDES FOR HERO SECTION */
+.dahabiya-hero-section .force-white-text,
+.dahabiya-hero-section .force-white-text *,
+.dahabiya-hero-section span,
+.dahabiya-hero-section h1,
+.dahabiya-hero-section h2,
+.dahabiya-hero-section h3,
+.dahabiya-hero-section h4,
+.dahabiya-hero-section h5,
+.dahabiya-hero-section h6,
+.dahabiya-hero-section div {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  -webkit-text-fill-color: #FFFFFF !important;
+  text-shadow: none !important;
+}
+
+/* ABSOLUTE FINAL OVERRIDE - LAST RESORT */
+body .homepage-dahabiya-card span,
+body .homepage-dahabiya-card div,
+body .dahabiya-hero-section span,
+body .dahabiya-hero-section h1,
+body .dahabiya-hero-section h2,
+body .dahabiya-hero-section h3,
+body .dahabiya-hero-section h4,
+body .dahabiya-hero-section h5,
+body .dahabiya-hero-section h6,
+body .dahabiya-hero-section div,
+body .force-white-text,
+body .force-white-text * {
+  color: white !important;
+  fill: white !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: none !important;
+}
+
+/* FINAL NUCLEAR OPTION - TARGET SPECIFIC ELEMENTS */
+[style*="color: white"],
+[style*="color: 'white'"],
+[style*='color: "white"'],
+span[style*="color"],
+div[style*="color"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: none !important;
+}
+
+/* OVERRIDE ANY POSSIBLE CONFLICTING STYLES */
+* {
+  --text-color: white;
+}
+
+.homepage-dahabiya-card [style*="color"],
+.dahabiya-hero-section [style*="color"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* OVERRIDE TAILWIND CLASSES SPECIFICALLY */
+.homepage-dahabiya-card .text-white\/80,
+.homepage-dahabiya-card .text-white,
+.homepage-dahabiya-card .text-gray-800,
+.homepage-dahabiya-card .text-gray-700,
+.homepage-dahabiya-card .text-gray-600,
+.homepage-dahabiya-card .text-blue-600,
+.dahabiya-hero-section .text-white\/80,
+.dahabiya-hero-section .text-white,
+.dahabiya-hero-section .text-gray-800,
+.dahabiya-hero-section .text-gray-700,
+.dahabiya-hero-section .text-gray-600,
+.dahabiya-hero-section .text-blue-600 {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* FORCE WHITE ON ALL BADGE TEXT */
+.homepage-dahabiya-card span,
+.homepage-dahabiya-card div,
+.dahabiya-hero-section span,
+.dahabiya-hero-section h1,
+.dahabiya-hero-section h2,
+.dahabiya-hero-section h3,
+.dahabiya-hero-section h4,
+.dahabiya-hero-section h5,
+.dahabiya-hero-section h6 {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: none !important;
+}
+
+/* OVERRIDE MATERIAL-UI CHIP LABELS */
+.dahabiya-hero-section .MuiChip-label,
+.dahabiya-hero-section .MuiChip-root,
+.dahabiya-hero-section .MuiChip-root *,
+.dahabiya-hero-section .MuiChip-root span,
+.homepage-dahabiya-card .MuiChip-label,
+.homepage-dahabiya-card .MuiChip-root,
+.homepage-dahabiya-card .MuiChip-root *,
+.homepage-dahabiya-card .MuiChip-root span {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: none !important;
+}
+
+/* OVERRIDE ANY POSSIBLE TEXT CLASSES */
+.homepage-dahabiya-card *[class*="text-"],
+.dahabiya-hero-section *[class*="text-"] {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+}
+
+/* ULTIMATE NUCLEAR OPTION - HIGHEST SPECIFICITY POSSIBLE */
+html body div.homepage-dahabiya-card span,
+html body div.homepage-dahabiya-card div,
+html body div.dahabiya-hero-section span,
+html body div.dahabiya-hero-section h1,
+html body div.dahabiya-hero-section h2,
+html body div.dahabiya-hero-section h3,
+html body div.dahabiya-hero-section h4,
+html body div.dahabiya-hero-section h5,
+html body div.dahabiya-hero-section h6,
+html body .force-white-text,
+html body .force-white-text * {
+  color: white !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: none !important;
+}
+
+/* Luxury gradient border effect */
+.homepage-dahabiya-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6, #f59e0b, #3b82f6);
+  border-radius: 1.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.homepage-dahabiya-card:hover::after {
+  opacity: 0.3;
+}
+
+/* Enhanced shimmer animation */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.homepage-dahabiya-card .shimmer {
+  animation: shimmer 2s infinite;
+}
+
+/* Premium badge glow effect */
+.homepage-dahabiya-card .premium-badge {
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+/* Enhanced button hover effects */
+.dahabiya-view-details-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+}
+
+/* Luxury card hover animation */
+.homepage-dahabiya-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+/* Egyptian symbol glow */
+.homepage-dahabiya-card .egyptian-symbol {
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+}
+
+/* Enhanced Dahabiya Detail Page Styling */
+@keyframes shimmer-hero {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer-hero 3s infinite;
+}
+
+/* Enhanced button styling for dahabiya detail page */
+.enhanced-booking-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-booking-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-booking-btn:hover::before {
+  left: 100%;
+}
+
+.enhanced-secondary-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-secondary-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-secondary-btn:hover::before {
+  left: 100%;
+}
+
+/* Text clarity enhancements */
+.enhanced-booking-btn span,
+.enhanced-secondary-btn span {
+  position: relative;
+  z-index: 2;
+  color: #FFFFFF !important;
+  text-shadow: 3px 3px 6px rgba(0,0,0,0.9) !important;
+  font-weight: 900 !important;
+}
+
+/* Icon clarity enhancements */
+.enhanced-booking-btn .MuiButton-startIcon,
+.enhanced-secondary-btn .MuiButton-startIcon {
+  color: #FFFFFF !important;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) !important;
+}
+
+/* Enhanced View Details Button for Dahabiya Cards */
+.enhanced-view-details-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.enhanced-view-details-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%) !important;
+  transform: scale(1.05) translateY(-1px) !important;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4) !important;
+}
+
+.enhanced-view-details-btn * {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
+.enhanced-view-details-btn .MuiTypography-root {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
+/* Shimmer animation for view details button */
+.enhanced-view-details-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.7s;
+}
+
+.enhanced-view-details-btn:hover::before {
+  left: 100%;
+}
+
+/* Enhanced Price Display for Dahabiya Cards */
+.enhanced-price-display {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3) !important;
+}
+
+.enhanced-price-display:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%) !important;
+  box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4) !important;
+  transform: translateY(-1px);
+}
+
+.enhanced-price-display * {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
+/* Homepage Featured Dahabiya Cards Button Enhancement */
+.dahabiya-view-details-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.dahabiya-view-details-btn:hover {
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 50%, #60a5fa 100%) !important;
+  transform: scale(1.05) translateY(-1px) !important;
+  box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4) !important;
+}
+
+.dahabiya-view-details-btn * {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
+.dahabiya-view-details-btn span {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
+.dahabiya-view-details-btn svg {
+  color: #FFFFFF !important;
+  fill: #FFFFFF !important;
+  stroke: #FFFFFF !important;
+  filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.8)) !important;
+}
+
+/* Homepage dahabiya cards general text clarity */
+.homepage-dahabiya-card .dahabiya-view-details-btn {
+  background: linear-gradient(135deg, #1e40af 0%, #1d4ed8 50%, #2563eb 100%) !important;
+}
+
+.homepage-dahabiya-card .dahabiya-view-details-btn * {
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.8) !important;
+  font-weight: 900 !important;
+}
+
 .MuiButton-contained {
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;
@@ -1479,8 +2460,88 @@
 }
 
 .MuiDialog-paper {
-  background-color: hsl(var(--card)) !important;
-  color: hsl(var(--card-foreground)) !important;
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+  background-image: none !important;
+  position: relative !important;
+}
+
+.MuiDialog-paper::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: #ffffff !important;
+  z-index: -1 !important;
+}
+
+.MuiDialogContent-root {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  position: relative !important;
+}
+
+.MuiDialogTitle-root {
+  background-color: #0080ff !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+}
+
+.MuiBackdrop-root {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+/* Force solid background for admin dialogs - Maximum specificity */
+.MuiDialog-root .MuiDialog-paper.admin-dialog-paper,
+.admin-dialog-paper.MuiPaper-root,
+.admin-dialog-paper {
+  background-color: #ffffff !important;
+  background-image: none !important;
+  opacity: 1 !important;
+  position: relative !important;
+  background: #ffffff !important;
+}
+
+.MuiDialog-root .MuiDialog-paper.admin-dialog-paper::before,
+.admin-dialog-paper.MuiPaper-root::before,
+.admin-dialog-paper::before {
+  content: "" !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background-color: #ffffff !important;
+  background: #ffffff !important;
+  z-index: -1 !important;
+}
+
+.MuiDialogContent-root.admin-dialog-content,
+.admin-dialog-content {
+  background-color: #ffffff !important;
+  opacity: 1 !important;
+  position: relative !important;
+  background: #ffffff !important;
+}
+
+.MuiDialogTitle-root.admin-dialog-title,
+.admin-dialog-title {
+  background-color: #0080ff !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  background: #0080ff !important;
+}
+
+.MuiBackdrop-root.admin-dialog-backdrop,
+.admin-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(8px) !important;
+  background: rgba(0, 0, 0, 0.9) !important;
 }
 
 .MuiAlert-root {

@@ -6,17 +6,18 @@ import { prisma } from '@/lib/prisma';
 // GET /api/admin/itineraries/[id] - Get single itinerary
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     const itinerary = await prisma.itinerary.findUnique({
-      where: { id: params.id },
+      where: { id: id },
       include: {
         days: {
           orderBy: { dayNumber: 'asc' }
@@ -41,17 +42,18 @@ export async function GET(
 // PUT /api/admin/itineraries/[id] - Update itinerary
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
     const data = await request.json();
-    
+
     // Generate slug if not provided
     const slug = data.slug || data.name.toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
@@ -61,7 +63,7 @@ export async function PUT(
     const existingItinerary = await prisma.itinerary.findFirst({
       where: {
         slug: slug,
-        NOT: { id: params.id }
+        NOT: { id: id }
       }
     });
 
@@ -71,7 +73,7 @@ export async function PUT(
 
     // Update itinerary with related data
     const updatedItinerary = await prisma.itinerary.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         name: data.name,
         slug: slug,
@@ -153,18 +155,20 @@ export async function PUT(
 // DELETE /api/admin/itineraries/[id] - Delete itinerary
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions);
-    
+
     if (!session || session.user.role !== 'ADMIN') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
+    const { id } = await params;
+
     // Delete itinerary (cascade will handle related records)
     await prisma.itinerary.delete({
-      where: { id: params.id }
+      where: { id: id }
     });
 
     return NextResponse.json({ message: 'Itinerary deleted successfully' });

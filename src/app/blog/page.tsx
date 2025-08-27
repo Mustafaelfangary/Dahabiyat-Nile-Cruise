@@ -17,6 +17,7 @@ import {
   PharaohButton,
   HieroglyphicDivider,
 } from '@/components/ui/pharaonic-elements';
+import { BlogCard } from '@/components/blog';
 
 interface BlogPost {
   id: string;
@@ -166,64 +167,7 @@ export default function BlogListingPage() {
                 {featuredPosts.slice(0, 3).map((post, index) => (
                   <div key={post.id}>
                     <StaggeredAnimation>
-                      <Link href={`/blog/${post.slug}`}>
-                        <PharaohCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group">
-                          <div className="relative overflow-hidden">
-                            <Image
-                              src={post.mainImageUrl || '/images/default-blog.jpg'}
-                              alt={post.title}
-                              width={400}
-                              height={250}
-                              className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                            />
-                            <div className="absolute top-4 left-4">
-                              <Chip
-                                label="Featured"
-                                className="bg-ocean-blue text-white font-bold"
-                              />
-                            </div>
-                          </div>
-
-                          <CardContent className="p-6">
-                            <div className="flex items-center gap-4 text-sm text-ocean-blue mb-3">
-                              <div className="flex items-center">
-                                <Calendar className="w-4 h-4 mr-1" />
-                                {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
-                              </div>
-                              {post.readTime && (
-                                <div className="flex items-center">
-                                  <Clock className="w-4 h-4 mr-1" />
-                                  {post.readTime} min read
-                                </div>
-                              )}
-                            </div>
-
-                            <Typography variant="h5" className="font-bold text-ocean-blue-dark mb-3 group-hover:text-ocean-blue transition-colors">
-                              {post.title}
-                            </Typography>
-
-                            <Typography variant="body2" className="text-gray-700 mb-4 line-clamp-3">
-                              {post.excerpt || post.content.substring(0, 150) + '...'}
-                            </Typography>
-
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center text-sm text-ocean-blue">
-                                <User className="w-4 h-4 mr-1" />
-                                {post.author}
-                              </div>
-
-                              {post.category && (
-                                <Chip
-                                  label={post.category}
-                                  size="small"
-                                  className="bg-blue-100 text-ocean-blue-dark"
-                                />
-                              )}
-                            </div>
-                          </CardContent>
-                        </PharaohCard>
-                      </Link>
-                      <span></span>
+                      <BlogCard post={post} />
                     </StaggeredAnimation>
                   </div>
                 ))}
@@ -253,79 +197,7 @@ export default function BlogListingPage() {
               {posts.map((post, index) => (
                 <div key={post.id}>
                   <StaggeredAnimation>
-                    <Link href={`/blog/${post.slug}`}>
-                      <PharaohCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer group">
-                        <div className="relative overflow-hidden">
-                          <Image
-                            src={post.mainImageUrl || '/images/default-blog.jpg'}
-                            alt={post.title}
-                            width={400}
-                            height={200}
-                            className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                          />
-                          {post.featured && (
-                            <div className="absolute top-4 left-4">
-                              <Chip
-                                label="Featured"
-                                className="bg-ocean-blue text-white font-bold"
-                              />
-                            </div>
-                          )}
-                        </div>
-
-                        <CardContent className="p-6">
-                          <div className="flex items-center gap-4 text-sm text-ocean-blue mb-3">
-                            <div className="flex items-center">
-                              <Calendar className="w-4 h-4 mr-1" />
-                              {new Date(post.publishedAt || post.createdAt).toLocaleDateString()}
-                            </div>
-                            {post.readTime && (
-                              <div className="flex items-center">
-                                <Clock className="w-4 h-4 mr-1" />
-                                {post.readTime} min read
-                              </div>
-                            )}
-                          </div>
-
-                          <Typography variant="h6" className="font-bold text-ocean-blue-dark mb-3 group-hover:text-ocean-blue transition-colors">
-                            {post.title}
-                          </Typography>
-
-                          <Typography variant="body2" className="text-gray-700 mb-4 line-clamp-2">
-                            {post.excerpt || post.content.substring(0, 100) + '...'}
-                          </Typography>
-
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center text-sm text-ocean-blue">
-                              <User className="w-4 h-4 mr-1" />
-                              {post.author}
-                            </div>
-
-                            {post.category && (
-                              <Chip
-                                label={post.category}
-                                size="small"
-                                className="bg-blue-100 text-ocean-blue-dark"
-                              />
-                            )}
-                          </div>
-
-                          {post.tags.length > 0 && (
-                            <div className="mt-3 flex flex-wrap gap-1">
-                              {post.tags.slice(0, 3).map((tag, tagIndex) => (
-                                <Chip
-                                  key={tagIndex}
-                                  label={tag}
-                                  size="small"
-                                  className="bg-blue-50 text-ocean-blue text-xs"
-                                />
-                              ))}
-                            </div>
-                          )}
-                        </CardContent>
-                      </PharaohCard>
-                    </Link>
-                    <span></span>
+                    <BlogCard post={post} />
                   </StaggeredAnimation>
                 </div>
               ))}

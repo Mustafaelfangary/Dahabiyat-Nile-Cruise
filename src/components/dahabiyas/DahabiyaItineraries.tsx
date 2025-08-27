@@ -278,40 +278,40 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                                     exit={{ opacity: 0, x: -20 }}
                                     transition={{ duration: 0.2 }}
                                   >
-                                    <Card className="bg-gradient-to-br from-ocean-blue-50 to-navy-blue-50 border-amber-200">
-                                      <CardContent className="p-6">
-                                        <div className="flex items-start gap-4 mb-4">
-                                          <div className="w-12 h-12 bg-amber-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                    <Card className="bg-gradient-to-br from-ocean-blue-50 to-navy-blue-50 border-2 border-amber-300 shadow-xl">
+                                      <CardContent className="p-8">
+                                        <div className="flex items-start gap-6 mb-6">
+                                          <div className="w-16 h-16 bg-gradient-to-br from-amber-600 to-amber-700 rounded-full flex items-center justify-center text-white font-bold text-2xl shadow-lg">
                                             {day.dayNumber}
                                           </div>
                                           <div className="flex-1">
-                                            <h5 className="text-xl font-bold text-amber-800 mb-1">
+                                            <h5 className="text-2xl font-bold text-amber-800 mb-2 leading-tight">
                                               {day.title}
                                             </h5>
                                             {day.location && (
-                                              <div className="flex items-center gap-1 text-amber-600 mb-2">
-                                                <MapPin className="w-4 h-4" />
-                                                <span className="text-sm font-medium">{day.location}</span>
+                                              <div className="flex items-center gap-2 text-amber-600 mb-3">
+                                                <MapPin className="w-5 h-5" />
+                                                <span className="text-base font-semibold">{day.location}</span>
                                               </div>
                                             )}
                                           </div>
                                         </div>
 
-                                        <p className="text-gray-700 mb-4 leading-relaxed">
+                                        <p className="text-gray-800 mb-6 leading-relaxed text-base font-medium">
                                           {day.description}
                                         </p>
 
-                                        {/* Activities */}
+                                        {/* Activities - BIGGER & CLEARER */}
                                         {day.activities.length > 0 && (
-                                          <div className="mb-4">
-                                            <h6 className="font-semibold text-amber-700 mb-2 flex items-center gap-1">
-                                              <Camera className="w-4 h-4" />
+                                          <div className="mb-6">
+                                            <h6 className="font-bold text-amber-700 mb-4 flex items-center gap-2 text-lg">
+                                              <Camera className="w-5 h-5" />
                                               Activities
                                             </h6>
-                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                               {day.activities.map((activity, index) => (
-                                                <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                                                  <ChevronRight className="w-3 h-3 text-amber-500" />
+                                                <div key={index} className="flex items-center gap-3 text-base text-gray-700 font-medium">
+                                                  <ChevronRight className="w-4 h-4 text-amber-500" />
                                                   {activity}
                                                 </div>
                                               ))}
@@ -319,18 +319,18 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                                           </div>
                                         )}
 
-                                        {/* Meals */}
+                                        {/* Meals - BIGGER & CLEARER */}
                                         {day.meals.length > 0 && (
                                           <div>
-                                            <h6 className="font-semibold text-amber-700 mb-2 flex items-center gap-1">
-                                              <Utensils className="w-4 h-4" />
+                                            <h6 className="font-bold text-amber-700 mb-4 flex items-center gap-2 text-lg">
+                                              <Utensils className="w-5 h-5" />
                                               Meals Included
                                             </h6>
-                                            <div className="flex flex-wrap gap-2">
+                                            <div className="flex flex-wrap gap-3">
                                               {day.meals.map((meal, index) => (
-                                                <Badge key={index} variant="secondary" className="bg-white border border-amber-200">
+                                                <Badge key={index} variant="secondary" className="bg-white border-2 border-amber-300 px-4 py-2 text-base font-semibold">
                                                   {getMealIcon(meal)}
-                                                  <span className="ml-1">{meal}</span>
+                                                  <span className="ml-2">{meal}</span>
                                                 </Badge>
                                               ))}
                                             </div>
@@ -343,16 +343,16 @@ export default function DahabiyaItineraries({ dahabiyaId, dahabiyaName }: Dahabi
                             </AnimatePresence>
                           </div>
 
-                          {/* Book This Itinerary Button */}
-                          <div className="mt-6 text-center">
+                          {/* Book This Itinerary Button - BIGGER */}
+                          <div className="mt-8 text-center">
                             <Button
                               size="lg"
-                              className="bg-ocean-blue hover:bg-blue-600 text-white px-8 py-3"
+                              className="bg-ocean-blue hover:bg-blue-600 text-white px-12 py-4 text-lg font-bold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl"
                               onClick={() => {
                                 window.location.href = `/booking?itemId=${dahabiyaId}&type=dahabiya&itineraryId=${selectedItinerary.id}`;
                               }}
                             >
-                              <Crown className="w-5 h-5 mr-2" />
+                              <Crown className="w-6 h-6 mr-3" />
                               Book This Royal Journey
                             </Button>
                           </div>

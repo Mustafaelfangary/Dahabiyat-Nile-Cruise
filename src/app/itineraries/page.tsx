@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, MapPin, Star, Clock, ChevronRight, Play, Download } from 'lucide-react';
@@ -224,79 +225,103 @@ export default function ItinerariesPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredItineraries.map((itinerary, index) => (
                 <AnimatedSection key={itinerary.id} animation="fade-up" delay={index * 100}>
-                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-200 hover:border-blue-400 overflow-hidden">
-                    {/* Image */}
-                    <div className="relative h-64 overflow-hidden">
+                  <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 bg-white/95 backdrop-blur-sm border-2 border-ocean-blue/20 hover:border-ocean-blue/60 overflow-hidden rounded-2xl">
+                    {/* Enhanced Image Section */}
+                    <div className="relative h-72 overflow-hidden">
                       <img
                         src={itinerary.mainImageUrl || '/images/default-itinerary.jpg'}
                         alt={itinerary.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                      
-                      {/* Featured Badge */}
+                      {/* Enhanced Gradient Overlays */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-br from-ocean-blue/10 via-transparent to-deep-blue/10"></div>
+
+                      {/* Enhanced Featured Badge */}
                       {itinerary.featured && (
-                        <div className="absolute top-4 right-4 bg-gradient-to-r from-gray-100 to-gray-200 text-black px-3 py-1 rounded-full text-sm font-bold border border-gray-300">
-                          ⭐ Featured
+                        <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-400 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg animate-pulse">
+                          <Star className="w-4 h-4 inline mr-1 fill-current" />
+                          Featured
                         </div>
                       )}
-                      
-                      {/* Duration Badge */}
-                      <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm font-semibold">
+
+                      {/* Enhanced Duration Badge */}
+                      <div className="absolute bottom-4 left-4 bg-gradient-to-r from-ocean-blue to-deep-blue text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg border border-white/20">
                         <Calendar className="w-4 h-4 inline mr-1" />
-                        {itinerary.durationDays} Days
+                        {itinerary.durationDays} Days Journey
+                      </div>
+
+                      {/* Price Badge */}
+                      {itinerary.price && (
+                        <div className="absolute top-4 left-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                          From ${itinerary.price}
+                        </div>
+                      )}
+
+                      {/* Hover Overlay with Egyptian Symbol */}
+                      <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
+                        <div className="text-white text-6xl animate-pulse">𓇳</div>
                       </div>
                     </div>
 
-                    <CardContent className="p-6">
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-black transition-colors">
+                    <CardContent className="p-6 bg-gradient-to-b from-white to-blue-50/30">
+                      {/* Decorative Divider */}
+                      <div className="flex justify-center items-center gap-2 mb-4">
+                        <div className="w-8 h-0.5 bg-ocean-blue"></div>
+                        <div className="text-ocean-blue text-lg">𓇳</div>
+                        <div className="w-8 h-0.5 bg-ocean-blue"></div>
+                      </div>
+
+                      <h3 className="text-2xl font-bold text-gray-900 mb-3 group-hover:text-ocean-blue transition-colors text-center">
                         {itinerary.name}
                       </h3>
-                      
-                      <p className="text-gray-800 mb-4 line-clamp-3">
+
+                      <p className="text-gray-700 mb-6 line-clamp-3 text-center leading-relaxed">
                         {itinerary.shortDescription || itinerary.description}
                       </p>
 
-                      {/* Details */}
-                      <div className="flex items-center gap-4 mb-4 text-sm text-gray-800">
+                      {/* Enhanced Details Grid */}
+                      <div className="grid grid-cols-2 gap-3 mb-6">
                         {itinerary.maxGuests && (
-                          <div className="flex items-center">
-                            <Users className="w-4 h-4 mr-1" />
-                            Up to {itinerary.maxGuests}
+                          <div className="flex items-center justify-center bg-blue-50 rounded-lg p-3 border border-blue-200">
+                            <Users className="w-5 h-5 mr-2 text-ocean-blue" />
+                            <span className="text-sm font-semibold text-gray-800">Up to {itinerary.maxGuests}</span>
                           </div>
                         )}
-                        {itinerary.price && (
-                          <div className="font-semibold text-gray-900">
-                            From ${itinerary.price}
-                          </div>
-                        )}
+                        <div className="flex items-center justify-center bg-amber-50 rounded-lg p-3 border border-amber-200">
+                          <Clock className="w-5 h-5 mr-2 text-amber-600" />
+                          <span className="text-sm font-semibold text-gray-800">{itinerary.durationDays} Days</span>
+                        </div>
                       </div>
 
-                      {/* Highlights */}
-                      {itinerary.highlights.length > 0 && (
-                        <div className="mb-4">
-                          <div className="flex flex-wrap gap-1">
-                            {itinerary.highlights.slice(0, 3).map((highlight, idx) => (
-                              <span key={idx} className="bg-gray-100 text-black text-xs px-2 py-1 rounded-full border border-gray-200">
+                      {/* Enhanced Highlights */}
+                      {(itinerary.highlights || []).length > 0 && (
+                        <div className="mb-6">
+                          <h4 className="text-sm font-bold text-ocean-blue mb-3 text-center">✨ Journey Highlights</h4>
+                          <div className="flex flex-wrap gap-2 justify-center">
+                            {(itinerary.highlights || []).slice(0, 3).map((highlight, idx) => (
+                              <span key={idx} className="bg-gradient-to-r from-ocean-blue/10 to-blue-100 text-ocean-blue text-xs px-3 py-1.5 rounded-full border border-ocean-blue/20 font-medium">
                                 {highlight}
                               </span>
                             ))}
-                            {itinerary.highlights.length > 3 && (
-                              <span className="text-black text-xs">+{itinerary.highlights.length - 3} more</span>
+                            {(itinerary.highlights || []).length > 3 && (
+                              <span className="text-ocean-blue text-xs font-medium bg-blue-50 px-2 py-1 rounded-full">
+                                +{(itinerary.highlights || []).length - 3} more wonders
+                              </span>
                             )}
                           </div>
                         </div>
                       )}
 
-                      {/* Action Buttons */}
-                      <div className="flex gap-2">
-                        <PharaohButton 
-                          className="flex-1 text-sm"
-                          onClick={() => window.location.href = `/itineraries/${itinerary.slug || itinerary.id}`}
-                        >
-                          Explore Journey
-                          <ChevronRight className="w-4 h-4 ml-1" />
-                        </PharaohButton>
+                      {/* Enhanced Action Button */}
+                      <div className="text-center">
+                        <Link href={`/itineraries/${itinerary.slug || itinerary.id}`}>
+                          <Button className="w-full bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-navy-blue text-white font-bold py-3 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+                            <span className="mr-2">𓊪</span>
+                            Explore Sacred Journey
+                            <ChevronRight className="w-5 h-5 ml-2" />
+                          </Button>
+                        </Link>
                       </div>
                     </CardContent>
                   </Card>

@@ -19,8 +19,21 @@ import {
   Package,
   Users,
   FileText,
-  Mail
+  Mail,
+  ChevronDown,
+  Globe,
+  Palette,
+  Image as ImageIcon,
+  Plus
 } from 'lucide-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  DropdownMenuSeparator,
+  DropdownMenuLabel
+} from '@/components/ui/dropdown-menu';
 import { useContent } from '@/hooks/useContent';
 
 export function AdminHeader() {
@@ -33,10 +46,27 @@ export function AdminHeader() {
     { href: '/admin', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/admin/dahabiyas', label: 'Dahabiyas', icon: Ship },
     { href: '/admin/packages', label: 'Packages', icon: Package },
+    {
+      href: '/admin/blogs',
+      label: 'Blogs',
+      icon: FileText,
+      submenu: [
+        { href: '/admin/blogs', label: 'Manage Blogs', icon: FileText },
+        { href: '/admin/blogs/new', label: 'Add New Blog', icon: Plus }
+      ]
+    },
     { href: '/admin/bookings', label: 'Bookings', icon: Calendar },
     { href: '/admin/users', label: 'Users', icon: Users },
-    { href: '/admin/website', label: 'Website', icon: FileText },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
+  ];
+
+  // Website dropdown items
+  const websiteDropdownItems = [
+    { href: '/admin/website', label: 'Website Content', icon: FileText, description: 'Manage page content' },
+    { href: '/admin/media', label: 'Media Library', icon: ImageIcon, description: 'Upload and manage media' },
+    { href: '/admin/blogs', label: 'Blog Management', icon: FileText, description: 'Create and edit blogs' },
+    { href: '/admin/gallery', label: 'Gallery', icon: Palette, description: 'Manage photo galleries' },
+    { href: '/admin/email-templates', label: 'Email Templates', icon: Mail, description: 'Design email layouts' },
   ];
 
   // Get dynamic logo from database, fallback to static
@@ -46,14 +76,14 @@ export function AdminHeader() {
 
   return (
     <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50 w-full">
-      {/* Main Admin Header */}
-      <div className="w-full px-2 sm:px-4 lg:px-6">
-        <div className="flex justify-between items-center h-14 sm:h-16 w-full">
+      {/* Main Admin Header - Mobile Enhanced */}
+      <div className="w-full px-3 sm:px-4 lg:px-6">
+        <div className="flex justify-between items-center h-12 sm:h-14 md:h-16 w-full">
           {/* Left Side - Logo and Title */}
-          <div className="flex items-center space-x-2 sm:space-x-4 min-w-0 flex-1">
+          <div className="flex items-center space-x-2 sm:space-x-3 md:space-x-4 min-w-0 flex-1">
             {/* Logo */}
-            <Link href="/admin" className="flex items-center space-x-2 sm:space-x-3 min-w-0">
-              <div className="relative w-8 h-8 sm:w-10 sm:h-10 rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 p-1 flex-shrink-0">
+            <Link href="/admin" className="flex items-center space-x-1 sm:space-x-2 md:space-x-3 min-w-0">
+              <div className="relative w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 rounded-lg overflow-hidden bg-gradient-to-br from-blue-500 to-indigo-600 p-0.5 sm:p-1 flex-shrink-0">
                 <Image
                   src={getAdminLogo()}
                   alt="Admin Logo"
@@ -67,15 +97,22 @@ export function AdminHeader() {
                   }}
                 />
               </div>
-              <div className="hidden xs:block min-w-0">
-                <h1 className="text-sm sm:text-lg font-bold text-gray-900 truncate">
+              <div className="hidden sm:block min-w-0">
+                <h1 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 truncate">
                   Admin Panel
                 </h1>
-                <p className="text-xs text-gray-600 truncate">
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
                   Dahabiyat
                 </p>
               </div>
             </Link>
+
+            {/* Mobile Title - Visible on small screens */}
+            <div className="block sm:hidden min-w-0 flex-1">
+              <h1 className="text-sm font-bold text-gray-900 truncate text-center">
+                Admin
+              </h1>
+            </div>
 
             {/* Separator */}
             <div className="hidden lg:block text-blue-600 text-sm sm:text-lg flex-shrink-0">
@@ -89,7 +126,7 @@ export function AdminHeader() {
             <Button
               variant="ghost"
               size="sm"
-              className="sm:hidden text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-2"
+              className="sm:hidden text-gray-700 p-1.5 min-w-0"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
@@ -98,21 +135,21 @@ export function AdminHeader() {
             {/* Quick Navigation */}
             <div className="hidden sm:flex items-center space-x-1 lg:space-x-2">
               <Link href="/">
-                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-2 lg:px-3">
+                <Button variant="ghost" size="sm" className="text-gray-700 px-2 lg:px-3">
                   <Home className="w-4 h-4 lg:mr-2" />
                   <span className="hidden lg:inline">Site</span>
                 </Button>
               </Link>
 
               <Link href="/admin">
-                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-2 lg:px-3">
+                <Button variant="ghost" size="sm" className="text-gray-700 px-2 lg:px-3">
                   <LayoutDashboard className="w-4 h-4 lg:mr-2" />
                   <span className="hidden lg:inline">Dashboard</span>
                 </Button>
               </Link>
 
               <Link href="/admin/settings">
-                <Button variant="ghost" size="sm" className="text-gray-700 hover:text-gray-900 hover:bg-gray-100 px-2 lg:px-3">
+                <Button variant="ghost" size="sm" className="text-gray-700 px-2 lg:px-3">
                   <Settings className="w-4 h-4 lg:mr-2" />
                   <span className="hidden lg:inline">Settings</span>
                 </Button>
@@ -153,7 +190,7 @@ export function AdminHeader() {
                   variant="ghost"
                   size="sm"
                   onClick={() => signOut({ callbackUrl: '/' })}
-                  className="text-gray-700 hover:text-red-600 hover:bg-red-50 px-2 sm:px-3"
+                  className="text-gray-700 px-2 sm:px-3"
                 >
                   <LogOut className="w-4 h-4" />
                   <span className="hidden sm:inline ml-2">Logout</span>
@@ -168,14 +205,14 @@ export function AdminHeader() {
           <div className="sm:hidden border-t border-gray-200 bg-white">
             <div className="px-2 py-3 space-y-1">
               <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700">
                   <Home className="w-4 h-4 mr-3" />
                   Visit Site
                 </Button>
               </Link>
 
               <Link href="/admin" onClick={() => setMobileMenuOpen(false)}>
-                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700">
                   <LayoutDashboard className="w-4 h-4 mr-3" />
                   Dashboard
                 </Button>
@@ -183,15 +220,62 @@ export function AdminHeader() {
 
               {adminNavItems.slice(1).map((item) => {
                 const Icon = item.icon;
+
+                // Handle blogs submenu
+                if (item.submenu) {
+                  return (
+                    <div key={item.href} className="space-y-1">
+                      <Link href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                        <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700">
+                          <Icon className="w-4 h-4 mr-3" />
+                          {item.label}
+                        </Button>
+                      </Link>
+                      <div className="pl-6 space-y-1">
+                        {item.submenu.map((subItem) => {
+                          const SubIcon = subItem.icon;
+                          return (
+                            <Link key={subItem.href} href={subItem.href} onClick={() => setMobileMenuOpen(false)}>
+                              <Button variant="ghost" size="sm" className="w-full justify-start text-gray-600">
+                                <SubIcon className="w-3 h-3 mr-3" />
+                                <span className="text-xs">{subItem.label}</span>
+                              </Button>
+                            </Link>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  );
+                }
+
                 return (
                   <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
-                    <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700 hover:text-gray-900 hover:bg-gray-100">
+                    <Button variant="ghost" size="sm" className="w-full justify-start text-gray-700">
                       <Icon className="w-4 h-4 mr-3" />
                       {item.label}
                     </Button>
                   </Link>
                 );
               })}
+
+              {/* Website submenu items in mobile */}
+              <div className="pl-4 border-l-2 border-gray-200 ml-2">
+                <div className="text-xs font-semibold text-gray-500 mb-2 flex items-center gap-2">
+                  <Globe className="w-3 h-3" />
+                  Website
+                </div>
+                {websiteDropdownItems.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)}>
+                      <Button variant="ghost" size="sm" className="w-full justify-start text-gray-600 mb-1">
+                        <Icon className="w-3 h-3 mr-3" />
+                        <span className="text-xs">{item.label}</span>
+                      </Button>
+                    </Link>
+                  );
+                })}
+              </div>
 
               {session && (
                 <Button
@@ -201,7 +285,7 @@ export function AdminHeader() {
                     setMobileMenuOpen(false);
                     signOut({ callbackUrl: '/' });
                   }}
-                  className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50"
+                  className="w-full justify-start text-red-600"
                 >
                   <LogOut className="w-4 h-4 mr-3" />
                   Logout
@@ -212,26 +296,7 @@ export function AdminHeader() {
         )}
       </div>
 
-      {/* Admin Navigation Tabs */}
-      <div className="bg-gray-50 border-b border-gray-200">
-        <div className="w-full px-2 sm:px-4 lg:px-6">
-          <div className="flex items-center space-x-1 overflow-x-auto py-2">
-            {adminNavItems.map((item) => {
-              const Icon = item.icon;
-              return (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className="flex items-center space-x-2 px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-white transition-colors whitespace-nowrap"
-                >
-                  <Icon className="w-4 h-4" />
-                  <span className="hidden sm:inline">{item.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+
     </header>
   );
 }

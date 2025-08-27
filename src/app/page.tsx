@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
-import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock, DollarSign } from 'lucide-react';
+import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock, DollarSign, Crown } from 'lucide-react';
 import {
   EgyptHieroglyphic,
   HieroglyphicDivider,
@@ -18,6 +18,7 @@ import {
 import ShareYourMemories from '@/components/homepage/ShareYourMemories';
 import FeaturedReviews from '@/components/homepage/FeaturedReviews';
 import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
+import { DahabiyaCard } from '@/components/dahabiyas';
 
 export default function HomePage() {
   const { getContent, loading, error } = useContent({ page: 'homepage' });
@@ -28,6 +29,36 @@ export default function HomePage() {
   const [featuredPackages, setFeaturedPackages] = useState([]);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
   const [videoError, setVideoError] = useState(false);
+
+  // Force white text on View Details buttons
+  useEffect(() => {
+    const forceWhiteText = () => {
+      // Target all dahabiya and package view details buttons
+      const buttons = document.querySelectorAll('.dahabiya-view-details-btn, .package-view-details-btn');
+      buttons.forEach(button => {
+        // Force white color on button and all its children
+        button.style.color = '#ffffff';
+        const children = button.querySelectorAll('*');
+        children.forEach(child => {
+          child.style.color = '#ffffff';
+          child.style.fill = '#ffffff';
+          child.style.stroke = '#ffffff';
+        });
+      });
+    };
+
+    // Run immediately and after a short delay to catch dynamically rendered content
+    forceWhiteText();
+    const timer = setTimeout(forceWhiteText, 100);
+    const timer2 = setTimeout(forceWhiteText, 500);
+    const timer3 = setTimeout(forceWhiteText, 1000);
+
+    return () => {
+      clearTimeout(timer);
+      clearTimeout(timer2);
+      clearTimeout(timer3);
+    };
+  }, [dahabiyat, packages, featuredDahabiyat, featuredPackages]);
   const [videoLoaded, setVideoLoaded] = useState(false);
   const [refreshing, setRefreshing] = useState(false);
 
@@ -333,67 +364,10 @@ export default function HomePage() {
             </span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {(featuredDahabiyat.length > 0 ? featuredDahabiyat : dahabiyat.slice(0, 4)).map((dahabiya: any, index: number) => (
-              <div key={dahabiya.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-200/20">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image
-                    src={dahabiya.mainImage || '/images/dahabiya-placeholder.jpg'}
-                    alt={dahabiya.name}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-                  {/* Enhanced overlay with gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                  {/* Price badge with enhanced design */}
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-blue-600 via-blue-500 to-blue-700 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
-                    <DollarSign className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
-                    ${dahabiya.pricePerDay || 250}/day
-                  </div>
-
-                  {/* Featured badge */}
-                  {featuredDahabiyat.length > 0 && (
-                    <div className="absolute top-3 right-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                      <Star className="w-3 h-3 inline mr-1 fill-current" />
-                      Featured
-                    </div>
-                  )}
-
-                  {/* Hover overlay with Egyptian symbols */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="text-blue-600 text-4xl sm:text-5xl animate-pulse">𓇳</div>
-                  </div>
-                </div>
-
-                <div className="p-4 sm:p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-blue-600 text-lg">𓊪</span>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
-                      {dahabiya.name}
-                    </h3>
-                  </div>
-
-                  <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base leading-relaxed">
-                    {dahabiya.shortDescription || 'Experience luxury and comfort aboard this magnificent dahabiya as you sail through the timeless waters of the Nile.'}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center text-yellow-500">
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-800 font-medium">4.9</span>
-                      <span className="ml-1 text-xs text-gray-700">(127)</span>
-                    </div>
-                    <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
-                      <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
-                        <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
-                        <span className="text-xs text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
-                        <ChevronRight className="w-3 h-3 sm:w-4 sm:h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </div>
+          {/* FEATURED DAHABIYA CARDS - USING MAIN PAGE DESIGN */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: any, index: number) => (
+              <DahabiyaCard key={dahabiya.id} dahabiya={dahabiya} />
             ))}
           </div>
 
@@ -512,10 +486,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
-            {(featuredPackages.length > 0 ? featuredPackages : packages.slice(0, 4)).map((pkg: any, index: number) => (
-              <div key={pkg.id} className="group bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-200/20">
-                <div className="relative aspect-[4/3] overflow-hidden">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+            {(Array.isArray(featuredPackages) && featuredPackages.length > 0 ? featuredPackages : Array.isArray(packages) ? packages.slice(0, 3) : []).map((pkg: any, index: number) => (
+              <div key={pkg.id} className="homepage-package-card group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-4 border-2 border-blue-200/30 min-h-[480px]">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl h-64">
                   <Image
                     src={pkg.mainImageUrl || '/images/package-placeholder.jpg'}
                     alt={pkg.name}
@@ -525,22 +499,22 @@ export default function HomePage() {
                   {/* Enhanced overlay with gradient */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                  {/* Duration badge with enhanced design */}
-                  <div className="absolute top-3 left-3 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
-                    <Calendar className="w-3 h-3 sm:w-4 sm:h-4 inline mr-1" />
-                    {pkg.durationDays} {get('days_label', 'Days')}
+                  {/* Duration badge with enhanced design - FIXED CONTRAST */}
+                  <div className="absolute top-4 left-4 bg-gradient-to-r from-emerald-500/98 via-teal-500/98 to-cyan-500/98 text-white px-4 py-2.5 rounded-full text-sm font-bold shadow-xl backdrop-blur-sm border-2 border-white/60">
+                    <Calendar className="w-4 h-4 inline mr-2 drop-shadow-lg" />
+                    <span className="drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>{pkg.durationDays} {get('days_label', 'Days')}</span>
                   </div>
 
-                  {/* Price badge with enhanced design */}
-                  <div className="absolute top-3 right-3 bg-gradient-to-r from-gray-800 to-gray-900 text-white px-3 py-1.5 rounded-full text-xs sm:text-sm font-bold shadow-lg backdrop-blur-sm">
-                    ${pkg.price?.toLocaleString()}
+                  {/* Price badge with enhanced design - FIXED CONTRAST */}
+                  <div className="absolute top-4 right-4 bg-gradient-to-r from-gray-800/98 to-gray-900/98 text-white px-4 py-2.5 rounded-full text-sm font-bold shadow-xl backdrop-blur-sm border-2 border-white/60">
+                    <span className="text-lg font-extrabold drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>${pkg.price?.toLocaleString()}</span>
                   </div>
 
-                  {/* Featured badge */}
+                  {/* Featured badge - FIXED CONTRAST */}
                   {featuredPackages.length > 0 && (
-                    <div className="absolute bottom-3 left-3 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                      <Star className="w-3 h-3 inline mr-1 fill-current" />
-                      Featured
+                    <div className="absolute bottom-4 left-4 bg-gradient-to-r from-purple-500/98 to-pink-500/98 text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl border-2 border-white/60">
+                      <Star className="w-4 h-4 inline mr-2 fill-current drop-shadow-lg" />
+                      <span className="drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Featured</span>
                     </div>
                   )}
 
@@ -550,28 +524,44 @@ export default function HomePage() {
                   </div>
                 </div>
 
-                <div className="p-4 sm:p-6">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-blue-600 text-lg">𓇳</span>
-                    <h3 className="text-lg sm:text-xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-1">
+                <div className="p-6 sm:p-8">
+                  <div className="flex items-center gap-3 mb-4">
+                    <span className="text-blue-600 text-xl">𓇳</span>
+                    <h3 className="text-xl sm:text-2xl font-bold text-gray-800 group-hover:text-blue-600 transition-colors duration-300 line-clamp-2 leading-tight">
                       {pkg.name}
                     </h3>
                   </div>
 
-                  <p className="text-gray-600 mb-4 line-clamp-2 text-sm sm:text-base leading-relaxed">
+                  <p className="text-gray-700 mb-6 line-clamp-3 text-base sm:text-lg leading-relaxed font-medium">
                     {pkg.shortDescription || 'Embark on an unforgettable journey through ancient Egypt with this carefully crafted package experience.'}
                   </p>
 
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between pt-4 border-t-2 border-gray-200">
                     <div className="flex items-center text-yellow-500">
-                      <Star className="w-4 h-4 fill-current" />
-                      <span className="ml-1 text-sm text-gray-800 font-medium">4.8</span>
-                      <span className="ml-1 text-xs text-gray-700">(89)</span>
+                      <Star className="w-5 h-5 fill-current" />
+                      <span className="ml-2 text-base text-gray-800 font-bold">4.8</span>
+                      <span className="ml-2 text-sm text-gray-700 font-medium">(89)</span>
                     </div>
-                    <Link href={`/packages/${pkg.id}`}>
-                      <Button className="bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-2 sm:px-3 py-1 text-xs hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
-                        <span className="group-hover/btn:mr-1 transition-all duration-300 text-xs">{get('view_details_text', 'View Details')}</span>
-                        <span className="text-xs text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                    <Link href={`/packages/${pkg.slug || pkg.id}`}>
+                      <Button
+                        className="package-view-details-btn force-white-text bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white px-4 sm:px-5 py-2.5 text-sm hover:from-blue-600 hover:to-blue-700 rounded-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 group/btn border-2 border-blue-600/40 backdrop-blur-sm"
+                        style={{
+                          color: '#ffffff',
+                          '--tw-text-opacity': '1'
+                        } as React.CSSProperties}
+                      >
+                        <span
+                          className="force-white-text group-hover/btn:mr-2 transition-all duration-300 text-sm text-white font-extrabold"
+                          style={{ color: '#ffffff' }}
+                        >
+                          {get('view_details_text', 'View Details')}
+                        </span>
+                        <span
+                          className="force-white-text text-sm text-white ml-2"
+                          style={{ color: '#ffffff' }}
+                        >
+                          𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+                        </span>
                       </Button>
                     </Link>
                   </div>
@@ -717,7 +707,7 @@ export default function HomePage() {
                   </Button>
                 </Link>
                 <Link href="/testimonials">
-                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-lg">
+                  <Button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-6 py-3 hover:from-blue-600 hover:to-blue-800 rounded-lg transition-all duration-300">
                     Read Reviews
                   </Button>
                 </Link>
@@ -815,7 +805,7 @@ export default function HomePage() {
 
               <div className="mt-6 lg:mt-8 text-center lg:text-left">
                 <Link href="/about">
-                  <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-lg mobile-button-text">
+                  <Button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-4 lg:px-6 py-2 lg:py-3 text-sm lg:text-base hover:from-blue-600 hover:to-blue-800 rounded-lg mobile-button-text transition-all duration-300">
                     Learn More About Us
                   </Button>
                 </Link>
@@ -927,7 +917,7 @@ export default function HomePage() {
 
             {/* Featured Blog Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {featuredBlogs.slice(0, 3).map((blog: any, index: number) => (
+              {(Array.isArray(featuredBlogs) ? featuredBlogs.slice(0, 3) : []).map((blog: any, index: number) => (
                 <div key={blog.id} className="group">
                   <PharaonicCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer">
                     <Link href={`/blog/${blog.slug}`}>
@@ -1064,12 +1054,12 @@ export default function HomePage() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/booking">
-                <Button className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 text-lg hover:bg-gradient-to-r from-blue-700 to-blue-800 rounded-full">
+                <Button className="bg-gradient-to-r from-blue-500 to-blue-700 text-white px-8 py-4 text-lg hover:from-blue-600 hover:to-blue-800 rounded-full transition-all duration-300">
                   {get('cta_book_text', 'Book Your Journey')}
                 </Button>
               </Link>
               <Link href="/contact">
-                <Button className="bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-4 text-lg hover:bg-gradient-to-r from-blue-600 to-blue-700 hover:text-white rounded-full">
+                <Button className="bg-transparent border-2 border-blue-600 text-blue-600 px-8 py-4 text-lg hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-700 hover:text-white rounded-full transition-all duration-300">
                   {get('cta_contact_text', 'Contact Us')}
                 </Button>
               </Link>

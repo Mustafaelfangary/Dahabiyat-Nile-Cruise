@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, Users, MapPin, Star, Clock, ChevronRight, Play, Download, Check, X } from 'lucide-react';
@@ -126,8 +127,8 @@ export default function ItineraryDetailPage() {
     );
   }
 
-  const pricingCategories = Array.from(new Set(itinerary.pricingTiers.map(tier => tier.category)));
-  const selectedPricing = itinerary.pricingTiers.filter(tier => tier.category === selectedPricingCategory);
+  const pricingCategories = Array.from(new Set((itinerary.pricingTiers || []).map(tier => tier.category)));
+  const selectedPricing = (itinerary.pricingTiers || []).filter(tier => tier.category === selectedPricingCategory);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-ocean-blue-50 to-navy-blue-50">
@@ -176,18 +177,40 @@ export default function ItineraryDetailPage() {
               </div>
 
               <div className="flex flex-wrap justify-center gap-4">
-                <PharaohButton className="bg-white/20 hover:bg-white/30 text-white border border-white/30">
+                <PharaohButton
+                  className="bg-white/20 hover:bg-white/30 text-white border border-white/30"
+                  onClick={() => {
+                    if (itinerary.videoUrl) {
+                      window.open(itinerary.videoUrl, '_blank');
+                    } else {
+                      alert('Video preview coming soon!');
+                    }
+                  }}
+                >
                   <Play className="w-5 h-5 mr-2" />
                   Watch Journey Preview
                 </PharaohButton>
-                <PharaohButton className="bg-amber-500 hover:bg-blue-600 text-black">
+                <PharaohButton
+                  className="bg-amber-500 hover:bg-blue-600 text-black"
+                  onClick={() => {
+                    // Generate and download PDF itinerary
+                    const element = document.createElement('a');
+                    element.href = `/api/itineraries/${itinerary.slug || itinerary.id}/download`;
+                    element.download = `${itinerary.name}-itinerary.pdf`;
+                    document.body.appendChild(element);
+                    element.click();
+                    document.body.removeChild(element);
+                  }}
+                >
                   <Download className="w-5 h-5 mr-2" />
                   Download Itinerary
                 </PharaohButton>
-                <PharaohButton className="bg-emerald-600 hover:bg-emerald-700 text-white">
-                  <Calendar className="w-5 h-5 mr-2" />
-                  Book This Journey
-                </PharaohButton>
+                <Link href={`/booking?type=itinerary&itemId=${itinerary.id}`}>
+                  <PharaohButton className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                    <Calendar className="w-5 h-5 mr-2" />
+                    Book This Journey
+                  </PharaohButton>
+                </Link>
               </div>
             </div>
           </AnimatedSection>
@@ -202,7 +225,7 @@ export default function ItineraryDetailPage() {
               ✨ Journey Highlights ✨
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {itinerary.highlights.map((highlight, index) => (
+              {(itinerary.highlights || []).map((highlight, index) => (
                 <AnimatedSection key={index} animation="fade-up" delay={index * 100}>
                   <div className="flex items-center bg-gradient-to-r from-ocean-blue-100 to-navy-blue-100 rounded-lg p-4 border-2 border-amber-200">
                     <div className="w-8 h-8 bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 rounded-full flex items-center justify-center text-black font-bold mr-4 flex-shrink-0">
@@ -227,7 +250,7 @@ export default function ItineraryDetailPage() {
           </AnimatedSection>
 
           <div className="max-w-4xl mx-auto space-y-8">
-            {itinerary.days.map((day, index) => (
+            {(itinerary.days || []).map((day, index) => (
               <AnimatedSection key={day.id} animation="fade-up" delay={index * 100}>
                 <Card className="overflow-hidden border-2 border-blue-200 hover:border-blue-400 transition-colors bg-white/90 backdrop-blur-sm">
                   <div className="bg-gradient-to-r from-ocean-blue to-deep-blue text-white p-6">
@@ -238,7 +261,7 @@ export default function ItineraryDetailPage() {
                       <div>
                         <h3 className="text-2xl font-bold">{day.title}</h3>
                         <div className="flex items-center gap-4 mt-2">
-                          {day.meals.map((meal, idx) => (
+                          {(day.meals || []).map((meal, idx) => (
                             <span key={idx} className="bg-white/20 px-3 py-1 rounded-full text-sm font-semibold">
                               {meal.replace('_', ' ')}
                             </span>
@@ -252,11 +275,11 @@ export default function ItineraryDetailPage() {
                     <p className="text-gray-700 mb-6 leading-relaxed">{day.description}</p>
                     
                     {/* Activities */}
-                    {day.activities.length > 0 && (
+                    {(day.activities || []).length > 0 && (
                       <div className="mb-6">
                         <h4 className="text-lg font-bold text-amber-800 mb-3">🏛️ Activities</h4>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                          {day.activities.map((activity, idx) => (
+                          {(day.activities || []).map((activity, idx) => (
                             <div key={idx} className="flex items-center">
                               <Check className="w-4 h-4 text-green-600 mr-2 flex-shrink-0" />
                               <span className="text-gray-700">{activity}</span>
@@ -267,11 +290,11 @@ export default function ItineraryDetailPage() {
                     )}
 
                     {/* Optional Tours */}
-                    {day.optionalTours.length > 0 && (
+                    {(day.optionalTours || []).length > 0 && (
                       <div>
                         <h4 className="text-lg font-bold text-amber-800 mb-3">⭐ Optional Tours</h4>
                         <div className="space-y-2">
-                          {day.optionalTours.map((tour, idx) => (
+                          {(day.optionalTours || []).map((tour, idx) => (
                             <div key={idx} className="flex items-center bg-amber-50 rounded-lg p-3">
                               <Star className="w-4 h-4 text-amber-600 mr-2 flex-shrink-0" />
                               <span className="text-gray-700">{tour}</span>
@@ -368,7 +391,7 @@ export default function ItineraryDetailPage() {
                 </div>
                 <CardContent className="p-6">
                   <div className="space-y-3">
-                    {itinerary.included.map((item, index) => (
+                    {(itinerary.included || []).map((item, index) => (
                       <div key={index} className="flex items-start">
                         <Check className="w-5 h-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
                         <span className="text-gray-700">{item}</span>
@@ -390,7 +413,7 @@ export default function ItineraryDetailPage() {
                 </div>
                 <CardContent className="p-6">
                   <div className="space-y-3">
-                    {itinerary.notIncluded.map((item, index) => (
+                    {(itinerary.notIncluded || []).map((item, index) => (
                       <div key={index} className="flex items-start">
                         <X className="w-5 h-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
                         <span className="text-gray-700">{item}</span>
@@ -416,21 +439,24 @@ export default function ItineraryDetailPage() {
               Create memories that will last a lifetime.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <PharaohButton className="bg-gray-900 text-white hover:bg-black">
-                <Calendar className="w-5 h-5 mr-2" />
-                Book This Journey
-              </PharaohButton>
-              <PharaohButton className="bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
-                <Users className="w-5 h-5 mr-2" />
-                Contact Our Experts
-              </PharaohButton>
-              <PharaohButton 
-                className="bg-emerald-600 hover:bg-emerald-700 text-white"
-                onClick={() => window.location.href = '/itineraries'}
-              >
-                <MapPin className="w-5 h-5 mr-2" />
-                View All Journeys
-              </PharaohButton>
+              <Link href={`/booking?type=itinerary&itemId=${itinerary.id}`}>
+                <PharaohButton className="bg-gray-900 text-white hover:bg-black">
+                  <Calendar className="w-5 h-5 mr-2" />
+                  Book This Journey
+                </PharaohButton>
+              </Link>
+              <Link href="/contact">
+                <PharaohButton className="bg-transparent border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white">
+                  <Users className="w-5 h-5 mr-2" />
+                  Contact Our Experts
+                </PharaohButton>
+              </Link>
+              <Link href="/itineraries">
+                <PharaohButton className="bg-emerald-600 hover:bg-emerald-700 text-white">
+                  <MapPin className="w-5 h-5 mr-2" />
+                  View All Journeys
+                </PharaohButton>
+              </Link>
             </div>
           </AnimatedSection>
         </div>

@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'react-hot-toast';
 import {
-  Home, Users, Phone, Package, Settings,
-  Edit2, Save, X, RefreshCw, Image, Video, Type, Plus
+  Home, Users, Phone, Package, Settings, MapPin, FileText, Globe,
+  Edit2, Save, X, RefreshCw, Image, Video, Type, Plus, Ship
 } from 'lucide-react';
 import ResponsiveMediaPicker from './ResponsiveMediaPicker';
 
@@ -32,22 +32,25 @@ interface ContentSection {
 
 export default function WebsiteContentManager() {
   const [content, setContent] = useState<Record<string, ContentField[]>>({});
+  const [dynamicContent, setDynamicContent] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const [editingField, setEditingField] = useState<string | null>(null);
   const [editValue, setEditValue] = useState('');
   const [addingItinerariesContent, setAddingItinerariesContent] = useState(false);
+  const [addingSampleContent, setAddingSampleContent] = useState(false);
+  const [populatingPageContent, setPopulatingPageContent] = useState(false);
 
   const contentSections: ContentSection[] = [
-    { id: 'homepage', label: 'Homepage Content', icon: Home },
+    { id: 'homepage', label: 'Homepage', icon: Home },
     { id: 'about', label: 'About Page', icon: Users },
     { id: 'contact', label: 'Contact Page', icon: Phone },
-    { id: 'packages', label: 'Packages Page', icon: Package },
-    { id: 'dahabiyas', label: 'Dahabiyas Page', icon: Package },
-    { id: 'itineraries', label: 'Itineraries Page', icon: Package },
-    { id: 'blog', label: 'Blog Page', icon: Package },
-    { id: 'global_media', label: 'Logo & Media', icon: Image },
-    { id: 'footer', label: 'Footer & General', icon: Settings }
+    { id: 'packages', label: 'Packages', icon: Package },
+    { id: 'dahabiyas', label: 'Dahabiyas', icon: Ship },
+    { id: 'itineraries', label: 'Itineraries', icon: MapPin },
+    { id: 'blog', label: 'Blog', icon: FileText },
+    { id: 'global_media', label: 'Media & Branding', icon: Image },
+    { id: 'footer', label: 'Footer & Settings', icon: Settings }
   ];
 
   useEffect(() => {
@@ -58,7 +61,9 @@ export default function WebsiteContentManager() {
     setLoading(true);
     try {
       const contentData: Record<string, ContentField[]> = {};
+      const dynamicData: Record<string, any> = {};
 
+      // Load static content from WebsiteContent table
       for (const section of contentSections) {
         try {
           console.log(`🔍 Loading content for section: ${section.id}`);
@@ -74,7 +79,6 @@ export default function WebsiteContentManager() {
           if (response.ok) {
             const data = await response.json();
             console.log(`📊 Raw data for ${section.id}:`, data.length, 'items');
-            console.log(`📋 First item:`, data[0]);
 
             // Transform WebsiteContent objects to ContentField format
             const transformedData = Array.isArray(data) ? data.map((item: any) => ({
@@ -99,8 +103,49 @@ export default function WebsiteContentManager() {
         }
       }
 
+      // Load dynamic content from dedicated tables
+      try {
+        console.log('🔍 Loading dynamic content...');
+
+        // Load blogs
+        const blogsResponse = await fetch('/api/admin/blogs');
+        if (blogsResponse.ok) {
+          const blogs = await blogsResponse.json();
+          dynamicData.blogs = blogs;
+          console.log(`✅ Loaded ${blogs.length} blogs`);
+        }
+
+        // Load packages
+        const packagesResponse = await fetch('/api/packages');
+        if (packagesResponse.ok) {
+          const packagesData = await packagesResponse.json();
+          dynamicData.packages = packagesData.packages || [];
+          console.log(`✅ Loaded ${dynamicData.packages.length} packages`);
+        }
+
+        // Load dahabiyas
+        const dahabiyasResponse = await fetch('/api/dahabiyas');
+        if (dahabiyasResponse.ok) {
+          const dahabiyasData = await dahabiyasResponse.json();
+          dynamicData.dahabiyas = dahabiyasData.dahabiyas || [];
+          console.log(`✅ Loaded ${dynamicData.dahabiyas.length} dahabiyas`);
+        }
+
+        // Load itineraries
+        const itinerariesResponse = await fetch('/api/itineraries');
+        if (itinerariesResponse.ok) {
+          const itinerariesData = await itinerariesResponse.json();
+          dynamicData.itineraries = itinerariesData.itineraries || [];
+          console.log(`✅ Loaded ${dynamicData.itineraries.length} itineraries`);
+        }
+      } catch (error) {
+        console.error('❌ Error loading dynamic content:', error);
+      }
+
       console.log('🎯 Final content data:', contentData);
+      console.log('🎯 Final dynamic data:', dynamicData);
       setContent(contentData);
+      setDynamicContent(dynamicData);
     } catch (error) {
       console.error('Error loading content:', error);
       toast.error('Failed to load website content');
@@ -133,6 +178,59 @@ export default function WebsiteContentManager() {
       toast.error('Failed to add itineraries content');
     } finally {
       setAddingItinerariesContent(false);
+    }
+  };
+
+  const addSampleContent = async () => {
+    setAddingSampleContent(true);
+    try {
+      const response = await fetch('/api/admin/add-sample-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        toast.success(`Sample content added! Created: ${data.summary.created}, Updated: ${data.summary.updated}`);
+        // Reload content to show the new content
+        await loadContent();
+      } else {
+        throw new Error(data.error || 'Failed to add sample content');
+      }
+    } catch (error) {
+      console.error('Error adding sample content:', error);
+      toast.error('Failed to add sample content');
+    } finally {
+      setAddingSampleContent(false);
+    }
+  };
+
+  const populatePageContent = async () => {
+    setPopulatingPageContent(true);
+    try {
+      const response = await fetch('/api/admin/populate-page-content', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        toast.success(`Page content populated! Created: ${result.stats.created}, Updated: ${result.stats.updated}`);
+        loadContent(); // Reload content
+      } else {
+        const error = await response.json();
+        toast.error(error.message || 'Failed to populate page content');
+      }
+    } catch (error) {
+      console.error('Error populating page content:', error);
+      toast.error('Failed to populate page content');
+    } finally {
+      setPopulatingPageContent(false);
     }
   };
 
@@ -278,42 +376,39 @@ export default function WebsiteContentManager() {
     const isSaving = saving === fieldKey;
 
     return (
-      <Card key={fieldKey} className="mb-4">
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              {getFieldIcon(field.contentType)}
-              <CardTitle className="text-sm font-medium">{field.title}</CardTitle>
-              <Badge
-                variant="outline"
-                className={`text-xs ${
-                  field.contentType === 'IMAGE' ? 'border-blue-300 text-blue-700 bg-blue-50' :
-                  field.contentType === 'VIDEO' ? 'border-purple-300 text-purple-700 bg-purple-50' :
-                  field.contentType === 'TEXTAREA' ? 'border-green-300 text-green-700 bg-green-50' :
-                  'border-gray-300 text-gray-700 bg-gray-50'
-                }`}
-              >
-                {field.contentType}
-              </Badge>
-              <Badge variant="secondary" className="text-xs">
-                {field.section}
-              </Badge>
-            </div>
-            <div className="flex gap-2">
-              {!isEditing && (
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => startEditing(field)}
-                  disabled={isSaving}
-                >
-                  <Edit2 className="w-3 h-3" />
-                </Button>
-              )}
-            </div>
+      <div key={fieldKey} className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            {getFieldIcon(field.contentType)}
+            <h4 className="font-medium text-gray-900">{field.title}</h4>
+            <Badge
+              variant="outline"
+              className={`text-xs ${
+                field.contentType === 'IMAGE' ? 'border-blue-300 text-blue-700 bg-blue-50' :
+                field.contentType === 'VIDEO' ? 'border-purple-300 text-purple-700 bg-purple-50' :
+                field.contentType === 'TEXTAREA' ? 'border-green-300 text-green-700 bg-green-50' :
+                'border-gray-300 text-gray-700 bg-gray-50'
+              }`}
+            >
+              {field.contentType}
+            </Badge>
           </div>
-        </CardHeader>
-        <CardContent>
+          <div className="flex gap-2">
+            {!isEditing && (
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => startEditing(field)}
+                disabled={isSaving}
+                className="h-8 px-3"
+              >
+                <Edit2 className="w-3 h-3 mr-1" />
+                Edit
+              </Button>
+            )}
+          </div>
+        </div>
+        <div>
           {isEditing ? (
             <div className="space-y-3">
               {field.contentType === 'TEXTAREA' ? (
@@ -322,6 +417,7 @@ export default function WebsiteContentManager() {
                   onChange={(e) => setEditValue(e.target.value)}
                   rows={4}
                   className="w-full"
+                  placeholder={`Enter ${field.title.toLowerCase()}...`}
                 />
               ) : (field.contentType === 'IMAGE' || field.contentType === 'VIDEO') ? (
                 <ResponsiveMediaPicker
@@ -337,6 +433,7 @@ export default function WebsiteContentManager() {
                   value={editValue}
                   onChange={(e) => setEditValue(e.target.value)}
                   className="w-full"
+                  placeholder={`Enter ${field.title.toLowerCase()}...`}
                 />
               )}
               <div className="flex gap-2">
@@ -344,7 +441,7 @@ export default function WebsiteContentManager() {
                   size="sm"
                   onClick={() => saveField(field)}
                   disabled={isSaving}
-                  className="bg-green-600 hover:bg-green-700"
+                  className="bg-green-600 hover:bg-green-700 text-white"
                 >
                   {isSaving ? (
                     <RefreshCw className="w-3 h-3 mr-1 animate-spin" />
@@ -365,9 +462,9 @@ export default function WebsiteContentManager() {
               </div>
             </div>
           ) : (
-            <div className="text-sm text-gray-600">
-              <div className="font-mono text-xs text-gray-400 mb-1">Key: {field.key}</div>
-              <div className="bg-gray-50 p-2 rounded border">
+            <div>
+              <div className="text-xs text-gray-400 mb-2 font-mono">Key: {field.key}</div>
+              <div className="bg-white p-3 rounded border">
                 {field.content ? (
                   <div>
                     {field.contentType === 'IMAGE' && field.content ? (
@@ -376,45 +473,184 @@ export default function WebsiteContentManager() {
                           <img
                             src={field.content}
                             alt={field.title}
-                            className="max-w-xs max-h-32 object-cover rounded-lg border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                            className="max-w-sm max-h-40 object-cover rounded-lg border shadow-sm"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none';
                             }}
                           />
-                          <div className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs px-1 py-0.5 rounded">
-                            <Image className="w-3 h-3" />
-                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 break-all font-mono bg-gray-100 p-1 rounded">{field.content}</div>
+                        <div className="text-xs text-gray-500 break-all font-mono bg-gray-100 p-2 rounded">
+                          {field.content}
+                        </div>
                       </div>
                     ) : field.contentType === 'VIDEO' && field.content ? (
                       <div className="space-y-2">
                         <div className="relative inline-block">
                           <video
                             src={field.content}
-                            className="max-w-xs max-h-32 rounded-lg border-2 border-gray-200 shadow-sm hover:shadow-md transition-shadow"
+                            className="max-w-sm max-h-40 rounded-lg border shadow-sm"
                             controls
                             preload="metadata"
                           />
-                          <div className="absolute top-1 right-1 bg-black bg-opacity-50 text-white text-xs px-1 py-0.5 rounded">
-                            <Video className="w-3 h-3" />
-                          </div>
                         </div>
-                        <div className="text-xs text-gray-500 break-all font-mono bg-gray-100 p-1 rounded">{field.content}</div>
+                        <div className="text-xs text-gray-500 break-all font-mono bg-gray-100 p-2 rounded">
+                          {field.content}
+                        </div>
                       </div>
                     ) : (
-                      <div className="break-all font-mono">{field.content}</div>
+                      <div className="text-gray-900 whitespace-pre-wrap">{field.content}</div>
                     )}
                   </div>
                 ) : (
-                  <span className="text-gray-400 italic">No content</span>
+                  <span className="text-gray-400 italic">No content set</span>
                 )}
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
+        </div>
+      </div>
     );
+  };
+
+  const renderPageContent = (pageId: string, pageLabel: string) => {
+    const pageContent = content[pageId] as ContentField[] || [];
+    const pageDynamicContent = dynamicContent[pageId] || [];
+
+    // Show static content fields first, then dynamic content overview if available
+    const hasStaticContent = pageContent.length > 0;
+    const hasDynamicContent = ['blog', 'packages', 'dahabiyas', 'itineraries', 'contact'].includes(pageId) && pageDynamicContent.length > 0;
+
+    // If no static content, show empty state with populate button
+    if (!hasStaticContent && !hasDynamicContent) {
+      return (
+        <Card>
+          <CardContent className="p-8 text-center">
+            <div className="text-gray-500 mb-4">
+              <Type className="w-12 h-12 mx-auto mb-2 opacity-50" />
+              <h3 className="text-lg font-medium mb-2">No Content Available</h3>
+              <p className="text-sm">No static content found for {pageLabel}.</p>
+              <p className="text-xs text-gray-400 mt-2">Click "Populate Page Content" above to add default content fields.</p>
+            </div>
+            {pageId === 'homepage' && (
+              <Button
+                onClick={addSampleContent}
+                disabled={addingSampleContent}
+                className="bg-blue-600 text-white"
+              >
+                {addingSampleContent ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    Adding...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Sample Content
+                  </>
+                )}
+              </Button>
+            )}
+          </CardContent>
+        </Card>
+      );
+    }
+
+    // Group content by sections for better organization
+    const groupedContent = pageContent.reduce((acc, field) => {
+      const section = field.section || 'general';
+      if (!acc[section]) acc[section] = [];
+      acc[section].push(field);
+      return acc;
+    }, {} as Record<string, ContentField[]>);
+
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold text-gray-900">{pageLabel}</h2>
+          <div className="flex gap-2">
+            {hasStaticContent && (
+              <Badge variant="outline" className="text-sm">
+                {pageContent.length} static fields
+              </Badge>
+            )}
+            {hasDynamicContent && (
+              <Badge variant="default" className="text-sm bg-green-100 text-green-800">
+                {pageDynamicContent.length} dynamic items
+              </Badge>
+            )}
+          </div>
+        </div>
+
+        {/* Static Content Fields */}
+        {hasStaticContent && (
+          <>
+            {Object.entries(groupedContent)
+              .sort(([a], [b]) => a.localeCompare(b))
+              .map(([sectionName, fields]) => (
+                <Card key={sectionName} className="border-l-4 border-l-blue-500">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-lg capitalize flex items-center gap-2">
+                      {getSectionIcon(sectionName)}
+                      {sectionName.replace('_', ' ')} Section
+                      <Badge variant="secondary" className="text-xs">
+                        {fields.length} fields
+                      </Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {fields
+                      .sort((a, b) => a.order - b.order)
+                      .map(renderField)}
+                  </CardContent>
+                </Card>
+              ))}
+          </>
+        )}
+
+        {/* Dynamic Content Overview */}
+        {hasDynamicContent && (
+          <Card className="border-l-4 border-l-green-500">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center gap-2">
+                {pageId === 'blog' && <FileText className="w-5 h-5 text-green-600" />}
+                {pageId === 'packages' && <Package className="w-5 h-5 text-green-600" />}
+                {pageId === 'dahabiyas' && <Ship className="w-5 h-5 text-green-600" />}
+                {pageId === 'itineraries' && <MapPin className="w-5 h-5 text-green-600" />}
+                {pageId === 'contact' && <Phone className="w-5 h-5 text-green-600" />}
+                Dynamic {pageLabel} Content
+                <Badge variant="secondary" className="text-xs">
+                  {pageDynamicContent.length} items
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-gray-600 mb-4">
+                This content is managed through dedicated {pageLabel.toLowerCase()} management pages.
+              </div>
+              <Button asChild variant="outline" className="w-full">
+                <a href={`/admin/${pageId}`}>
+                  Manage {pageLabel} →
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+      </div>
+    );
+  };
+
+
+
+  const getSectionIcon = (sectionName: string) => {
+    switch (sectionName.toLowerCase()) {
+      case 'hero': return <Home className="w-5 h-5 text-blue-600" />;
+      case 'main': return <FileText className="w-5 h-5 text-green-600" />;
+      case 'info': return <Phone className="w-5 h-5 text-purple-600" />;
+      case 'branding': return <Image className="w-5 h-5 text-orange-600" />;
+      case 'company': return <Settings className="w-5 h-5 text-gray-600" />;
+      case 'legal': return <Settings className="w-5 h-5 text-gray-600" />;
+      default: return <Type className="w-5 h-5 text-gray-500" />;
+    }
   };
 
   if (loading) {
@@ -427,55 +663,71 @@ export default function WebsiteContentManager() {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 className="text-2xl font-bold text-gray-900">Website Content Management</h1>
-          <p className="text-gray-600 mt-1">
-            Manage all website content with the new clean, organized structure.
-          </p>
-        </div>
-        <div className="flex gap-2">
-          {content.itineraries?.length === 0 && (
+    <div className="space-y-6 admin-panel">
+      <div className="bg-white rounded-lg border p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h1 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
+              <Globe className="w-6 h-6 text-blue-600" />
+              Website Content Management
+            </h1>
+            <p className="text-gray-600 mt-1">
+              Manage content for all pages of your website in an organized, section-based structure.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {/* Quick Actions */}
+            {Object.values(content).every(section => section.length === 0) && (
+              <Button
+                onClick={addSampleContent}
+                disabled={addingSampleContent}
+                className="bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                {addingSampleContent ? (
+                  <>
+                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                    Adding...
+                  </>
+                ) : (
+                  <>
+                    <Plus className="w-4 h-4 mr-2" />
+                    Add Sample Content
+                  </>
+                )}
+              </Button>
+            )}
+
             <Button
-              onClick={addItinerariesContent}
-              disabled={addingItinerariesContent}
+              onClick={populatePageContent}
+              disabled={populatingPageContent}
               className="bg-green-600 hover:bg-green-700 text-white"
             >
-              {addingItinerariesContent ? (
+              {populatingPageContent ? (
                 <>
                   <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                  Adding...
+                  Populating...
                 </>
               ) : (
                 <>
                   <Plus className="w-4 h-4 mr-2" />
-                  Add Itineraries
+                  Populate Page Content
                 </>
               )}
             </Button>
-          )}
-          {content.global_media?.length === 0 && (
-            <Button
-              onClick={addGlobalMediaContent}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              <Image className="w-4 h-4 mr-2" />
-              Add Logo & Media
+
+            <Button onClick={loadContent} variant="outline">
+              <RefreshCw className="w-4 h-4 mr-2" />
+              Refresh
             </Button>
-          )}
-          <Button onClick={loadContent} variant="outline" className="ml-2">
-            <RefreshCw className="w-4 h-4 mr-2" />
-            Refresh
-          </Button>
+          </div>
         </div>
       </div>
 
       <Tabs defaultValue="homepage" className="w-full">
-        {/* Mobile Tabs - Scrollable */}
-        <div className="lg:hidden">
-          <div className="overflow-x-auto scrollbar-hide">
-            <TabsList className="flex w-max min-w-full gap-1 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
+        {/* Responsive Tabs */}
+        <div className="mb-6">
+          <div className="overflow-x-auto">
+            <TabsList className="inline-flex w-max min-w-full bg-gray-100 rounded-lg p-1">
               {contentSections.map((section) => {
                 const Icon = section.icon;
                 const count = content[section.id]?.length || 0;
@@ -483,13 +735,16 @@ export default function WebsiteContentManager() {
                   <TabsTrigger
                     key={section.id}
                     value={section.id}
-                    className="flex items-center gap-1 whitespace-nowrap px-2 py-2 text-xs data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue-400 data-[state=active]:to-navy-blue-400 data-[state=active]:text-white"
+                    className="flex items-center gap-2 whitespace-nowrap px-4 py-2 text-sm font-medium data-[state=active]:bg-white data-[state=active]:text-blue-600 data-[state=active]:shadow-sm"
                   >
-                    <Icon className="w-3 h-3" />
-                    <span className="text-xs">{section.label}</span>
-                    <Badge variant="secondary" className="ml-1 text-xs">
-                      {count}
-                    </Badge>
+                    <Icon className="w-4 h-4" />
+                    <span className="hidden sm:inline">{section.label}</span>
+                    <span className="sm:hidden">{section.label.split(' ')[0]}</span>
+                    {count > 0 && (
+                      <Badge variant="secondary" className="ml-1 text-xs bg-blue-100 text-blue-700">
+                        {count}
+                      </Badge>
+                    )}
                   </TabsTrigger>
                 );
               })}
@@ -497,53 +752,9 @@ export default function WebsiteContentManager() {
           </div>
         </div>
 
-        {/* Desktop Tabs - Grid */}
-        <div className="hidden lg:block">
-          <TabsList className="grid w-full grid-cols-8 bg-white/80 backdrop-blur-sm border border-amber-200 rounded-xl p-1">
-            {contentSections.map((section) => {
-              const Icon = section.icon;
-              const count = content[section.id]?.length || 0;
-              return (
-                <TabsTrigger
-                  key={section.id}
-                  value={section.id}
-                  className="flex items-center gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-ocean-blue-400 data-[state=active]:to-navy-blue-400 data-[state=active]:text-white"
-                >
-                  <Icon className="w-4 h-4" />
-                  <span>{section.label}</span>
-                  <Badge variant="secondary" className="ml-1 text-xs">
-                    {count}
-                  </Badge>
-                </TabsTrigger>
-              );
-            })}
-          </TabsList>
-        </div>
-
         {contentSections.map((section) => (
           <TabsContent key={section.id} value={section.id} className="mt-6">
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-semibold">{section.label}</h2>
-                <Badge variant="outline">
-                  {content[section.id]?.length || 0} fields
-                </Badge>
-              </div>
-              
-              {Array.isArray(content[section.id]) && (content[section.id] as ContentField[]).length > 0 ? (
-                <div className="space-y-4">
-                  {(content[section.id] as ContentField[])
-                    .sort((a, b) => a.section.localeCompare(b.section) || a.order - b.order)
-                    .map(renderField)}
-                </div>
-              ) : (
-                <Card>
-                  <CardContent className="p-6 text-center text-gray-500">
-                    No content fields found for this section.
-                  </CardContent>
-                </Card>
-              )}
-            </div>
+            {renderPageContent(section.id, section.label)}
           </TabsContent>
         ))}
       </Tabs>

@@ -53,68 +53,68 @@ export default function DahabiyasPage() {
         <div className="relative z-10 py-24">
           <Container maxWidth="lg">
             <Box textAlign="center">
-              {/* Hieroglyphic Title */}
+              {/* Enhanced Hieroglyphic Title */}
               <div className="mb-8">
                 <Typography
                   variant="h3"
-                  className="font-bold mb-4 tracking-wider"
+                  className="font-bold mb-4 tracking-wider text-white"
                   style={{
                     fontFamily: 'serif',
-                    background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
-                    WebkitBackgroundClip: 'text',
-                    WebkitTextFillColor: 'transparent',
-                    backgroundClip: 'text',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.3)'
+                    color: '#FFFFFF',
+                    textShadow: '3px 3px 8px rgba(0,0,0,0.8), 0 0 20px rgba(255,255,255,0.3)',
+                    fontSize: 'clamp(1.8rem, 4vw, 2.5rem)'
                   }}
                 >
                   {getContent('dahabiyas_hero_title') || 'Our Luxury Fleet'}
                 </Typography>
-                <div className="w-32 h-1 bg-ocean-blue mx-auto mb-6 rounded-full"></div>
+                <div className="w-32 h-1 bg-gradient-to-r from-transparent via-white to-transparent mx-auto mb-6 rounded-full opacity-80"></div>
               </div>
 
-              {/* Main Title */}
+              {/* Enhanced Main Title */}
               <Typography
                 variant="h1"
                 component="h1"
-                className="font-bold mb-6 text-shadow-lg"
+                className="font-bold mb-6 text-white"
                 style={{
-                  fontSize: 'clamp(2.5rem, 5vw, 4rem)',
+                  fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
                   fontFamily: 'serif',
-                  background: 'linear-gradient(45deg, #0080ff, #0066cc, #3399ff, #0080ff)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
-                  textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
+                  color: '#FFFFFF',
+                  textShadow: '4px 4px 12px rgba(0,0,0,0.9), 0 0 30px rgba(255,255,255,0.4)',
+                  letterSpacing: '0.02em',
+                  lineHeight: '1.1'
                 }}
               >
                 {getContent('dahabiyas_hero_subtitle') || 'Choose from our collection of traditional dahabiyat'}
               </Typography>
 
-              {/* Subtitle */}
+              {/* Enhanced Subtitle */}
               <Typography
                 variant="h4"
-                className="mb-8 max-w-4xl mx-auto leading-relaxed"
+                className="mb-8 max-w-4xl mx-auto leading-relaxed text-blue-100"
                 style={{
                   fontFamily: 'serif',
-                  color: '#FFE4B5',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.5)',
-                  fontSize: '1.5rem'
+                  color: '#DBEAFE',
+                  textShadow: '2px 2px 6px rgba(0,0,0,0.8)',
+                  fontSize: 'clamp(1.2rem, 3vw, 1.8rem)',
+                  fontWeight: '600'
                 }}
               >
                 {getContent('dahabiyas_hero_description') || 'Journey Through Time on the Eternal Waters of the Nile'}
               </Typography>
 
-              {/* Description */}
+              {/* Enhanced Description */}
               <Typography
                 variant="h6"
-                className="max-w-3xl mx-auto leading-relaxed"
+                className="max-w-3xl mx-auto leading-relaxed text-white"
                 style={{
-                  color: '#ffffff',
-                  textShadow: '2px 2px 4px rgba(0,0,0,0.4)',
-                  fontSize: '1.2rem'
+                  color: '#FFFFFF',
+                  textShadow: '2px 2px 6px rgba(0,0,0,0.8)',
+                  fontSize: 'clamp(1rem, 2.5vw, 1.3rem)',
+                  fontWeight: '500',
+                  opacity: '0.95'
                 }}
               >
-                {getContent('dahabiyas_description') || 'Journey Through Time on the Eternal Waters of the Nile - Each of our dahabiyat offers a unique experience...'}
+                {getContent('dahabiyas_description') || 'Journey Through Time on the Eternal Waters of the Nile - Each of our dahabiyat offers a unique experience combining ancient Egyptian elegance with modern luxury amenities.'}
               </Typography>
 
               {/* Decorative Elements */}

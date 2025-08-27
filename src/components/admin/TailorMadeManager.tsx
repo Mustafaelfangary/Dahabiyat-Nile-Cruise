@@ -408,11 +408,60 @@ const TailorMadeManager: React.FC = () => {
       )}
 
       {/* View/Edit Dialog */}
-      <Dialog open={dialogOpen} onClose={handleCloseDialog} maxWidth="md" fullWidth>
-        <DialogTitle>
+      <Dialog
+        open={dialogOpen}
+        onClose={handleCloseDialog}
+        maxWidth="md"
+        fullWidth
+        PaperProps={{
+          className: 'admin-dialog-paper',
+          style: {
+            backgroundColor: '#ffffff !important',
+            backgroundImage: 'none !important',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12) !important',
+            zIndex: 1300,
+            opacity: '1 !important',
+            position: 'relative',
+          }
+        }}
+        BackdropProps={{
+          className: 'admin-dialog-backdrop',
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.9) !important',
+            backdropFilter: 'blur(8px) !important',
+            zIndex: 1299,
+          }
+        }}
+      >
+        <DialogTitle
+          className="admin-dialog-title"
+          style={{
+            backgroundColor: '#0080ff !important',
+            color: 'white !important',
+            borderBottom: '1px solid #e0e0e0 !important',
+            opacity: 1,
+            zIndex: 1301,
+          }}
+        >
           {viewingRequest ? 'Request Details' : 'Edit Request'}
         </DialogTitle>
-        <DialogContent>
+        <DialogContent
+          className="admin-dialog-content"
+          style={{
+            backgroundColor: '#ffffff !important',
+            padding: '0 !important',
+            opacity: '1 !important',
+            zIndex: 1301,
+            position: 'relative',
+          }}
+        >
+          <div style={{
+            backgroundColor: '#ffffff',
+            padding: '24px',
+            minHeight: '100%',
+            position: 'relative',
+            zIndex: 1,
+          }}>
           {viewingRequest && (
             <Box>
               <Grid container spacing={2}>
@@ -529,6 +578,7 @@ const TailorMadeManager: React.FC = () => {
               </Grid>
             </Box>
           )}
+          </div>
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseDialog} startIcon={<CancelIcon />}>

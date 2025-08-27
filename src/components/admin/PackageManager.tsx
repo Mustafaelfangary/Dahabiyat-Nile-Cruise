@@ -122,6 +122,8 @@ interface Package {
   featured: boolean;
   category?: 'LUXURY' | 'DELUXE' | 'PREMIUM' | 'BOUTIQUE';
   maxGuests?: number;
+  factsheetUrl?: string;
+  brochureUrl?: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -157,7 +159,9 @@ const PackageManager: React.FC = () => {
     isActive: true,
     featured: false,
     category: 'DELUXE' as const,
-    maxGuests: 0
+    maxGuests: 0,
+    factsheetUrl: '',
+    brochureUrl: ''
   });
 
   useEffect(() => {
@@ -247,6 +251,49 @@ const PackageManager: React.FC = () => {
     setDialogOpen(false);
     setEditingPackage(null);
     setFormTab(0);
+  };
+
+  const handlePackageFileUpload = async (event: React.ChangeEvent<HTMLInputElement>, type: 'factsheet' | 'brochure') => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+      alert('Only PDF files are allowed');
+      return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) { // 10MB limit
+      alert('File size must be less than 10MB');
+      return;
+    }
+
+    try {
+      const uploadFormData = new FormData();
+      uploadFormData.append('file', file);
+      uploadFormData.append('type', type.toUpperCase());
+
+      const response = await fetch('/api/admin/documents/upload', {
+        method: 'POST',
+        body: uploadFormData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Upload failed');
+      }
+
+      const result = await response.json();
+
+      setFormData(prev => ({
+        ...prev,
+        [type + 'Url']: result.url
+      }));
+
+      alert('File uploaded successfully!');
+
+    } catch (error) {
+      console.error('File upload error:', error);
+      alert('Failed to upload file. Please try again.');
+    }
   };
 
   const handleSubmit = async () => {
@@ -459,12 +506,56 @@ const PackageManager: React.FC = () => {
         maxWidth="md"
         fullWidth
         fullScreen={isMobile}
+        PaperProps={{
+          className: 'admin-dialog-paper',
+          style: {
+            backgroundColor: '#ffffff !important',
+            backgroundImage: 'none !important',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12) !important',
+            zIndex: 1300,
+            opacity: '1 !important',
+            position: 'relative',
+          }
+        }}
+        BackdropProps={{
+          className: 'admin-dialog-backdrop',
+          style: {
+            backgroundColor: 'rgba(0, 0, 0, 0.9) !important',
+            backdropFilter: 'blur(8px) !important',
+            zIndex: 1299,
+          }
+        }}
       >
-        <DialogTitle style={{ backgroundColor: '#0080ff', color: 'white' }}>
+        <DialogTitle
+          className="admin-dialog-title"
+          style={{
+            backgroundColor: '#0080ff !important',
+            color: 'white !important',
+            borderBottom: '1px solid #e0e0e0 !important',
+            opacity: 1,
+            zIndex: 1301,
+          }}
+        >
           <Inventory style={{ marginRight: '8px' }} />
           {editingPackage ? 'Edit Package' : 'Create New Package'}
         </DialogTitle>
-        <DialogContent style={{ padding: '24px' }}>
+        <DialogContent
+          className="admin-dialog-content"
+          style={{
+            backgroundColor: '#ffffff !important',
+            padding: '0 !important',
+            opacity: '1 !important',
+            zIndex: 1301,
+            position: 'relative',
+          }}
+        >
+          <div style={{
+            backgroundColor: '#ffffff',
+            padding: '24px',
+            minHeight: '100%',
+            position: 'relative',
+            zIndex: 1,
+          }}>
           <Tabs
             value={formTab}
             onChange={(_, newValue) => setFormTab(newValue)}
@@ -475,6 +566,7 @@ const PackageManager: React.FC = () => {
             <Tab label="Basic Info" />
             <Tab label="Content" />
             <Tab label="Media" />
+            <Tab label="Documents" />
             <Tab label="Features" />
             <Tab label="Settings" />
           </Tabs>
@@ -640,8 +732,68 @@ const PackageManager: React.FC = () => {
               </div>
             )}
 
-            {/* Tab 3: Features */}
+            {/* Tab 3: Documents */}
             {formTab === 3 && (
+              <div className="space-y-6">
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#0080ff' }}>
+                    Package Documents
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Upload PDF documents like factsheets and brochures for this package
+                  </Typography>
+                </Box>
+
+                <div className="grid grid-cols-1 gap-4">
+                  <div>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: '#0080ff' }}>
+                      Factsheet PDF
+                    </Typography>
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handlePackageFileUpload(e, 'factsheet')}
+                      style={{ marginBottom: '8px' }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      Upload the main factsheet PDF for this package
+                    </Typography>
+                    {formData.factsheetUrl && (
+                      <div style={{ marginTop: '8px' }}>
+                        <a href={formData.factsheetUrl} target="_blank" rel="noopener noreferrer">
+                          View Current Factsheet
+                        </a>
+                      </div>
+                    )}
+                  </div>
+
+                  <div>
+                    <Typography variant="subtitle2" sx={{ mb: 1, color: '#0080ff' }}>
+                      Brochure PDF
+                    </Typography>
+                    <input
+                      type="file"
+                      accept=".pdf"
+                      onChange={(e) => handlePackageFileUpload(e, 'brochure')}
+                      style={{ marginBottom: '8px' }}
+                    />
+                    <Typography variant="caption" color="text.secondary">
+                      Upload marketing brochure or detailed information PDF
+                    </Typography>
+                    {formData.brochureUrl && (
+                      <div style={{ marginTop: '8px' }}>
+                        <a href={formData.brochureUrl} target="_blank" rel="noopener noreferrer">
+                          View Current Brochure
+                        </a>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 4: Features */}
+            {formTab === 4 && (
               <div className="space-y-6">
                 <TextField
                   label="Highlights (one per line)"
@@ -675,8 +827,8 @@ const PackageManager: React.FC = () => {
               </div>
             )}
 
-            {/* Tab 4: Settings */}
-            {formTab === 4 && (
+            {/* Tab 5: Settings */}
+            {formTab === 5 && (
               <div className="space-y-6">
                 <FormControlLabel
                   control={
@@ -702,16 +854,33 @@ const PackageManager: React.FC = () => {
               </div>
             )}
           </div>
+          </div>
         </DialogContent>
-        <DialogActions>
-          <Button onClick={handleCloseDialog}>Cancel</Button>
+        <DialogActions style={{
+          backgroundColor: '#ffffff',
+          borderTop: '1px solid #e0e0e0',
+          padding: '16px 24px'
+        }}>
+          <Button
+            onClick={handleCloseDialog}
+            style={{
+              color: '#666666',
+              backgroundColor: 'transparent'
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             onClick={handleSubmit}
             variant="contained"
             disabled={submitting}
-            style={{ backgroundColor: '#0080ff', color: 'white' }}
+            style={{
+              backgroundColor: '#0080ff',
+              color: 'white',
+              boxShadow: '0 2px 8px rgba(0, 128, 255, 0.3)'
+            }}
           >
-            {submitting ? <CircularProgress size={20} /> : (editingPackage ? 'Update' : 'Create')}
+            {submitting ? <CircularProgress size={20} color="inherit" /> : (editingPackage ? 'Update' : 'Create')}
           </Button>
         </DialogActions>
       </Dialog>

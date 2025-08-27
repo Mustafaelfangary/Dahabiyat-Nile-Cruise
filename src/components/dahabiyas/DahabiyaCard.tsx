@@ -127,6 +127,12 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                   style={{
                     border: '1px solid #0080ff',
                     animation: 'pulse 2s infinite',
+                    color: 'white !important',
+                  }}
+                  sx={{
+                    '& .MuiChip-label': {
+                      color: 'white !important',
+                    },
                   }}
                 />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-ocean-blue rounded-full animate-ping"></div>
@@ -203,9 +209,26 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
           {/* Enhanced Specifications */}
           <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
-            <div className="flex items-center gap-2 text-white bg-gradient-to-r from-ocean-blue to-blue-600 rounded-lg p-3 shadow-lg">
-              <DollarSign className="w-5 h-5 text-white" />
-              <span className="font-bold text-lg">{formatPrice(dahabiya.pricePerDay)}/day</span>
+            <div
+              className="enhanced-price-display flex items-center gap-2 text-white bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg p-3 shadow-lg border border-white/20"
+            >
+              <DollarSign
+                className="w-5 h-5"
+                style={{
+                  color: '#FFFFFF',
+                  filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))'
+                }}
+              />
+              <span
+                className="font-bold text-lg"
+                style={{
+                  color: '#FFFFFF',
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                  fontWeight: '900'
+                }}
+              >
+                {formatPrice(dahabiya.pricePerDay)}/day
+              </span>
             </div>
             {dahabiya.cabins && dahabiya.cabins > 0 && (
               <div className="flex items-center gap-2 text-hieroglyph-brown bg-amber-100 rounded-lg p-2">
@@ -277,20 +300,40 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
               </Typography>
             </div>
 
-            {/* Ocean Blue View Details Button */}
+            {/* Enhanced View Details Button with Clear Text */}
             <div
-              className="bg-gradient-to-r from-ocean-blue/20 to-blue-400/20 text-white px-4 py-1.5 rounded-lg font-medium shadow-md hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-ocean-blue/40 hover:border-ocean-blue/60 text-center cursor-pointer backdrop-blur-sm"
+              className="enhanced-view-details-btn bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-lg font-bold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 border-2 border-white/20 hover:border-white/40 text-center cursor-pointer relative overflow-hidden"
               onClick={(e) => {
                 e.stopPropagation();
                 // Navigate to the dahabiya detail page which has the unified booking form
                 router.push(`/dahabiyas/${dahabiya.slug || dahabiya.id}`);
               }}
             >
-              <div className="flex items-center justify-center gap-1.5">
-                <Typography variant="caption" className="font-bold text-xs text-white">
+              {/* Shimmer Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full hover:translate-x-full transition-transform duration-700"></div>
+
+              <div className="flex items-center justify-center gap-2 relative z-10">
+                <Typography
+                  variant="body2"
+                  className="font-bold text-sm"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    fontWeight: '900'
+                  }}
+                >
                   {getContent('dahabiyas_card_full_booking_text') || 'View Details'}
                 </Typography>
-                <Typography className="text-xs text-ocean-blue">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</Typography>
+                <Typography
+                  className="text-sm"
+                  style={{
+                    color: '#FFFFFF',
+                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
+                    filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))'
+                  }}
+                >
+                  𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+                </Typography>
               </div>
             </div>
           </div>
