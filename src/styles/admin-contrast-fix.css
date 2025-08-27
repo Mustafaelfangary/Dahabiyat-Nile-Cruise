@@ -1,0 +1,353 @@
+/* Admin Panel High Contrast Fix - Addresses Poor Text Readability */
+
+/* Force high contrast text throughout admin panel */
+.admin-layout,
+.admin-layout *,
+[class*="admin-"] {
+  color: #000000 !important;
+}
+
+/* Admin panel background and surface improvements */
+.admin-layout {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Card and surface backgrounds */
+.admin-card,
+.admin-surface,
+[class*="admin-card"] {
+  background: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  color: #000000 !important;
+}
+
+/* Headers and titles */
+.admin-header,
+.admin-header *,
+.admin-card-header,
+.admin-card-header *,
+.admin-card-title,
+h1, h2, h3, h4, h5, h6 {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* Text content */
+.admin-card-content,
+.admin-card-content *,
+.admin-text,
+p, span, div, label {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+/* Table styles */
+.admin-table,
+.admin-table *,
+table, th, td {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-table th {
+  background: #f8fafc !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border-bottom: 2px solid #d1d5db !important;
+}
+
+.admin-table td {
+  color: #000000 !important;
+  font-weight: 500 !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+/* Form elements */
+.admin-form-label,
+.admin-form-input,
+input, textarea, select, label {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-form-label,
+label {
+  font-weight: 700 !important;
+}
+
+.admin-form-input,
+input, textarea, select {
+  background: #ffffff !important;
+  border: 2px solid #d1d5db !important;
+  color: #000000 !important;
+}
+
+.admin-form-input:focus,
+input:focus, textarea:focus, select:focus {
+  border-color: #0080ff !important;
+  box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.1) !important;
+}
+
+/* Button styles */
+.admin-btn,
+.admin-btn-primary,
+.admin-btn-secondary,
+button {
+  font-weight: 600 !important;
+}
+
+.admin-btn-primary {
+  background: #0080ff !important;
+  color: #ffffff !important;
+  border: 2px solid #0080ff !important;
+}
+
+.admin-btn-secondary {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: 2px solid #d1d5db !important;
+}
+
+/* Navigation and menu items */
+.admin-nav,
+.admin-nav *,
+.admin-menu,
+.admin-menu * {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-nav-item,
+.admin-menu-item {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-nav-item:hover,
+.admin-menu-item:hover {
+  background: #f3f4f6 !important;
+  color: #000000 !important;
+}
+
+.admin-nav-item.active,
+.admin-menu-item.active {
+  background: #dbeafe !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* Stats and metrics */
+.admin-stat,
+.admin-stat *,
+.admin-metric,
+.admin-metric * {
+  color: #000000 !important;
+}
+
+.admin-stat-number {
+  color: #000000 !important;
+  font-weight: 800 !important;
+}
+
+.admin-stat-label {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+}
+
+/* Badge and status indicators */
+.admin-badge {
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+/* Mobile specific enhancements */
+@media (max-width: 768px) {
+  .admin-mobile,
+  .admin-mobile *,
+  .admin-card-mobile,
+  .admin-card-mobile * {
+    color: #000000 !important;
+    font-weight: 500 !important;
+  }
+
+  .admin-mobile-item-title {
+    color: #000000 !important;
+    font-weight: 700 !important;
+  }
+
+  .admin-mobile-item-subtitle {
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+  }
+
+  .admin-mobile-item-content {
+    color: #000000 !important;
+    font-weight: 500 !important;
+  }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+  .admin-layout {
+    font-size: 14px;
+  }
+
+  .admin-header-title {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+  }
+
+  .admin-header-subtitle {
+    color: #1f2937 !important;
+    font-weight: 600 !important;
+    font-size: 0.75rem !important;
+  }
+
+  .admin-card-title {
+    color: #000000 !important;
+    font-weight: 700 !important;
+    font-size: 0.875rem !important;
+  }
+
+  .admin-table th,
+  .admin-table td {
+    color: #000000 !important;
+    font-weight: 500 !important;
+    font-size: 0.7rem !important;
+  }
+
+  .admin-table th {
+    font-weight: 700 !important;
+  }
+}
+
+/* Tailwind CSS overrides for admin panel */
+.admin-layout .text-gray-300,
+.admin-layout .text-gray-400,
+.admin-layout .text-gray-500,
+.admin-layout .text-gray-600,
+.admin-layout .text-slate-300,
+.admin-layout .text-slate-400,
+.admin-layout .text-slate-500,
+.admin-layout .text-slate-600 {
+  color: #000000 !important;
+  font-weight: 500 !important;
+}
+
+.admin-layout .text-muted,
+.admin-layout .text-secondary {
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+}
+
+/* React component overrides */
+.admin-layout [class*="text-"],
+.admin-layout [class*="Text"] {
+  color: #000000 !important;
+}
+
+/* Specific component fixes */
+.admin-dashboard *,
+.admin-manager *,
+.admin-form * {
+  color: #000000 !important;
+}
+
+/* Loading and placeholder text */
+.admin-loading,
+.admin-placeholder,
+.admin-empty-state {
+  color: #374151 !important;
+  font-weight: 500 !important;
+}
+
+/* Error and success states */
+.admin-error {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+.admin-success {
+  color: #16a34a !important;
+  font-weight: 600 !important;
+}
+
+.admin-warning {
+  color: #d97706 !important;
+  font-weight: 600 !important;
+}
+
+/* Dropdown and select menus */
+.admin-dropdown,
+.admin-dropdown *,
+.admin-select,
+.admin-select * {
+  color: #000000 !important;
+  background: #ffffff !important;
+}
+
+.admin-dropdown-item:hover,
+.admin-select-option:hover {
+  background: #f3f4f6 !important;
+  color: #000000 !important;
+}
+
+/* Modal and dialog fixes */
+.admin-modal,
+.admin-modal *,
+.admin-dialog,
+.admin-dialog * {
+  color: #000000 !important;
+}
+
+.admin-modal-header {
+  background: #f8fafc !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+.admin-modal-content {
+  background: #ffffff !important;
+  color: #000000 !important;
+}
+
+/* Tooltip and popover fixes */
+.admin-tooltip,
+.admin-popover {
+  background: #1f2937 !important;
+  color: #ffffff !important;
+  font-weight: 500 !important;
+}
+
+/* Accessibility improvements */
+.admin-layout *:focus {
+  outline: 2px solid #0080ff !important;
+  outline-offset: 2px !important;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .admin-layout * {
+    color: #000000 !important;
+    font-weight: 600 !important;
+  }
+
+  .admin-card,
+  .admin-surface {
+    border: 3px solid #000000 !important;
+  }
+
+  .admin-btn {
+    border: 3px solid currentColor !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .admin-layout * {
+    color: #000000 !important;
+    background: #ffffff !important;
+  }
+}

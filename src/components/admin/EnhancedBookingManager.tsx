@@ -204,8 +204,8 @@ export default function EnhancedBookingManager() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="min-w-0">
-          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 truncate">Booking Management</h1>
-          <p className="text-gray-600 mt-1 text-sm sm:text-base">Manage all dahabiya and package bookings</p>
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-black truncate">Booking Management</h1>
+          <p className="text-black mt-1 text-sm sm:text-base font-semibold">Manage all dahabiya and package bookings</p>
         </div>
         <div className="flex gap-2 sm:gap-3 flex-shrink-0">
           <Button
@@ -229,7 +229,7 @@ export default function EnhancedBookingManager() {
         <CardContent className="p-4 sm:p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="relative">
-              <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+              <Search className="absolute left-3 top-3 h-4 w-4 text-black" />
               <Input
                 id="booking-search"
                 name="search"
@@ -294,7 +294,7 @@ export default function EnhancedBookingManager() {
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-blue"></div>
             </div>
           ) : bookings.length === 0 ? (
-            <div className="text-center py-8 text-gray-500 px-4">
+            <div className="text-center py-8 text-black px-4 font-semibold">
               No bookings found matching your criteria
             </div>
           ) : (
@@ -307,18 +307,18 @@ export default function EnhancedBookingManager() {
                       <div className="space-y-2">
                         <div className="flex justify-between items-start">
                           <div>
-                            <p className="font-semibold text-sm text-gray-900">{booking.customerName}</p>
-                            <p className="text-xs text-gray-600">{booking.customerEmail}</p>
+                            <p className="font-bold text-sm text-black">{booking.customerName}</p>
+                            <p className="text-xs text-black font-semibold">{booking.customerEmail}</p>
                           </div>
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(booking.status)}`}>
                             {booking.status}
                           </span>
                         </div>
-                        <div className="text-xs text-gray-600 space-y-1">
+                        <div className="text-xs text-black space-y-1 font-medium">
                           <p><strong>Package:</strong> {booking.packageName}</p>
                           <p><strong>Dates:</strong> {new Date(booking.startDate).toLocaleDateString()} - {new Date(booking.endDate).toLocaleDateString()}</p>
                           <p><strong>Guests:</strong> {booking.numberOfGuests}</p>
-                          <p><strong>Total:</strong> <span className="font-semibold text-green-600">${booking.totalAmount}</span></p>
+                          <p><strong>Total:</strong> <span className="font-bold text-green-600">${booking.totalAmount}</span></p>
                         </div>
                         <div className="flex gap-1 pt-2">
                           <Button size="sm" variant="outline" className="text-xs px-2 py-1 h-auto">
@@ -356,12 +356,12 @@ export default function EnhancedBookingManager() {
                     <tr key={booking.id} className="border-b hover:bg-gray-50">
                       <td className="py-4 px-4">
                         <div>
-                          <div className="font-medium">{booking.user.name}</div>
-                          <div className="text-sm text-gray-500 flex items-center gap-1">
-                            <Mail className="w-3 h-3" />
+                          <div className="font-semibold text-black">{booking.user.name}</div>
+                          <div className="text-sm text-black flex items-center gap-1 font-medium">
+                            <Mail className="w-3 h-3 text-black" />
                             {booking.user.email}
                           </div>
-                          <div className="text-sm text-gray-500">
+                          <div className="text-sm text-black font-medium">
                             {booking.bookingReference}
                           </div>
                         </div>
@@ -374,10 +374,10 @@ export default function EnhancedBookingManager() {
                             <Package className="w-4 h-4 text-ocean-blue" />
                           )}
                           <div>
-                            <div className="font-medium">
+                            <div className="font-semibold text-black">
                               {booking.dahabiya?.name || booking.package?.name}
                             </div>
-                            <div className="text-sm text-gray-500">
+                            <div className="text-sm text-black font-medium">
                               {booking.type}
                             </div>
                           </div>
@@ -385,17 +385,17 @@ export default function EnhancedBookingManager() {
                       </td>
                       <td className="py-4 px-4">
                         <div className="text-sm">
-                          <div>{formatDate(booking.startDate)}</div>
-                          <div className="text-gray-500">to {formatDate(booking.endDate)}</div>
-                          <div className="text-xs text-gray-400">
+                          <div className="font-semibold text-black">{formatDate(booking.startDate)}</div>
+                          <div className="text-black font-medium">to {formatDate(booking.endDate)}</div>
+                          <div className="text-xs text-black font-medium">
                             {calculateDuration(booking.startDate, booking.endDate)} days
                           </div>
                         </div>
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-1">
-                          <Users className="w-4 h-4 text-gray-400" />
-                          {booking.guests}
+                          <Users className="w-4 h-4 text-black" />
+                          <span className="font-semibold text-black">{booking.guests}</span>
                         </div>
                       </td>
                       <td className="py-4 px-4">
@@ -410,8 +410,8 @@ export default function EnhancedBookingManager() {
                       </td>
                       <td className="py-4 px-4">
                         <div className="flex items-center gap-1">
-                          <DollarSign className="w-4 h-4 text-gray-400" />
-                          {booking.totalPrice.toLocaleString()}
+                          <DollarSign className="w-4 h-4 text-black" />
+                          <span className="font-semibold text-black">{booking.totalPrice.toLocaleString()}</span>
                         </div>
                       </td>
                       <td className="py-4 px-4">

@@ -18,20 +18,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Pale Background Color Palette - Consistent with user website */
+/* High Contrast Admin Color Palette - Enhanced Readability */
 :root {
-  --admin-primary: #3b82f6;      /* Blue primary */
-  --admin-primary-dark: #2563eb; /* Darker blue */
-  --admin-primary-light: #60a5fa; /* Lighter blue */
-  --admin-accent: #3b82f6;       /* Blue accent */
-  --admin-background: #f9fafb;   /* Very pale gray background */
+  --admin-primary: #0080ff;      /* Ocean Blue primary */
+  --admin-primary-dark: #0066cc; /* Darker ocean blue */
+  --admin-primary-light: #3399ff; /* Lighter ocean blue */
+  --admin-accent: #0080ff;       /* Ocean Blue accent */
+  --admin-background: #ffffff;   /* Pure white background */
   --admin-surface: #ffffff;      /* White surface */
-  --admin-border: #e5e7eb;       /* Light gray border */
+  --admin-border: #d1d5db;       /* Medium gray border */
 
-  /* Text colors for pale backgrounds */
-  --admin-text-primary: #111827;    /* Dark gray text */
-  --admin-text-secondary: #6b7280; /* Medium gray text */
-  --admin-text-muted: #9ca3af;     /* Light gray text */
+  /* High contrast text colors */
+  --admin-text-primary: #000000;    /* Pure black text for maximum contrast */
+  --admin-text-secondary: #1f2937; /* Very dark gray text */
+  --admin-text-muted: #374151;     /* Dark gray text (still readable) */
+  --admin-text-accent: #0080ff;    /* Ocean blue for accents */
 }
 
 /* Admin Layout Enhancements */
@@ -61,36 +62,47 @@
   font-weight: 500;
 }
 
-/* Card Enhancements */
+/* High Contrast Card Enhancements */
 .admin-card {
   background: var(--admin-surface);
-  border: 1px solid var(--admin-border);
+  border: 2px solid var(--admin-border);
   border-radius: 8px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
 }
 
-/* Disabled admin card hover effects */
+.admin-card:hover {
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  border-color: var(--admin-primary);
+}
 
 .admin-card-header {
-  background: var(--admin-background);
-  border-bottom: 1px solid var(--admin-border);
+  background: #f8fafc;
+  border-bottom: 2px solid var(--admin-border);
   border-radius: 8px 8px 0 0;
+  padding: 1rem 1.5rem;
 }
 
 .admin-card-title {
   color: var(--admin-text-primary);
   font-weight: 700;
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  margin: 0;
 }
 
 .admin-card-description {
   color: var(--admin-text-secondary);
   text-align: justify;
   line-height: 1.6;
+  font-weight: 500;
+}
+
+.admin-card-content {
+  padding: 1.5rem;
+  color: var(--admin-text-primary);
 }
 
 /* Button Styles - Compact & Justified */
@@ -275,10 +287,11 @@
 
 .admin-table td {
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-  color: #374151;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  color: var(--admin-text-primary);
   font-size: 0.875rem;
   line-height: 1.5;
+  font-weight: 500;
 }
 
 /* Disabled admin table row hover effects */
@@ -339,6 +352,79 @@
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+/* High Contrast Admin Text Styles */
+.admin-text-primary {
+  color: var(--admin-text-primary) !important;
+  font-weight: 600;
+}
+
+.admin-text-secondary {
+  color: var(--admin-text-secondary) !important;
+  font-weight: 500;
+}
+
+.admin-text-muted {
+  color: var(--admin-text-muted) !important;
+  font-weight: 500;
+}
+
+/* Force high contrast for all admin content */
+.admin-layout * {
+  color: inherit;
+}
+
+.admin-layout h1,
+.admin-layout h2,
+.admin-layout h3,
+.admin-layout h4,
+.admin-layout h5,
+.admin-layout h6 {
+  color: var(--admin-text-primary) !important;
+  font-weight: 700;
+}
+
+.admin-layout p,
+.admin-layout span,
+.admin-layout div:not(.admin-card):not(.admin-btn) {
+  color: var(--admin-text-primary) !important;
+}
+
+.admin-layout label {
+  color: var(--admin-text-primary) !important;
+  font-weight: 600;
+}
+
+/* Admin form enhancements */
+.admin-form-label {
+  color: var(--admin-text-primary) !important;
+  font-weight: 600;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.admin-form-input {
+  color: var(--admin-text-primary) !important;
+  background: white !important;
+  border: 2px solid var(--admin-border) !important;
+  font-weight: 500;
+}
+
+.admin-form-input:focus {
+  border-color: var(--admin-primary) !important;
+  box-shadow: 0 0 0 3px rgba(0, 128, 255, 0.1) !important;
+}
+
+/* Admin stats and metrics */
+.admin-stat-number {
+  color: var(--admin-text-primary) !important;
+  font-weight: 800;
+}
+
+.admin-stat-label {
+  color: var(--admin-text-secondary) !important;
+  font-weight: 600;
 }
 
 /* Enhanced Responsive Design */

@@ -98,10 +98,10 @@ export function AdminHeader() {
                 />
               </div>
               <div className="hidden sm:block min-w-0">
-                <h1 className="text-sm sm:text-base md:text-lg font-bold text-gray-900 truncate">
+                <h1 className="text-sm sm:text-base md:text-lg font-bold text-black truncate">
                   Admin Panel
                 </h1>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                <p className="text-xs sm:text-sm text-black truncate font-semibold">
                   Dahabiyat
                 </p>
               </div>
@@ -109,7 +109,7 @@ export function AdminHeader() {
 
             {/* Mobile Title - Visible on small screens */}
             <div className="block sm:hidden min-w-0 flex-1">
-              <h1 className="text-sm font-bold text-gray-900 truncate text-center">
+              <h1 className="text-sm font-bold text-black truncate text-center">
                 Admin
               </h1>
             </div>
@@ -126,7 +126,7 @@ export function AdminHeader() {
             <Button
               variant="ghost"
               size="sm"
-              className="sm:hidden text-gray-700 p-1.5 min-w-0"
+              className="sm:hidden text-black p-1.5 min-w-0 hover:bg-gray-100"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
