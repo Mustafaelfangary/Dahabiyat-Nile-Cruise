@@ -147,7 +147,7 @@ export const HieroglyphicText: React.FC<HieroglyphicTextProps> = ({
           color: color || COLORS.TEXT_SECONDARY + '99', // Add transparency
         }
       ]}>
-        𓎢𓃭𓅂𓅱𓄿𓂋𓄿
+        𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
       </Text>
     </View>
   );

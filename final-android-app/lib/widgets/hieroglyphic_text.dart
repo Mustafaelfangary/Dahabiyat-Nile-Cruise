@@ -23,7 +23,7 @@ class HieroglyphicText extends StatelessWidget {
         horizontal: 16.0,
       ),
       child: Text(
-        '𓎢𓃭𓅂𓅱𓄿𓂋𓄿',
+        '𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿',
         textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: fontSize,

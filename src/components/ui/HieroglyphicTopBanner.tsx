@@ -14,7 +14,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
   variant = 'default',
   animated = true
 }) => {
-  const hieroglyphicText = '𓎢𓃭𓅂𓅱𓄿𓂋𓄿';
+  const hieroglyphicText = '𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿';
 
   const bannerVariants = {
     default: {
@@ -122,7 +122,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
                 transition: { duration: 4, repeat: Infinity, ease: "easeInOut" }
               } : {}}
             >
-              𓎢𓃭𓅂𓅱𓄿𓂋𓄿
+              𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
             </motion.span>
           </div>
 
@@ -150,7 +150,7 @@ const HieroglyphicTopBanner: React.FC<HieroglyphicTopBannerProps> = ({
                 transition: { duration: 3, repeat: Infinity, ease: "easeInOut", delay: 1 }
               } : {}}
             >
-              𓎢𓃭𓅂𓅱𓄿𓂋𓄿
+              𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
             </motion.span>
           </div>
         </div>

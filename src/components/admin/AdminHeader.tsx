@@ -116,7 +116,7 @@ export function AdminHeader() {
 
             {/* Separator */}
             <div className="hidden lg:block text-blue-600 text-sm sm:text-lg flex-shrink-0">
-              𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+              𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
             </div>
           </div>
 

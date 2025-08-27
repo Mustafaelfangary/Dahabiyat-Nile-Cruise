@@ -69,7 +69,7 @@ export default function AboutPage() {
               <div className="text-center mb-8">
                 <EgyptHieroglyphic className="mx-auto mb-4" size="3rem" />
                 <div className="text-4xl font-bold text-gray-800 mb-2">
-                  𓎢𓃭𓅂𓅱𓄿𓂋𓄿
+                  𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
                 </div>
                 <p className="text-gray-600 text-sm">{getContent('about_egypt_label') || 'Egypt'}</p>
               </div>
