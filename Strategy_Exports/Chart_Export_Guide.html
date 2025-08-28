@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cleopatra Dahabiyat Strategy Charts - Export Guide</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .header {
+            text-align: center;
+            background: linear-gradient(135deg, #FFD700, #FFA500);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+        .chart-container {
+            background: white;
+            margin: 30px 0;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .chart-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #1E3A8A;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .chart-description {
+            color: #666;
+            margin-bottom: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+        .mermaid {
+            text-align: center;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .export-button {
+            background: #1E3A8A;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+        }
+        .export-button:hover {
+            background: #2563EB;
+        }
+        .instructions {
+            background: #e8f5e8;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+            margin: 20px 0;
+        }
+        .filename {
+            background: #f8f9fa;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #d63384;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏺 Cleopatra Dahabiyat Strategy Charts</h1>
+        <p>Export Guide - Right-click on each chart below to save as JPG</p>
+    </div>
+
+    <div class="instructions">
+        <h3>📋 How to Export Charts as JPG:</h3>
+        <ol>
+            <li><strong>Right-click directly on each chart below</strong></li>
+            <li><strong>Select "Save image as..." or "Copy image"</strong></li>
+            <li><strong>Save with the exact filename shown</strong></li>
+            <li><strong>Choose JPG format</strong></li>
+            <li><strong>Save to your Strategy_Exports folder</strong></li>
+        </ol>
+        <p><strong>Note:</strong> If right-click doesn't work, use Windows Snipping Tool (Windows + Shift + S) to capture each chart.</p>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">1. SEO Strategy Implementation Flowchart</div>
+        <div class="chart-description">Technical SEO implementation process and optimization cycle</div>
+        <div class="filename">Filename: 01_SEO_Strategy_Implementation_Flowchart.jpg</div>
+        <div class="mermaid">
+flowchart TD
+    A[SEO Strategy Launch] --> B[Technical SEO Audit]
+    B --> C[Keyword Research & Analysis]
+    C --> D[Content Strategy Development]
+    D --> E[On-Page Optimization]
+    E --> F[Link Building Campaign]
+    F --> G[Local SEO Enhancement]
+    G --> H[Performance Monitoring]
+    H --> I{Goals Achieved?}
+    I -->|No| J[Strategy Refinement]
+    J --> D
+    I -->|Yes| K[Scale & Expand]
+    K --> L[International SEO]
+    L --> M[Advanced Optimization]
+    
+    B --> B1[Core Web Vitals]
+    B --> B2[Schema Markup]
+    B --> B3[Site Speed]
+    B --> B4[Mobile Optimization]
+    
+    C --> C1[Primary Keywords]
+    C --> C2[Long-tail Keywords]
+    C --> C3[Competitor Analysis]
+    C --> C4[Search Intent]
+    
+    D --> D1[Blog Content]
+    D --> D2[Landing Pages]
+    D --> D3[Video Content]
+    D --> D4[Social Content]
+    
+    style A fill:#FFD700
+    style K fill:#32CD32
+    style M fill:#FF6347
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">2. Digital Marketing Funnel & Conversion Flow</div>
+        <div class="chart-description">Customer journey from awareness to loyalty with conversion strategies</div>
+        <div class="filename">Filename: 02_Digital_Marketing_Funnel_Conversion_Flow.jpg</div>
+        <div class="mermaid">
+graph TD
+    A[Awareness Stage] --> B[Interest Stage]
+    B --> C[Consideration Stage]
+    C --> D[Intent Stage]
+    D --> E[Action Stage]
+    E --> F[Retention Stage]
+    
+    A --> A1[SEO - Organic Search]
+    A --> A2[Social Media Marketing]
+    A --> A3[Display Advertising]
+    A --> A4[Content Marketing]
+    A --> A5[Influencer Partnerships]
+    
+    B --> B1[Blog Content]
+    B --> B2[Video Content]
+    B --> B3[Social Engagement]
+    B --> B4[Email Newsletters]
+    B --> B5[Retargeting Ads]
+    
+    C --> C1[Detailed Itineraries]
+    C --> C2[Customer Reviews]
+    C --> C3[Pricing Information]
+    C --> C4[Comparison Guides]
+    C --> C5[Live Chat Support]
+    
+    D --> D1[Booking Page]
+    D --> D2[Special Offers]
+    D --> D3[Limited Time Deals]
+    D --> D4[Consultation Calls]
+    D --> D5[Abandoned Cart Recovery]
+    
+    E --> E1[Secure Payment]
+    E --> E2[Booking Confirmation]
+    E --> E3[Welcome Package]
+    E --> E4[Pre-trip Planning]
+    E --> E5[Customer Onboarding]
+    
+    F --> F1[Post-trip Follow-up]
+    F --> F2[Review Requests]
+    F --> F3[Loyalty Programs]
+    F --> F4[Referral Incentives]
+    F --> F5[Repeat Booking Offers]
+    
+    style A fill:#FF6B6B
+    style B fill:#4ECDC4
+    style C fill:#45B7D1
+    style D fill:#96CEB4
+    style E fill:#FFEAA7
+    style F fill:#DDA0DD
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">3. Social Media Strategy & Platform Integration</div>
+        <div class="chart-description">Multi-platform content distribution and engagement strategies</div>
+        <div class="filename">Filename: 03_Social_Media_Strategy_Platform_Integration.jpg</div>
+        <div class="mermaid">
+graph LR
+    A[Cleopatra Dahabiyat Brand] --> B[Content Creation Hub]
+    B --> C[Instagram]
+    B --> D[Facebook]
+    B --> E[TikTok]
+    B --> F[YouTube]
+    B --> G[Pinterest]
+    B --> H[Twitter/X]
+    B --> I[VK]
+    B --> J[TripAdvisor]
+    
+    C --> C1[Stories - Daily]
+    C --> C2[Reels - 3-4/week]
+    C --> C3[Posts - 5-7/week]
+    C --> C4[IGTV - Weekly]
+    
+    D --> D1[Community Groups]
+    D --> D2[Live Events]
+    D --> D3[Targeted Ads]
+    D --> D4[User Content]
+    
+    E --> E1[Educational Content]
+    E --> E2[Trending Audio]
+    E --> E3[Quick Highlights]
+    E --> E4[Hashtag Challenges]
+    
+    F --> F1[Virtual Tours]
+    F --> F2[Documentaries]
+    F --> F3[Testimonials]
+    F --> F4[Live Streams]
+    
+    G --> G1[Travel Inspiration]
+    G --> G2[Interior Design]
+    G --> G3[Photography]
+    G --> G4[Outfit Ideas]
+    
+    H --> H1[News Updates]
+    H --> H2[Customer Service]
+    H --> H3[Industry Insights]
+    H --> H4[Real-time Engagement]
+    
+    I --> I1[Russian Market]
+    I --> I2[Cultural Content]
+    I --> I3[Local Partnerships]
+    I --> I4[Community Building]
+    
+    J --> J1[Review Management]
+    J --> J2[Business Profile]
+    J --> J3[Photo Updates]
+    J --> J4[Q&A Responses]
+    
+    style A fill:#FFD700
+    style B fill:#FF6347
+    style C fill:#E1306C
+    style D fill:#1877F2
+    style E fill:#000000
+    style F fill:#FF0000
+    style G fill:#BD081C
+    style H fill:#1DA1F2
+    style I fill:#4C75A3
+    style J fill:#00AF87
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">4. Marketing Budget Allocation</div>
+        <div class="chart-description">Monthly budget distribution across marketing channels ($8,000)</div>
+        <div class="filename">Filename: 05_Marketing_Budget_Allocation_Chart.jpg</div>
+        <div class="mermaid">
+pie title Monthly Marketing Budget Distribution ($8,000)
+    "Paid Advertising" : 3500
+    "Content Creation" : 2000
+    "Influencer Partnerships" : 1200
+    "Tools & Software" : 800
+    "Email Marketing" : 300
+    "Contingency" : 200
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-title">5. SEO Keyword Strategy Hierarchy</div>
+        <div class="chart-description">Keyword targeting structure and search volume analysis</div>
+        <div class="filename">Filename: 07_SEO_Keyword_Strategy_Hierarchy.jpg</div>
+        <div class="mermaid">
+mindmap
+  root((SEO Keywords))
+    Primary Keywords
+      Luxury Nile Cruise
+        8,100 searches/month
+        High competition
+        High intent
+      Dahabiya Nile Cruise
+        2,400 searches/month
+        Medium competition
+        Very high intent
+      Egypt Nile River Cruise
+        14,800 searches/month
+        High competition
+        Medium intent
+    Long-tail Keywords
+      Best Luxury Nile Cruise Egypt 2025
+        Low competition
+        Very high intent
+      Private Dahabiya Cruise Aswan Luxor
+        Low competition
+        High intent
+      Authentic Egyptian Nile Sailing
+        Medium competition
+        High intent
+    Local Keywords
+      Nile Cruise Luxor
+        3,600 searches/month
+        Medium competition
+      Aswan Dahabiya Tours
+        1,200 searches/month
+        Low competition
+      Egypt River Cruise Packages
+        5,400 searches/month
+        High competition
+    Branded Keywords
+      Cleopatra Dahabiyat
+        Brand protection
+        Very high intent
+      Cleopatra Nile Cruise
+        Brand expansion
+        High intent
+        </div>
+    </div>
+
+    <div class="instructions">
+        <h3>🎯 Next Steps After Exporting Charts:</h3>
+        <ol>
+            <li><strong>Verify all 8 JPG files</strong> are saved in your Strategy_Exports folder</li>
+            <li><strong>Open the Word-ready HTML document</strong> for printing</li>
+            <li><strong>Review the complete strategy documents</strong></li>
+            <li><strong>Begin implementation</strong> with Week 1 action items</li>
+        </ol>
+        <p><strong>Your complete SEO & Digital Marketing strategy package is ready for presentation and implementation! 🚀</strong></p>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true
+            }
+        });
+    </script>
+</body>
+</html>

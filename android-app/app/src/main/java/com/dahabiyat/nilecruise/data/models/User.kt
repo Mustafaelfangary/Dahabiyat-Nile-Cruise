@@ -1,5 +1,8 @@
 package com.dahabiyat.nilecruise.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class User(
     val id: String,
     val email: String,
@@ -18,10 +21,12 @@ data class User(
     val updatedAt: String
 )
 
+@Serializable
 enum class UserRole {
     GUEST, USER, ADMIN
 }
 
+@Serializable
 data class UserPreferences(
     val language: String = "en",
     val currency: String = "USD",
@@ -29,6 +34,7 @@ data class UserPreferences(
     val privacy: PrivacyPreferences = PrivacyPreferences()
 )
 
+@Serializable
 data class NotificationPreferences(
     val emailNotifications: Boolean = true,
     val pushNotifications: Boolean = true,
@@ -38,12 +44,14 @@ data class NotificationPreferences(
     val specialOffers: Boolean = true
 )
 
+@Serializable
 data class PrivacyPreferences(
     val profileVisibility: String = "public",
     val shareBookingHistory: Boolean = false,
     val allowDataCollection: Boolean = true
 )
 
+@Serializable
 data class UserStats(
     val totalBookings: Int = 0,
     val totalSpent: Double = 0.0,

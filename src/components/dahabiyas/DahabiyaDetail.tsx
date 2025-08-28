@@ -509,7 +509,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                 )}
                 <Chip
                   icon={<DollarSign size={18} className="text-white force-white-text" />}
-                  label={`From ${formatPrice(dahabiya.pricePerDay)}/day`}
+                  label={`From ${formatPrice(dahabiya.pricePerDay)}/night per person`}
                   className="font-bold px-8 py-4 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 force-white-text"
                   style={{
                     background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 30%, #3399ff 70%, #0080ff 100%)',

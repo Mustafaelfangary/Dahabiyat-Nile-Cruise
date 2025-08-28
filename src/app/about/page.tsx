@@ -62,8 +62,34 @@ export default function AboutPage() {
 
       <main className="relative z-10">
         {/* Hero Section */}
-        <div className="relative py-32 overflow-hidden">
-          <Container maxWidth="lg">
+        <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+          {/* Background Video/Image with Egyptian Overlay */}
+          <div className="absolute inset-0 z-0">
+            {getContent('about_hero_video') ? (
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+                poster={getContent('about_hero_image', '/images/about-hero.png')}
+              >
+                <source src={getContent('about_hero_video')} type="video/mp4" />
+              </video>
+            ) : (
+              <Image
+                src={getContent('about_hero_image', '/images/about-hero.png')}
+                alt="About Us - Dahabiya Nile Cruise"
+                fill
+                className="object-cover"
+                priority
+              />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/60 via-navy-blue/40 to-ocean-blue/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20"></div>
+          </div>
+
+          <Container maxWidth="lg" className="relative z-10">
             <AnimatedSection animation="fade-in">
               {/* Hieroglyphic Egypt at top */}
               <div className="text-center mb-8">
@@ -74,12 +100,12 @@ export default function AboutPage() {
                 <p className="text-gray-600 text-sm">{getContent('about_egypt_label') || 'Egypt'}</p>
               </div>
 
-              <div className="text-center text-text-primary">
-                <h1 className="text-5xl md:text-7xl font-heading font-bold bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue bg-clip-text text-transparent mb-8">
-                  {getContent('about_hero_title') || 'About Us'}
+              <div className="text-center text-white">
+                <h1 className="text-5xl md:text-7xl font-heading font-bold text-white drop-shadow-2xl mb-8">
+                  {getContent('about_hero_title') || 'About Our Egyptian Legacy'}
                 </h1>
-                <p className="text-xl md:text-2xl mb-8 max-w-4xl mx-auto leading-relaxed text-text-primary">
-                  {getContent('about_hero_subtitle') || 'Discover the story behind Egypt\'s premier Dahabiya cruise experience'}
+                <p className="text-xl md:text-2xl mb-12 max-w-4xl mx-auto leading-relaxed text-blue-100 drop-shadow-lg">
+                  {getContent('about_hero_subtitle') || 'Discover the story behind Egypt\'s premier Dahabiya cruise experience, where ancient traditions meet modern luxury.'}
                 </p>
               </div>
             </AnimatedSection>

@@ -2392,6 +2392,418 @@ html body .force-white-text * {
   font-weight: 900 !important;
 }
 
+/* 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Papyrus Social Media Buttons */
+.pharaonic-papyrus-container {
+  position: relative;
+  background: linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 25%, #d4c18a 50%, #c2af71 75%, #b09d58 100%);
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow:
+    0 8px 32px rgba(139, 69, 19, 0.3),
+    inset 0 2px 4px rgba(255, 248, 220, 0.8),
+    inset 0 -2px 4px rgba(139, 69, 19, 0.2);
+  border: 3px solid #8B4513;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Enhanced Wide 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Papyrus Container */
+.pharaonic-papyrus-container-wide {
+  position: relative;
+  background: linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 25%, #d4c18a 50%, #c2af71 75%, #b09d58 100%);
+  border-radius: 25px;
+  padding: 3rem 2rem;
+  box-shadow:
+    0 12px 48px rgba(139, 69, 19, 0.4),
+    inset 0 3px 6px rgba(255, 248, 220, 0.9),
+    inset 0 -3px 6px rgba(139, 69, 19, 0.3);
+  border: 4px solid #8B4513;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Extra Wide 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Papyrus Container */
+.pharaonic-papyrus-container-extra-wide {
+  position: relative;
+  background: linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 25%, #d4c18a 50%, #c2af71 75%, #b09d58 100%);
+  border-radius: 30px;
+  padding: 4rem 3rem;
+  box-shadow:
+    0 16px 64px rgba(139, 69, 19, 0.5),
+    inset 0 4px 8px rgba(255, 248, 220, 0.95),
+    inset 0 -4px 8px rgba(139, 69, 19, 0.4);
+  border: 5px solid #8B4513;
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  max-width: 90rem;
+}
+
+/* Full Width 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Papyrus Container */
+.pharaonic-papyrus-container-full-width {
+  position: relative;
+  background: linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 25%, #d4c18a 50%, #c2af71 75%, #b09d58 100%);
+  border-radius: 0;
+  padding: 4rem 1rem;
+  box-shadow:
+    0 16px 64px rgba(139, 69, 19, 0.5),
+    inset 0 4px 8px rgba(255, 248, 220, 0.95),
+    inset 0 -4px 8px rgba(139, 69, 19, 0.4);
+  border-top: 5px solid #8B4513;
+  border-bottom: 5px solid #8B4513;
+  position: relative;
+  overflow: visible;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+}
+
+/* Ensure grid doesn't overflow */
+.pharaonic-papyrus-container-full-width .grid {
+  max-width: 100%;
+  padding: 0 1rem;
+}
+
+.pharaonic-papyrus-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(139, 69, 19, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 80% 70%, rgba(139, 69, 19, 0.1) 1px, transparent 1px),
+    radial-gradient(circle at 40% 80%, rgba(139, 69, 19, 0.05) 2px, transparent 2px);
+  background-size: 50px 50px, 60px 60px, 40px 40px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.pharaonic-papyrus-container::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid rgba(139, 69, 19, 0.3);
+  border-radius: 15px;
+  pointer-events: none;
+}
+
+.pharaonic-social-button {
+  position: relative;
+  background: linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 50%, #d4c18a 100%);
+  border: 2px solid #8B4513;
+  border-radius: 15px;
+  padding: 1.5rem;
+  margin: 1rem;
+  box-shadow:
+    0 6px 20px rgba(139, 69, 19, 0.4),
+    inset 0 2px 4px rgba(255, 248, 220, 0.9),
+    inset 0 -1px 2px rgba(139, 69, 19, 0.3);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.pharaonic-social-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    linear-gradient(45deg, transparent 40%, rgba(139, 69, 19, 0.05) 50%, transparent 60%),
+    radial-gradient(circle at 30% 40%, rgba(139, 69, 19, 0.08) 1px, transparent 1px);
+  background-size: 30px 30px, 25px 25px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.pharaonic-social-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow:
+    0 10px 30px rgba(139, 69, 19, 0.5),
+    inset 0 3px 6px rgba(255, 248, 220, 0.95),
+    inset 0 -2px 4px rgba(139, 69, 19, 0.4);
+  background: linear-gradient(135deg, #f6e6c4 0%, #e8d5a5 50%, #d6c38c 100%);
+}
+
+.pharaonic-social-icon {
+  position: relative;
+  z-index: 2;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto 1rem;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  border: 2px solid rgba(139, 69, 19, 0.4);
+}
+
+/* Fix spacing for social icons in tab content */
+.pharaonic-papyrus-container-wide .pharaonic-social-icon,
+.pharaonic-papyrus-container-full-width .pharaonic-social-icon {
+  margin-top: 1.5rem !important;
+}
+
+.pharaonic-social-text {
+  position: relative;
+  z-index: 2;
+  color: #8B4513;
+  text-shadow: 1px 1px 2px rgba(255, 248, 220, 0.8);
+  font-weight: bold;
+}
+
+/* Enhanced large hieroglyphic text styling */
+.pharaonic-hieroglyphic-large {
+  font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+  color: #D4AF37;
+  text-shadow:
+    2px 2px 4px rgba(0, 0, 0, 0.3),
+    0 0 10px rgba(212, 175, 55, 0.4),
+    0 0 20px rgba(212, 175, 55, 0.2);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  line-height: 0.8;
+  letter-spacing: 0.1em;
+}
+
+/* Floating animations for Egyptian elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes float-delayed {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes bounce-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float-delayed 8s ease-in-out infinite;
+  animation-delay: 2s;
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 4s ease-in-out infinite;
+  animation-delay: 1s;
+}
+
+.pharaonic-hieroglyphics {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.2rem;
+  color: rgba(139, 69, 19, 0.6);
+  z-index: 1;
+}
+
+/* Individual social media platform colors on papyrus */
+.pharaonic-whatsapp .pharaonic-social-icon {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.pharaonic-telegram .pharaonic-social-icon {
+  background: linear-gradient(135deg, #0088cc 0%, #005577 100%);
+}
+
+.pharaonic-youtube .pharaonic-social-icon {
+  background: linear-gradient(135deg, #FF0000 0%, #CC0000 100%);
+}
+
+.pharaonic-tripadvisor .pharaonic-social-icon {
+  background: linear-gradient(135deg, #00AF87 0%, #008060 100%);
+}
+
+.pharaonic-facebook .pharaonic-social-icon {
+  background: linear-gradient(135deg, #1877F2 0%, #0D4F8C 100%);
+}
+
+.pharaonic-twitter .pharaonic-social-icon {
+  background: linear-gradient(135deg, #1DA1F2 0%, #0D8BD9 100%);
+}
+
+.pharaonic-instagram .pharaonic-social-icon {
+  background: linear-gradient(135deg, #E4405F 0%, #833AB4 50%, #F77737 100%);
+}
+
+.pharaonic-tiktok .pharaonic-social-icon {
+  background: linear-gradient(135deg, #000000 0%, #ff0050 50%, #000000 100%);
+}
+
+.pharaonic-x .pharaonic-social-icon {
+  background: linear-gradient(135deg, #000000 0%, #1DA1F2 50%, #000000 100%);
+}
+
+.pharaonic-pinterest .pharaonic-social-icon {
+  background: linear-gradient(135deg, #BD081C 0%, #E60023 100%);
+}
+
+.pharaonic-wechat .pharaonic-social-icon {
+  background: linear-gradient(135deg, #1AAD19 0%, #07C160 100%);
+}
+
+.pharaonic-vk .pharaonic-social-icon {
+  background: linear-gradient(135deg, #4C75A3 0%, #5181B8 100%);
+}
+
+.pharaonic-vk .pharaonic-social-button {
+  background: linear-gradient(135deg, #4C75A3 0%, #5181B8 100%);
+  border: 2px solid #4C75A3;
+}
+
+.pharaonic-vk .pharaonic-social-button:hover {
+  background: linear-gradient(135deg, #3A5A85 0%, #4C75A3 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(76, 117, 163, 0.4);
+}
+
+/* Enhanced Pharaonic Papyrus Effects */
+.pharaonic-papyrus-container {
+  background-image:
+    linear-gradient(135deg, #f4e4bc 0%, #e6d3a3 25%, #d4c18a 50%, #c2af71 75%, #b09d58 100%),
+    radial-gradient(circle at 25% 25%, rgba(139, 69, 19, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(139, 69, 19, 0.1) 0%, transparent 50%);
+  background-blend-mode: multiply, overlay, overlay;
+}
+
+.pharaonic-papyrus-container::before {
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(139, 69, 19, 0.03) 2px,
+      rgba(139, 69, 19, 0.03) 4px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(139, 69, 19, 0.03) 2px,
+      rgba(139, 69, 19, 0.03) 4px
+    );
+}
+
+/* Papyrus texture animation */
+@keyframes papyrus-glow {
+  0%, 100% {
+    box-shadow:
+      0 8px 32px rgba(139, 69, 19, 0.3),
+      inset 0 2px 4px rgba(255, 248, 220, 0.8),
+      inset 0 -2px 4px rgba(139, 69, 19, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 12px 40px rgba(139, 69, 19, 0.4),
+      inset 0 3px 6px rgba(255, 248, 220, 0.9),
+      inset 0 -3px 6px rgba(139, 69, 19, 0.3);
+  }
+}
+
+.pharaonic-social-button:hover {
+  animation: papyrus-glow 2s ease-in-out infinite;
+}
+
+/* Hieroglyphic text enhancement */
+.pharaonic-hieroglyphics {
+  font-family: 'Noto Sans Egyptian Hieroglyphs', serif;
+  text-shadow: 1px 1px 2px rgba(139, 69, 19, 0.5);
+  filter: drop-shadow(0 0 3px rgba(139, 69, 19, 0.3));
+}
+
+/* Responsive design for 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 buttons */
+@media (max-width: 768px) {
+  .pharaonic-papyrus-container,
+  .pharaonic-papyrus-container-wide,
+  .pharaonic-papyrus-container-extra-wide,
+  .pharaonic-papyrus-container-full-width {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .pharaonic-papyrus-container-full-width {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+  }
+
+  .pharaonic-social-button {
+    padding: 1rem;
+    margin: 0.5rem;
+  }
+
+  .pharaonic-social-icon {
+    width: 50px;
+    height: 50px;
+  }
+
+  .pharaonic-social-text {
+    font-size: 0.9rem;
+  }
+
+  .pharaonic-hieroglyphics {
+    font-size: 1rem;
+  }
+
+  /* Wide container specific mobile adjustments */
+  .pharaonic-papyrus-container-wide {
+    padding: 2rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .pharaonic-papyrus-container,
+  .pharaonic-papyrus-container-wide,
+  .pharaonic-papyrus-container-extra-wide,
+  .pharaonic-papyrus-container-full-width {
+    padding: 1rem;
+  }
+
+  .pharaonic-social-button {
+    padding: 0.75rem;
+    margin: 0.25rem;
+  }
+
+  .pharaonic-social-icon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .pharaonic-social-text {
+    font-size: 0.8rem;
+  }
+
+  /* Wide container mobile specific */
+  .pharaonic-papyrus-container-wide,
+  .pharaonic-papyrus-container-extra-wide {
+    padding: 1.5rem 0.75rem;
+  }
+
+  .pharaonic-papyrus-container-wide .grid,
+  .pharaonic-papyrus-container-extra-wide .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+}
+
 .MuiButton-contained {
   background-color: hsl(var(--primary)) !important;
   color: hsl(var(--primary-foreground)) !important;

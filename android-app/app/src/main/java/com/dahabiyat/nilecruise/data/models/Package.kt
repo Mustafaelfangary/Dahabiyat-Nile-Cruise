@@ -1,5 +1,8 @@
 package com.dahabiyat.nilecruise.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Package(
     val id: String,
     val name: String,
@@ -29,14 +32,17 @@ data class Package(
     val difficulty: PackageDifficulty = PackageDifficulty.EASY
 )
 
+@Serializable
 enum class PackageCategory {
     STANDARD, PREMIUM, LUXURY, CUSTOM
 }
 
+@Serializable
 enum class PackageDifficulty {
     EASY, MODERATE, CHALLENGING
 }
 
+@Serializable
 data class ItineraryDay(
     val day: Int,
     val title: String,

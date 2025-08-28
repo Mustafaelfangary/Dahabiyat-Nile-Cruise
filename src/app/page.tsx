@@ -100,24 +100,24 @@ export default function HomePage() {
 
       console.log('🔄 Fetching homepage data...', bustCache ? '(cache busted)' : '(cached)');
 
-      // Fetch featured dahabiyas first
-      const featuredDahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=4${timestamp}`, cacheControl);
+      // Fetch featured dahabiyas first - increased limit to show all featured items
+      const featuredDahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=20${timestamp}`, cacheControl);
       if (featuredDahabiyatResponse.ok) {
         const featuredDahabiyatData = await featuredDahabiyatResponse.json();
         console.log('✅ Featured dahabiyas:', featuredDahabiyatData.dahabiyas?.length || 0);
         setFeaturedDahabiyat(featuredDahabiyatData.dahabiyas || []);
       }
 
-      // Fetch featured packages
-      const featuredPackagesResponse = await fetch(`/api/packages?featured=true&limit=4${timestamp}`, cacheControl);
+      // Fetch featured packages - increased limit to show all featured items
+      const featuredPackagesResponse = await fetch(`/api/packages?featured=true&limit=20${timestamp}`, cacheControl);
       if (featuredPackagesResponse.ok) {
         const featuredPackagesData = await featuredPackagesResponse.json();
         console.log('✅ Featured packages:', featuredPackagesData.packages?.length || 0);
         setFeaturedPackages(featuredPackagesData.packages || []);
       }
 
-      // Fetch regular content as fallback
-      const dahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=4${timestamp}`, cacheControl);
+      // Fetch regular content as fallback - increased limit
+      const dahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=20${timestamp}`, cacheControl);
       if (dahabiyatResponse.ok) {
         const dahabiyatData = await dahabiyatResponse.json();
         console.log('✅ Regular dahabiyas:', dahabiyatData.dahabiyas?.length || 0);
@@ -560,7 +560,7 @@ export default function HomePage() {
                           className="force-white-text text-sm text-white ml-2"
                           style={{ color: '#ffffff' }}
                         >
-                          𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿
+                          𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
                         </span>
                       </Button>
                     </Link>
@@ -961,7 +961,7 @@ export default function HomePage() {
 
                         <Button className="w-full bg-gradient-to-r from-blue-600/80 to-blue-700/80 text-white hover:from-blue-600 hover:to-blue-700 rounded-md font-bold shadow-md hover:shadow-lg transition-all duration-300 group/btn border border-blue-600/30 backdrop-blur-sm">
                           <span className="group-hover/btn:mr-1 transition-all duration-300">Read Story</span>
-                          <span className="text-blue-200 ml-1">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                          <span className="text-blue-200 ml-1">𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿</span>
                           <ChevronRight className="w-4 h-4 opacity-0 group-hover/btn:opacity-100 transition-all duration-300" />
                         </Button>
                       </div>

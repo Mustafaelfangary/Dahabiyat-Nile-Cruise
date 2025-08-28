@@ -419,7 +419,7 @@ export default function ProfilePage() {
                       <div className="flex items-center gap-2 bg-gradient-to-r from-ocean-blue/30 to-blue-600/30 backdrop-blur-sm px-4 py-2 rounded-full border border-ocean-blue/50 ocean-glow hieroglyph-decoration">
                         <RewardIcon className="w-6 h-6 text-ocean-blue pharaonic-pulse" />
                         <span className="font-bold text-ocean-blue">{rewardTier.name}</span>
-                        <span className="text-lg hieroglyph-glow">𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span>
+                        <span className="text-lg hieroglyph-glow">𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿</span>
                       </div>
                     </div>
 

@@ -21,6 +21,10 @@ fun LoadingScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            CleopatraLogo(
+                modifier = Modifier.size(80.dp)
+            )
+            Spacer(modifier = Modifier.height(24.dp))
             CircularProgressIndicator(
                 modifier = Modifier.size(48.dp),
                 color = MaterialTheme.colorScheme.primary

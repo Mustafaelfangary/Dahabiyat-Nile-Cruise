@@ -1,5 +1,8 @@
 package com.dahabiyat.nilecruise.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class ApiResponse<T>(
     val success: Boolean,
     val message: String? = null,
@@ -7,11 +10,13 @@ data class ApiResponse<T>(
     val error: String? = null
 )
 
+@Serializable
 data class PaginatedResponse<T>(
     val data: List<T>,
     val pagination: PaginationInfo
 )
 
+@Serializable
 data class PaginationInfo(
     val currentPage: Int,
     val totalPages: Int,
@@ -21,6 +26,7 @@ data class PaginationInfo(
     val hasPrevious: Boolean
 )
 
+@Serializable
 data class Review(
     val id: String,
     val userId: String,
@@ -37,6 +43,7 @@ data class Review(
     val updatedAt: String
 )
 
+@Serializable
 data class GalleryImage(
     val id: String,
     val url: String,
@@ -48,6 +55,7 @@ data class GalleryImage(
     val packageId: String? = null
 )
 
+@Serializable
 data class BlogPost(
     val id: String,
     val title: String,

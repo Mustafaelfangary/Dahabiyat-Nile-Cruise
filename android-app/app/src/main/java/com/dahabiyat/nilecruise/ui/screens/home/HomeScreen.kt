@@ -119,7 +119,7 @@ fun HomeScreen(
                     DahabiyaCard(
                         dahabiya = dahabiya,
                         onCardClick = { onDahabiyaClick(dahabiya) },
-                        modifier = Modifier.width(280.dp)
+                        modifier = Modifier.width(320.dp)
                     )
                 }
             }
@@ -151,7 +151,7 @@ fun HomeScreen(
                     PackageCard(
                         packageItem = packageItem,
                         onCardClick = { onPackageClick(packageItem) },
-                        modifier = Modifier.width(280.dp)
+                        modifier = Modifier.width(320.dp)
                     )
                 }
             }

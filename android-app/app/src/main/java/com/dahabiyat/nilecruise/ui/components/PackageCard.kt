@@ -27,22 +27,22 @@ fun PackageCard(
     Card(
         onClick = onCardClick,
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(12.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
         Column {
             // Image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(240.dp)
             ) {
                 AsyncImage(
                     model = packageItem.mainImageUrl ?: "",
                     contentDescription = packageItem.name,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
+                        .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp)),
                     contentScale = ContentScale.Crop
                 )
                 
@@ -84,28 +84,30 @@ fun PackageCard(
             
             // Content
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(20.dp)
             ) {
                 Text(
                     text = packageItem.name,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.headlineMedium,
                     fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                
-                Spacer(modifier = Modifier.height(4.dp))
-                
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 Text(
                     text = packageItem.shortDescription ?: packageItem.description,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    lineHeight = MaterialTheme.typography.bodyLarge.lineHeight * 1.2
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
-                
+                Spacer(modifier = Modifier.height(12.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -118,20 +120,20 @@ fun PackageCard(
                         if (packageItem.originalPrice != null && packageItem.originalPrice > packageItem.price) {
                             Text(
                                 text = "$${packageItem.originalPrice.toInt()}",
-                                style = MaterialTheme.typography.bodySmall,
+                                style = MaterialTheme.typography.bodyMedium,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                                 textDecoration = TextDecoration.LineThrough
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                         }
                         Text(
                             text = "$${packageItem.price.toInt()}",
-                            style = MaterialTheme.typography.titleMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             fontWeight = FontWeight.Bold,
                             color = MaterialTheme.colorScheme.primary
                         )
                     }
-                    
+
                     // Rating
                     if (packageItem.rating > 0) {
                         Row(
@@ -140,21 +142,22 @@ fun PackageCard(
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = "Rating",
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = "${packageItem.rating}",
-                                style = MaterialTheme.typography.bodySmall,
-                                fontWeight = FontWeight.Medium
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }
                 }
                 
-                Spacer(modifier = Modifier.height(8.dp))
-                
+                Spacer(modifier = Modifier.height(12.dp))
+
                 // Capacity info
                 Row(
                     verticalAlignment = Alignment.CenterVertically
@@ -162,14 +165,15 @@ fun PackageCard(
                     Icon(
                         imageVector = Icons.Default.Person,
                         contentDescription = "Capacity",
-                        modifier = Modifier.size(16.dp),
-                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                        modifier = Modifier.size(20.dp),
+                        tint = MaterialTheme.colorScheme.primary
                     )
-                    Spacer(modifier = Modifier.width(4.dp))
+                    Spacer(modifier = Modifier.width(6.dp))
                     Text(
                         text = "${packageItem.minGuests}-${packageItem.maxGuests} guests",
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = MaterialTheme.colorScheme.onSurface,
+                        fontWeight = FontWeight.Medium
                     )
                 }
             }

@@ -1,5 +1,8 @@
 package com.dahabiyat.nilecruise.data.models
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Dahabiya(
     val id: String,
     val name: String,
@@ -28,10 +31,12 @@ data class Dahabiya(
     val category: DahabiyaCategory = DahabiyaCategory.LUXURY
 )
 
+@Serializable
 enum class DahabiyaCategory {
     LUXURY, DELUXE, PREMIUM, BOUTIQUE
 }
 
+@Serializable
 data class DahabiyaFeature(
     val id: String,
     val name: String,
@@ -39,6 +44,7 @@ data class DahabiyaFeature(
     val icon: String? = null
 )
 
+@Serializable
 data class CabinType(
     val id: String,
     val name: String,

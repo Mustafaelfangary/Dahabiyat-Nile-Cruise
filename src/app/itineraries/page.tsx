@@ -134,7 +134,7 @@ export default function ItinerariesPage() {
                 backgroundClip: 'text',
                 textShadow: '3px 3px 6px rgba(0,0,0,0.4)'
               }}>
-                <span style={{ color: '#FFE4B5' }}>𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿</span> {getSettingValue('itineraries_hero_title', 'Itineraries')}
+                <span style={{ color: '#FFE4B5' }}>𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿</span> {getSettingValue('itineraries_hero_title', 'Itineraries')}
               </h1>
               <p className="text-xl md:text-2xl mb-4 leading-relaxed" style={{
                 color: '#FFE4B5',

@@ -27,22 +27,22 @@ fun DahabiyaCard(
     Card(
         onClick = onCardClick,
         modifier = modifier.fillMaxWidth(),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-        shape = RoundedCornerShape(12.dp)
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+        shape = RoundedCornerShape(20.dp)
     ) {
         Column {
             // Image
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(200.dp)
+                    .height(280.dp)
             ) {
                 AsyncImage(
                     model = dahabiya.mainImage ?: "",
                     contentDescription = dahabiya.name,
                     modifier = Modifier
                         .fillMaxSize()
-                        .clip(RoundedCornerShape(topStart = 12.dp, topEnd = 12.dp)),
+                        .clip(RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp)),
                     contentScale = ContentScale.Crop
                 )
                 
@@ -84,28 +84,30 @@ fun DahabiyaCard(
             
             // Content
             Column(
-                modifier = Modifier.padding(16.dp)
+                modifier = Modifier.padding(24.dp)
             ) {
                 Text(
                     text = dahabiya.name,
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis,
+                    color = MaterialTheme.colorScheme.onSurface
                 )
-                
-                Spacer(modifier = Modifier.height(4.dp))
-                
+
+                Spacer(modifier = Modifier.height(8.dp))
+
                 Text(
                     text = dahabiya.shortDescription ?: dahabiya.description,
-                    style = MaterialTheme.typography.bodyMedium,
+                    style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    maxLines = 2,
-                    overflow = TextOverflow.Ellipsis
+                    maxLines = 3,
+                    overflow = TextOverflow.Ellipsis,
+                    lineHeight = MaterialTheme.typography.bodyLarge.lineHeight * 1.2
                 )
                 
-                Spacer(modifier = Modifier.height(8.dp))
-                
+                Spacer(modifier = Modifier.height(12.dp))
+
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -118,17 +120,18 @@ fun DahabiyaCard(
                         Icon(
                             imageVector = Icons.Default.Person,
                             contentDescription = "Capacity",
-                            modifier = Modifier.size(16.dp),
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            modifier = Modifier.size(20.dp),
+                            tint = MaterialTheme.colorScheme.primary
                         )
-                        Spacer(modifier = Modifier.width(4.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
                         Text(
                             text = "${dahabiya.capacity} guests",
-                            style = MaterialTheme.typography.bodySmall,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                            style = MaterialTheme.typography.bodyMedium,
+                            color = MaterialTheme.colorScheme.onSurface,
+                            fontWeight = FontWeight.Medium
                         )
                     }
-                    
+
                     // Rating
                     if (dahabiya.rating > 0) {
                         Row(
@@ -137,14 +140,15 @@ fun DahabiyaCard(
                             Icon(
                                 imageVector = Icons.Default.Star,
                                 contentDescription = "Rating",
-                                modifier = Modifier.size(16.dp),
-                                tint = MaterialTheme.colorScheme.primary
+                                modifier = Modifier.size(20.dp),
+                                tint = MaterialTheme.colorScheme.tertiary
                             )
-                            Spacer(modifier = Modifier.width(4.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
                             Text(
                                 text = "${dahabiya.rating}",
-                                style = MaterialTheme.typography.bodySmall,
-                                fontWeight = FontWeight.Medium
+                                style = MaterialTheme.typography.bodyMedium,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colorScheme.onSurface
                             )
                         }
                     }

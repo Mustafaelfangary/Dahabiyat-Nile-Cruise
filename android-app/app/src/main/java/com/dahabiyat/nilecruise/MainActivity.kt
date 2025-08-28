@@ -27,9 +27,9 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         // Install splash screen
         val splashScreen = installSplashScreen()
-        
+
         super.onCreate(savedInstanceState)
-        
+
         enableEdgeToEdge()
         
         setContent {

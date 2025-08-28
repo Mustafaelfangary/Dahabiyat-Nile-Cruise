@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>White Text Test</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #1e40af, #7c3aed);
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        
+        .test-container {
+            background: rgba(0,0,0,0.5);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        
+        /* Copy the exact CSS from globals.css */
+        .force-white-text,
+        .force-white-text *,
+        .force-white-text span,
+        .force-white-text div,
+        .force-white-text p,
+        .force-white-text h1,
+        .force-white-text h2,
+        .force-white-text h3,
+        .force-white-text h4,
+        .force-white-text h5,
+        .force-white-text h6 {
+            color: #FFFFFF !important;
+            fill: #FFFFFF !important;
+            text-shadow: none !important;
+            -webkit-text-fill-color: #FFFFFF !important;
+        }
+        
+        .inline-style-test {
+            color: white;
+            -webkit-text-fill-color: white;
+            text-shadow: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>White Text Test Page</h1>
+    
+    <div class="test-container">
+        <h2>Test 1: CSS Class Only</h2>
+        <div class="force-white-text">
+            <span>This should be white (CSS class)</span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 2: Inline Style Only</h2>
+        <div>
+            <span style="color: white; -webkit-text-fill-color: white; text-shadow: none;">
+                This should be white (inline style)
+            </span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 3: Both CSS Class + Inline Style</h2>
+        <div class="force-white-text">
+            <span style="color: white; -webkit-text-fill-color: white; text-shadow: none;">
+                This should be white (both methods)
+            </span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 4: Homepage Card Simulation</h2>
+        <div class="homepage-dahabiya-card force-white-text" style="background: #1e40af; padding: 10px; border-radius: 5px;">
+            <span style="color: white; font-size: 18px; font-weight: 900; -webkit-text-fill-color: white; text-shadow: none;">
+                $250
+            </span>
+            <span style="color: white; font-size: 14px; font-weight: 600; -webkit-text-fill-color: white; text-shadow: none;">
+                /day
+            </span>
+        </div>
+    </div>
+    
+    <div class="test-container">
+        <h2>Test 5: Hero Section Simulation</h2>
+        <div class="dahabiya-hero-section force-white-text" style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 5px;">
+            <h1 style="color: white; font-size: 3rem; font-weight: 700; -webkit-text-fill-color: white; text-shadow: none;">
+                AZHAR I
+            </h1>
+            <h4 style="color: white; font-size: 1.5rem; font-weight: 600; -webkit-text-fill-color: white; text-shadow: none;">
+                LUXURY DAHABIYA EXPERIENCE
+            </h4>
+        </div>
+    </div>
+    
+    <script>
+        // Check computed styles
+        document.addEventListener('DOMContentLoaded', function() {
+            const spans = document.querySelectorAll('span, h1, h4');
+            spans.forEach((span, index) => {
+                const computedStyle = window.getComputedStyle(span);
+                console.log(`Element ${index + 1}:`, {
+                    color: computedStyle.color,
+                    webkitTextFillColor: computedStyle.webkitTextFillColor,
+                    textShadow: computedStyle.textShadow
+                });
+            });
+        });
+    </script>
+</body>
+</html>

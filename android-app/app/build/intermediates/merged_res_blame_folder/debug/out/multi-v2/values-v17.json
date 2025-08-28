@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.dahabiyat.nilecruise.app-mergeDebugResources-65:/values-v17/values-v17.xml",
+            "outputFile": "com.dahabiyat.nilecruise.app-mergeDebugResources-84:/values-v17/values-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Just_x\\.gradle\\caches\\transforms-3\\923f96da68552d1d7db12ebc969bb374\\transformed\\appcompat-1.6.1\\res\\values-v17\\values-v17.xml",
+                    "source": "C:\\Users\\Mr-Lucifer\\.gradle\\caches\\transforms-3\\50fd28d37c8f6d8a2b7605cd30ae0b50\\transformed\\appcompat-1.6.1\\res\\values-v17\\values-v17.xml",
                     "from": {
                         "startLines": "2,5,9,12,15,18,22,25,29,33,37,40,43,46,50,53,57",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",

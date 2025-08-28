@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Background circle -->
+    <path android:fillColor="#FFEB3B"
+        android:pathData="M54,4 A50,50 0,1 1,54,104 A50,50 0,1 1,54,4 Z"/>
+
+    <!-- Inner white circle -->
+    <path android:fillColor="#FFFFFF"
+        android:pathData="M54,12 A42,42 0,1 1,54,96 A42,42 0,1 1,54,12 Z"/>
+
+    <!-- Cleopatra text at top -->
+    <path android:fillColor="#000000"
+        android:pathData="M20,25 Q20,23 22,23 L25,23 Q27,23 27,25 Q27,27 25,27 L22,27 Q20,27 20,25 Z
+                         M30,25 Q30,23 32,23 L35,23 Q37,23 37,25 Q37,27 35,27 L32,27 Q30,27 30,25 Z
+                         M40,25 Q40,23 42,23 L50,23 Q52,23 52,25 Q52,27 50,27 L42,27 Q40,27 40,25 Z
+                         M55,25 Q55,23 57,23 L62,23 Q64,23 64,25 Q64,27 62,27 L57,27 Q55,27 55,25 Z
+                         M67,25 Q67,23 69,23 L74,23 Q76,23 76,25 Q76,27 74,27 L69,27 Q67,27 67,25 Z
+                         M79,25 Q79,23 81,23 L86,23 Q88,23 88,25 Q88,27 86,27 L81,27 Q79,27 79,25 Z"/>
+
+    <!-- Central pharaoh head profile -->
+    <group android:translateX="54" android:translateY="54">
+        <!-- Head outline -->
+        <path android:fillColor="#000000"
+            android:strokeWidth="2"
+            android:strokeColor="#000000"
+            android:pathData="M-15,-10 Q-15,-18 -8,-18 Q0,-18 8,-15 Q12,-12 12,-5 Q12,5 8,10 Q0,12 -8,10 Q-15,5 -15,-10 Z"/>
+        
+        <!-- Face details -->
+        <path android:fillColor="#FFFFFF"
+            android:pathData="M-12,-8 Q-12,-15 -6,-15 Q2,-15 8,-12 Q10,-8 10,-2 Q10,3 6,8 Q0,10 -6,8 Q-12,3 -12,-8 Z"/>
+        
+        <!-- Eye -->
+        <path android:fillColor="#000000"
+            android:pathData="M2,-5 A1.5,1.5 0,1 1,2,-2 A1.5,1.5 0,1 1,2,-5 Z"/>
+        
+        <!-- Nose -->
+        <path android:fillColor="#000000"
+            android:pathData="M5,-2 L7,0 L5,2"/>
+        
+        <!-- Headdress stripes -->
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M-8,-15 L-6,-15 L-6,8 L-8,8 Z
+                             M-4,-15 L-2,-15 L-2,8 L-4,8 Z
+                             M0,-15 L2,-15 L2,8 L0,8 Z"/>
+        
+        <!-- Central circle ornament -->
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M8,0 A3,3 0,1 1,8,6 A3,3 0,1 1,8,0 Z"/>
+        <path android:fillColor="#FFFFFF"
+            android:pathData="M8,0 A1.5,1.5 0,1 1,8,3 A1.5,1.5 0,1 1,8,0 Z"/>
+    </group>
+
+    <!-- Dahabiyat text at bottom -->
+    <path android:fillColor="#000000"
+        android:pathData="M20,85 Q20,83 22,83 L27,83 Q29,83 29,85 Q29,87 27,87 L22,87 Q20,87 20,85 Z
+                         M32,85 Q32,83 34,83 L39,83 Q41,83 41,85 Q41,87 39,87 L34,87 Q32,87 32,85 Z
+                         M44,85 Q44,83 46,83 L51,83 Q53,83 53,85 Q53,87 51,87 L46,87 Q44,87 44,85 Z
+                         M56,85 Q56,83 58,83 L63,83 Q65,83 65,85 Q65,87 63,87 L58,87 Q56,87 56,85 Z
+                         M68,85 Q68,83 70,83 L75,83 Q77,83 77,85 Q77,87 75,87 L70,87 Q68,87 68,85 Z
+                         M80,85 Q80,83 82,83 L86,83 Q88,83 88,85 Q88,87 86,87 L82,87 Q80,87 80,85 Z"/>
+
+    <!-- Ankh symbols on sides -->
+    <group android:translateX="25" android:translateY="54">
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M0,-8 A3,3 0,1 1,0,-2 A3,3 0,1 1,0,-8 Z"/>
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M-1,-5 L1,-5 L1,8 L-1,8 Z"/>
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M-4,-2 L4,-2 L4,0 L-4,0 Z"/>
+    </group>
+
+    <group android:translateX="83" android:translateY="54">
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M0,-8 A3,3 0,1 1,0,-2 A3,3 0,1 1,0,-8 Z"/>
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M-1,-5 L1,-5 L1,8 L-1,8 Z"/>
+        <path android:fillColor="#FFEB3B"
+            android:pathData="M-4,-2 L4,-2 L4,0 L-4,0 Z"/>
+    </group>
+</vector>

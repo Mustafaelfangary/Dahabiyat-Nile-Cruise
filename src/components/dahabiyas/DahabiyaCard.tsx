@@ -111,7 +111,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           {/* Gradient Overlay */}
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
 
-          {/* Pharaonic Corner Decorations */}
+          {/* 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Corner Decorations */}
           <div className="absolute top-0 left-0 w-8 h-8 border-l-4 border-t-4 border-egyptian-gold opacity-60"></div>
           <div className="absolute top-0 right-0 w-8 h-8 border-r-4 border-t-4 border-egyptian-gold opacity-60"></div>
 
@@ -227,7 +227,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                   fontWeight: '900'
                 }}
               >
-                {formatPrice(dahabiya.pricePerDay)}/day
+                {formatPrice(dahabiya.pricePerDay)}/night per person
               </span>
             </div>
             {dahabiya.cabins && dahabiya.cabins > 0 && (
@@ -296,7 +296,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                 <Typography className="text-lg">𓊪</Typography>
               </div>
               <Typography variant="caption" className="block mt-1 opacity-90 text-white font-bold">
-                From {formatPrice(dahabiya.pricePerDay)}/day
+                From {formatPrice(dahabiya.pricePerDay)}/night per person
               </Typography>
             </div>
 
