@@ -14,5 +14,6 @@
         ["@apply\\s+([^;}]+)", "([^;}]+)"],
         ["classList\\.add\\(([^)]*)\\)", "([^)]*)"],
         ["className\\s*=\\s*['\"`]([^'\"`]*)['\"`]", "([^'\"`]*)"]
-    ]
+    ],
+    "codium.codeCompletion.enable": false
 }

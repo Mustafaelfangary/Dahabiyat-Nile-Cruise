@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Grid, Typography, Box, CircularProgress, Alert, Pagination } from '@mui/material';
 import DahabiyaCard from './DahabiyaCard';
+import ScheduleDemo from '@/components/homepage/ScheduleDemo';
 import { useContent } from '@/hooks/useContent';
 
 interface Dahabiya {
@@ -160,7 +161,12 @@ export default function DahabiyaList({ activeOnly = true, limit = 12 }: Dahabiya
       <Grid container spacing={4}>
         {data.dahabiyas.map((dahabiya) => (
           <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={dahabiya.id}>
-            <DahabiyaCard dahabiya={dahabiya} />
+            <div className="flex flex-col">
+              <DahabiyaCard dahabiya={dahabiya} />
+              <div className="mt-4">
+                <ScheduleDemo dahabiyaName={dahabiya.name} />
+              </div>
+            </div>
           </Grid>
         ))}
       </Grid>

@@ -19,6 +19,7 @@ import ShareYourMemories from '@/components/homepage/ShareYourMemories';
 import FeaturedReviews from '@/components/homepage/FeaturedReviews';
 import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 import { DahabiyaCard } from '@/components/dahabiyas';
+import ScheduleDemo from '@/components/homepage/ScheduleDemo';
 
 export default function HomePage() {
   const { getContent, loading, error } = useContent({ page: 'homepage' });
@@ -37,12 +38,12 @@ export default function HomePage() {
       const buttons = document.querySelectorAll('.dahabiya-view-details-btn, .package-view-details-btn');
       buttons.forEach(button => {
         // Force white color on button and all its children
-        button.style.color = '#ffffff';
+        (button as HTMLElement).style.color = '#ffffff';
         const children = button.querySelectorAll('*');
         children.forEach(child => {
-          child.style.color = '#ffffff';
-          child.style.fill = '#ffffff';
-          child.style.stroke = '#ffffff';
+          (child as HTMLElement).style.color = '#ffffff';
+          (child as HTMLElement).style.fill = '#ffffff';
+          (child as HTMLElement).style.stroke = '#ffffff';
         });
       });
     };
@@ -364,10 +365,19 @@ export default function HomePage() {
             </span>
           </div>
 
-          {/* FEATURED DAHABIYA CARDS - USING MAIN PAGE DESIGN */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
+          {/* FEATURED DAHABIYA CARDS WITH SCHEDULE DEMOS */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12">
             {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: any, index: number) => (
-              <DahabiyaCard key={dahabiya.id} dahabiya={dahabiya} />
+              <div key={dahabiya.id} className="space-y-6">
+                {/* Dahabiya Card */}
+                <DahabiyaCard dahabiya={dahabiya} />
+                
+                {/* Schedule Demo for this specific Dahabiya */}
+                <ScheduleDemo 
+                  dahabiyaName={dahabiya.name} 
+                  className="transform hover:scale-[1.02] transition-all duration-300"
+                />
+              </div>
             ))}
           </div>
 

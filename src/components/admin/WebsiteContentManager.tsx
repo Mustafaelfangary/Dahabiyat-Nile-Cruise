@@ -6,13 +6,21 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import { useContent } from '@/hooks/useContent';
+import { Container } from '@/components/ui/container';
+import { AnimatedSection } from '@/components/ui/animated-section';
+import TableDataEditor from './TableDataEditor';
+import EnhancedScheduleEditor from './EnhancedScheduleEditor';
+import UniversalTableEditor from './UniversalTableEditor';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'react-hot-toast';
 import {
   Home, Users, Phone, Package, Settings, MapPin, FileText, Globe,
-  Edit2, Save, X, RefreshCw, Image, Video, Type, Plus, Ship
+  Edit2, Save, X, RefreshCw, Image, Video, Type, Plus, Ship, Calendar, Table
 } from 'lucide-react';
 import ResponsiveMediaPicker from './ResponsiveMediaPicker';
+
+// Visual Table Editor - No more JSON editing!
 
 interface ContentField {
   key: string;
@@ -40,6 +48,7 @@ export default function WebsiteContentManager() {
   const [addingItinerariesContent, setAddingItinerariesContent] = useState(false);
   const [addingSampleContent, setAddingSampleContent] = useState(false);
   const [populatingPageContent, setPopulatingPageContent] = useState(false);
+  const [addingScheduleContent, setAddingScheduleContent] = useState(false);
 
   const contentSections: ContentSection[] = [
     { id: 'homepage', label: 'Homepage', icon: Home },
@@ -47,7 +56,9 @@ export default function WebsiteContentManager() {
     { id: 'contact', label: 'Contact Page', icon: Phone },
     { id: 'packages', label: 'Packages', icon: Package },
     { id: 'dahabiyas', label: 'Dahabiyas', icon: Ship },
+    { id: 'fleets', label: 'Fleets', icon: Ship },
     { id: 'itineraries', label: 'Itineraries', icon: MapPin },
+    { id: 'schedule-and-rates', label: 'Schedule & Rates', icon: Calendar },
     { id: 'blog', label: 'Blog', icon: FileText },
     { id: 'global_media', label: 'Media & Branding', icon: Image },
     { id: 'footer', label: 'Footer & Settings', icon: Settings }
@@ -178,6 +189,56 @@ export default function WebsiteContentManager() {
       toast.error('Failed to add itineraries content');
     } finally {
       setAddingItinerariesContent(false);
+    }
+  };
+
+  const addScheduleAndRatesContent = async () => {
+    setAddingScheduleContent(true);
+    try {
+      const defaults = [
+        { key: 'schedule_hero_title', title: 'Schedule Hero Title', content: 'Schedule & Rates', contentType: 'TEXT', page: 'schedule-and-rates', section: 'hero', order: 1 },
+        { key: 'schedule_hero_subtitle', title: 'Schedule Hero Subtitle', content: 'Plan your sacred Nile journey with our current sailing schedule and transparent rates.', contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'hero', order: 2 },
+        { key: 'schedule_hero_image', title: 'Schedule Hero Image', content: '/images/hero-bg.jpg', contentType: 'IMAGE', page: 'schedule-and-rates', section: 'hero', order: 3 },
+        { key: 'schedule_cta_primary', title: 'Primary CTA', content: 'Check Availability', contentType: 'TEXT', page: 'schedule-and-rates', section: 'hero', order: 4 },
+        { key: 'schedule_cta_secondary', title: 'Secondary CTA', content: 'Contact Our Experts', contentType: 'TEXT', page: 'schedule-and-rates', section: 'hero', order: 5 },
+
+        { key: 'schedule_intro_title', title: 'Intro Title', content: 'Royal Fleet Schedule𓊪', contentType: 'TEXT', page: 'schedule-and-rates', section: 'intro', order: 1 },
+        { key: 'schedule_intro_text', title: 'Intro Text', content: 'We offer weekly departures with thoughtfully curated itineraries between Luxor and Aswan. Explore the schedule and current rates below.', contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'intro', order: 2 },
+
+        { key: 'schedule_table_title', title: 'Schedule Table Title', content: 'Royal Fleet Schedule𓊪', contentType: 'TEXT', page: 'schedule-and-rates', section: 'schedule', order: 1 },
+        { key: 'schedule_table_json', title: 'Schedule Table JSON', content: JSON.stringify([
+          { itinerary: 'Luxor → Aswan', nights: 4, departureDay: 'Monday', route: 'Luxor → Esna → Edfu → Kom Ombo → Aswan', season: 'High Season', dates: 'Oct–Apr (weekly departures)' },
+          { itinerary: 'Aswan → Luxor', nights: 3, departureDay: 'Friday', route: 'Aswan → Kom Ombo → Edfu → Esna → Luxor', season: 'High Season', dates: 'Oct–Apr (weekly departures)' }
+        ]), contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'schedule', order: 2 },
+
+        { key: 'rates_section_title', title: 'Rates Section Title', content: 'Rates & Inclusions', contentType: 'TEXT', page: 'schedule-and-rates', section: 'rates', order: 1 },
+        { key: 'rates_table_title', title: 'Rates Table Title', content: 'Current Cruise Rates (Per Person)', contentType: 'TEXT', page: 'schedule-and-rates', section: 'rates', order: 2 },
+        { key: 'rates_table_json', title: 'Rates Table JSON', content: JSON.stringify([
+          { itinerary: 'Luxor → Aswan', nights: 4, cabinType: 'Standard Cabin (per person twin share)', season: 'High', pricePerPerson: 'USD 1,350', inclusions: ['Full board meals', 'Sightseeing with guide', 'All taxes'] },
+          { itinerary: 'Aswan → Luxor', nights: 3, cabinType: 'Standard Cabin (per person twin share)', season: 'High', pricePerPerson: 'USD 1,050', inclusions: ['Full board meals', 'Sightseeing with guide', 'All taxes'] }
+        ]), contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'rates', order: 3 },
+        { key: 'rates_notes_text', title: 'Rates Notes', content: 'Rates are per person based on twin share. Single supplement applies. Seasonal adjustments may occur.', contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'rates', order: 4 },
+
+        { key: 'schedule_rates_cta_text', title: 'Footer CTA Text', content: 'Ready to embark on a royal journey? Check availability or ask our Egypt experts for tailored advice.', contentType: 'TEXTAREA', page: 'schedule-and-rates', section: 'cta', order: 1 },
+        { key: 'schedule_rates_cta_primary', title: 'Footer CTA Primary', content: 'Book Your Dates', contentType: 'TEXT', page: 'schedule-and-rates', section: 'cta', order: 2 },
+        { key: 'schedule_rates_cta_secondary', title: 'Footer CTA Secondary', content: 'Request a Custom Quote', contentType: 'TEXT', page: 'schedule-and-rates', section: 'cta', order: 3 },
+      ];
+
+      for (const item of defaults) {
+        await fetch('/api/website-content', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(item),
+        });
+      }
+
+      toast.success('Schedule & Rates default content added');
+      await loadContent();
+    } catch (error) {
+      console.error('Error adding Schedule & Rates content:', error);
+      toast.error('Failed to add Schedule & Rates content');
+    } finally {
+      setAddingScheduleContent(false);
     }
   };
 
@@ -340,9 +401,26 @@ export default function WebsiteContentManager() {
 
   const getFieldIcon = (contentType: string) => {
     switch (contentType.toUpperCase()) {
-      case 'IMAGE': return <Image className="w-4 h-4" />;
-      case 'VIDEO': return <Video className="w-4 h-4" />;
-      default: return <Type className="w-4 h-4" />;
+      case 'IMAGE': return <Image className="w-4 h-4 text-blue-600" />;
+      case 'VIDEO': return <Video className="w-4 h-4 text-purple-600" />;
+      case 'TEXTAREA': return <FileText className="w-4 h-4 text-green-600" />;
+      case 'TABLE': return <Table className="w-4 h-4 text-orange-600" />;
+      default: return <Type className="w-4 h-4 text-gray-600" />;
+    }
+  };
+
+  const getSectionIcon = (sectionName: string) => {
+    switch (sectionName.toLowerCase()) {
+      case 'hero': return <Home className="w-5 h-5 text-blue-600" />;
+      case 'contact': case 'info': return <Phone className="w-5 h-5 text-green-600" />;
+      case 'social': return <Users className="w-5 h-5 text-purple-600" />;
+      case 'features': return <Settings className="w-5 h-5 text-orange-600" />;
+      case 'testimonials': return <Users className="w-5 h-5 text-yellow-600" />;
+      case 'about': case 'our_story': return <FileText className="w-5 h-5 text-indigo-600" />;
+      case 'blog': return <FileText className="w-5 h-5 text-green-600" />;
+      case 'safety': return <Settings className="w-5 h-5 text-red-600" />;
+      case 'cta': return <Plus className="w-5 h-5 text-emerald-600" />;
+      default: return <Type className="w-5 h-5 text-gray-600" />;
     }
   };
 
@@ -387,6 +465,7 @@ export default function WebsiteContentManager() {
                 field.contentType === 'IMAGE' ? 'border-blue-300 text-blue-700 bg-blue-50' :
                 field.contentType === 'VIDEO' ? 'border-purple-300 text-purple-700 bg-purple-50' :
                 field.contentType === 'TEXTAREA' ? 'border-green-300 text-green-700 bg-green-50' :
+                field.contentType === 'TABLE' ? 'border-orange-300 text-orange-700 bg-orange-50' :
                 'border-gray-300 text-gray-700 bg-gray-50'
               }`}
             >
@@ -419,6 +498,61 @@ export default function WebsiteContentManager() {
                   className="w-full"
                   placeholder={`Enter ${field.title.toLowerCase()}...`}
                 />
+              ) : field.contentType === 'TABLE' ? (
+                <div className="space-y-4">
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                    <div className="flex items-center gap-2 text-blue-800">
+                      <Table className="w-4 h-4" />
+                      <span className="font-medium">Visual Table Editor</span>
+                    </div>
+                    <p className="text-sm text-blue-600 mt-1">
+                      Use the visual editor below to manage your table data. No JSON editing required!
+                    </p>
+                    <div className="text-xs text-gray-600 mt-2">
+                      Field: {field.key} | Type: {field.contentType} | Data length: {editValue ? JSON.parse(editValue || '[]').length : 0}
+                    </div>
+                  </div>
+                  
+                  {field.key.includes('schedule') ? (
+                    <EnhancedScheduleEditor
+                      contentKey={field.key}
+                      title={field.title}
+                      initialData={(() => {
+                        try {
+                          const parsed = JSON.parse(editValue || '[]');
+                          return Array.isArray(parsed) ? parsed : [];
+                        } catch {
+                          return [];
+                        }
+                      })()}
+                      onSave={async (data) => {
+                        console.log('Schedule data being saved:', data);
+                        setEditValue(JSON.stringify(data, null, 2));
+                        await saveField(field);
+                      }}
+                    />
+                  ) : (
+                    <UniversalTableEditor
+                      contentKey={field.key}
+                      title={field.title}
+                      initialData={(() => {
+                        try {
+                          const parsed = JSON.parse(editValue || '[]');
+                          console.log('Parsed table data:', parsed);
+                          return Array.isArray(parsed) ? parsed : [];
+                        } catch (e) {
+                          console.error('Error parsing table data:', e);
+                          return [];
+                        }
+                      })()}
+                      onSave={async (data) => {
+                        console.log('Universal table data being saved:', data);
+                        setEditValue(JSON.stringify(data, null, 2));
+                        await saveField(field);
+                      }}
+                    />
+                  )}
+                </div>
               ) : (field.contentType === 'IMAGE' || field.contentType === 'VIDEO') ? (
                 <ResponsiveMediaPicker
                   label={field.title}
@@ -497,6 +631,61 @@ export default function WebsiteContentManager() {
                           {field.content}
                         </div>
                       </div>
+                    ) : field.contentType === 'TABLE' && field.content ? (
+                      <div className="space-y-2">
+                        <div className="text-sm text-gray-600 mb-2">Table Preview:</div>
+                        <div className="max-h-60 overflow-auto border rounded">
+                          {(() => {
+                            try {
+                              const tableData = JSON.parse(field.content);
+                              if (Array.isArray(tableData) && tableData.length > 0) {
+                                const columns = Object.keys(tableData[0]);
+                                return (
+                                  <table className="min-w-full divide-y divide-gray-200 text-sm">
+                                    <thead className="bg-gray-50">
+                                      <tr>
+                                        {columns.map((col) => (
+                                          <th key={col} className="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase">
+                                            {col}
+                                          </th>
+                                        ))}
+                                      </tr>
+                                    </thead>
+                                    <tbody className="bg-white divide-y divide-gray-200">
+                                      {tableData.slice(0, 3).map((row, idx) => (
+                                        <tr key={idx}>
+                                          {columns.map((col) => (
+                                            <td key={col} className="px-2 py-1 text-gray-900">
+                                              {Array.isArray(row[col]) ? row[col].join(', ') : (row[col] || '-')}
+                                            </td>
+                                          ))}
+                                        </tr>
+                                      ))}
+                                    </tbody>
+                                  </table>
+                                );
+                              }
+                              return <div className="text-gray-500 p-2">Empty table - Click Edit to add data</div>;
+                            } catch (e) {
+                              return <div className="text-red-500 p-2">Invalid table data - Click Edit to fix</div>;
+                            }
+                          })()}
+                        </div>
+                        {(() => {
+                          try {
+                            const tableData = JSON.parse(field.content);
+                            if (Array.isArray(tableData) && tableData.length > 3) {
+                              return <div className="text-xs text-gray-500">... and {tableData.length - 3} more rows</div>;
+                            }
+                          } catch (e) {}
+                          return null;
+                        })()}
+                      </div>
+                    ) : field.contentType === 'TABLE' ? (
+                      <div className="text-gray-500 italic p-3 border-2 border-dashed border-gray-300 rounded-lg text-center">
+                        <Table className="w-8 h-8 mx-auto mb-2 opacity-50" />
+                        <p>Empty table - Click Edit to add data using the visual editor</p>
+                      </div>
                     ) : (
                       <div className="text-gray-900 whitespace-pre-wrap">{field.content}</div>
                     )}
@@ -531,25 +720,46 @@ export default function WebsiteContentManager() {
               <p className="text-sm">No static content found for {pageLabel}.</p>
               <p className="text-xs text-gray-400 mt-2">Click "Populate Page Content" above to add default content fields.</p>
             </div>
-            {pageId === 'homepage' && (
-              <Button
-                onClick={addSampleContent}
-                disabled={addingSampleContent}
-                className="bg-blue-600 text-white"
-              >
-                {addingSampleContent ? (
-                  <>
-                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
-                    Adding...
-                  </>
-                ) : (
-                  <>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Sample Content
-                  </>
-                )}
-              </Button>
-            )}
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {pageId === 'homepage' && (
+                <Button
+                  onClick={addSampleContent}
+                  disabled={addingSampleContent}
+                  className="bg-blue-600 text-white"
+                >
+                  {addingSampleContent ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      Adding...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Sample Content
+                    </>
+                  )}
+                </Button>
+              )}
+              {pageId === 'schedule-and-rates' && (
+                <Button
+                  onClick={addScheduleAndRatesContent}
+                  disabled={addingScheduleContent}
+                  className="bg-emerald-600 text-white"
+                >
+                  {addingScheduleContent ? (
+                    <>
+                      <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                      Adding...
+                    </>
+                  ) : (
+                    <>
+                      <Plus className="w-4 h-4 mr-2" />
+                      Add Default Schedule & Rates
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
           </CardContent>
         </Card>
       );
@@ -559,7 +769,7 @@ export default function WebsiteContentManager() {
     const groupedContent = pageContent.reduce((acc, field) => {
       const section = field.section || 'general';
       if (!acc[section]) acc[section] = [];
-      acc[section].push(field);
+      acc[section]!.push(field);
       return acc;
     }, {} as Record<string, ContentField[]>);
 
@@ -627,30 +837,14 @@ export default function WebsiteContentManager() {
               <div className="text-sm text-gray-600 mb-4">
                 This content is managed through dedicated {pageLabel.toLowerCase()} management pages.
               </div>
-              <Button asChild variant="outline" className="w-full">
-                <a href={`/admin/${pageId}`}>
-                  Manage {pageLabel} →
-                </a>
+              <Button variant="outline" className="w-full" onClick={() => window.location.href = `/admin/${pageId}`}>
+                Manage {pageLabel} →
               </Button>
             </CardContent>
           </Card>
         )}
       </div>
     );
-  };
-
-
-
-  const getSectionIcon = (sectionName: string) => {
-    switch (sectionName.toLowerCase()) {
-      case 'hero': return <Home className="w-5 h-5 text-blue-600" />;
-      case 'main': return <FileText className="w-5 h-5 text-green-600" />;
-      case 'info': return <Phone className="w-5 h-5 text-purple-600" />;
-      case 'branding': return <Image className="w-5 h-5 text-orange-600" />;
-      case 'company': return <Settings className="w-5 h-5 text-gray-600" />;
-      case 'legal': return <Settings className="w-5 h-5 text-gray-600" />;
-      default: return <Type className="w-5 h-5 text-gray-500" />;
-    }
   };
 
   if (loading) {

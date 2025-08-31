@@ -85,12 +85,13 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
   return (
     <Link href={`/dahabiyas/${dahabiya.slug}`} className="block group">
       <Card
-        className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative"
+        className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative w-full max-w-none"
         style={{
           background: 'linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%)',
           border: '2px solid #0080ff',
           borderRadius: '12px',
           boxShadow: '0 4px 20px rgba(0, 128, 255, 0.2)',
+          minWidth: '400px',
         }}
       >
         {/* Ocean Blue Border Pattern */}
@@ -318,8 +319,9 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                   className="font-bold text-sm"
                   style={{
                     color: '#FFFFFF',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                    fontWeight: '900'
+                    textShadow: '3px 3px 6px rgba(0,0,0,1)',
+                    fontWeight: '900',
+                    textDecoration: 'none'
                   }}
                 >
                   {getContent('dahabiyas_card_full_booking_text') || 'View Details'}
@@ -328,8 +330,8 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
                   className="text-sm"
                   style={{
                     color: '#FFFFFF',
-                    textShadow: '2px 2px 4px rgba(0,0,0,0.8)',
-                    filter: 'drop-shadow(1px 1px 2px rgba(0,0,0,0.8))'
+                    textShadow: '3px 3px 6px rgba(0,0,0,1)',
+                    filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,1))'
                   }}
                 >
                   𓎢𓃭𓅂𓅱𓊪𓄿𓏏𓂋𓄿

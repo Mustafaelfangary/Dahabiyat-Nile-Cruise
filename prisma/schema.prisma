@@ -653,6 +653,7 @@ enum ContentType {
   VIDEO
   HTML
   JSON
+  TABLE
 }
 
 

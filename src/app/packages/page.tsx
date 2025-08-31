@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Container, Typography, Box, CircularProgress } from '@mui/material';
 import { PackageList } from '@/components/packages';
 import { useContent } from '@/hooks/useContent';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 
 export default function PackagesPage() {
   const { getContent, loading: contentLoading } = useContent({ page: 'packages' });
@@ -27,16 +28,15 @@ export default function PackagesPage() {
     <div className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-sky-50">
       {/* Enhanced Pharaonic Hero Section */}
       <div className="relative overflow-hidden min-h-screen">
-        {/* Hero Background Image with Enhanced Effects */}
-        {getContent('packages_hero_background_image') && (
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 animate-slow-zoom"
-            style={{
-              backgroundImage: `url("${getContent('packages_hero_background_image') || '/images/packages-hero-bg.jpg'}")`,
-              filter: 'brightness(1.2) contrast(1.3) saturate(1.4)',
-            }}
-          ></div>
-        )}
+        {/* Hero Video/Image Background */}
+        <OptimizedHeroVideo
+          src={getContent('packages_hero_video', '/videos/packages-hero.mp4')}
+          poster={getContent('packages_hero_image', '/images/packages-hero-bg.jpg')}
+          className="absolute inset-0 w-full h-full"
+          onError={() => {
+            console.log('Packages hero video failed, using fallback image');
+          }}
+        />
 
         {/* Enhanced Multi-layer Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-blue-800/40"></div>

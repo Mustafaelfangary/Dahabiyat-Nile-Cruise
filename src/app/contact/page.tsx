@@ -7,11 +7,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { Container, Typography, Grid, Box, TextField, Paper } from '@mui/material';
+import { Typography, Grid, Box, TextField, Paper } from '@mui/material';
 import { ContactForm } from '@/components/contact/contact-form';
-import { useTranslation } from '@/lib/i18n';
 import { useContent } from '@/hooks/useContent';
+import { Container } from '@/components/ui/container';
 import { AnimatedSection } from '@/components/ui/animated-section';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 import { useSession } from 'next-auth/react';
 import '@/styles/admin.css';
 import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, Send, Play, Star, Edit3, Save, Facebook, Instagram, Twitter, Hash, Users, Bookmark, Globe } from 'lucide-react';
@@ -34,17 +35,17 @@ export default function ContactPage() {
   const [activeTab, setActiveTab] = useState('whatsapp');
   const [isEditing, setIsEditing] = useState(false);
   const initialSocialLinks = {
-    facebook: 'CleopatraDahabiyat',
-    instagram: '@cleopatra_dahabiyat',
-    tiktok: '@cleopatra_nile',
-    x: '@CleopatraNile',
-    youtube: 'Cleopatra Dahabiyat',
-    pinterest: 'CleopatraCruises',
-    tripadvisor: 'Cleopatra-Dahabiyat-Luxor',
-    whatsapp: '+20 123 456 7890',
-    telegram: '@cleopatra_dahabiyat',
-    wechat: 'CleopatraNile',
-    vk: 'CleopatraDahabiyat'
+    facebook: getContent('contact_facebook', 'CleopatraDahabiyat'),
+    instagram: getContent('contact_instagram', '@cleopatra_dahabiyat'),
+    tiktok: getContent('contact_tiktok', '@cleopatra_nile'),
+    x: getContent('contact_x', '@CleopatraNile'),
+    youtube: getContent('contact_youtube', 'Cleopatra Dahabiyat'),
+    pinterest: getContent('contact_pinterest', 'CleopatraCruises'),
+    tripadvisor: getContent('contact_tripadvisor', 'Cleopatra-Dahabiyat-Luxor'),
+    whatsapp: getContent('contact_whatsapp', '+20 123 456 7890'),
+    telegram: getContent('contact_telegram', '@cleopatra_dahabiyat'),
+    wechat: getContent('contact_wechat', 'CleopatraNile'),
+    vk: getContent('contact_vk', 'CleopatraDahabiyat')
   };
 
   const [socialLinks, setSocialLinks] = useState(initialSocialLinks);
@@ -66,6 +67,41 @@ export default function ContactPage() {
       ...prev,
       [platform]: value
     }));
+  };
+
+  const stripAt = (v: string) => (v || '').trim().replace(/^@+/, '');
+  const digitsOnly = (v: string) => (v || '').replace(/\D+/g, '');
+  const toUrl = (platform: string, v: string) => {
+    const val = (v || '').trim();
+    if (!val) return '#';
+    if (/^https?:\/\//i.test(val)) return val;
+
+    switch (platform) {
+      case 'facebook':
+        return `https://facebook.com/${stripAt(val)}`;
+      case 'instagram':
+        return `https://instagram.com/${stripAt(val)}`;
+      case 'tiktok':
+        return `https://www.tiktok.com/@${stripAt(val)}`;
+      case 'x':
+        return `https://x.com/${stripAt(val)}`;
+      case 'youtube':
+        return `https://www.youtube.com/@${stripAt(val)}`;
+      case 'pinterest':
+        return `https://www.pinterest.com/${stripAt(val)}`;
+      case 'tripadvisor':
+        return `https://www.tripadvisor.com/${val}`;
+      case 'whatsapp':
+        return `https://wa.me/${digitsOnly(val)}`;
+      case 'telegram':
+        return `https://t.me/${stripAt(val)}`;
+      case 'wechat':
+        return '#';
+      case 'vk':
+        return `https://vk.com/${stripAt(val)}`;
+      default:
+        return '#';
+    }
   };
 
   if (loading) {
@@ -101,26 +137,14 @@ export default function ContactPage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         {/* Background Video/Image with Egyptian Overlay */}
         <div className="absolute inset-0 z-0">
-          {getContent('contact_hero_video') ? (
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="absolute inset-0 w-full h-full object-cover"
-              poster={getContent('contact_hero_image', '/images/hero-bg.jpg')}
-            >
-              <source src={getContent('contact_hero_video')} type="video/mp4" />
-            </video>
-          ) : (
-            <Image
-              src={getContent('contact_hero_image', '/images/hero-bg.jpg')}
-              alt="Contact Us - Dahabiya Nile Cruise"
-              fill
-              className="object-cover"
-              priority
-            />
-          )}
+          <OptimizedHeroVideo
+            src={getContent('contact_hero_video', '/videos/contact-hero.mp4')}
+            poster={getContent('contact_hero_image', '/images/hero-bg.jpg')}
+            className="absolute inset-0 w-full h-full"
+            onError={() => {
+              console.log('Contact hero video failed, using fallback image');
+            }}
+          />
           <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/60 via-navy-blue/40 to-ocean-blue/60"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20"></div>
         </div>
@@ -227,7 +251,7 @@ export default function ContactPage() {
                   {/* Enhanced 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿 Papyrus Social Media Container - Full Width Layout */}
                   <div className="pharaonic-papyrus-container-full-width mb-8 w-full">
                     <div className="text-center mb-12">
-                      <div className="text-7xl md:text-9xl lg:text-[10rem] font-bold pharaonic-hieroglyphic-large mb-6 leading-none transform hover:scale-105 transition-transform duration-300">
+                      <div className="text-4xl md:text-6xl lg:text-7xl font-bold pharaonic-hieroglyphic-large mb-6 leading-none transform hover:scale-105 transition-transform duration-300">
                         𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
                       </div>
                       <div className="flex items-center justify-center gap-3 mb-6">
@@ -245,7 +269,7 @@ export default function ContactPage() {
                     {/* Two Rows Layout - Properly justified grid */}
                     <div className="space-y-8">
                       {/* First Row: Facebook, Instagram, TikTok, X, YouTube, VK */}
-                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 justify-items-center">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 justify-items-center pharaonic-social-grid">
                         {/* Facebook Papyrus Button */}
                         <div
                           className={`pharaonic-social-button pharaonic-facebook ${activeTab === 'facebook' ? 'ring-4 ring-blue-400' : ''}`}
@@ -338,7 +362,7 @@ export default function ContactPage() {
                       </div>
 
                       {/* Second Row: Pinterest, TripAdvisor, WhatsApp, Telegram, WeChat */}
-                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center">
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 justify-items-center pharaonic-social-grid">
                         {/* Pinterest Papyrus Button */}
                         <div
                           className={`pharaonic-social-button pharaonic-pinterest ${activeTab === 'pinterest' ? 'ring-4 ring-red-400' : ''}`}
@@ -454,7 +478,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-800">
+                          <Button onClick={() => window.open(toUrl('facebook', socialLinks.facebook), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-800">
                             <Facebook className="w-6 h-6 mr-3" />
                             𓊪𓏏𓇯 Follow Us 𓊪𓏏𓇯
                           </Button>
@@ -501,7 +525,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-purple-700">
+                          <Button onClick={() => window.open(toUrl('instagram', socialLinks.instagram), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-pink-500 via-purple-500 to-orange-500 hover:from-pink-600 hover:via-purple-600 hover:to-orange-600 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-purple-700">
                             <Instagram className="w-6 h-6 mr-3" />
                             𓈙𓃀𓏏 Follow Us 𓈙𓃀𓏏
                           </Button>
@@ -548,7 +572,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-green-700">
+                          <Button onClick={() => window.open(toUrl('whatsapp', socialLinks.whatsapp), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-green-700">
                             <MessageCircle className="w-6 h-6 mr-3" />
                             𓊪𓏏𓇯 Chat Now 𓊪𓏏𓇯
                           </Button>
@@ -595,7 +619,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-700">
+                          <Button onClick={() => window.open(toUrl('telegram', socialLinks.telegram), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-700">
                             <Send className="w-6 h-6 mr-3" />
                             𓌃𓂋𓏏 Join Channel 𓌃𓂋𓏏
                           </Button>
@@ -642,7 +666,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-red-700">
+                          <Button onClick={() => window.open(toUrl('youtube', socialLinks.youtube), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-red-700">
                             <Play className="w-6 h-6 mr-3" />
                             𓈙𓃀𓏏 Subscribe 𓈙𓃀𓏏
                           </Button>
@@ -688,7 +712,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-emerald-700">
+                          <Button onClick={() => window.open(toUrl('tripadvisor', socialLinks.tripadvisor), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-emerald-700">
                             <Star className="w-6 h-6 mr-3" />
                             𓋹𓍑𓋴 View Reviews 𓋹𓍑𓋴
                           </Button>
@@ -735,7 +759,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-black via-red-500 to-black hover:from-gray-800 hover:via-red-600 hover:to-gray-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-700">
+                          <Button onClick={() => window.open(toUrl('tiktok', socialLinks.tiktok), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-black via-red-500 to-black hover:from-gray-800 hover:via-red-600 hover:to-gray-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-700">
                             <Hash className="w-6 h-6 mr-3" />
                             𓌃𓂋𓏏 Follow Us 𓌃𓂋𓏏
                           </Button>
@@ -782,7 +806,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-black via-blue-500 to-black hover:from-gray-800 hover:via-blue-600 hover:to-gray-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-700">
+                          <Button onClick={() => window.open(toUrl('x', socialLinks.x), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-black via-blue-500 to-black hover:from-gray-800 hover:via-blue-600 hover:to-gray-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-gray-700">
                             <Twitter className="w-6 h-6 mr-3" />
                             𓊪𓏏𓇯 Follow Us 𓊪𓏏𓇯
                           </Button>
@@ -829,7 +853,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-red-800">
+                          <Button onClick={() => window.open(toUrl('pinterest', socialLinks.pinterest), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-red-800">
                             <Bookmark className="w-6 h-6 mr-3" />
                             𓋹𓍑𓋴 Follow Us 𓋹𓍑𓋴
                           </Button>
@@ -876,7 +900,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-green-700">
+                          <Button onClick={() => window.open(toUrl('wechat', socialLinks.wechat), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-green-700">
                             <Users className="w-6 h-6 mr-3" />
                             𓌃𓂋𓏏 Connect 𓌃𓂋𓏏
                           </Button>
@@ -923,7 +947,7 @@ export default function ContactPage() {
                             </p>
                           )}
 
-                          <Button className="pharaonic-social-button bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-800">
+                          <Button onClick={() => window.open(toUrl('vk', socialLinks.vk), '_blank')} className="pharaonic-social-button bg-gradient-to-r from-blue-600 to-blue-800 hover:from-blue-700 hover:to-blue-900 text-white px-10 py-4 rounded-full text-xl font-bold shadow-xl hover:shadow-2xl transition-all duration-300 border-2 border-blue-800">
                             <Users className="w-6 h-6 mr-3" />
                             𓊪𓏏𓇯 Connect 𓊪𓏏𓇯
                           </Button>

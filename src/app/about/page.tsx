@@ -6,6 +6,7 @@ import { Container, Card, CardContent, Typography, Box, Avatar } from '@mui/mate
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { useContent } from '@/hooks/useContent';
 import Image from 'next/image';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 import {
   RoyalCrown,
   FloatingEgyptianElements,
@@ -65,26 +66,14 @@ export default function AboutPage() {
         <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
           {/* Background Video/Image with Egyptian Overlay */}
           <div className="absolute inset-0 z-0">
-            {getContent('about_hero_video') ? (
-              <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover"
-                poster={getContent('about_hero_image', '/images/about-hero.png')}
-              >
-                <source src={getContent('about_hero_video')} type="video/mp4" />
-              </video>
-            ) : (
-              <Image
-                src={getContent('about_hero_image', '/images/about-hero.png')}
-                alt="About Us - Dahabiya Nile Cruise"
-                fill
-                className="object-cover"
-                priority
-              />
-            )}
+            <OptimizedHeroVideo
+              src={getContent('about_hero_video', '/videos/about-hero.mp4')}
+              poster={getContent('about_hero_image', '/images/about-hero.png')}
+              className="absolute inset-0 w-full h-full"
+              onError={() => {
+                console.log('About hero video failed, using fallback image');
+              }}
+            />
             <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/60 via-navy-blue/40 to-ocean-blue/60"></div>
             <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-black/20"></div>
           </div>

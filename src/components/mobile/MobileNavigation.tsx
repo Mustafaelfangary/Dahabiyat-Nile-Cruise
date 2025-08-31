@@ -278,6 +278,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
     },
     { href: '/gallery-new', label: 'Gallery', icon: Camera, hieroglyph: '𓂀' },
     { href: '/blogs', label: 'Blogs', icon: BookOpen, hieroglyph: '𓂋' },
+    { href: '/schedule-and-rates', label: 'Schedule & Rates', icon: Calendar, hieroglyph: '𓂀' },
     { href: '/tailor-made', label: 'Tailor-Made', icon: Heart, hieroglyph: '𓈖' },
     { href: '/about', label: 'About', icon: Info, hieroglyph: '𓂀' },
     { href: '/contact', label: 'Contact', icon: Phone, hieroglyph: '𓏏' },

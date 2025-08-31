@@ -84,17 +84,17 @@ export default function Navbar() {
   const { getContent } = useContent({ page: 'global_media' });
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
 
-  // Get dynamic logo from database with fallback
-  const [logoSrc, setLogoSrc] = useState('/images/logo.png'); // Start with fallback
+  // Get dynamic logo from database with fallback - prevent flash of old logo
+  const [logoSrc, setLogoSrc] = useState(''); // Start empty to prevent flash
   const [logoLoaded, setLogoLoaded] = useState(false);
 
   const getNavbarLogo = () => {
     const dynamicLogo = getContent('navbar_logo', '/images/logo.png');
-    if (dynamicLogo && dynamicLogo !== '/images/logo.png' && !logoLoaded) {
+    if (dynamicLogo && !logoLoaded) {
       setLogoSrc(dynamicLogo);
       setLogoLoaded(true);
     }
-    return logoSrc;
+    return logoSrc || '/images/logo.png'; // Fallback if empty
   };
 
   // Check if we're on the homepage
@@ -211,7 +211,7 @@ export default function Navbar() {
           const items = data.map((itinerary: any, index: number) => ({
             href: `/itineraries/${itinerary.slug || itinerary.id}`,
             label: `${['𓋖', '𓇳', '𓊪', '𓂀', '𓏏'][index % 5]} ${itinerary.name}`,
-            hieroglyph: ['𓋖', '𓇳', '𓊪', '𓂀', '𓏏'][index % 5]
+            hieroglyph: ['𓋖', '𓇳', '𓊪', '𓂀', '𓏏'][index % 5] || '𓋖'
           }));
           setItineraryItems(items);
         }
@@ -246,14 +246,15 @@ export default function Navbar() {
   ]);
 
   const navLinks = [
-    { href: "/dahabiyas", label: `𓊪 ${t('dahabiyat')} 𓊪`, hieroglyph: "𓊪", hasDropdown: true, dropdownItems: dahabiyatItems },
-    { href: "/packages", label: `𓇳 ${t('packages')} 𓇳`, hieroglyph: "𓇳", hasDropdown: true, dropdownItems: packagesItems },
-    { href: "/itineraries", label: "𓋖 Itineraries 𓋖", hieroglyph: "𓋖", hasDropdown: true, dropdownItems: itineraryItems },
-    { href: "/gallery-new", label: "𓂀 Gallery 𓂀", hieroglyph: "𓂀" },
-    { href: "/blogs", label: "📜 Blogs 📜", hieroglyph: "𓂋" },
-    { href: "/tailor-made", label: "𓈖 Tailor-Made 𓈖", special: true, hieroglyph: "𓈖", singleLine: true },
-    { href: "/about", label: `𓂀 ${t('about')} 𓂀`, hieroglyph: "𓂀" },
-    { href: "/contact", label: `𓏏 ${t('contact')} 𓏏`, hieroglyph: "𓏏" },
+    { href: "/dahabiyas", label: `${t('dahabiyat')}`, hieroglyph: "𓊪", hasDropdown: true, dropdownItems: dahabiyatItems },
+    { href: "/packages", label: `${t('packages')}`, hieroglyph: "𓇳", hasDropdown: true, dropdownItems: packagesItems },
+    { href: "/itineraries", label: "Itineraries", hieroglyph: "𓋖", hasDropdown: true, dropdownItems: itineraryItems },
+    { href: "/gallery-new", label: "Gallery", hieroglyph: "𓂀" },
+    { href: "/blogs", label: "Blogs", hieroglyph: "𓂋" },
+    { href: "/tailor-made", label: "Tailor-Made", special: true, hieroglyph: "𓈖", singleLine: true },
+    { href: "/about", label: `${t('about')}`, hieroglyph: "𓂀" },
+    { href: "/schedule-and-rates", label: "Schedule & Rates", hieroglyph: "𓂀" },
+    { href: "/contact", label: `${t('contact')}`, hieroglyph: "𓏏" },
   ];
 
   // Pale navbar styling for all pages with dark text
@@ -324,14 +325,15 @@ export default function Navbar() {
       borderBottom: navbarStyle.borderBottom,
       boxShadow: navbarStyle.boxShadow
     }}>
-      <div style={{ maxWidth: '80rem', margin: '0 auto', padding: '0 1rem' }}>
+      <div style={{ maxWidth: '90rem', margin: '0 auto', padding: '0 1.5rem' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           height: scrolled || !isHomepage ? '4.5rem' : '5rem',
           width: '100%',
-          gap: '1rem',
-          justifyContent: 'space-between'
+          gap: '1.5rem',
+          justifyContent: 'space-between',
+          minWidth: 0
         }}>
           {/* Logo + Site Name - Left side */}
           <Link href="/" style={{
@@ -357,7 +359,6 @@ export default function Navbar() {
                 transition: 'opacity 0.3s ease-in-out',
                 opacity: logoSrc ? 1 : 0
               }}
-              priority
             />
             <span style={{
               color: 'hsl(0, 0%, 0%)',
@@ -374,11 +375,12 @@ export default function Navbar() {
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.25rem',
+            gap: '0.5rem',
             justifyContent: 'center',
             flexWrap: 'nowrap',
             flex: 1,
-            overflow: 'hidden'
+            overflow: 'visible',
+            minWidth: 0
           }}>
             {navLinks.map((link, index) => (
               <div key={index} style={{ position: 'relative', flexShrink: 0 }}>
@@ -388,10 +390,10 @@ export default function Navbar() {
                       <button
                         style={{
                           color: getTextColor(),
-                          fontSize: '0.75rem',
+                          fontSize: '0.8rem',
                           fontWeight: 500,
-                          padding: '0.375rem 0.5rem',
-                          borderRadius: '0.375rem',
+                          padding: '0.5rem 0.75rem',
+                          borderRadius: '0.5rem',
                           transition: 'all 0.3s ease',
                           background: 'transparent',
                           border: 'none',
@@ -399,8 +401,11 @@ export default function Navbar() {
                           whiteSpace: 'nowrap',
                           display: 'flex',
                           alignItems: 'center',
-                          gap: '0.125rem',
-                          minWidth: 'fit-content'
+                          justifyContent: 'center',
+                          gap: '0.25rem',
+                          minWidth: 'fit-content',
+                          maxWidth: 'none',
+                          textAlign: 'center'
                         }}
                         onMouseEnter={(e) => {
                           e.currentTarget.style.background = getHoverColor();
@@ -491,19 +496,22 @@ export default function Navbar() {
                   <Link
                     href={link.href}
                     style={{
-                      color: getTextColor(),
-                      fontSize: link.special ? '0.75rem' : '0.75rem',
+                      color: link.special ? 'white' : getTextColor(),
+                      fontSize: link.special ? '0.8rem' : '0.8rem',
                       fontWeight: link.special ? 600 : 500,
-                      padding: link.special ? '0.375rem 0.75rem' : '0.375rem 0.5rem',
-                      borderRadius: '0.375rem',
+                      padding: link.special ? '0.5rem 1rem' : '0.5rem 0.75rem',
+                      borderRadius: '0.5rem',
                       textDecoration: 'none',
                       transition: 'all 0.3s ease',
                       background: link.special ? 'linear-gradient(135deg, hsl(200, 100%, 50%) 0%, hsl(220, 100%, 60%) 100%)' : 'transparent',
-                      color: link.special ? 'white' : getTextColor(),
                       boxShadow: link.special ? '0 2px 8px rgba(0, 128, 255, 0.3)' : 'none',
                       whiteSpace: 'nowrap',
-                      display: 'inline-block',
-                      minWidth: 'fit-content'
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minWidth: 'fit-content',
+                      maxWidth: 'none',
+                      textAlign: 'center'
                     }}
                     onMouseEnter={(e) => {
                       if (!link.special) {

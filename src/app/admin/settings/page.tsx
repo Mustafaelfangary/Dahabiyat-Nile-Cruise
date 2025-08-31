@@ -9,7 +9,8 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { toast } from 'sonner';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from 'react-hot-toast';
 import {
   Save,
   RefreshCw,
@@ -50,7 +51,6 @@ export default function AdminSettingsPage() {
     redirect('/admin/login');
   }
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const [tabValue, setTabValue] = useState(0);
 
   // Group settings by category
   const groupedSettings = settings.reduce((acc, setting) => {
@@ -62,6 +62,28 @@ export default function AdminSettingsPage() {
   }, {} as Record<string, Setting[]>);
 
   const groups = Object.keys(groupedSettings).sort();
+
+  // If no settings exist, create default groups
+  if (groups.length === 0) {
+    return (
+      <div className="max-w-6xl mx-auto p-6 space-y-6">
+        <div className="flex items-center gap-3 mb-6">
+          <Settings className="w-8 h-8 text-blue-600" />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
+            <p className="text-gray-600">No settings found. Please check your database configuration.</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="p-8 text-center">
+            <Database className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No Settings Available</h3>
+            <p className="text-gray-600">Settings could not be loaded. Please check your API configuration.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   useEffect(() => {
     fetchSettings();
@@ -81,7 +103,9 @@ export default function AdminSettingsPage() {
           const settingsArray = Object.entries(data).map(([key, value]) => ({
             key,
             value: String(value),
-            group: 'general' // Default group
+            group: key.includes('email') ? 'email' : 
+                   key.includes('db') || key.includes('database') ? 'database' :
+                   key.includes('security') || key.includes('auth') ? 'security' : 'general'
           }));
           setSettings(settingsArray);
         }
@@ -91,6 +115,7 @@ export default function AdminSettingsPage() {
     } catch (error) {
       console.error('Error fetching settings:', error);
       setMessage({ type: 'error', text: 'Failed to load settings' });
+      toast.error('Failed to load settings');
     } finally {
       setLoading(false);
     }
@@ -129,116 +154,159 @@ export default function AdminSettingsPage() {
       }
 
       setMessage({ type: 'success', text: 'Settings saved successfully!' });
+      toast.success('Settings saved successfully!');
     } catch (error) {
       console.error('Error saving settings:', error);
       setMessage({ type: 'error', text: 'Failed to save settings' });
+      toast.error('Failed to save settings');
     } finally {
       setSaving(false);
     }
   };
 
-  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTabValue(newValue);
-  };
-
   if (loading) {
     return (
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-        <Box display="flex" justifyContent="center" alignItems="center" minHeight="400px">
-          <CircularProgress />
-        </Box>
-      </Container>
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="flex items-center gap-2">
+          <RefreshCw className="w-6 h-6 animate-spin" />
+          <span>Loading settings...</span>
+        </div>
+      </div>
     );
   }
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" component="h1" gutterBottom>
-        🔧 System Settings
-      </Typography>
-      
-      <Typography variant="body1" color="text.secondary" paragraph>
-        Manage your website settings including site information and configuration options.
-      </Typography>
+    <div className="max-w-6xl mx-auto p-6 space-y-6">
+      <div className="flex items-center gap-3 mb-6">
+        <Settings className="w-8 h-8 text-blue-600" />
+        <div>
+          <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
+          <p className="text-gray-600">Manage your website settings including site information and configuration options.</p>
+        </div>
+      </div>
 
       {message && (
-        <Alert severity={message.type} sx={{ mb: 3 }} onClose={() => setMessage(null)}>
+        <div className={`p-4 rounded-lg border ${
+          message.type === 'success' 
+            ? 'bg-green-50 border-green-200 text-green-800' 
+            : 'bg-red-50 border-red-200 text-red-800'
+        }`}>
           {message.text}
-        </Alert>
+        </div>
       )}
 
-      <Paper sx={{ width: '100%', mb: 3 }}>
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs value={tabValue} onChange={handleTabChange} aria-label="settings tabs">
-            {groups.map((group, index) => (
-              <Tab 
-                key={group} 
-                label={group.charAt(0).toUpperCase() + group.slice(1)} 
-                id={`settings-tab-${index}`}
-                aria-controls={`settings-tabpanel-${index}`}
-              />
-            ))}
-          </Tabs>
-        </Box>
+      <Tabs value={activeTab} onValueChange={setActiveTab}>
+        <TabsList className="grid w-full grid-cols-4">
+          <TabsTrigger value="general" className="flex items-center gap-2">
+            <Globe className="w-4 h-4" />
+            General
+          </TabsTrigger>
+          <TabsTrigger value="email" className="flex items-center gap-2">
+            <Mail className="w-4 h-4" />
+            Email
+          </TabsTrigger>
+          <TabsTrigger value="database" className="flex items-center gap-2">
+            <Database className="w-4 h-4" />
+            Database
+          </TabsTrigger>
+          <TabsTrigger value="security" className="flex items-center gap-2">
+            <Shield className="w-4 h-4" />
+            Security
+          </TabsTrigger>
+        </TabsList>
 
-        {groups.map((group, index) => (
-          <TabPanel key={group} value={tabValue} index={index}>
-            <Typography variant="h6" gutterBottom>
-              {group.charAt(0).toUpperCase() + group.slice(1)} Settings
-            </Typography>
-            
-            <Grid container spacing={3}>
-              {groupedSettings[group]?.map((setting) => (
-                <Grid size={{ xs: 12, md: 6 }} key={setting.key}>
-                  <TextField
-                    fullWidth
-                    label={setting.key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
-                    value={setting.value}
-                    onChange={(e) => handleSettingChange(setting.key, e.target.value)}
-                    variant="outlined"
-                    multiline={setting.value.length > 50}
-                    rows={setting.value.length > 50 ? 3 : 1}
-                    helperText={
-                      setting.key === 'site_name' ? 'The name of your website' :
-                      `Current value for ${setting.key}`
-                    }
-                  />
-                </Grid>
-              ))}
-            </Grid>
-
-
-          </TabPanel>
+        {groups.map((group) => (
+          <TabsContent key={group} value={group} className="mt-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  {group === 'general' && <Globe className="w-5 h-5 text-blue-600" />}
+                  {group === 'email' && <Mail className="w-5 h-5 text-green-600" />}
+                  {group === 'database' && <Database className="w-5 h-5 text-purple-600" />}
+                  {group === 'security' && <Shield className="w-5 h-5 text-red-600" />}
+                  {group.charAt(0).toUpperCase() + group.slice(1)} Settings
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {groupedSettings[group]?.map((setting) => (
+                    <div key={setting.key} className="space-y-2">
+                      <Label htmlFor={setting.key} className="text-sm font-medium">
+                        {setting.key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                      </Label>
+                      {setting.value.length > 50 ? (
+                        <Textarea
+                          id={setting.key}
+                          value={setting.value}
+                          onChange={(e) => handleSettingChange(setting.key, e.target.value)}
+                          rows={3}
+                          placeholder={`Enter ${setting.key.replace(/_/g, ' ')}`}
+                        />
+                      ) : (
+                        <Input
+                          id={setting.key}
+                          value={setting.value}
+                          onChange={(e) => handleSettingChange(setting.key, e.target.value)}
+                          placeholder={`Enter ${setting.key.replace(/_/g, ' ')}`}
+                        />
+                      )}
+                      <p className="text-xs text-gray-500">
+                        {setting.key === 'site_name' ? 'The name of your website' :
+                         setting.key === 'site_description' ? 'Brief description of your website' :
+                         setting.key === 'contact_email' ? 'Primary contact email address' :
+                         `Current value for ${setting.key}`}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
         ))}
-      </Paper>
+      </Tabs>
 
-      <Box sx={{ display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
+      <div className="flex gap-3 justify-end">
         <Button
-          variant="outlined"
-          startIcon={<RefreshIcon />}
+          variant="outline"
           onClick={fetchSettings}
           disabled={saving}
+          className="flex items-center gap-2"
         >
+          <RefreshCw className="w-4 h-4" />
           Refresh
         </Button>
         <Button
-          variant="contained"
-          startIcon={<SaveIcon />}
           onClick={handleSave}
           disabled={saving}
+          className="bg-blue-600 hover:bg-blue-700 text-white flex items-center gap-2"
         >
-          {saving ? 'Saving...' : 'Save All Settings'}
+          {saving ? (
+            <>
+              <RefreshCw className="w-4 h-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4" />
+              Save All Settings
+            </>
+          )}
         </Button>
-      </Box>
+      </div>
 
-      <Box sx={{ mt: 4, p: 2, bgcolor: 'background.paper', borderRadius: 1 }}>
-        <Typography variant="h6" gutterBottom>
-          🎯 Quick Actions
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <strong>Website Configuration:</strong> Use these settings to configure your website's basic information and behavior.
-        </Typography>
-      </Box>
-    </Container>
+      <Card className="mt-6">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Palette className="w-5 h-5 text-purple-600" />
+            Quick Actions
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-gray-600">
+            <strong>Website Configuration:</strong> Use these settings to configure your website's basic information and behavior.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
   );
 }

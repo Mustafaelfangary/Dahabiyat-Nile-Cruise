@@ -8,6 +8,8 @@ import { motion } from 'framer-motion';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useContent } from '@/hooks/useContent';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 
 interface Blog {
   id: string;
@@ -54,12 +56,13 @@ const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) =>
 );
 
 export default function BlogsPage() {
+  const { getContent } = useContent({ page: 'blogs' });
   const [blogs, setBlogs] = useState<Blog[]>([]);
-  const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
-  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
+  const [featuredBlogs, setFeaturedBlogs] = useState<Blog[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
 
   useEffect(() => {
@@ -140,19 +143,30 @@ export default function BlogsPage() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-sky-50">
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue text-white overflow-hidden">
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="absolute inset-0 bg-[url('/images/hieroglyphic-pattern.png')] opacity-10"></div>
+      <section className="relative py-20 overflow-hidden min-h-[60vh]">
+        {/* Hero Video/Image Background */}
+        <OptimizedHeroVideo
+          src={getContent('blogs_hero_video', '/videos/blogs-hero.mp4')}
+          poster={getContent('blogs_hero_image', '/images/blogs-hero-bg.jpg')}
+          className="absolute inset-0 w-full h-full"
+          onError={() => {
+            console.log('Blogs hero video failed, using fallback image');
+          }}
+        />
+        
+        {/* Enhanced Multi-layer Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-transparent to-blue-800/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-purple-900/15 via-transparent to-cyan-900/15"></div>
         
         <div className="container mx-auto px-4 relative z-10">
           <AnimatedSection animation="fade-up">
             <div className="text-center max-w-4xl mx-auto">
-              <h1 className="text-6xl md:text-7xl font-bold mb-6 text-shadow-lg">
-                <span className="text-sky-blue">𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿</span> Ancient Blogs
+              <h1 className="text-6xl md:text-7xl font-bold mb-6 text-shadow-lg text-white">
+                <span className="text-sky-blue">𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿</span> {getContent('blogs_hero_title', 'Ancient Blogs')}
               </h1>
-              <p className="text-xl md:text-2xl mb-8 text-sky-blue leading-relaxed">
-                Discover the secrets of the pharaohs, explore hidden treasures, and immerse yourself
-                in the timeless stories of ancient Egypt through our curated collection of articles.
+              <p className="text-xl md:text-2xl mb-8 text-white leading-relaxed">
+                {getContent('blogs_hero_description', 'Discover the secrets of the pharaohs, explore hidden treasures, and immerse yourself in the timeless stories of ancient Egypt through our curated collection of articles.')}
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <PharaohButton className="bg-white/20 hover:bg-white/30 text-white border border-white/30">
@@ -192,7 +206,7 @@ export default function BlogsPage() {
               <div className="flex flex-wrap justify-center gap-4">
                 <Button
                   key="all"
-                  variant={selectedCategory === 'all' ? 'default' : 'outline'}
+                  variant={selectedCategory === 'all' ? 'secondary' : 'outline'}
                   onClick={() => setSelectedCategory('all')}
                   className={`${
                     selectedCategory === 'all'
@@ -206,11 +220,11 @@ export default function BlogsPage() {
                 {categories.map((category) => (
                   <Button
                     key={category}
-                    variant={selectedCategory === category ? 'primary' : 'outline'}
+                    variant={selectedCategory === category ? 'secondary' : 'outline'}
                     onClick={() => setSelectedCategory(category || '')}
                     className={`${
                       selectedCategory === category 
-                        ? 'bg-gradient-to-r from-ocean-blue to-deep-blue text-black border-ocean-blue' 
+                        ? 'bg-gradient-to-r from-ocean-blue to-deep-blue text-white border-ocean-blue' 
                         : 'border-blue-300 text-ocean-blue-dark hover:bg-blue-50'
                     } font-semibold py-2 px-6 rounded-full transition-all duration-300 capitalize`}
                   >
@@ -233,7 +247,7 @@ export default function BlogsPage() {
                 ⭐ Featured Blogs ⭐
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {featuredBlogs.slice(0, 3).map((blog, index) => (
+                {featuredBlogs.slice(0, 3).map((blog: Blog, index: number) => (
                   <AnimatedSection key={blog.id} animation="fade-up" delay={index * 100}>
                     <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-300 hover:border-ocean-blue overflow-hidden">
                       <div className="relative h-48 overflow-hidden">

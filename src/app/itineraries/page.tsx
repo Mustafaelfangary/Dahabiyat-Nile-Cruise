@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Calendar, Users, MapPin, Star, Clock, ChevronRight, Play, Download } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useContent } from '@/hooks/useContent';
+import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 
 interface Itinerary {
   id: string;
@@ -105,16 +106,15 @@ export default function ItinerariesPage() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-ocean-blue-lightest">
       {/* Hero Section */}
       <section className="relative py-20 bg-gradient-to-r from-ocean-blue via-deep-blue to-navy-blue text-white overflow-hidden min-h-screen">
-        {/* Hero Background Image with Enhanced Effects */}
-        {getSettingValue('itineraries_hero_background_image') && (
-          <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105 animate-slow-zoom"
-            style={{
-              backgroundImage: `url("${getSettingValue('itineraries_hero_background_image', '/images/itineraries-hero-bg.jpg')}")`,
-              filter: 'brightness(1.4) contrast(1.5) saturate(1.6)',
-            }}
-          ></div>
-        )}
+        {/* Hero Video/Image Background */}
+        <OptimizedHeroVideo
+          src={getSettingValue('itineraries_hero_video', '/videos/itineraries-hero.mp4')}
+          poster={getSettingValue('itineraries_hero_image', '/images/itineraries-hero-bg.jpg')}
+          className="absolute inset-0 w-full h-full"
+          onError={() => {
+            console.log('Itineraries hero video failed, using fallback image');
+          }}
+        />
 
         {/* Enhanced Multi-layer Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-deep-blue/30 via-transparent to-navy-blue/40"></div>
