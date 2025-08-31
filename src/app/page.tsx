@@ -366,7 +366,7 @@ export default function HomePage() {
           </div>
 
           {/* FEATURED DAHABIYA CARDS WITH SCHEDULE DEMOS */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 xl:grid-cols-3 lg:gap-12">
             {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: any, index: number) => (
               <div key={dahabiya.id} className="space-y-6">
                 {/* Dahabiya Card */}
@@ -413,15 +413,15 @@ export default function HomePage() {
                 <span className="text-emerald-600 ml-3">𓊪</span>
               </h2>
               <div className="text-gray-600 leading-relaxed">
-                <p className={`mb-4 ${!expandedSections.whatIs ? 'line-clamp-3' : ''}`}>
+                <p className={`mb-4 ${!expandedSections.whatIs ? 'line-clamp-3' : ''}`} style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                   {get('what_is_dahabiya_content', 'A Dahabiya is a traditional Egyptian sailing boat that has been navigating the Nile River for centuries. These elegant vessels, with their distinctive lateen sails and shallow draft, were once the preferred mode of transport for Egyptian nobility and wealthy travelers exploring the ancient wonders along the Nile.')}
                 </p>
                 {expandedSections.whatIs && (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       Unlike modern cruise ships, Dahabiyas offer an intimate and authentic experience, typically accommodating only 8-12 guests. This allows for personalized service and the flexibility to dock at smaller, less crowded sites that larger vessels cannot access.
                     </p>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       The word "Dahabiya" comes from the Arabic word "dahab," meaning gold, reflecting the golden appearance of these boats as they glide across the Nile at sunset. Today's luxury Dahabiyas combine traditional design with modern amenities, offering air-conditioned cabins, gourmet dining, and expert guides.
                     </p>
                   </>
@@ -643,15 +643,15 @@ export default function HomePage() {
                 <span className="text-blue-600 ml-3">𓇳</span>
               </h2>
               <div className="text-gray-600 leading-relaxed">
-                <p className={`mb-4 ${!expandedSections.whyDifferent ? 'line-clamp-3' : ''}`}>
+                <p className={`mb-4 ${!expandedSections.whyDifferent ? 'line-clamp-3' : ''}`} style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                   {get('why_different_content', 'While traditional Nile cruise ships can accommodate 200-400 passengers, Dahabiyas offer an intimate experience with only 8-12 guests. This fundamental difference creates a completely different travel experience that feels more like a private yacht charter than a commercial cruise.')}
                 </p>
                 {expandedSections.whyDifferent && (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       Dahabiyas can access smaller docking sites and hidden gems that large cruise ships cannot reach. You'll visit less crowded temples, enjoy private beach picnics, and have the flexibility to adjust your itinerary based on your interests and the weather conditions.
                     </p>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       The pace is more relaxed and authentic. Instead of rushing through scheduled activities with hundreds of other tourists, you'll have time to truly absorb the ancient atmosphere, engage with local communities, and enjoy personalized attention from your dedicated crew and guide.
                     </p>
                   </>
@@ -688,15 +688,15 @@ export default function HomePage() {
                 <span className="text-emerald-600 ml-3">{EGYPTIAN_CROWN_SYMBOLS.atef}</span>
               </h2>
               <div className="text-gray-600 leading-relaxed">
-                <p className={`mb-4 ${!expandedSections.shareMemories ? 'line-clamp-3' : ''}`}>
+                <p className={`mb-4 ${!expandedSections.shareMemories ? 'line-clamp-3' : ''}`} style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                   {get('share_memories_content', 'Your journey with us doesn\'t end when you disembark. We believe that the memories created during your Dahabiya experience are meant to be shared and cherished forever. Join our community of travelers who have fallen in love with the magic of the Nile.')}
                 </p>
                 {expandedSections.shareMemories && (
                   <>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       Share your photos, stories, and experiences on social media using #DahabiyaMemories. We love seeing how our guests capture the beauty of ancient Egypt and the unique moments that make each journey special.
                     </p>
-                    <p className="mb-4">
+                    <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                       {/* Extended text - not in database yet, using fallback */}
                       Many of our guests become part of our extended family, returning year after year and bringing friends and family to experience the same magic. We encourage you to share your testimonials and help others discover the authentic way to explore the Nile.
                     </p>
@@ -782,23 +782,23 @@ export default function HomePage() {
               </h2>
 
               <div className="text-gray-600 leading-relaxed text-sm lg:text-base mobile-text-wrap">
-                <p className={`mb-4 ${!expandedSections.ourStory ? 'line-clamp-3' : ''}`}>
+                <p className={`mb-4 ${!expandedSections.ourStory ? 'line-clamp-3' : ''}`} style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                   {get('our_story_content', 'Our journey began over 30 years ago when Captain Ahmed Hassan, a third-generation Nile navigator, had a vision to revive the authentic way of exploring Egypt\'s ancient wonders. Growing up along the banks of the Nile, he witnessed the transformation of river travel and felt called to preserve the traditional Dahabiya experience.')}
                 </p>
                 {expandedSections.ourStory && (
                   <>
                     {get('our_story_paragraph_2') && (
-                      <p className="mb-4">
+                      <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                         {get('our_story_paragraph_2')}
                       </p>
                     )}
                     {get('our_story_paragraph_3') && (
-                      <p className="mb-4">
+                      <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                         {get('our_story_paragraph_3')}
                       </p>
                     )}
                     {get('our_story_paragraph_4') && (
-                      <p className="mb-4">
+                      <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
                         {get('our_story_paragraph_4')}
                       </p>
                     )}

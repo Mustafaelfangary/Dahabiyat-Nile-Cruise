@@ -85,13 +85,12 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
   return (
     <Link href={`/dahabiyas/${dahabiya.slug}`} className="block group">
       <Card
-        className="h-full overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative w-full max-w-none"
+        className="dahabiya-card h-full overflow-hidden hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 relative w-full"
         style={{
           background: 'linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%)',
           border: '2px solid #0080ff',
           borderRadius: '12px',
-          boxShadow: '0 4px 20px rgba(0, 128, 255, 0.2)',
-          minWidth: '400px',
+          boxShadow: '0 4px 20px rgba(0, 128, 255, 0.2)'
         }}
       >
         {/* Ocean Blue Border Pattern */}
@@ -101,7 +100,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
         {/* Floating Hieroglyphic Elements */}
         <div className="absolute top-2 right-2 text-egyptian-gold opacity-20 text-lg z-10">𓊪</div>
         {/* Enhanced Image Section */}
-        <div className="relative h-64 overflow-hidden rounded-t-lg">
+        <div className="relative h-56 sm:h-64 md:h-72 overflow-hidden rounded-t-lg">
           <Image
             src={dahabiya.mainImage || '/images/placeholder-dahabiya.jpg'}
             alt={dahabiya.name}
@@ -182,7 +181,7 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
 
         </div>
 
-        <CardContent className="p-6 bg-gradient-to-b from-blue-50 to-sky-50">
+        <CardContent className="p-4 sm:p-6 bg-gradient-to-b from-blue-50 to-sky-50">
           {/* Decorative Divider */}
           <div className="flex justify-center items-center gap-2 mb-4">
             <div className="w-8 h-0.5 bg-ocean-blue"></div>
@@ -203,7 +202,8 @@ export default function DahabiyaCard({ dahabiya }: DahabiyaCardProps) {
           {/* Enhanced Description */}
           <Typography
             variant="body2"
-            className="mb-4 line-clamp-2 text-amber-800 text-center leading-relaxed"
+            className="mb-4 line-clamp-3 text-amber-800 leading-relaxed"
+            style={{ textAlign: 'justify', textJustify: 'inter-word' }}
           >
             {truncateDescription(dahabiya.shortDescription || dahabiya.description, 100)}
           </Typography>

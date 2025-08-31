@@ -28,8 +28,8 @@ export const metadata: Metadata = generateSEO();
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
   viewportFit: 'cover', // Enable safe area support
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#0080ff' },

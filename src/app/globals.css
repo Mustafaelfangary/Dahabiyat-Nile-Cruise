@@ -138,6 +138,8 @@
 
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%; /* Prevent iOS font auto-scaling */
+    text-size-adjust: 100%;
   }
 
   body {
@@ -158,6 +160,7 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden; /* Prevent horizontal scroll on small screens */
   }
 
   /* Pharaonic Global Styles - Applied to Entire Website */
@@ -243,6 +246,29 @@
   .pharaonic-papyrus-container-full-width .grid {
     max-width: 100%;
     padding: 0 1rem;
+  }
+
+  /* Global text justification for long paragraphs in content sections */
+  .content-justify p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+
+  /* Responsive Dahabiya card sizing */
+  .dahabiya-card {
+    max-width: 100%;
+  }
+
+  @media (min-width: 1024px) {
+    .dahabiya-card {
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .dahabiya-card .enhanced-price-display span {
+      font-size: 0.875rem !important;
+    }
   }
 
   /* ... existing styles ... */
