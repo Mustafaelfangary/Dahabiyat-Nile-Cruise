@@ -67,13 +67,13 @@ export default function MobileForgotPasswordForm({ onBack, className = '' }: Mob
           <div className="bg-white rounded-2xl shadow-xl p-6 mx-auto w-full max-w-sm">
             <div className="text-center space-y-4">
               <p className="text-gray-600">
-                We've sent a password reset link to
+                We&apos;ve sent a password reset link to
               </p>
               <p className="font-semibold text-gray-800 break-all">
                 {email}
               </p>
               <p className="text-sm text-gray-500">
-                If you don't see the email in your inbox, please check your spam folder.
+                If you don&apos;t see the email in your inbox, please check your spam folder.
                 The link will expire in 1 hour.
               </p>
             </div>
@@ -132,7 +132,7 @@ export default function MobileForgotPasswordForm({ onBack, className = '' }: Mob
           </h2>
           <div className="text-lg text-egyptian-gold mb-4">𓇳 𓈖 𓊪 𓏏 𓇳</div>
           <p className="text-gray-600 px-4">
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
 

@@ -19,9 +19,34 @@ import {
 
 import MediaPicker from '@/components/admin/MediaPicker';
 
+interface FooterSettings {
+  [key: string]: string | number | boolean | null | undefined;
+  'footer-title'?: string;
+  'footer-description'?: string;
+  'footer-address'?: string;
+  'footer-phone'?: string;
+  'footer-email'?: string;
+  'footer-facebook'?: string;
+  'footer-twitter'?: string;
+  'footer-instagram'?: string;
+  'footer-company-name'?: string;
+  'footer_quick_links_title'?: string;
+  'footer_follow_us_title'?: string;
+  'footer_newsletter_title'?: string;
+  'footer-newsletter-text'?: string;
+  'footer_subscribe_button_text'?: string;
+  'footer_developer_logo'?: string;
+  'footer_developer_phone'?: string;
+  'footer_developer_contact_text'?: string;
+  'footer_developer_contact_modal_title'?: string;
+  'footer_developer_contact_url'?: string;
+  'footer_developer_phone_url'?: string;
+  'footer_loading_text'?: string;
+}
+
 interface FooterProps {
-  settings?: Record<string, any>;
-  footerSettings?: Record<string, any>;
+  settings?: FooterSettings;
+  footerSettings?: FooterSettings;
 }
 
 // Contact Developer Modal Component

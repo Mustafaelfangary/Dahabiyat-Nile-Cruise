@@ -100,6 +100,47 @@ export async function PUT(
   }
 }
 
+// PATCH - Update specific blog fields (like status)
+export async function PATCH(
+  request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const session = await getServerSession(authOptions);
+    if (!session?.user?.role || !["ADMIN", "MANAGER"].includes(session.user.role)) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
+    const { id } = await params;
+    const data = await request.json();
+
+    // Check if blog exists
+    const blog = await prisma.blog.findUnique({
+      where: { id }
+    });
+
+    if (!blog) {
+      return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
+    }
+
+    // Update only the provided fields
+    const updateData: Record<string, unknown> = {};
+    if ('isPublished' in data) updateData.isPublished = data.isPublished;
+    if ('featured' in data) updateData.featured = data.featured;
+    if ('publishedAt' in data) updateData.publishedAt = data.publishedAt ? new Date(data.publishedAt) : null;
+
+    const updatedBlog = await prisma.blog.update({
+      where: { id },
+      data: updateData
+    });
+
+    return NextResponse.json(updatedBlog);
+  } catch (error) {
+    console.error('Error updating blog:', error);
+    return NextResponse.json({ error: 'Failed to update blog' }, { status: 500 });
+  }
+}
+
 // DELETE - Delete blog
 export async function DELETE(
   request: NextRequest,

@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 
 export default function Error({
-  error,
+  error: _,
   reset,
 }: {
   error: Error & { digest?: string }

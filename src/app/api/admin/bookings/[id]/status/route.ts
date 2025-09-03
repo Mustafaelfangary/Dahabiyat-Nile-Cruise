@@ -54,7 +54,11 @@ export async function PATCH(
     // Note: Dahabiya availability management has been removed as part of system cleanup
 
     // Update the booking
-    const updateData: any = {};
+    const updateData: {
+      status?: string;
+      paymentStatus?: string;
+      updatedAt: Date;
+    } = {};
     if (status) updateData.status = status;
     if (paymentStatus) updateData.paymentStatus = paymentStatus;
     updateData.updatedAt = new Date();

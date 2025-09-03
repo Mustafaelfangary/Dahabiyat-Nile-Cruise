@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import PackageManager from '@/components/admin/PackageManager';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { AlertCircle, Lock, RefreshCw } from 'lucide-react';
+import { Lock, RefreshCw } from 'lucide-react';
 
 export default function AdminPackagesPage() {
   const { data: session, status } = useSession();

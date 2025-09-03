@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-interface DataTableProps<T extends Record<string, any>> {
+interface DataTableProps<T extends Record<string, unknown>> {
   data: T[];
   columns: {
     accessorKey?: keyof T;
@@ -18,7 +18,7 @@ interface DataTableProps<T extends Record<string, any>> {
   }[];
 }
 
-export function DataTable<T extends Record<string, any>>({ data, columns }: DataTableProps<T>) {
+export function DataTable<T extends Record<string, unknown>>({ data, columns }: DataTableProps<T>) {
   return (
     <div className="rounded-md border">
       <Table>

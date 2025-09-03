@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Calendar, User, Tag, Clock, ChevronRight, Search, BookOpen, Star, Filter } from 'lucide-react';
@@ -30,7 +31,9 @@ interface Blog {
   updatedAt: string;
 }
 
-const PharaohButton = ({ children, className = '', ...props }: any) => (
+type PharaohButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { className?: string; children: ReactNode };
+
+const PharaohButton = ({ children, className = '', ...props }: PharaohButtonProps) => (
   <Button
     className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-navy-blue text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
@@ -40,7 +43,9 @@ const PharaohButton = ({ children, className = '', ...props }: any) => (
   </Button>
 );
 
-const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) => (
+type AnimatedSectionProps = { children: ReactNode; animation?: 'fade-up' | 'fade-left' | 'fade-right'; delay?: number };
+
+const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: AnimatedSectionProps) => (
   <motion.div
     initial={{ 
       opacity: 0, 
@@ -70,7 +75,21 @@ export default function BlogsPage() {
   }, []);
 
   useEffect(() => {
-    filterBlogs();
+    let filtered = blogs;
+
+    if (searchTerm) {
+      filtered = filtered.filter(blog =>
+        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+    }
+
+    if (selectedCategory !== 'all') {
+      filtered = filtered.filter(blog => blog.category === selectedCategory);
+    }
+
+    setFilteredBlogs(filtered);
   }, [blogs, searchTerm, selectedCategory]);
 
   const fetchBlogs = async () => {
@@ -101,34 +120,8 @@ export default function BlogsPage() {
     }
   };
 
-  const filterBlogs = () => {
-    let filtered = blogs;
-
-    // Filter by search term
-    if (searchTerm) {
-      filtered = filtered.filter(blog =>
-        blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        blog.excerpt?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        blog.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()))
-      );
-    }
-
-    // Filter by category
-    if (selectedCategory !== 'all') {
-      filtered = filtered.filter(blog => blog.category === selectedCategory);
-    }
-
-    setFilteredBlogs(filtered);
-  };
-
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-
+  
+  
   if (loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-blue-50 to-sky-50 flex items-center justify-center">
@@ -251,10 +244,12 @@ export default function BlogsPage() {
                   <AnimatedSection key={blog.id} animation="fade-up" delay={index * 100}>
                     <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 bg-white/90 backdrop-blur-sm border-2 border-blue-300 hover:border-ocean-blue overflow-hidden">
                       <div className="relative h-48 overflow-hidden">
-                        <img
+                        <Image
                           src={blog.mainImageUrl || '/images/default-blog.jpg'}
                           alt={blog.title}
+                          fill
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         <div className="absolute top-4 right-4 bg-gradient-to-r from-ocean-blue to-deep-blue text-black px-3 py-1 rounded-full text-sm font-bold">

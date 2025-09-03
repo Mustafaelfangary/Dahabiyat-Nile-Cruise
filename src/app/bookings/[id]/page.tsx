@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
@@ -9,18 +9,11 @@ import {
   ArrowLeft,
   Calendar,
   Users,
-  MapPin,
-  Clock,
-  Star,
   Download,
   Edit,
-  X,
   Ship,
-  Crown,
   Anchor,
-  Compass,
   Phone,
-  Mail,
   CreditCard,
   CheckCircle,
   AlertCircle,
@@ -33,7 +26,7 @@ import { Badge } from '@/components/ui/badge';
 
 import { Container } from '@/components/ui/container';
 import { AnimatedSection } from '@/components/ui/animated-section';
-import { toast } from 'sonner';
+import Image from 'next/image';
 
 interface BookingDetails {
   id: string;
@@ -101,9 +94,9 @@ export default function BookingDetailsPage() {
       return;
     }
     fetchBookingDetails();
-  }, [session, status, bookingId]);
+  }, [fetchBookingDetails, router, session, status]);
 
-  const fetchBookingDetails = async () => {
+  const fetchBookingDetails = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch(`/api/bookings/${bookingId}/details`);
@@ -127,7 +120,7 @@ export default function BookingDetailsPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [bookingId]);
 
   const getStatusColor = (status: string) => {
     switch (status.toLowerCase()) {
@@ -290,9 +283,11 @@ export default function BookingDetailsPage() {
                     {booking.dahabiya ? (
                       <>
                         {(booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0]) && (
-                          <img
+                          <Image
                             src={booking.dahabiya.mainImage || booking.dahabiya.gallery?.[0] || '/images/dahabiya-placeholder.jpg'}
                             alt={booking.dahabiya.name}
+                            width={200}
+                            height={200}
                             className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-lg"
                           />
                         )}
@@ -308,9 +303,11 @@ export default function BookingDetailsPage() {
                     ) : booking.package ? (
                       <>
                         {booking.package.mainImageUrl && (
-                          <img
+                          <Image
                             src={booking.package.mainImageUrl}
                             alt={booking.package.name}
+                            width={200}
+                            height={200}
                             className="w-full sm:w-24 h-48 sm:h-24 object-cover rounded-lg"
                           />
                         )}

@@ -36,6 +36,30 @@ import { Badge } from '@/components/ui/badge';
 import { toast } from 'sonner';
 import { useContent } from '@/hooks/useContent';
 import Image from 'next/image';
+import { LucideIcon } from 'lucide-react';
+
+interface Dahabiya {
+  id: string;
+  name: string;
+  slug?: string;
+  active?: boolean;
+}
+
+interface Package {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
+interface Itinerary {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
+interface ApiResponse<T> {
+  [key: string]: T[];
+}
 
 const LANGUAGES = [
   { code: 'en', label: '🇺🇸 English', flag: '🇺🇸', name: 'English' },
@@ -57,7 +81,7 @@ interface MobileNavigationProps {
 interface NavItem {
   href: string;
   label: string;
-  icon: any;
+  icon: LucideIcon;
   hieroglyph?: string;
   hasDropdown?: boolean;
   dropdownItems?: Array<{
@@ -149,7 +173,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(data => {
         if (data && Array.isArray(data.dahabiyas)) {
           const hieroglyphs = ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'];
-          const items = data.dahabiyas.map((boat: any, index: number) => {
+          const items = data.dahabiyas.map((boat: Dahabiya, index: number) => {
             const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓇳';
             return {
               href: `/dahabiyas/${boat.slug || generateSlugFromName(boat.name)}`,
@@ -176,7 +200,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(data => {
         if (data && Array.isArray(data.packages)) {
           const hieroglyphs = ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'];
-          const items = data.packages.map((pkg: any, index: number) => {
+          const items = data.packages.map((pkg: Package, index: number) => {
             const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓇳';
             return {
               href: `/packages/${pkg.slug || pkg.id}`,
@@ -203,7 +227,7 @@ export default function MobileNavigation({ isOpen, onToggle }: MobileNavigationP
       .then(data => {
         if (data && Array.isArray(data)) {
           const hieroglyphs = ['𓋖', '𓊪', '𓈖', '𓂀', '𓏏'];
-          const items = data.map((itinerary: any, index: number) => {
+          const items = data.map((itinerary: Itinerary, index: number) => {
             const hieroglyph = hieroglyphs[index % hieroglyphs.length] || '𓋖';
             return {
               href: `/itineraries/${itinerary.slug || itinerary.id}`,

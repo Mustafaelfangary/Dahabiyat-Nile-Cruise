@@ -100,7 +100,7 @@ export function generateSEO(config: SEOConfig = {}): Metadata {
         }
       ],
       locale: 'en_US',
-      type: type as any,
+      type: type,
       ...(publishedTime && { publishedTime }),
       ...(modifiedTime && { modifiedTime }),
       ...(author && { authors: [author] }),

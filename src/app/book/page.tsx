@@ -36,7 +36,7 @@ export default function BookPage() {
       } else {
         setMessage(result.error || 'Failed to save booking.');
       }
-    } catch (err) {
+    } catch {
       setMessage('An error occurred. Please try again.');
     } finally {
       setIsSubmitting(false);

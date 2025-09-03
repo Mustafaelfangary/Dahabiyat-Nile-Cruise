@@ -4,7 +4,6 @@ import { useSession } from 'next-auth/react';
 import { redirect } from 'next/navigation';
 import EnhancedBookingManager from '@/components/admin/EnhancedBookingManager';
 import NotificationCenter from '@/components/admin/NotificationCenter';
-import { Container } from '@/components/ui/container';
 import { AnimatedSection } from '@/components/ui/animated-section';
 
 export default function AdminBookingsPage() {

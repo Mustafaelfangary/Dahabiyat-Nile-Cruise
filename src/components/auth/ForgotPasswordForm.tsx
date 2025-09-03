@@ -66,10 +66,10 @@ export default function ForgotPasswordForm({ onBack, className = '' }: ForgotPas
         <CardContent className="space-y-4">
           <div className="text-center space-y-4">
             <p className="text-gray-600">
-              We've sent a password reset link to <strong>{email}</strong>
+              We&apos;ve sent a password reset link to <strong>{email}</strong>
             </p>
             <p className="text-sm text-gray-500">
-              If you don't see the email in your inbox, please check your spam folder.
+              If you don&apos;t see the email in your inbox, please check your spam folder.
               The link will expire in 1 hour.
             </p>
           </div>
@@ -116,7 +116,7 @@ export default function ForgotPasswordForm({ onBack, className = '' }: ForgotPas
           Forgot Password?
         </CardTitle>
         <p className="text-gray-600 mt-2">
-          Enter your email address and we'll send you a link to reset your password.
+          Enter your email address and we&apos;ll send you a link to reset your password.
         </p>
       </CardHeader>
       <CardContent>

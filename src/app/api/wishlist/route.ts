@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { prisma } from '@/lib/prisma';
 
 export async function GET(request: NextRequest) {
   try {
@@ -12,7 +11,6 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url);
     const userId = searchParams.get('userId') || session.user.id;
-    const limit = searchParams.get('limit') ? parseInt(searchParams.get('limit')!) : undefined;
 
     // Only allow users to access their own wishlist unless they're admin
     if (userId !== session.user.id && session.user.role !== 'ADMIN') {
@@ -21,7 +19,7 @@ export async function GET(request: NextRequest) {
 
     // Since the Wishlist model doesn't exist in the current schema,
     // return an empty wishlist for now
-    const wishlistItems: any[] = [];
+    const wishlistItems: unknown[] = [];
 
     // TODO: Implement wishlist functionality when the model is added
     // const wishlistItems = await prisma.wishlist.findMany({
@@ -160,7 +158,7 @@ export async function DELETE(request: NextRequest) {
     const body = await request.json();
     const { dahabiyaId, packageId, itemId } = body;
 
-    let whereClause: any = { userId: session.user.id };
+    const whereClause: Record<string, unknown> = { userId: session.user.id };
 
     if (itemId) {
       whereClause.id = itemId;

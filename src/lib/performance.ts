@@ -1,4 +1,27 @@
 import { NextRequest, NextResponse } from 'next/server';
+import React from 'react';
+
+// Performance metric interfaces
+interface WebVitalMetric {
+  name: string;
+  value: number;
+  id: string;
+  delta?: number;
+}
+
+interface PerformanceMetrics {
+  avg: number;
+  min: number;
+  max: number;
+  count: number;
+}
+
+// Window extension for gtag
+declare global {
+  interface Window {
+    gtag?: (...args: unknown[]) => void;
+  }
+}
 
 // Cache configuration
 export const cacheConfig = {
@@ -123,8 +146,8 @@ export class PerformanceMonitor {
     };
   }
 
-  getAllMetrics(): Record<string, { avg: number; min: number; max: number; count: number }> {
-    const result: Record<string, any> = {};
+  getAllMetrics(): Record<string, PerformanceMetrics> {
+    const result: Record<string, PerformanceMetrics> = {};
     
     for (const [label] of this.metrics) {
       const metrics = this.getMetrics(label);
@@ -149,7 +172,7 @@ export function optimizeQuery<T>(
 }
 
 // Lazy loading utility for components
-export function createLazyComponent<T extends React.ComponentType<any>>(
+export function createLazyComponent<T extends React.ComponentType<Record<string, unknown>>>(
   importFn: () => Promise<{ default: T }>,
   fallback?: React.ComponentType
 ) {
@@ -196,7 +219,7 @@ export const bundleOptimization = {
 };
 
 // Web Vitals tracking
-export function trackWebVitals(metric: any) {
+export function trackWebVitals(metric: WebVitalMetric) {
   // Send to analytics service
   if (typeof window !== 'undefined' && window.gtag) {
     window.gtag('event', metric.name, {
@@ -207,8 +230,6 @@ export function trackWebVitals(metric: any) {
       non_interaction: true,
     });
   }
-  
-
 }
 
 // Compression utilities
@@ -311,6 +332,3 @@ export const performanceBudget = {
     };
   }
 };
-
-// React import for lazy loading
-import React from 'react';

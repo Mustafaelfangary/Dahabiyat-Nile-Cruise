@@ -5,16 +5,14 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Container, Typography, Chip, Divider } from '@mui/material';
+import { Container, Typography, Chip } from '@mui/material';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { Calendar, User, Clock, ArrowLeft, Tag, Share2 } from 'lucide-react';
 import {
   HieroglyphicText,
-  EgyptianBorder,
   PharaohCard,
   FloatingEgyptianElements,
   EgyptianPatternBackground,
-  RoyalCrown,
   PharaohButton,
   HieroglyphicDivider,
 } from '@/components/ui/pharaonic-elements';

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 import { useSession } from 'next-auth/react';
 import { useParams } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -10,7 +11,6 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
 import { 
   MapPin, 
   Save, 
@@ -18,17 +18,10 @@ import {
   Plus, 
   Trash2,
   Calendar,
-  Users,
   Star,
-  Clock,
   Camera,
   Video,
   Upload,
-  Eye,
-  Sunrise,
-  Sun,
-  Sunset,
-  Moon,
   Utensils,
   Ship,
   Crown,
@@ -49,6 +42,28 @@ interface ItineraryDay {
   videoUrl: string;
   highlights: string[];
   optionalTours: string[];
+}
+
+interface ApiItineraryDay {
+  id?: string;
+  dayNumber: number;
+  title: string;
+  description: string;
+  location: string;
+  activities: string[];
+  meals: string[];
+  images: string[];
+  videoUrl?: string;
+  highlights: string[];
+  optionalTours: string[];
+}
+
+interface ApiPricingTier {
+  id?: string;
+  category: string;
+  paxRange: string;
+  price: number;
+  singleSupplement: number;
 }
 
 interface PricingTier {
@@ -135,7 +150,7 @@ export default function EditItineraryPage() {
 
       // Populate days
       if (itinerary.days?.length) {
-        setDays(itinerary.days.map((day: any) => ({
+        setDays(itinerary.days.map((day: ApiItineraryDay) => ({
           id: day.id,
           dayNumber: day.dayNumber,
           title: day.title || '',
@@ -165,7 +180,7 @@ export default function EditItineraryPage() {
 
       // Populate pricing tiers
       if (itinerary.pricingTiers?.length) {
-        setPricingTiers(itinerary.pricingTiers.map((tier: any) => ({
+        setPricingTiers(itinerary.pricingTiers.map((tier: ApiPricingTier) => ({
           id: tier.id,
           category: tier.category,
           paxRange: tier.paxRange,
@@ -216,7 +231,7 @@ export default function EditItineraryPage() {
     }
   };
 
-  const updateDay = (dayIndex: number, field: keyof ItineraryDay, value: any) => {
+  const updateDay = (dayIndex: number, field: keyof ItineraryDay, value: string | string[]) => {
     const updatedDays = [...days];
     updatedDays[dayIndex] = { ...updatedDays[dayIndex], [field]: value };
     setDays(updatedDays);
@@ -252,17 +267,12 @@ export default function EditItineraryPage() {
     }
   };
 
-  const updatePricingTier = (tierIndex: number, field: keyof PricingTier, value: any) => {
+  const updatePricingTier = (tierIndex: number, field: keyof PricingTier, value: string | number) => {
     const updatedTiers = [...pricingTiers];
     updatedTiers[tierIndex] = { ...updatedTiers[tierIndex], [field]: value };
     setPricingTiers(updatedTiers);
   };
 
-  const updateArrayItem = (dayIndex: number, field: 'activities' | 'highlights' | 'optionalTours', itemIndex: number, value: string) => {
-    const updatedDays = [...days];
-    updatedDays[dayIndex][field][itemIndex] = value;
-    setDays(updatedDays);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -305,26 +315,6 @@ export default function EditItineraryPage() {
     }
   };
 
-  const updateArrayField = (field: 'highlights' | 'included' | 'notIncluded', index: number, value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: prev[field].map((item, i) => i === index ? value : item)
-    }));
-  };
-
-  const addArrayField = (field: 'highlights' | 'included' | 'notIncluded') => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: [...prev[field], '']
-    }));
-  };
-
-  const removeArrayField = (field: 'highlights' | 'included' | 'notIncluded', index: number) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: prev[field].filter((_, i) => i !== index)
-    }));
-  };
 
   if (status === 'loading' || loadingData) {
     return (
@@ -354,13 +344,13 @@ export default function EditItineraryPage() {
       <div className="container mx-auto py-8">
         {/* Pharaonic Header */}
         <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
-          <a
+          <Link
             href="/admin/itineraries"
             className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
           >
             <ArrowLeft className="w-5 h-5" />
             Return to Sacred Journeys
-          </a>
+          </Link>
           <div className="flex items-center gap-4">
             <Crown className="w-10 h-10 text-amber-200" />
             <div>

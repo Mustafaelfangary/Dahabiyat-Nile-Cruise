@@ -116,7 +116,7 @@ export default function HomepageContentSync() {
       const existingContent = data.content || [];
       
       const updatedFields = expectedContent.map(expected => {
-        const existing = existingContent.find((c: any) => c.key === expected.key);
+        const existing = existingContent.find((c: { key: string; content?: string }) => c.key === expected.key);
         
         if (!existing) {
           return { ...expected, status: 'missing' as const };
@@ -285,7 +285,7 @@ export default function HomepageContentSync() {
 
         {contentFields.length === 0 && !loading && (
           <div className="text-center py-8 text-gray-500">
-            Click "Check Status" to analyze homepage content
+            Click &ldquo;Check Status&rdquo; to analyze homepage content
           </div>
         )}
       </CardContent>

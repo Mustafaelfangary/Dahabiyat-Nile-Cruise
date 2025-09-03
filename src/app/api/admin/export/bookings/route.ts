@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const format = searchParams.get('format') || 'excel';
 
     // Build where clause
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     if (status) {
       where.status = status;
@@ -32,7 +32,7 @@ export async function GET(request: NextRequest) {
     if (dateRange) {
       const now = new Date();
       let startDate: Date;
-      let endDate: Date = now;
+      const endDate: Date = now;
 
       switch (dateRange) {
         case 'today':
@@ -103,7 +103,7 @@ export async function GET(request: NextRequest) {
     }));
 
     // Generate Excel file
-    const buffer = await exportBookingsToExcel(formattedBookings as any);
+    const buffer = await exportBookingsToExcel(formattedBookings as Array<Record<string, unknown>>);
 
     const filename = `bookings-export-${new Date().toISOString().split('T')[0]}.xlsx`;
 

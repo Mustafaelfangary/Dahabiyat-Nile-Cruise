@@ -16,11 +16,18 @@ import {
   Star,
   Clock
 } from 'lucide-react';
+     
+interface GuideStats {
+  upcomingTours?: number;
+  totalGuests?: number;
+  completedTours?: number;
+  averageRating?: number;
+}
 
 export default function GuideDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<GuideStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -206,7 +213,7 @@ export default function GuideDashboard() {
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
               <Clock className="w-5 h-5" />
-              <span>Today's Schedule</span>
+              <span>Today&apos;s Schedule</span>
             </CardTitle>
           </CardHeader>
           <CardContent>

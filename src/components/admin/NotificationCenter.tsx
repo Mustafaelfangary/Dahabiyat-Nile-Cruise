@@ -28,7 +28,7 @@ interface Notification {
   type: string;
   title: string;
   message: string;
-  data?: any;
+  data?: Record<string, unknown>;
   read: boolean;
   createdAt: string;
   userId: string;
@@ -179,7 +179,7 @@ export default function NotificationCenter({ className }: NotificationCenterProp
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
             <select
               value={filter}
-              onChange={(e) => setFilter(e.target.value as any)}
+              onChange={(e) => setFilter(e.target.value as 'all' | 'unread' | 'bookings' | 'availability')}
               className="text-sm border rounded px-3 py-1.5 bg-white min-w-[120px]"
             >
               <option value="all">All</option>

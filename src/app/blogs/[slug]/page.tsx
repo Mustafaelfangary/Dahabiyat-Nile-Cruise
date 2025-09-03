@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, notFound } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -8,6 +8,7 @@ import { Calendar, User, Clock, ChevronRight, Share2, BookOpen, Heart, ArrowLeft
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
 
 interface Blog {
   id: string;
@@ -30,7 +31,9 @@ interface Blog {
   updatedAt: string;
 }
 
-const PharaohButton = ({ children, className = '', ...props }: any) => (
+type PharaohButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { className?: string; children: ReactNode };
+
+const PharaohButton = ({ children, className = '', ...props }: PharaohButtonProps) => (
   <Button
     className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-deep-blue text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
@@ -40,7 +43,9 @@ const PharaohButton = ({ children, className = '', ...props }: any) => (
   </Button>
 );
 
-const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) => (
+type AnimatedSectionProps = { children: ReactNode; animation?: 'fade-up' | 'fade-left' | 'fade-right'; delay?: number };
+
+const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: AnimatedSectionProps) => (
   <motion.div
     initial={{ 
       opacity: 0, 
@@ -60,49 +65,60 @@ export default function BlogDetailPage() {
   const [blog, setBlog] = useState<Blog | null>(null);
   const [loading, setLoading] = useState(true);
   const [relatedBlogs, setRelatedBlogs] = useState<Blog[]>([]);
-  const [error, setError] = useState<string | null>(null);
-
+  
   useEffect(() => {
-    if (params.slug) {
-      fetchBlog();
-    }
+    if (!params.slug) return;
+
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`/api/blogs/${params.slug}`, {
+          cache: 'no-store',
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+          }
+        });
+
+        if (response.status === 404) {
+          notFound();
+          return;
+        }
+
+        if (response.ok) {
+          const data = await response.json();
+          setBlog(data);
+
+          // Fetch related blogs
+          if (data.category || data.tags.length > 0) {
+            try {
+              const r = await fetch('/api/blogs');
+              if (r.ok) {
+                const allBlogs = await r.json();
+                const related = allBlogs
+                  .filter((b: Blog) => b.id !== data.id)
+                  .filter((b: Blog) => 
+                    b.category === data.category || 
+                    b.tags.some((tag: string) => data.tags.includes(tag))
+                  )
+                  .slice(0, 3);
+                setRelatedBlogs(related);
+              }
+            } catch (e) {
+              console.error('Error fetching related blogs:', e);
+            }
+          }
+        } else {
+          console.error('Failed to load blog post');
+        }
+      } catch (error) {
+        console.error('Error fetching blog:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, [params.slug]);
-
-  const fetchBlog = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      const response = await fetch(`/api/blogs/${params.slug}`, {
-        cache: 'no-store',
-        headers: {
-          'Cache-Control': 'no-cache, no-store, must-revalidate',
-        }
-      });
-
-      if (response.status === 404) {
-        notFound();
-        return;
-      }
-
-      if (response.ok) {
-        const data = await response.json();
-        setBlog(data);
-
-        // Fetch related blogs
-        if (data.category || data.tags.length > 0) {
-          fetchRelatedBlogs(data);
-        }
-      } else {
-        setError('Failed to load blog post');
-      }
-    } catch (error) {
-      console.error('Error fetching blog:', error);
-      setError('Failed to load blog post');
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const fetchRelatedBlogs = async (currentBlog: Blog) => {
     try {

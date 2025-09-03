@@ -68,7 +68,7 @@ export function AdminUsersScreen() {
   const handleRoleUpdate = (userId: string, newRole: string) => {
     setUsers(prevUsers => 
       prevUsers.map(user => 
-        user.id === userId ? { ...user, role: newRole as any } : user
+        user.id === userId ? { ...user, role: newRole as 'USER' | 'GUIDE' | 'MANAGER' | 'ADMIN' } : user
       )
     );
   };

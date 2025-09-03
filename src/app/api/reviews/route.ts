@@ -18,7 +18,7 @@ export async function GET(request: NextRequest) {
     const session = await getServerSession(authOptions);
     const isAdmin = session?.user?.role === "ADMIN";
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
 
     // Non-admin users can only see approved reviews (unless viewing their own)
     if (!isAdmin && !includeAll) {
@@ -240,7 +240,7 @@ export async function DELETE(request: NextRequest) {
     const { id } = await request.json();
 
     // Users can only delete their own reviews, admins can delete any
-    const where: any = { id };
+    const where: Record<string, unknown> = { id };
     if (session.user.role !== "ADMIN") {
       where.userId = session.user.id;
     }

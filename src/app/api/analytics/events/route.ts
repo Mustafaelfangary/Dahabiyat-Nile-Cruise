@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function processBusinessEvent(event: string, data: any, userId?: string) {
+async function processBusinessEvent(event: string, data: Record<string, unknown>, userId?: string) {
   try {
     switch (event) {
       case 'page_view':
@@ -74,7 +74,7 @@ async function processBusinessEvent(event: string, data: any, userId?: string) {
   }
 }
 
-async function trackPageView(data: any, userId?: string) {
+async function trackPageView(data: Record<string, unknown>, userId?: string) {
   if (!data.page) return; // Skip if page is undefined
 
   // Update page view statistics
@@ -91,7 +91,10 @@ async function trackPageView(data: any, userId?: string) {
 
   if (existing) {
     // Update existing record
-    const updateData: any = {
+    const updateData: {
+      views: { increment: number };
+      uniqueViews?: { increment: number };
+    } = {
       views: { increment: 1 }
     };
     if (userId) {
@@ -116,7 +119,7 @@ async function trackPageView(data: any, userId?: string) {
 
 }
 
-async function trackBookingConversion(data: any, userId?: string) {
+async function trackBookingConversion(data: Record<string, unknown>, userId?: string) {
   // Track conversion metrics
   await prisma.conversionStats.create({
     data: {
@@ -129,7 +132,7 @@ async function trackBookingConversion(data: any, userId?: string) {
   });
 }
 
-async function trackFormSubmission(data: any, userId?: string) {
+async function trackFormSubmission(data: Record<string, unknown>, userId?: string) {
   if (!data.label) return; // Skip if label is undefined
 
   const formId = String(data.label);
@@ -154,7 +157,7 @@ async function trackFormSubmission(data: any, userId?: string) {
   });
 }
 
-async function trackButtonClick(data: any, userId?: string) {
+async function trackButtonClick(data: Record<string, unknown>, userId?: string) {
   if (!data.label) return; // Skip if label is undefined
 
   const buttonId = String(data.label);
@@ -179,7 +182,7 @@ async function trackButtonClick(data: any, userId?: string) {
   });
 }
 
-async function trackSearch(data: any, userId?: string) {
+async function trackSearch(data: Record<string, unknown>, userId?: string) {
   // Track search queries
   await prisma.searchStats.create({
     data: {

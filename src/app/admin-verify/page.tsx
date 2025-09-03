@@ -100,7 +100,7 @@ export default function AdminVerifyPage() {
           </form>
           <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-lg">
             <p className="text-sm text-amber-800">
-              <strong>For testing only:</strong> Use admin key "admin-verify-2024" to verify admin emails.
+              <strong>For testing only:</strong> Use admin key &quot;admin-verify-2024&quot; to verify admin emails.
             </p>
           </div>
         </CardContent>

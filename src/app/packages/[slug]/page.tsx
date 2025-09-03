@@ -4,21 +4,18 @@ export const dynamic = "force-dynamic";
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
-import { Container, Typography, Box, Card, CardContent, Grid, Chip } from '@mui/material';
+import { Container, Typography, CardContent } from '@mui/material';
 import { AnimatedSection, StaggeredAnimation } from '@/components/ui/animated-section';
 import { Star, Users, Calendar, MapPin, Anchor, Crown, Sparkles, Ship, Award, Heart, Shield, Clock, Package as PackageIcon } from 'lucide-react';
 import Link from 'next/link';
 import {
   HieroglyphicText,
-  EgyptianBorder,
-  ObeliskContainer,
   PharaohCard,
   FloatingEgyptianElements,
   EgyptianPatternBackground,
   RoyalCrown,
-  PharaohButton,
   HieroglyphicDivider,
-  EgyptHieroglyphic
+  PharaohButton
 } from '@/components/ui/pharaonic-elements';
 import { PackageBookingForm } from '@/components/PackageBookingForm';
 
@@ -306,7 +303,7 @@ export default function IndividualPackagePage() {
                     <div className="flex items-center mb-6">
                       <Shield className="w-8 h-8 text-ocean-blue mr-3" />
                       <Typography variant="h5" className="font-bold text-ocean-blue">
-                        What's Included
+                        What&apos;s Included
                       </Typography>
                     </div>
 

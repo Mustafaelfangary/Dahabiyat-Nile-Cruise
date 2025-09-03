@@ -69,7 +69,12 @@ function determineSeverity(message: string, stack?: string): 'LOW' | 'MEDIUM' | 
   }
 }
 
-async function sendCriticalErrorNotification(errorReport: any) {
+async function sendCriticalErrorNotification(errorReport: {
+  id: string;
+  message: string;
+  stack?: string | null;
+  severity: string;
+}) {
   try {
     // Send email notification to admin
     const { sendEmail } = await import('@/lib/email');

@@ -7,9 +7,17 @@ import { Label } from '@/components/ui/label';
 import { toast } from 'sonner';
 import { Mail, Check, AlertCircle } from 'lucide-react';
 
+interface EmailFieldData {
+  key: string;
+  value: string;
+}
+
+interface EmailApiResponse {
+  fields: EmailFieldData[];
+}
+
 export default function EmailSetupPage() {
   const [adminEmail, setAdminEmail] = useState('');
-  const [loading, setLoading] = useState(false);
   const [testing, setTesting] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -22,7 +30,8 @@ export default function EmailSetupPage() {
       const response = await fetch('/api/website-content/email-notifications');
       if (response.ok) {
         const data = await response.json();
-        const emailField = data.fields?.find((f: any) => f.key === 'admin_email');
+        const apiResponse = data as EmailApiResponse;
+        const emailField = apiResponse.fields?.find((f: EmailFieldData) => f.key === 'admin_email');
         if (emailField) {
           setAdminEmail(emailField.value);
         }
@@ -204,10 +213,10 @@ export default function EmailSetupPage() {
               <div>
                 <h4 className="font-semibold text-text-primary mb-2">How It Works</h4>
                 <ul className="text-sm text-text-primary space-y-1">
-                  <li>• You'll receive an email immediately when any customer books a cruise or package</li>
+                  <li>• You&apos;ll receive an email immediately when any customer books a cruise or package</li>
                   <li>• Emails include complete booking details (customer info, dates, pricing)</li>
                   <li>• Notifications work for both dahabiya cruises and tour packages</li>
-                  <li>• Make sure to check your spam folder if you don't see test emails</li>
+                  <li>• Make sure to check your spam folder if you don&apos;t see test emails</li>
                 </ul>
               </div>
             </div>

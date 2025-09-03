@@ -23,7 +23,7 @@ export async function GET(request: NextRequest) {
     const status = searchParams.get("status");
     const isAdmin = session.user.role === "ADMIN";
 
-    const where: any = {};
+    const where: Record<string, unknown> = {};
     
     if (!isAdmin) {
       where.userId = session.user.id;
@@ -189,7 +189,7 @@ export async function DELETE(request: NextRequest) {
     const { id } = await request.json();
 
     // Users can only delete their own memories, admins can delete any
-    const where: any = { id };
+    const where = { id } as { id: string; userId?: string };
     if (session.user.role !== "ADMIN") {
       where.userId = session.user.id;
     }

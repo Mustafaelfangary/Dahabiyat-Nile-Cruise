@@ -111,7 +111,7 @@ const ProfileTabWrapper: React.FC<ProfileTabWrapperProps> = ({
     <div className="text-center py-12">
       <AlertCircle className="w-16 h-16 mx-auto mb-4 text-red-400" />
       <h3 className="text-xl font-semibold text-gray-800 mb-2">Unable to Load Content</h3>
-      <p className="text-gray-600 mb-6">We're having trouble loading this section. Please try again.</p>
+      <p className="text-gray-600 mb-6">We&apos;re having trouble loading this section. Please try again.</p>
       <Button 
         onClick={handleRetry}
         disabled={isRetrying}

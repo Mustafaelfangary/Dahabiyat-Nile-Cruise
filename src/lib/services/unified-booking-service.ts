@@ -30,7 +30,17 @@ export type BookingData = z.infer<typeof bookingSchema>;
 
 export interface BookingResult {
   success: boolean;
-  booking?: any;
+  booking?: {
+    id: string;
+    bookingReference: string;
+    type: string;
+    status: string;
+    startDate: Date;
+    endDate: Date;
+    guests: number;
+    totalPrice: number;
+    [key: string]: unknown;
+  };
   error?: string;
 }
 
@@ -46,7 +56,18 @@ export class CleanBookingService {
       // Use database transaction to ensure atomicity between availability check and booking creation
       const result = await prisma.$transaction(async (tx) => {
         // Verify the item exists and get details
-        let itemDetails: any = null;
+        let itemDetails: {
+          id: string;
+          name: string;
+          pricePerDay?: number;
+          price?: number;
+          capacity?: number;
+          maxGuests?: number;
+          isActive?: boolean;
+          mainImage?: string;
+          mainImageUrl?: string;
+          durationDays?: number;
+        } | null = null;
         if (validatedData.type === 'DAHABIYA' && validatedData.dahabiyaId) {
           itemDetails = await tx.dahabiya.findUnique({
             where: { id: validatedData.dahabiyaId },
@@ -544,7 +565,7 @@ export class CleanBookingService {
   /**
    * Send booking confirmation emails
    */
-  private static async sendBookingEmails(booking: any, itemDetails: any) {
+  private static async sendBookingEmails(booking: Record<string, unknown>, itemDetails: Record<string, unknown>) {
     try {
       console.log('📧 Sending booking confirmation emails...');
 
@@ -612,7 +633,7 @@ export class CleanBookingService {
   /**
    * Create admin notification in database
    */
-  private static async createAdminNotification(booking: any, itemDetails: any) {
+  private static async createAdminNotification(booking: Record<string, unknown>, itemDetails: Record<string, unknown>) {
     try {
       console.log('🔔 Creating admin notification for booking:', booking.bookingReference);
 
@@ -665,7 +686,7 @@ export class CleanBookingService {
   /**
    * Send status update email
    */
-  private static async sendStatusUpdateEmail(booking: any) {
+  private static async sendStatusUpdateEmail(booking: Record<string, unknown>) {
     try {
       const itemName = booking.dahabiya?.name || booking.package?.name;
       const startDate = new Date(booking.startDate).toLocaleDateString();
@@ -693,7 +714,7 @@ export class CleanBookingService {
   /**
    * Send cancellation email
    */
-  private static async sendCancellationEmail(booking: any) {
+  private static async sendCancellationEmail(booking: Record<string, unknown>) {
     try {
       const itemName = booking.dahabiya?.name || booking.package?.name;
 
@@ -719,7 +740,7 @@ export class CleanBookingService {
   /**
    * Send booking cancellation email
    */
-  private static async sendCancellationEmail(booking: any): Promise<void> {
+  private static async sendCancellationEmail(booking: Record<string, unknown>): Promise<void> {
     try {
       const itemName = booking.dahabiya?.name || booking.package?.name || 'Unknown Item';
 

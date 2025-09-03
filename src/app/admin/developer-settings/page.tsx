@@ -13,10 +13,7 @@ import {
   Code,
   Save,
   RefreshCw,
-  Phone,
-  Mail,
   Globe,
-  Image as ImageIcon,
   User,
   Building,
   AlertCircle
@@ -77,7 +74,7 @@ export default function DeveloperSettingsPage() {
         const data = await response.json();
         
         const newSettings = { ...settings };
-        data.forEach((item: any) => {
+        data.forEach((item: Record<string, unknown>) => {
           if (item.key.startsWith('footer_developer_') || item.key.startsWith('developer_')) {
             const key = item.key.replace('footer_', '') as keyof DeveloperSettings;
             newSettings[key] = item.content || item.mediaUrl || newSettings[key];

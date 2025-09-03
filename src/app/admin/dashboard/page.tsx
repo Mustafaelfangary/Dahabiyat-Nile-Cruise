@@ -11,18 +11,23 @@ import {
   Package, 
   Calendar, 
   TrendingUp, 
-  Eye, 
   Edit,
   BarChart3,
-  Settings,
   FileText,
   Ship
 } from 'lucide-react';
 
+interface DashboardStats {
+  totalUsers: number;
+  totalPackages: number;
+  totalBookings: number;
+  totalRevenue: number;
+}
+
 export default function ManagerDashboard() {
   const { data: session, status } = useSession();
   const router = useRouter();
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<DashboardStats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {

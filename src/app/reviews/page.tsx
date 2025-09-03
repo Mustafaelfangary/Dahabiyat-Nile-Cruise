@@ -245,7 +245,7 @@ export default function ReviewsPage() {
               <Filter className="w-4 h-4 text-amber-600" />
               <select
                 value={sortBy}
-                onChange={(e) => setSortBy(e.target.value as any)}
+                onChange={(e) => setSortBy(e.target.value as 'newest' | 'oldest' | 'rating')}
                 className="border border-amber-300 rounded-md px-3 py-2 bg-white text-amber-800 focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
               >
                 <option value="newest">Newest First</option>

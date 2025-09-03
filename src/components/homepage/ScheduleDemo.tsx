@@ -37,7 +37,7 @@ export default function ScheduleDemo({ dahabiyaName, className = '' }: ScheduleD
       const response = await fetch('/api/website-content?page=schedule-and-rates');
       if (response.ok) {
         const data = await response.json();
-        const scheduleContent = data.find((item: any) => item.key === 'schedule_table_data');
+        const scheduleContent = data.find((item: { key: string; content?: string }) => item.key === 'schedule_table_data');
         if (scheduleContent?.content) {
           const parsed = JSON.parse(scheduleContent.content);
           // Filter for specific dahabiya or show sample data

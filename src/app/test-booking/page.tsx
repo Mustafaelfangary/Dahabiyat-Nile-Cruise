@@ -3,7 +3,10 @@
 import { useState } from 'react';
 
 export default function TestBookingPage() {
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<{
+    error?: string;
+    [key: string]: unknown;
+  } | null>(null);
   const [loading, setLoading] = useState(false);
 
   const testAvailability = async () => {

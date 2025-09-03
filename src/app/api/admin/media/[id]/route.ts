@@ -1,8 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
-import { unlink } from 'fs/promises';
-import { join } from 'path';
 
 export async function DELETE(
   request: NextRequest,
@@ -14,7 +12,7 @@ export async function DELETE(
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    const { id } = await params;
+    await params; // params unused in mock implementation
 
     // In a real implementation, you would:
     // 1. Find the file record in the database

@@ -2,6 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
+interface WhatsAppSettingsField {
+  key: string;
+  value?: string;
+}
+
 interface WhatsAppSettings {
   enabled: boolean;
   phone: string;
@@ -38,13 +43,13 @@ export function useWhatsAppSettings() {
         
         // Convert API fields to settings object
         const apiSettings: WhatsAppSettings = {
-          enabled: data.fields?.find((f: any) => f.key === 'whatsapp_enabled')?.value === 'true',
-          phone: data.fields?.find((f: any) => f.key === 'whatsapp_phone')?.value || defaultSettings.phone,
-          message: data.fields?.find((f: any) => f.key === 'whatsapp_message')?.value || defaultSettings.message,
-          position: data.fields?.find((f: any) => f.key === 'whatsapp_position')?.value || defaultSettings.position,
-          delay: parseInt(data.fields?.find((f: any) => f.key === 'whatsapp_delay')?.value || '1'),
-          businessHours: data.fields?.find((f: any) => f.key === 'whatsapp_business_hours')?.value || defaultSettings.businessHours,
-          offlineMessage: data.fields?.find((f: any) => f.key === 'whatsapp_offline_message')?.value || defaultSettings.offlineMessage
+          enabled: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_enabled')?.value === 'true',
+          phone: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_phone')?.value || defaultSettings.phone,
+          message: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_message')?.value || defaultSettings.message,
+          position: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_position')?.value || defaultSettings.position,
+          delay: parseInt(data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_delay')?.value || '1'),
+          businessHours: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_business_hours')?.value || defaultSettings.businessHours,
+          offlineMessage: data.fields?.find((f: WhatsAppSettingsField) => f.key === 'whatsapp_offline_message')?.value || defaultSettings.offlineMessage
         };
         
         setSettings(apiSettings);

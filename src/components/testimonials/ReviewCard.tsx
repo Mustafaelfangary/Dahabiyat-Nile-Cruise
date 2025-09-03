@@ -112,7 +112,7 @@ export function ReviewCard({ review }: ReviewCardProps) {
           className="text-gray-700 mb-4 text-center italic"
           style={{ minHeight: '4.5rem' }}
         >
-          "{review.comment}"
+          &quot;{review.comment}&quot;
         </Typography>
 
         {/* Review Details */}

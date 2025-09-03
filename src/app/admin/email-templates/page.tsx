@@ -21,11 +21,12 @@ import {
   Send,
   Save,
   RefreshCw,
-  Crown,
-  Ship,
-  Package,
-  Shield,
-  Bell,
+  // Removed unused icons
+  // Crown,
+  // Ship,
+  // Package,
+  // Shield,
+  // Bell,
   Edit3,
   Code,
   Palette

@@ -11,10 +11,11 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { FileText, Save, ArrowLeft, Plus, Trash2, Eye } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 import MediaPicker from '@/components/admin/MediaPicker';
 
 export default function NewBlogPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -116,13 +117,13 @@ export default function NewBlogPage() {
     <div className="min-h-screen bg-white">
       <div className="container mx-auto py-10">
         <div className="flex items-center gap-4 mb-8">
-          <a
+          <Link
             href="/admin/blogs"
             className="inline-flex items-center gap-2 bg-ocean-blue hover:bg-blue-600 text-black font-bold py-2 px-4 rounded transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Blogs
-          </a>
+          </Link>
           <h1 className="text-3xl font-bold text-amber-800">Create New Blog</h1>
         </div>
 

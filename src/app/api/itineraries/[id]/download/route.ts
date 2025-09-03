@@ -48,7 +48,20 @@ export async function GET(
   }
 }
 
-function generateItineraryHTML(itinerary: any): string {
+function generateItineraryHTML(itinerary: {
+  id: string;
+  name: string | null;
+  durationDays?: number | null;
+  price?: number | null;
+  shortDescription?: string | null;
+  description?: string | null;
+  highlights?: string[];
+  included?: string[];
+  notIncluded?: string[];
+  childrenPolicy?: string | null;
+  cancellationPolicy?: string | null;
+  observations?: string | null;
+}): string {
   return `
 <!DOCTYPE html>
 <html lang="en">

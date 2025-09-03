@@ -3,19 +3,11 @@ export const dynamic = "force-dynamic";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
-import { Container, Typography, Grid, Card, CardContent, CardMedia, Chip } from '@mui/material';
+import { Container, Typography } from '@mui/material';
 import { AnimatedSection, StaggeredAnimation } from '@/components/ui/animated-section';
-import { Calendar, User, Clock, Eye, Tag } from 'lucide-react';
 import {
-  HieroglyphicText,
-  EgyptianBorder,
-  PharaohCard,
   FloatingEgyptianElements,
   EgyptianPatternBackground,
-  RoyalCrown,
-  PharaohButton,
-  HieroglyphicDivider,
 } from '@/components/ui/pharaonic-elements';
 import { BlogCard } from '@/components/blog';
 
@@ -164,7 +156,7 @@ export default function BlogListingPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {featuredPosts.slice(0, 3).map((post, index) => (
+                {featuredPosts.slice(0, 3).map((post) => (
                   <div key={post.id}>
                     <StaggeredAnimation>
                       <BlogCard post={post} />
@@ -194,7 +186,7 @@ export default function BlogListingPage() {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {posts.map((post, index) => (
+              {posts.map((post) => (
                 <div key={post.id}>
                   <StaggeredAnimation>
                     <BlogCard post={post} />

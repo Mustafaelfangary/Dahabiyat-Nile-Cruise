@@ -278,7 +278,7 @@ export async function POST(request: NextRequest) {
           update: {
             title: content.title,
             content: content.content,
-            contentType: content.contentType as any,
+            contentType: content.contentType as 'TEXT' | 'TEXTAREA' | 'IMAGE' | 'VIDEO' | 'RICH_TEXT' | 'JSON',
             page: content.page,
             section: content.section,
             order: content.order,
@@ -288,7 +288,7 @@ export async function POST(request: NextRequest) {
             key: content.key,
             title: content.title,
             content: content.content,
-            contentType: content.contentType as any,
+            contentType: content.contentType as 'TEXT' | 'TEXTAREA' | 'IMAGE' | 'VIDEO' | 'RICH_TEXT' | 'JSON',
             page: content.page,
             section: content.section,
             order: content.order,

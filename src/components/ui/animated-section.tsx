@@ -37,7 +37,7 @@ export const AnimatedSection = forwardRef<HTMLDivElement, AnimatedSectionProps>(
 
     return (
       <div
-        ref={forwardedRef || (ref as any)}
+        ref={forwardedRef || ref}
         className={cn(
           'transition-all duration-300',
           isVisible ? animationClasses[animation] : 'opacity-0',
@@ -75,7 +75,7 @@ export function StaggeredAnimation({
   const { ref, isVisible } = useScrollAnimation({ threshold });
 
   return (
-    <div ref={ref as any} className={className}>
+    <div ref={ref} className={className}>
       {children.map((child, index) => (
         <AnimatedSection
           key={index}
@@ -120,7 +120,7 @@ export function ParallaxElement({ children, className, speed = 0.5 }: ParallaxEl
 
   return (
     <div
-      ref={ref as any}
+      ref={ref}
       className={className}
       style={{
         transform: `translateY(${offset}px)`,

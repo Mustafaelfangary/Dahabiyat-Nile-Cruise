@@ -245,7 +245,7 @@ export async function POST(request: NextRequest) {
     if (Array.isArray(duplicates) && duplicates.length > 0) {
       console.log(`🗑️ Found ${duplicates.length} duplicate keys, cleaning up...`);
       
-      for (const dup of duplicates as any[]) {
+      for (const dup of duplicates as Array<{ key: string; count: number }>) {
         // Keep the most recent entry, delete others
         const entries = await prisma.websiteContent.findMany({
           where: { key: dup.key },

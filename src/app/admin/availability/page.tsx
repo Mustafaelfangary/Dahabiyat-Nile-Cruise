@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
-import { Calendar, Check, X, Plus, Edit3, Save, ArrowLeft } from 'lucide-react';
+import { Calendar, Check, X, Plus, Edit3, ArrowLeft } from 'lucide-react';
 import {
   Typography,
   Container,
@@ -14,9 +14,7 @@ import {
   FormControl,
   InputLabel,
   Alert,
-  Box,
   Chip,
-  IconButton,
   CircularProgress
 } from '@mui/material';
 import { AnimatedSection } from '@/components/ui/animated-section';
@@ -27,6 +25,19 @@ interface Dahabiya {
   id: string;
   name: string;
   pricePerDay: number;
+}
+
+interface Package {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface PackageAvailability {
+  id: string;
+  date: string;
+  available: boolean;
+  packageId: string;
 }
 
 interface AvailabilityDate {
@@ -50,36 +61,12 @@ export default function AvailabilityManagement() {
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [viewMode, setViewMode] = useState<'dahabiya' | 'package'>('dahabiya');
-  const [packages, setPackages] = useState<any[]>([]);
-  const [selectedPackage, setSelectedPackage] = useState('');
-  const [packageAvailability, setPackageAvailability] = useState<any[]>([]);
 
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') {
       fetchDahabiyat();
-      fetchPackages();
     }
   }, [session]);
-
-  const fetchPackages = async () => {
-    try {
-      const response = await fetch('/api/packages');
-      if (response.ok) {
-        const data = await response.json();
-        setPackages(data.packages || []);
-      }
-    } catch (error) {
-      console.error('Error fetching packages:', error);
-    }
-  };
-
-  useEffect(() => {
-    if (selectedDahabiya && viewMode === 'dahabiya') {
-      fetchAvailability();
-    } else if (viewMode === 'package') {
-      fetchPackageAvailability();
-    }
-  }, [selectedDahabiya, currentMonth, currentYear, viewMode]);
 
   const fetchDahabiyat = async () => {
     try {
@@ -104,7 +91,7 @@ export default function AvailabilityManagement() {
     }
   };
 
-  const fetchAvailability = async () => {
+  const fetchAvailability = useCallback(async () => {
     if (!selectedDahabiya) return;
 
     console.log('🔄 Fetching availability for:', { selectedDahabiya, currentMonth, currentYear });
@@ -127,22 +114,15 @@ export default function AvailabilityManagement() {
     } catch (error) {
       console.error('Error fetching availability:', error);
     }
-  };
+  }, [selectedDahabiya, currentMonth, currentYear]);
 
-  const fetchPackageAvailability = async () => {
-    try {
-      const response = await fetch(
-        `/api/package-availability?packageId=all-packages&month=${currentMonth}&year=${currentYear}`
-      );
 
-      if (response.ok) {
-        const data = await response.json();
-        setPackageAvailability(data.dahabiyatCalendars || []);
-      }
-    } catch (error) {
-      console.error('Error fetching package availability:', error);
+
+  useEffect(() => {
+    if (selectedDahabiya && viewMode === 'dahabiya') {
+      fetchAvailability();
     }
-  };
+  }, [selectedDahabiya, viewMode, fetchAvailability]);
 
   const toggleAvailability = async (dateId: string, currentAvailable: boolean) => {
     setSaving(true);
@@ -604,7 +584,7 @@ export default function AvailabilityManagement() {
                     • Click on any date to toggle availability
                   </Typography>
                   <Typography variant="body2" className="text-text-primary">
-                    • Use "Add Missing Dates" to create availability for the entire month
+                    • Use &quot;Add Missing Dates&quot; to create availability for the entire month
                   </Typography>
                 </div>
               </div>

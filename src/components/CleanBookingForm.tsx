@@ -9,6 +9,24 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Calendar, Users, Ship, Package, Clock, DollarSign, CheckCircle, XCircle, Loader2 } from "lucide-react";
 
+interface BookingResult {
+  bookingReference: string;
+  id: string;
+  totalPrice: number;
+  status: string;
+  startDate: string;
+  endDate: string;
+  guests: number;
+}
+
+interface AvailabilityResult {
+  isAvailable: boolean;
+  totalPrice: number;
+  message?: string;
+  availableSlots?: number;
+  conflictDates?: string[];
+}
+
 interface CleanBookingFormProps {
   type: 'DAHABIYA' | 'PACKAGE';
   itemId: string;
@@ -16,7 +34,7 @@ interface CleanBookingFormProps {
   basePrice: number;
   maxGuests?: number;
   durationDays?: number;
-  onBookingSuccess?: (booking: any) => void;
+  onBookingSuccess?: (booking: BookingResult) => void;
 }
 
 interface GuestDetail {
@@ -56,7 +74,7 @@ export default function CleanBookingForm({
   // UI state
   const [loading, setLoading] = useState(false);
   const [checkingAvailability, setCheckingAvailability] = useState(false);
-  const [availabilityResult, setAvailabilityResult] = useState<any>(null);
+  const [availabilityResult, setAvailabilityResult] = useState<AvailabilityResult | null>(null);
   const [totalPrice, setTotalPrice] = useState(0);
 
   // Auto-calculate end date for packages

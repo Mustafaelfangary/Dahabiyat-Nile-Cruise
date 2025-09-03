@@ -11,7 +11,7 @@ import { toast } from 'react-hot-toast';
 import TableDataEditor from '@/components/admin/TableDataEditor';
 
 interface TableRow {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export default function ScheduleRatesAdminPage() {
@@ -238,10 +238,10 @@ export default function ScheduleRatesAdminPage() {
           <h3 className="font-semibold text-gray-900">Quick Tips</h3>
         </div>
         <ul className="text-gray-700 text-sm space-y-1">
-          <li>• Click "Edit" on any row to modify individual fields</li>
-          <li>• Use "Add Row" to create new schedule entries or rate categories</li>
-          <li>• For inclusions, click "Add Inclusions" to add multiple items</li>
-          <li>• All changes are saved automatically when you click "Save Changes"</li>
+          <li>• Click &quot;Edit&quot; on any row to modify individual fields</li>
+          <li>• Use &quot;Add Row&quot; to create new schedule entries or rate categories</li>
+          <li>• For inclusions, click &quot;Add Inclusions&quot; to add multiple items</li>
+          <li>• All changes are saved automatically when you click &quot;Save Changes&quot;</li>
           <li>• Changes appear immediately on the public website</li>
         </ul>
       </div>

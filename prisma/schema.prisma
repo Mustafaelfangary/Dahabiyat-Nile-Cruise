@@ -754,6 +754,7 @@ model Dahabiya {
   // Media
   mainImage   String?
   gallery     String[] // Array of image URLs
+  specificationsImage String? // URL to specifications/floor plan image
   videoUrl    String?
   virtualTourUrl String?
 

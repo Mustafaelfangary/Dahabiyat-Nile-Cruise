@@ -77,7 +77,12 @@ interface Booking {
     mainImageUrl?: string;
     price: number;
   };
-  guestDetails?: any[];
+  guestDetails?: {
+    name?: string;
+    email?: string;
+    age?: number;
+    passportNumber?: string;
+  }[];
 }
 
 interface BookingFilters {

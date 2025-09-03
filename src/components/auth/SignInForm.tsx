@@ -158,7 +158,7 @@ export default function SignInForm() {
         </Button>
 
         <div className="text-sm text-center">
-          Don't have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link 
             href="/auth/signup"
             className="text-primary hover:text-primary-dark"

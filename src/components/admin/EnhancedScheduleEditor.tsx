@@ -73,7 +73,7 @@ export default function EnhancedScheduleEditor({ contentKey, title, initialData,
       const response = await fetch('/api/dahabiyas');
       if (response.ok) {
         const dahabiyasData = await response.json();
-        const names = dahabiyasData.map((d: any) => d.name);
+        const names = dahabiyasData.map((d: { name: string }) => d.name);
         setDahabiyas([...SAMPLE_DAHABIYAS, ...names]);
       }
     } catch (error) {

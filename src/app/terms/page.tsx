@@ -14,7 +14,11 @@ import {
 } from '@/components/ui/pharaonic-elements';
 
 export default function TermsPage() {
-  const [termsContent, setTermsContent] = useState<any>(null);
+  const [termsContent, setTermsContent] = useState<{
+    title: string;
+    content: string;
+    lastUpdated: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

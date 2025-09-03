@@ -4,22 +4,34 @@ import * as React from "react"
 import { cn } from "@/lib/utils"
 
 // Try to import Radix UI Progress, fallback to custom implementation
-let ProgressPrimitive: any;
+interface ProgressPrimitive {
+  Root: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & React.RefAttributes<HTMLDivElement>>;
+  Indicator: React.ForwardRefExoticComponent<React.HTMLAttributes<HTMLDivElement> & { style?: React.CSSProperties } & React.RefAttributes<HTMLDivElement>>;
+}
+
+let ProgressPrimitive: ProgressPrimitive;
 try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   ProgressPrimitive = require("@radix-ui/react-progress");
-} catch (error) {
+} catch {
   // Fallback implementation if Radix UI is not available
-  ProgressPrimitive = {
-    Root: React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-      ({ className, ...props }, ref) => (
-        <div ref={ref} className={className} {...props} />
-      )
-    ),
-    Indicator: React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { style?: React.CSSProperties }>(
-      ({ className, style, ...props }, ref) => (
-        <div ref={ref} className={className} style={style} {...props} />
-      )
+  const ProgressRoot = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
+    ({ className, ...props }, ref) => (
+      <div ref={ref} className={className} {...props} />
     )
+  );
+  ProgressRoot.displayName = "ProgressRoot";
+  
+  const ProgressIndicator = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement> & { style?: React.CSSProperties }>(
+    ({ className, style, ...props }, ref) => (
+      <div ref={ref} className={className} style={style} {...props} />
+    )
+  );
+  ProgressIndicator.displayName = "ProgressIndicator";
+  
+  ProgressPrimitive = {
+    Root: ProgressRoot,
+    Indicator: ProgressIndicator
   };
 }
 

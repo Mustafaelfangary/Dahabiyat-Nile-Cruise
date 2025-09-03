@@ -8,6 +8,28 @@ import { Badge } from '@/components/ui/badge';
 import { MapPin, Plus, Edit, Trash2, Eye, Calendar, Users, Star, Download, RefreshCw, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
 
+interface ItineraryDay {
+  id: string;
+  dayNumber: number;
+  title: string;
+  description: string;
+  location: string;
+  activities: string[];
+  meals: string[];
+  images: string[];
+  videoUrl?: string;
+  highlights: string[];
+  optionalTours: string[];
+}
+
+interface PricingTier {
+  id: string;
+  category: string;
+  paxRange: string;
+  price: number;
+  singleSupplement: number;
+}
+
 interface Itinerary {
   id: string;
   name: string;
@@ -23,8 +45,8 @@ interface Itinerary {
   featured: boolean;
   createdAt: string;
   updatedAt: string;
-  days: any[];
-  pricingTiers: any[];
+  days: ItineraryDay[];
+  pricingTiers: PricingTier[];
 }
 
 export default function ItinerariesManagementPage() {

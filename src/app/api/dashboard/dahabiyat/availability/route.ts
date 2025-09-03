@@ -146,7 +146,10 @@ export async function PATCH(request: NextRequest) {
     }
 
     // Update the availability date
-    const updateData: any = { available };
+    const updateData: {
+      available: boolean;
+      price?: number;
+    } = { available };
     if (price !== undefined) {
       updateData.price = price;
     }

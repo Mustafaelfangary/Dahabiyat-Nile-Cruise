@@ -95,12 +95,12 @@ export async function POST(request: Request) {
         durationDays,
         mainImageUrl,
         itineraryDays: {
-          create: (itineraryDays || []).map((day: any, idx: number) => ({
+          create: (itineraryDays || []).map((day: { title: string; description: string; images?: { url: string; alt?: string }[] }, idx: number) => ({
             dayNumber: idx + 1,
             title: day.title,
             description: day.description,
             images: {
-              create: (day.images || []).map((img: any) => ({
+              create: (day.images || []).map((img: { url: string; alt?: string }) => ({
                 url: img.url,
                 alt: img.alt || '',
                 category: 'INDOOR', // Default category for package images
@@ -145,7 +145,7 @@ export async function PATCH(request: Request) {
     if (!body.id) return new NextResponse('Missing package id', { status: 400 });
 
     // Build update data object, only including defined fields
-    const updateData: any = {};
+    const updateData: Record<string, unknown> = {};
     if (body.name !== undefined) updateData.name = body.name;
     if (body.description !== undefined) updateData.description = body.description;
     if (body.shortDescription !== undefined) updateData.shortDescription = body.shortDescription;

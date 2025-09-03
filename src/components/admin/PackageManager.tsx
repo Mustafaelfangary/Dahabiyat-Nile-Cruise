@@ -619,7 +619,7 @@ const PackageManager: React.FC = () => {
                     <InputLabel>Category</InputLabel>
                     <Select
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as 'LUXURY' | 'STANDARD' | 'BUDGET' })}
                       label="Category"
                     >
                       <MenuItem value="LUXURY">Luxury</MenuItem>

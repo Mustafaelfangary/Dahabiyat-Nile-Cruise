@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
     // Add phone only if it exists
     if (phone) {
-      (userData as any).phone = phone;
+      (userData as { phone?: string }).phone = phone;
     }
 
     const user = await prisma.user.create({
@@ -88,7 +88,7 @@ export async function POST(req: Request) {
     }
 
     // Remove password from response
-    const { password: _, emailVerificationToken: __, ...userWithoutPassword } = user;
+    const { password: _password, emailVerificationToken: _token, ...userWithoutPassword } = user;
 
     return NextResponse.json(
       {

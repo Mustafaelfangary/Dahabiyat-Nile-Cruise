@@ -31,6 +31,13 @@ import {
   RefreshCw
 } from 'lucide-react';
 
+interface NotificationConditions {
+  status?: string;
+  amount?: number;
+  priority?: string;
+  [key: string]: string | number | boolean | undefined;
+}
+
 interface NotificationRule {
   id: string;
   name: string;
@@ -38,7 +45,7 @@ interface NotificationRule {
   enabled: boolean;
   recipients: string[];
   template: string;
-  conditions: any;
+  conditions: NotificationConditions;
   priority: 'low' | 'medium' | 'high' | 'urgent';
 }
 
@@ -417,7 +424,7 @@ export default function NotificationSettingsPage() {
                       <Label htmlFor="priority">Priority</Label>
                       <Select
                         value={selectedRule.priority}
-                        onValueChange={(value: any) => setSelectedRule({
+                        onValueChange={(value: 'low' | 'medium' | 'high' | 'urgent') => setSelectedRule({
                           ...selectedRule,
                           priority: value
                         })}

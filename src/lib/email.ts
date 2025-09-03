@@ -5,7 +5,36 @@ interface EmailOptions {
   to: string;
   subject: string;
   template: string;
-  data: any;
+  data: Record<string, unknown>;
+}
+
+interface EmailUser {
+  name: string;
+  email: string;
+}
+
+interface EmailBooking {
+  id: string;
+  bookingReference?: string;
+  startDate: string;
+  endDate: string;
+  guests: number;
+  totalPrice: number;
+  status: string;
+  specialRequests?: string;
+}
+
+interface EmailData {
+  user: EmailUser;
+  booking?: EmailBooking;
+  name?: string;
+  email?: string;
+  message?: string;
+  verificationCode?: string;
+  resetUrl?: string;
+  resetToken?: string;
+  expiryTime?: string;
+  supportEmail?: string;
 }
 
 const transporter = nodemailer.createTransport({
@@ -19,7 +48,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const templates = {
-  'email-verification': (data: any) => ({
+  'email-verification': (data: EmailData) => ({
     subject: 'Verify Your Account - Dahabiyat Nile Cruise',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -75,7 +104,7 @@ const templates = {
     `,
   }),
 
-  'booking-confirmation': (data: any) => ({
+  'booking-confirmation': (data: Record<string, unknown>) => ({
     subject: 'Booking Confirmed - Dahabiyat Nile Cruise',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; color: #333333; border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
@@ -154,7 +183,7 @@ const templates = {
       </div>
     `,
   }),
-  'booking-modification': (data: any) => ({
+  'booking-modification': (data: Record<string, unknown>) => ({
     subject: 'Booking Modification Confirmation',
     html: `
       <h1>Booking Modification Confirmation</h1>
@@ -170,7 +199,7 @@ const templates = {
       <p>Thank you for choosing Dahabiyat Nile Cruise!</p>
     `,
   }),
-  'booking-cancellation': (data: any) => ({
+  'booking-cancellation': (data: Record<string, unknown>) => ({
     subject: 'Booking Cancellation Confirmation',
     html: `
       <h1>Booking Cancellation Confirmation</h1>
@@ -186,7 +215,7 @@ const templates = {
       <p>We hope to welcome you back soon!</p>
     `,
   }),
-  'welcome-email': (data: any) => ({
+  'welcome-email': (data: Record<string, unknown>) => ({
     subject: '𓇳 Welcome to the Royal Kingdom - Dahabiyat Nile Cruise 𓇳',
     html: `
       <div style="font-family: 'Georgia', serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
@@ -234,7 +263,7 @@ const templates = {
     `
   }),
 
-  'package-booking-confirmation': (data: any) => ({
+  'package-booking-confirmation': (data: Record<string, unknown>) => ({
     subject: '𓇳 Your Sacred Package Journey Confirmed - Dahabiyat Nile Cruise 𓇳',
     html: `
       <div style="font-family: 'Georgia', serif; max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
@@ -277,7 +306,7 @@ const templates = {
       </div>
     `,
   }),
-  'admin-booking-notification': (data: any) => ({
+  'admin-booking-notification': (data: Record<string, unknown>) => ({
     subject: 'New Dahabiya Booking Received',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -308,7 +337,7 @@ const templates = {
       </div>
     `,
   }),
-  'admin-package-booking-notification': (data: any) => ({
+  'admin-package-booking-notification': (data: Record<string, unknown>) => ({
     subject: 'New Package Booking Received',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -339,7 +368,7 @@ const templates = {
       </div>
     `,
   }),
-  'contact': (data: any) => ({
+  'contact': (data: Record<string, unknown>) => ({
     subject: 'New Contact Form Submission',
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -363,7 +392,7 @@ const templates = {
       </div>
     `,
   }),
-  'password-reset': (data: any) => ({
+  'password-reset': (data: Record<string, unknown>) => ({
     subject: passwordResetTemplate.subject,
     html: passwordResetTemplate.html(data)
   }),
@@ -411,7 +440,7 @@ export async function sendEmail({ to, subject, template, data }: EmailOptions) {
 }
 
 // Helper function to create plain text versions
-function createPlainTextVersion(template: string, data: any): string {
+function createPlainTextVersion(template: string, data: Record<string, unknown>): string {
   switch (template) {
     case 'password-reset':
       return passwordResetTemplate.text(data);

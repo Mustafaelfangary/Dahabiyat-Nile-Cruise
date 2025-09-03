@@ -96,7 +96,15 @@ export async function PUT(
         // Delete existing days and pricing tiers, then recreate
         days: {
           deleteMany: {},
-          create: (data.days || []).map((day: any) => ({
+          create: (data.days || []).map((day: {
+            dayNumber: number;
+            title: string;
+            description: string;
+            location?: string;
+            activities?: string[];
+            meals?: string[];
+            coordinates?: unknown;
+          }) => ({
             dayNumber: day.dayNumber,
             title: day.title,
             description: day.description,
@@ -127,7 +135,12 @@ export async function PUT(
         },
         pricingTiers: {
           deleteMany: {},
-          create: (data.pricingTiers || []).map((tier: any) => ({
+          create: (data.pricingTiers || []).map((tier: {
+            category: string;
+            paxRange: string;
+            price: string;
+            singleSupplement?: string;
+          }) => ({
             category: tier.category,
             paxRange: tier.paxRange,
             price: parseFloat(tier.price),

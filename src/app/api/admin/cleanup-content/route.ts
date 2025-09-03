@@ -171,7 +171,7 @@ export async function POST(request: NextRequest) {
           title: config.title,
           page: config.page,
           section: config.section,
-          contentType: config.contentType as any,
+        contentType: config.contentType as 'TEXT' | 'TEXTAREA' | 'RICH_TEXT' | 'IMAGE' | 'VIDEO' | 'GALLERY' | 'JSON',
           order: config.order,
           isActive: true
         }

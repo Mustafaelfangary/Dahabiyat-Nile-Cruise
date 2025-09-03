@@ -3,6 +3,13 @@
 import React, { useEffect } from 'react';
 import ZoomableImage from './ZoomableImage';
 
+// Extend HTMLImageElement to include our custom cleanup function
+declare global {
+  interface HTMLImageElement {
+    __zoomCleanup?: () => void;
+  }
+}
+
 interface AutoZoomProviderProps {
   children: React.ReactNode;
   enabled?: boolean;
@@ -69,7 +76,7 @@ export default function AutoZoomProvider({ children, enabled = true }: AutoZoomP
         img.addEventListener('click', handleClick);
 
         // Store cleanup function
-        (img as any).__zoomCleanup = () => {
+        img.__zoomCleanup = () => {
           img.removeEventListener('mouseenter', handleMouseEnter);
           img.removeEventListener('mouseleave', handleMouseLeave);
           img.removeEventListener('click', handleClick);
@@ -195,8 +202,9 @@ export default function AutoZoomProvider({ children, enabled = true }: AutoZoomP
       // Clean up existing event listeners
       const processedImages = document.querySelectorAll('img[data-zoomable-processed]');
       processedImages.forEach((img) => {
-        if ((img as any).__zoomCleanup) {
-          (img as any).__zoomCleanup();
+        const imageElement = img as HTMLImageElement;
+        if (imageElement.__zoomCleanup) {
+          imageElement.__zoomCleanup();
         }
       });
     };

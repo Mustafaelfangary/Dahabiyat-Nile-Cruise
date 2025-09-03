@@ -9,7 +9,7 @@ import { Plus, Trash2, Edit3, Save, X, Table } from 'lucide-react';
 import { toast } from 'react-hot-toast';
 
 interface TableRow {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface TableDataEditorProps {
@@ -83,7 +83,7 @@ export default function TableDataEditor({
     }
   };
 
-  const updateRowField = (rowIndex: number, field: string, value: any) => {
+  const updateRowField = (rowIndex: number, field: string, value: unknown) => {
     const newData = [...tableData];
     newData[rowIndex] = { ...newData[rowIndex], [field]: value };
     setTableData(newData);
@@ -111,9 +111,9 @@ export default function TableDataEditor({
     setHasChanges(false);
   };
 
-  const renderCellEditor = (row: TableRow, column: any, rowIndex: number) => {
+  const renderCellEditor = (row: TableRow, column: { key: string; type: string; label: string; required?: boolean }, rowIndex: number) => {
     if (column.type === 'array') {
-      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] : [];
+      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] as string[] : [];
       return (
         <div className="space-y-2">
           {arrayValue.map((item: string, idx: number) => (
@@ -132,7 +132,7 @@ export default function TableDataEditor({
                 size="sm"
                 variant="outline"
                 onClick={() => {
-                  const newArray = arrayValue.filter((_: any, i: number) => i !== idx);
+                  const newArray = arrayValue.filter((_: unknown, i: number) => i !== idx);
                   updateRowField(rowIndex, column.key, newArray);
                 }}
               >
@@ -147,10 +147,8 @@ export default function TableDataEditor({
               const newArray = [...arrayValue, ''];
               updateRowField(rowIndex, column.key, newArray);
             }}
-            className="w-full"
           >
-            <Plus className="w-3 h-3 mr-1" />
-            Add {column.label}
+            <Plus className="w-3 h-3" />
           </Button>
         </div>
       );
@@ -159,7 +157,7 @@ export default function TableDataEditor({
     return (
       <Input
         type={column.type === 'number' ? 'number' : 'text'}
-        value={row[column.key] || ''}
+        value={String(row[column.key] || '')}
         onChange={(e) => {
           const value = column.type === 'number' ? parseInt(e.target.value) || 0 : e.target.value;
           updateRowField(rowIndex, column.key, value);
@@ -171,9 +169,9 @@ export default function TableDataEditor({
     );
   };
 
-  const renderCellDisplay = (row: TableRow, column: any) => {
+  const renderCellDisplay = (row: TableRow, column: { key: string; type: string; label: string }) => {
     if (column.type === 'array') {
-      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] : [];
+      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] as string[] : [];
       return (
         <ul className="list-disc list-inside space-y-1">
           {arrayValue.map((item: string, idx: number) => (
@@ -182,8 +180,7 @@ export default function TableDataEditor({
         </ul>
       );
     }
-
-    return <span className="text-sm">{row[column.key] || '-'}</span>;
+    return <span className="text-sm">{String(row[column.key] || '')}</span>;
   };
 
   return (
@@ -300,7 +297,7 @@ export default function TableDataEditor({
             <div className="text-center py-8 text-gray-500">
               <Table className="w-12 h-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg font-medium mb-2">No data yet</p>
-              <p className="text-sm">Click "Add Row" to start adding {tableType} data</p>
+              <p className="text-sm">Click &ldquo;Add Row&rdquo; to start adding {tableType} data</p>
             </div>
           )}
         </div>

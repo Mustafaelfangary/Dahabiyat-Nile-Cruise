@@ -22,12 +22,21 @@ import {
 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 
+interface NotificationData {
+  bookingId?: string;
+  packageId?: string;
+  dahabiyaId?: string;
+  amount?: number;
+  status?: string;
+  [key: string]: string | number | boolean | undefined;
+}
+
 interface Notification {
   id: string;
   type: string;
   title: string;
   message: string;
-  data?: any;
+  data?: NotificationData;
   read: boolean;
   createdAt: string;
 }
@@ -180,7 +189,7 @@ export default function UserNotificationCenter({ className }: UserNotificationCe
           <div className="flex items-center gap-2">
             <select
               value={filter}
-              onChange={(e) => setFilter(e.target.value as any)}
+              onChange={(e) => setFilter(e.target.value as 'all' | 'unread' | 'bookings')}
               className="text-sm border border-amber-200 rounded px-2 py-1 bg-white"
             >
               <option value="all">All</option>

@@ -9,7 +9,7 @@ import { Plus, Trash2, Edit3, Save, X, Table, Type, Hash, Calendar, List } from 
 import { toast } from 'react-hot-toast';
 
 interface TableRow {
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 interface TableColumn {
@@ -78,7 +78,7 @@ export default function UniversalTableEditor({
     setHasChanges(false);
   }, [initialData]);
 
-  const detectColumnType = (value: any): 'text' | 'number' | 'date' | 'array' => {
+  const detectColumnType = (value: unknown): 'text' | 'number' | 'date' | 'array' => {
     if (Array.isArray(value)) return 'array';
     if (typeof value === 'number') return 'number';
     if (typeof value === 'string' && !isNaN(Date.parse(value)) && value.includes('-')) return 'date';
@@ -147,7 +147,7 @@ export default function UniversalTableEditor({
     }
   };
 
-  const updateRowField = (rowIndex: number, field: string, value: any) => {
+  const updateRowField = (rowIndex: number, field: string, value: unknown) => {
     const newData = [...tableData];
     newData[rowIndex] = { ...newData[rowIndex], [field]: value };
     setTableData(newData);
@@ -189,11 +189,11 @@ export default function UniversalTableEditor({
 
   const renderCellEditor = (row: TableRow, column: TableColumn, rowIndex: number) => {
     if (column.type === 'array') {
-      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] : [];
+      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] as string[] : [];
       return (
-        <div className="space-y-2 min-w-[200px]">
+        <div className="space-y-1">
           {arrayValue.map((item: string, idx: number) => (
-            <div key={idx} className="flex gap-2">
+            <div key={idx} className="flex items-center gap-1">
               <Input
                 value={item}
                 onChange={(e) => {
@@ -208,7 +208,7 @@ export default function UniversalTableEditor({
                 size="sm"
                 variant="outline"
                 onClick={() => {
-                  const newArray = arrayValue.filter((_: any, i: number) => i !== idx);
+                  const newArray = arrayValue.filter((_, i: number) => i !== idx);
                   updateRowField(rowIndex, column.key, newArray);
                 }}
               >
@@ -223,10 +223,8 @@ export default function UniversalTableEditor({
               const newArray = [...arrayValue, ''];
               updateRowField(rowIndex, column.key, newArray);
             }}
-            className="w-full"
           >
-            <Plus className="w-3 h-3 mr-1" />
-            Add Item
+            <Plus className="w-3 h-3" />
           </Button>
         </div>
       );
@@ -235,9 +233,9 @@ export default function UniversalTableEditor({
     return (
       <Input
         type={column.type === 'number' ? 'number' : column.type === 'date' ? 'date' : column.type === 'email' ? 'email' : column.type === 'url' ? 'url' : 'text'}
-        value={row[column.key] || ''}
+        value={String(row[column.key] || '')}
         onChange={(e) => {
-          let value: any = e.target.value;
+          let value: unknown = e.target.value;
           if (column.type === 'number') {
             value = parseInt(e.target.value) || 0;
           }
@@ -252,20 +250,17 @@ export default function UniversalTableEditor({
 
   const renderCellDisplay = (row: TableRow, column: TableColumn) => {
     if (column.type === 'array') {
-      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] : [];
-      if (arrayValue.length === 0) return <span className="text-gray-400 text-sm">-</span>;
+      const arrayValue = Array.isArray(row[column.key]) ? row[column.key] as string[] : [];
+      if (arrayValue.length === 0) {
+        return <span className="text-gray-400 italic">Empty list</span>;
+      }
       return (
         <div className="space-y-1">
-          {arrayValue.slice(0, 3).map((item: string, idx: number) => (
-            <Badge key={idx} variant="secondary" className="text-xs mr-1">
+          {arrayValue.map((item: string, idx: number) => (
+            <Badge key={idx} variant="secondary" className="text-xs">
               {item}
             </Badge>
           ))}
-          {arrayValue.length > 3 && (
-            <Badge variant="outline" className="text-xs">
-              +{arrayValue.length - 3} more
-            </Badge>
-          )}
         </div>
       );
     }
@@ -273,7 +268,7 @@ export default function UniversalTableEditor({
     const value = row[column.key];
     if (!value && value !== 0) return <span className="text-gray-400 text-sm">-</span>;
     
-    return <span className="text-sm">{value}</span>;
+    return <span className="text-sm">{String(value)}</span>;
   };
 
   const renderHeaderEditor = (column: TableColumn, index: number) => {
@@ -287,7 +282,7 @@ export default function UniversalTableEditor({
         />
         <select
           value={column.type}
-          onChange={(e) => updateColumn(index, { type: e.target.value as any })}
+          onChange={(e) => updateColumn(index, { type: e.target.value as 'text' | 'number' | 'date' | 'array' | 'email' | 'url' })}
           className="w-full text-sm border rounded px-2 py-1"
         >
           <option value="text">Text</option>
@@ -455,7 +450,7 @@ export default function UniversalTableEditor({
             <div className="text-center py-8 text-gray-500">
               <Table className="w-12 h-12 mx-auto mb-4 opacity-50" />
               <p className="text-lg font-medium mb-2">No data yet</p>
-              <p className="text-sm">Click "Add Row" to start adding data</p>
+              <p className="text-sm">Click &ldquo;Add Row&rdquo; to start adding data</p>
             </div>
           )}
         </div>

@@ -41,7 +41,13 @@ export async function POST(request: NextRequest) {
       excludeBookingId
     });
 
-    let response: any = {
+    const response: {
+      isAvailable: boolean;
+      message: string;
+      totalPrice: number;
+      conflictingBookings?: unknown;
+      alternatives?: unknown;
+    } = {
       isAvailable: availability.isAvailable,
       message: availability.message,
       totalPrice: availability.totalPrice

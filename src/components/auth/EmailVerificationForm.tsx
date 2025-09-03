@@ -112,7 +112,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
           Verify Your Royal Email
         </CardTitle>
         <CardDescription className="text-gray-600">
-          We've sent a 6-digit verification code to<br />
+          We&apos;ve sent a 6-digit verification code to<br />
           <strong className="text-ocean-blue">{email}</strong>
         </CardDescription>
       </CardHeader>
@@ -156,7 +156,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
         
         <div className="text-center space-y-3">
           <p className="text-sm text-gray-600">
-            Didn't receive the code?
+            Didn&apos;t receive the code?
           </p>
           <Button
             type="button"
@@ -186,7 +186,7 @@ export default function EmailVerificationForm({ email, onVerified }: EmailVerifi
               <p className="font-medium mb-1">Check your email</p>
               <p>
                 The verification code expires in 15 minutes. 
-                If you don't see the email, check your spam folder.
+                If you don&apos;t see the email, check your spam folder.
               </p>
             </div>
           </div>

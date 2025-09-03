@@ -35,9 +35,18 @@ export async function POST(request: NextRequest) {
     const data = await request.json();
     
     // Generate slug from title if not provided
-    const slug = data.slug || data.title.toLowerCase()
+    let slug = data.slug || data.title.toLowerCase()
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '');
+    
+    // Check if slug already exists and make it unique if necessary
+    const existingBlog = await prisma.blog.findUnique({
+      where: { slug: slug }
+    });
+    
+    if (existingBlog) {
+      slug = `${slug}-${Date.now()}`;
+    }
 
     // Calculate read time (average 200 words per minute)
     const wordCount = data.content.split(/\s+/).length;

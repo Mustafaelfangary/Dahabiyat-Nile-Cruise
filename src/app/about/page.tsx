@@ -2,7 +2,7 @@
 export const dynamic = "force-dynamic";
 
 import React from 'react';
-import { Container, Card, CardContent, Typography, Box, Avatar } from '@mui/material';
+import { Container, Card, CardContent, Avatar } from '@mui/material';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import { useContent } from '@/hooks/useContent';
 import Image from 'next/image';
@@ -258,12 +258,12 @@ export default function AboutPage() {
                   <Card key={index} className="text-center p-6 hover:shadow-lg transition-all duration-300 border border-blue-100">
                     <CardContent>
                       <stat.icon className={`w-12 h-12 mx-auto mb-4 ${stat.color}`} />
-                      <Typography variant="h3" className="font-bold text-gray-800 mb-2">
+                      <h3 className="text-3xl font-bold text-gray-800 mb-2">
                         {stat.number}
-                      </Typography>
-                      <Typography variant="body1" className="text-gray-600">
+                      </h3>
+                      <p className="text-gray-600">
                         {stat.label}
-                      </Typography>
+                      </p>
                     </CardContent>
                   </Card>
                 ))}

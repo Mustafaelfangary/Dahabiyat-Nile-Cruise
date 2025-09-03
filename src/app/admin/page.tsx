@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import {
-  BarChart3,
   Users,
   Calendar,
   DollarSign,
@@ -15,16 +14,12 @@ import {
   Package,
   Image,
   MapPin,
-  Plus,
   Star,
   Crown,
   Ship,
   Mail,
   Bell,
-  MessageCircle,
   Settings,
-  Zap,
-  Palette,
   Code
 } from 'lucide-react';
 
@@ -85,9 +80,9 @@ export default function AdminDashboard() {
             <Crown className="w-16 h-16 text-blue-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-gray-900 mb-4">Admin Access Required</h1>
             <p className="text-gray-600 mb-6">Please sign in with your admin credentials to access the dashboard.</p>
-            <a href="/auth/signin?callbackUrl=/admin">
+            <Link href="/auth/signin?callbackUrl=/admin">
               <Button className="bg-blue-600 hover:bg-blue-700">Sign In</Button>
-            </a>
+            </Link>
           </CardContent>
         </Card>
       </div>
@@ -103,9 +98,9 @@ export default function AdminDashboard() {
             <Crown className="w-16 h-16 text-red-500 mx-auto mb-4" />
             <h1 className="text-2xl font-bold text-red-900 mb-4">Access Denied</h1>
             <p className="text-red-700 mb-6">You do not have the required permissions to access this area.</p>
-            <a href="/">
+            <Link href="/">
               <Button className="bg-red-600 hover:bg-red-700">Return Home</Button>
-            </a>
+            </Link>
           </CardContent>
         </Card>
       </div>

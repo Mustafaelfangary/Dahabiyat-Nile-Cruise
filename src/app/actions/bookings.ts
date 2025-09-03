@@ -26,7 +26,7 @@ export async function updateBookingStatus(formData: FormData) {
     revalidatePath('/dashboard');
     
     return { success: true, data: booking };
-  } catch (error) {
+  } catch {
     return { success: false, error: 'Failed to update booking status' };
   }
 }
@@ -63,7 +63,7 @@ export async function getBookingStats() {
     });
 
     return { success: true, data: stats };
-  } catch (error) {
+  } catch {
     return { success: false, error: 'Failed to fetch booking stats' };
   }
 }

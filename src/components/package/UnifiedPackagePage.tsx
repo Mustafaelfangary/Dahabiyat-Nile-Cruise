@@ -397,7 +397,7 @@ export default function UnifiedPackagePage({
                       <div className="flex items-center mb-6">
                         <Shield className="w-8 h-8 text-amber-600 mr-3" />
                         <Typography variant="h5" className="font-bold text-amber-800">
-                          What's Included
+                          What&apos;s Included
                         </Typography>
                       </div>
                       <div className="space-y-4">
@@ -432,7 +432,7 @@ export default function UnifiedPackagePage({
                 ) : (
                   <Card className="h-full">
                     <CardContent className="p-8">
-                      <Typography variant="h5" className="font-bold mb-6">What's Included</Typography>
+                      <Typography variant="h5" className="font-bold mb-6">What&apos;s Included</Typography>
                       <div className="space-y-4">
                         <div>
                           <h4 className="font-semibold mb-2">Included:</h4>

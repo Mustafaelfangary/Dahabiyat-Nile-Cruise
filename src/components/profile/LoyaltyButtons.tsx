@@ -14,11 +14,14 @@ import {
   Crown,
   Gift,
   Smartphone,
-  Ship
+  Ship,
+  LucideIcon
 } from 'lucide-react';
 
+type IconType = LucideIcon;
+
 // Icon mapping for string-based icons from API
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, IconType> = {
   Package,
   Facebook,
   Instagram,
@@ -33,7 +36,19 @@ const iconMap: Record<string, any> = {
 interface LoyaltyButtonConfig {
   id: string;
   label: string;
-  icon: any;
+  icon: IconType;
+  points: number;
+  enabled: boolean;
+  url?: string;
+  action: 'redirect' | 'internal' | 'modal';
+  description: string;
+  color: string;
+}
+
+interface ApiButtonConfig {
+  id: string;
+  label: string;
+  icon: string | IconType;
   points: number;
   enabled: boolean;
   url?: string;
@@ -151,9 +166,9 @@ export default function LoyaltyButtons({ onPointsEarned }: LoyaltyButtonsProps) 
         const config = await response.json();
         if (config.buttons && Array.isArray(config.buttons)) {
           // Map string icons to actual icon components
-          const mappedButtons = config.buttons.map((button: any) => ({
+          const mappedButtons = config.buttons.map((button: ApiButtonConfig): LoyaltyButtonConfig => ({
             ...button,
-            icon: typeof button.icon === 'string' ? iconMap[button.icon] || Package : button.icon
+            icon: typeof button.icon === 'string' ? iconMap[button.icon] || Package : button.icon as IconType
           }));
           setButtons(mappedButtons);
         } else {

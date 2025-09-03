@@ -35,12 +35,12 @@ interface ContentField {
 interface ContentSection {
   id: string;
   label: string;
-  icon: React.ComponentType<any>;
+  icon: React.ComponentType<Record<string, unknown>>;
 }
 
 export default function WebsiteContentManager() {
   const [content, setContent] = useState<Record<string, ContentField[]>>({});
-  const [dynamicContent, setDynamicContent] = useState<Record<string, any>>({});
+  const [dynamicContent, setDynamicContent] = useState<Record<string, Record<string, unknown>>>({});
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState<string | null>(null);
   const [editingField, setEditingField] = useState<string | null>(null);
@@ -60,8 +60,7 @@ export default function WebsiteContentManager() {
     { id: 'itineraries', label: 'Itineraries', icon: MapPin },
     { id: 'schedule-and-rates', label: 'Schedule & Rates', icon: Calendar },
     { id: 'blog', label: 'Blog', icon: FileText },
-    { id: 'global_media', label: 'Media & Branding', icon: Image },
-    { id: 'footer', label: 'Footer & Settings', icon: Settings }
+    { id: 'branding_settings', label: 'Branding & Settings', icon: Settings }
   ];
 
   useEffect(() => {
@@ -72,42 +71,49 @@ export default function WebsiteContentManager() {
     setLoading(true);
     try {
       const contentData: Record<string, ContentField[]> = {};
-      const dynamicData: Record<string, any> = {};
+      const dynamicData: Record<string, Record<string, unknown>> = {};
 
       // Load static content from WebsiteContent table
       for (const section of contentSections) {
         try {
           console.log(`🔍 Loading content for section: ${section.id}`);
-          const response = await fetch(`/api/website-content?page=${section.id}&t=${Date.now()}`, {
-            cache: 'no-store',
-            headers: {
-              'Cache-Control': 'no-cache, no-store, must-revalidate',
-              'Pragma': 'no-cache',
-              'Expires': '0'
+          
+          // For the unified branding_settings section, load from both global_media and footer pages
+          const pagesToLoad = section.id === 'branding_settings' ? ['global_media', 'footer'] : [section.id];
+          let allData: Record<string, unknown>[] = [];
+          
+          for (const pageId of pagesToLoad) {
+            const response = await fetch(`/api/website-content?page=${pageId}&t=${Date.now()}`, {
+              cache: 'no-store',
+              headers: {
+                'Cache-Control': 'no-cache, no-store, must-revalidate',
+                'Pragma': 'no-cache',
+                'Expires': '0'
+              }
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              console.log(`📊 Raw data for ${pageId}:`, data.length, 'items');
+              allData = [...allData, ...data];
+            } else {
+              console.error(`❌ Failed to load ${pageId}: ${response.status} ${response.statusText}`);
             }
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            console.log(`📊 Raw data for ${section.id}:`, data.length, 'items');
-
-            // Transform WebsiteContent objects to ContentField format
-            const transformedData = Array.isArray(data) ? data.map((item: any) => ({
-              key: item.key,
-              title: item.title || item.key,
-              content: item.content || item.mediaUrl || '',
-              contentType: item.contentType || 'TEXT',
-              section: item.section || 'general',
-              page: item.page || section.id,
-              order: item.order || 0
-            })) : [];
-
-            console.log(`✅ Transformed data for ${section.id}:`, transformedData.length, 'items');
-            contentData[section.id] = transformedData;
-          } else {
-            console.error(`❌ Failed to load ${section.id}: ${response.status} ${response.statusText}`);
-            contentData[section.id] = [];
           }
+
+          // Transform WebsiteContent objects to ContentField format
+          const transformedData = Array.isArray(allData) ? allData.map((item: Record<string, unknown>) => ({
+            key: String(item.key || ''),
+            title: String(item.title || item.key || ''),
+            content: String(item.content || item.mediaUrl || ''),
+            contentType: String(item.contentType || 'TEXT'),
+            section: String(item.section || 'general'),
+            page: section.id === 'branding_settings' ? 'branding_settings' : String(item.page || section.id),
+            order: Number(item.order) || 0
+          })) : [];
+
+          console.log(`✅ Transformed data for ${section.id}:`, transformedData.length, 'items');
+          contentData[section.id] = transformedData;
         } catch (error) {
           console.error(`❌ Error loading ${section.id} content:`, error);
           contentData[section.id] = [];
@@ -131,7 +137,7 @@ export default function WebsiteContentManager() {
         if (packagesResponse.ok) {
           const packagesData = await packagesResponse.json();
           dynamicData.packages = packagesData.packages || [];
-          console.log(`✅ Loaded ${dynamicData.packages.length} packages`);
+          console.log(`✅ Loaded ${dynamicData.packages?.length || 0} packages`);
         }
 
         // Load dahabiyas
@@ -139,7 +145,7 @@ export default function WebsiteContentManager() {
         if (dahabiyasResponse.ok) {
           const dahabiyasData = await dahabiyasResponse.json();
           dynamicData.dahabiyas = dahabiyasData.dahabiyas || [];
-          console.log(`✅ Loaded ${dynamicData.dahabiyas.length} dahabiyas`);
+          console.log(`✅ Loaded ${dynamicData.dahabiyas?.length || 0} dahabiyas`);
         }
 
         // Load itineraries
@@ -147,7 +153,7 @@ export default function WebsiteContentManager() {
         if (itinerariesResponse.ok) {
           const itinerariesData = await itinerariesResponse.json();
           dynamicData.itineraries = itinerariesData.itineraries || [];
-          console.log(`✅ Loaded ${dynamicData.itineraries.length} itineraries`);
+          console.log(`✅ Loaded ${dynamicData.itineraries?.length || 0} itineraries`);
         }
       } catch (error) {
         console.error('❌ Error loading dynamic content:', error);
@@ -295,16 +301,17 @@ export default function WebsiteContentManager() {
     }
   };
 
-  const addGlobalMediaContent = async () => {
+  const addBrandingAndSettingsContent = async () => {
     try {
-      // Add logo and media content directly
-      const mediaContent = [
+      // Unified branding, media, footer, and settings content
+      const brandingSettingsContent = [
+        // === BRANDING SECTION ===
         {
           key: 'site_logo',
           title: 'Site Logo',
           content: '/images/logo.png',
           contentType: 'IMAGE',
-          page: 'global_media',
+          page: 'branding_settings',
           section: 'branding',
           order: 1
         },
@@ -313,7 +320,7 @@ export default function WebsiteContentManager() {
           title: 'Site Favicon',
           content: '/favicon.ico',
           contentType: 'IMAGE',
-          page: 'global_media',
+          page: 'branding_settings',
           section: 'branding',
           order: 2
         },
@@ -322,22 +329,266 @@ export default function WebsiteContentManager() {
           title: 'Navigation Bar Logo',
           content: '/images/logo.png',
           contentType: 'IMAGE',
-          page: 'global_media',
-          section: 'navigation',
-          order: 1
+          page: 'branding_settings',
+          section: 'branding',
+          order: 3
         },
         {
           key: 'footer_logo',
           title: 'Footer Logo',
           content: '/images/logo.png',
           contentType: 'IMAGE',
-          page: 'global_media',
+          page: 'branding_settings',
+          section: 'branding',
+          order: 4
+        },
+        {
+          key: 'site_name',
+          title: 'Website Name',
+          content: 'Cleopatra Dahabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'branding',
+          order: 5
+        },
+        {
+          key: 'site_tagline',
+          title: 'Website Tagline',
+          content: 'Luxury Nile River Cruises',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'branding',
+          order: 6
+        },
+        
+        // === SEO SECTION ===
+        {
+          key: 'site_meta_title',
+          title: 'Site Meta Title',
+          content: 'Cleopatra Dahabiyat - Luxury Nile Cruises',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'seo',
+          order: 1
+        },
+        {
+          key: 'site_meta_description',
+          title: 'Site Meta Description',
+          content: 'Experience the magic of the Nile with our luxury dahabiya cruises. Authentic Egyptian hospitality meets modern comfort.',
+          contentType: 'TEXTAREA',
+          page: 'branding_settings',
+          section: 'seo',
+          order: 2
+        },
+        {
+          key: 'social_og_image',
+          title: 'Social Media Share Image',
+          content: '/images/hero-bg.jpg',
+          contentType: 'IMAGE',
+          page: 'branding_settings',
+          section: 'seo',
+          order: 3
+        },
+        {
+          key: 'site_keywords',
+          title: 'SEO Keywords',
+          content: 'nile cruise, dahabiya, luxury cruise, egypt, luxor, aswan',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'seo',
+          order: 4
+        },
+        
+        // === CONTACT INFORMATION SECTION ===
+        {
+          key: 'company_name',
+          title: 'Company Name',
+          content: 'Cleopatra Dahabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'contact',
+          order: 1
+        },
+        {
+          key: 'company_address',
+          title: 'Company Address',
+          content: 'Luxor, Egypt',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'contact',
+          order: 2
+        },
+        {
+          key: 'company_phone',
+          title: 'Company Phone',
+          content: '+20 123 456 789',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'contact',
+          order: 3
+        },
+        {
+          key: 'company_email',
+          title: 'Company Email',
+          content: 'info@cleopatradadhabiyat.com',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'contact',
+          order: 4
+        },
+        {
+          key: 'company_whatsapp',
+          title: 'WhatsApp Number',
+          content: '+20 123 456 789',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'contact',
+          order: 5
+        },
+        
+        // === SOCIAL MEDIA SECTION ===
+        {
+          key: 'social_facebook',
+          title: 'Facebook URL',
+          content: 'https://facebook.com/cleopatradadhabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'social',
+          order: 1
+        },
+        {
+          key: 'social_instagram',
+          title: 'Instagram URL',
+          content: 'https://instagram.com/cleopatradadhabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'social',
+          order: 2
+        },
+        {
+          key: 'social_twitter',
+          title: 'Twitter/X URL',
+          content: 'https://twitter.com/cleopatradadhabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'social',
+          order: 3
+        },
+        {
+          key: 'social_youtube',
+          title: 'YouTube URL',
+          content: 'https://youtube.com/@cleopatradadhabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'social',
+          order: 4
+        },
+        {
+          key: 'social_tiktok',
+          title: 'TikTok URL',
+          content: 'https://tiktok.com/@cleopatradadhabiyat',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'social',
+          order: 5
+        },
+        
+        // === FOOTER SECTION ===
+        {
+          key: 'footer_description',
+          title: 'Footer Description',
+          content: 'Experience the magic of the Nile with our luxury dahabiya cruises. Authentic Egyptian hospitality meets modern comfort.',
+          contentType: 'TEXTAREA',
+          page: 'branding_settings',
           section: 'footer',
           order: 1
+        },
+        {
+          key: 'footer_copyright',
+          title: 'Copyright Text',
+          content: '© 2025 Cleopatra Dahabiyat. All rights reserved.',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'footer',
+          order: 2
+        },
+        {
+          key: 'footer_quick_links_title',
+          title: 'Quick Links Section Title',
+          content: 'Quick Links',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'footer',
+          order: 3
+        },
+        {
+          key: 'footer_newsletter_title',
+          title: 'Newsletter Section Title',
+          content: 'Newsletter',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'footer',
+          order: 4
+        },
+        {
+          key: 'footer_newsletter_text',
+          title: 'Newsletter Description',
+          content: 'Subscribe to get updates on our latest offers and journeys.',
+          contentType: 'TEXTAREA',
+          page: 'branding_settings',
+          section: 'footer',
+          order: 5
+        },
+        {
+          key: 'footer_subscribe_button_text',
+          title: 'Newsletter Subscribe Button',
+          content: 'Subscribe',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'footer',
+          order: 6
+        },
+        
+        // === GENERAL SETTINGS SECTION ===
+        {
+          key: 'site_timezone',
+          title: 'Website Timezone',
+          content: 'Africa/Cairo',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'general',
+          order: 1
+        },
+        {
+          key: 'site_language',
+          title: 'Default Language',
+          content: 'en',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'general',
+          order: 2
+        },
+        {
+          key: 'site_currency',
+          title: 'Default Currency',
+          content: 'USD',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'general',
+          order: 3
+        },
+        {
+          key: 'booking_email',
+          title: 'Booking Notification Email',
+          content: 'bookings@cleopatradadhabiyat.com',
+          contentType: 'TEXT',
+          page: 'branding_settings',
+          section: 'general',
+          order: 4
         }
       ];
 
-      for (const content of mediaContent) {
+      for (const content of brandingSettingsContent) {
         await fetch('/api/website-content', {
           method: 'POST',
           headers: {
@@ -347,11 +598,11 @@ export default function WebsiteContentManager() {
         });
       }
 
-      toast.success('Global media content added!');
+      toast.success('Branding & Settings content added successfully!');
       await loadContent();
     } catch (error) {
-      console.error('Error adding global media content:', error);
-      toast.error('Failed to add global media content');
+      console.error('Error adding branding & settings content:', error);
+      toast.error('Failed to add branding & settings content');
     }
   };
 
@@ -412,8 +663,12 @@ export default function WebsiteContentManager() {
   const getSectionIcon = (sectionName: string) => {
     switch (sectionName.toLowerCase()) {
       case 'hero': return <Home className="w-5 h-5 text-blue-600" />;
+      case 'branding': return <Image className="w-5 h-5 text-purple-600" />;
+      case 'seo': return <Globe className="w-5 h-5 text-blue-600" />;
       case 'contact': case 'info': return <Phone className="w-5 h-5 text-green-600" />;
       case 'social': return <Users className="w-5 h-5 text-purple-600" />;
+      case 'footer': return <Settings className="w-5 h-5 text-gray-600" />;
+      case 'general': return <Settings className="w-5 h-5 text-orange-600" />;
       case 'features': return <Settings className="w-5 h-5 text-orange-600" />;
       case 'testimonials': return <Users className="w-5 h-5 text-yellow-600" />;
       case 'about': case 'our_story': return <FileText className="w-5 h-5 text-indigo-600" />;
@@ -707,7 +962,7 @@ export default function WebsiteContentManager() {
 
     // Show static content fields first, then dynamic content overview if available
     const hasStaticContent = pageContent.length > 0;
-    const hasDynamicContent = ['blog', 'packages', 'dahabiyas', 'itineraries', 'contact'].includes(pageId) && pageDynamicContent.length > 0;
+    const hasDynamicContent = ['blog', 'packages', 'dahabiyas', 'itineraries', 'contact'].includes(pageId) && Array.isArray(pageDynamicContent) && pageDynamicContent.length > 0;
 
     // If no static content, show empty state with populate button
     if (!hasStaticContent && !hasDynamicContent) {
@@ -718,7 +973,7 @@ export default function WebsiteContentManager() {
               <Type className="w-12 h-12 mx-auto mb-2 opacity-50" />
               <h3 className="text-lg font-medium mb-2">No Content Available</h3>
               <p className="text-sm">No static content found for {pageLabel}.</p>
-              <p className="text-xs text-gray-400 mt-2">Click "Populate Page Content" above to add default content fields.</p>
+              <p className="text-xs text-gray-400 mt-2">Click &ldquo;Populate Page Content&rdquo; above to add default content fields.</p>
             </div>
             <div className="flex items-center justify-center gap-2 flex-wrap">
               {pageId === 'homepage' && (
@@ -759,6 +1014,16 @@ export default function WebsiteContentManager() {
                   )}
                 </Button>
               )}
+              {pageId === 'branding_settings' && (
+                <Button
+                  onClick={addBrandingAndSettingsContent}
+                  disabled={saving !== null}
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white"
+                >
+                  <Settings className="w-4 h-4 mr-2" />
+                  Add Branding & Settings Content
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -785,7 +1050,7 @@ export default function WebsiteContentManager() {
             )}
             {hasDynamicContent && (
               <Badge variant="default" className="text-sm bg-green-100 text-green-800">
-                {pageDynamicContent.length} dynamic items
+                {Array.isArray(pageDynamicContent) ? pageDynamicContent.length : 0} dynamic items
               </Badge>
             )}
           </div>
@@ -829,7 +1094,7 @@ export default function WebsiteContentManager() {
                 {pageId === 'contact' && <Phone className="w-5 h-5 text-green-600" />}
                 Dynamic {pageLabel} Content
                 <Badge variant="secondary" className="text-xs">
-                  {pageDynamicContent.length} items
+                  {Array.isArray(pageDynamicContent) ? pageDynamicContent.length : 0} items
                 </Badge>
               </CardTitle>
             </CardHeader>

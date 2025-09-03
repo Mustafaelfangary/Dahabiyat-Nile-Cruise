@@ -91,7 +91,12 @@ export async function PATCH(
     }
 
     // Build update data object with only defined values
-    const updateData: any = {};
+    const updateData: {
+      name?: string;
+      email?: string;
+      password?: string;
+      role?: 'ADMIN' | 'USER';
+    } = {};
     if (validated.name !== undefined) updateData.name = validated.name;
     if (validated.email !== undefined) updateData.email = validated.email;
     if (validated.role !== undefined) updateData.role = validated.role;

@@ -9,31 +9,22 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Badge } from '@/components/ui/badge';
 import { 
   MapPin, 
-  Save, 
   ArrowLeft, 
   Plus, 
   Trash2,
   Calendar,
-  Users,
   Star,
-  Clock,
   Camera,
   Video,
-  Upload,
-  Eye,
-  Sunrise,
-  Sun,
-  Sunset,
-  Moon,
   Utensils,
   Ship,
   Crown,
   Image as ImageIcon
 } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 import MediaLibrarySelector from '@/components/admin/MediaLibrarySelector';
 
 interface ItineraryDay {
@@ -134,7 +125,7 @@ export default function NewItineraryPage() {
     }
   };
 
-  const updateDay = (dayIndex: number, field: keyof ItineraryDay, value: any) => {
+  const updateDay = (dayIndex: number, field: keyof ItineraryDay, value: string | string[]) => {
     const updatedDays = [...days];
     updatedDays[dayIndex] = { ...updatedDays[dayIndex], [field]: value };
     setDays(updatedDays);
@@ -174,7 +165,7 @@ export default function NewItineraryPage() {
     }
   };
 
-  const updatePricingTier = (index: number, field: keyof PricingTier, value: any) => {
+  const updatePricingTier = (index: number, field: keyof PricingTier, value: string | number) => {
     const updated = [...pricingTiers];
     updated[index] = { ...updated[index], [field]: value };
     setPricingTiers(updated);
@@ -208,7 +199,6 @@ export default function NewItineraryPage() {
       });
 
       if (response.ok) {
-        const newItinerary = await response.json();
         toast.success('🏺 Sacred Journey Created Successfully!');
         // Redirect to the itineraries list page
         window.location.href = `/admin/itineraries`;
@@ -272,13 +262,13 @@ export default function NewItineraryPage() {
       <div className="container mx-auto py-8">
         {/* Pharaonic Header */}
         <div className="flex items-center gap-6 mb-8 p-6 bg-gradient-to-r from-ocean-blue-600 via-navy-blue-600 to-deep-blue-700 rounded-lg shadow-lg">
-          <a
+          <Link
             href="/admin/itineraries"
             className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 backdrop-blur-sm"
           >
             <ArrowLeft className="w-5 h-5" />
             Return to Sacred Journeys
-          </a>
+          </Link>
           <div className="flex items-center gap-4">
             <Crown className="w-10 h-10 text-amber-200" />
             <div>

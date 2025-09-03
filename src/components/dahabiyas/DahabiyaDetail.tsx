@@ -32,12 +32,39 @@ import {
   AccordionDetails
 } from '@mui/material';
 import {
-  Users, DollarSign, Calendar, MapPin, Star, Anchor, Play,
-  Wifi, Car, Utensils, Sparkles, Camera, Music, Book, Award,
-  Route, Clock, Shield, Heart, Compass, Sun, Ruler, Ship,
-  Crown, Gem, Waves, Mountain, Eye, Film, Image as ImageIcon,
-  ArrowLeft, Share, ChevronDown, X, Activity, Navigation,
-  TreePine, Sunset, Palette, ChevronRight, Download
+  ArrowLeft,
+  Star,
+  Crown,
+  Users,
+  Ship,
+  Calendar,
+  MapPin,
+  Wifi,
+  Car,
+  Utensils,
+  Shield,
+  Award,
+  Activity,
+  TreePine,
+  Navigation,
+  ChevronRight,
+  Ruler,
+  Route,
+  Sunset,
+  Mountain,
+  Palette,
+  Camera,
+  Eye as EyeIcon,
+  Eye,
+  Film,
+  Compass,
+  ImageIcon,
+  Phone,
+  Volume2,
+  DollarSign,
+  Sparkles,
+  Gem,
+  X
 } from 'lucide-react';
 import DahabiyaItineraries from './DahabiyaItineraries';
 import UnifiedBookingForm from '@/components/UnifiedBookingForm';
@@ -270,531 +297,216 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-cyan-50">
-      {/* Enhanced Hero Section */}
-      <div className="relative h-screen overflow-hidden dahabiya-hero-section">
-        {/* Background Image */}
-        <div className="absolute inset-0">
-          <Image
-            src={selectedImage || dahabiya.mainImage || '/images/placeholder-dahabiya.jpg'}
-            alt={dahabiya.name}
-            fill
-            className="object-cover transition-all duration-700"
-            priority
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20"></div>
-          <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60"></div>
-        </div>
-
-        {/* Navigation Bar */}
+      {/* Clean Hero Section */}
+      <div className="relative overflow-hidden">
+        {/* Navigation Bar - Only Back Button */}
         <div className="absolute top-0 left-0 right-0 z-20 p-6">
-          <div className="flex justify-between items-center">
+          <div className="flex justify-start items-center">
             <Link href="/dahabiyas">
               <IconButton className="bg-black/30 backdrop-blur-sm text-white hover:bg-black/50">
                 <ArrowLeft />
               </IconButton>
             </Link>
-            <div className="flex gap-2">
-              <IconButton className="bg-black/30 backdrop-blur-sm text-white hover:bg-black/50">
-                <Share />
-              </IconButton>
-              <IconButton className="bg-black/30 backdrop-blur-sm text-white hover:bg-black/50">
-                <Heart />
-              </IconButton>
-            </div>
           </div>
         </div>
 
-        {/* COMPLETELY REDESIGNED Hero Content - FIXED POSITIONING */}
-        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center px-4 py-16 overflow-y-auto">
-          <Container maxWidth="lg">
-            <div className="text-center force-white-text">
-              {/* REDESIGNED - Hieroglyphic Symbol */}
-              <div className="mb-6 force-white-text">
-                <div
-                  className="mb-2 animate-pulse force-white-text"
+        {/* Main Hero Image */}
+        <div className="relative h-96 overflow-hidden">
+          <Image
+            src={selectedImage || dahabiya.mainImage || '/images/placeholder-dahabiya.jpg'}
+            alt={dahabiya.name}
+            fill
+            className="object-cover"
+            priority
+          />
+        </div>
+
+        {/* Dahabiya Title Section */}
+        <div className="bg-white p-8 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-800 uppercase tracking-wider mb-4">
+            {dahabiya.name}
+          </h1>
+          <div className="inline-flex items-center gap-3 px-6 py-2 rounded-full bg-blue-600 text-white">
+            <Crown size={20} />
+            <span className="font-semibold">{categoryInfo.label.toUpperCase()} CATEGORY</span>
+            {dahabiya.isFeatured && (
+              <Star size={16} className="fill-current" />
+            )}
+          </div>
+        </div>
+
+        {/* Enhanced Features Section */}
+        <div className="bg-gradient-to-b from-blue-50 via-white to-cyan-50 p-12 relative overflow-hidden">
+          {/* Background Decorative Elements */}
+          <div className="absolute top-0 left-0 w-full h-full opacity-5">
+            <div className="text-9xl text-ocean-blue absolute top-8 left-8">𓊪</div>
+            <div className="text-7xl text-ocean-blue absolute top-20 right-12">𓈎</div>
+            <div className="text-8xl text-ocean-blue absolute bottom-16 left-16">𓃭</div>
+            <div className="text-6xl text-ocean-blue absolute bottom-8 right-8">𓇋</div>
+          </div>
+
+          {/* Features Header */}
+          <div className="text-center mb-12 relative z-10">
+            <div className="inline-flex items-center gap-4 bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-8 py-4 rounded-full shadow-lg mb-6">
+              <span className="text-2xl animate-pulse">𓊪</span>
+              <h2 className="text-2xl font-bold">VESSEL FEATURES</h2>
+              <span className="text-2xl animate-pulse">𓊪</span>
+            </div>
+            <div className="w-32 h-1 bg-gradient-to-r from-ocean-blue to-transparent rounded-full mx-auto"></div>
+          </div>
+
+          {/* Enhanced Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12 relative z-10">
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-blue-500 to-ocean-blue rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Ship className="text-white" size={28} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-ocean-blue text-xl">𓈎</span>
+                  <span className="text-2xl font-bold text-gray-800">{dahabiya.cabins || 8}</span>
+                  <span className="text-ocean-blue text-xl">𓈎</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">Luxury Cabins</span>
+              </div>
+            </div>
+
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Users className="text-white" size={28} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-emerald-600 text-xl">𓃭</span>
+                  <span className="text-2xl font-bold text-gray-800">{dahabiya.crew || 10}</span>
+                  <span className="text-emerald-600 text-xl">𓃭</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">Expert Crew</span>
+              </div>
+            </div>
+
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Crown className="text-white" size={28} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-purple-600 text-xl">𓇋</span>
+                  <span className="text-2xl font-bold text-gray-800">{dahabiya.capacity}</span>
+                  <span className="text-purple-600 text-xl">𓇋</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">Max Guests</span>
+              </div>
+            </div>
+
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <TreePine className="text-white" size={28} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-green-600 text-xl">𓍯</span>
+                  <span className="text-lg font-bold text-gray-800">Eco</span>
+                  <span className="text-green-600 text-xl">𓍯</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">Eco-Friendly</span>
+              </div>
+            </div>
+
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-amber-500 to-yellow-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Compass className="text-white" size={28} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-amber-600 text-xl">𓊪</span>
+                  <span className="text-lg font-bold text-gray-800">Traditional</span>
+                  <span className="text-amber-600 text-xl">𓊪</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">Sailing Style</span>
+              </div>
+            </div>
+
+            <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 border border-blue-100 hover:border-blue-300">
+              <div className="text-center">
+                <div className="bg-gradient-to-br from-teal-500 to-cyan-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <Volume2 className="text-white" size={28} style={{textDecoration: 'line-through'}} />
+                </div>
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span className="text-teal-600 text-xl">𓄿</span>
+                  <span className="text-lg font-bold text-gray-800">Silent</span>
+                  <span className="text-teal-600 text-xl">𓄿</span>
+                </div>
+                <span className="text-lg font-semibold text-gray-600">No Engine Noise</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Enhanced Interior Images Grid */}
+          <div className="mb-12 relative z-10">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-6 py-3 rounded-full shadow-lg">
+                <Camera className="animate-pulse" size={20} />
+                <span className="text-lg">𓂧𓂋</span>
+                <span className="font-bold">INTERIOR GALLERY</span>
+                <span className="text-lg">𓂧𓂋</span>
+              </div>
+            </div>
+            
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+              {allImages.slice(1, 5).map((image, index) => (
+                <div 
+                  key={index} 
+                  className="group aspect-square rounded-2xl overflow-hidden bg-gray-200 cursor-pointer transition-all duration-500 transform hover:-translate-y-2 hover:shadow-2xl border-4 border-transparent hover:border-purple-300"
+                  onClick={() => setSelectedImage(image)}
                   style={{
-                    fontSize: '4rem',
-                    color: '#ffffff'
+                    animationDelay: `${index * 150}ms`,
+                    animation: 'fadeInUp 0.6s ease-out forwards'
                   }}
                 >
-                  𓊪
+                  <Image
+                    src={image || '/images/placeholder-dahabiya.jpg'}
+                    alt={`Interior ${index + 1}`}
+                    width={200}
+                    height={200}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                    <Eye className="text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" size={32} />
+                  </div>
                 </div>
-                <div
-                  className="w-16 h-1 mx-auto"
-                  style={{
-                    background: 'linear-gradient(to right, transparent, #ffffff, transparent)',
-                    opacity: 0.8,
-                    filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
-                  }}
-                ></div>
-              </div>
+              ))}
+            </div>
+          </div>
 
-              {/* REDESIGNED - Category Badge */}
-              <div
-                className="inline-flex items-center gap-3 px-10 py-4 rounded-full mb-8 shadow-2xl border-2 relative overflow-hidden force-white-text"
-                style={{
-                  backgroundColor: '#1e40af',
-                  borderColor: '#ffffff',
-                  backdropFilter: 'blur(20px)'
+          {/* Enhanced Contact Info and CTA */}
+          <div className="text-center space-y-6 relative z-10">
+            <div className="bg-white rounded-2xl p-8 shadow-xl border border-blue-100 max-w-md mx-auto">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <Phone className="text-ocean-blue animate-pulse" size={24} />
+                <span className="text-ocean-blue text-xl">𓈎𓃭</span>
+              </div>
+              <div className="text-3xl font-bold text-gray-800 mb-2">+201001538358</div>
+              <div className="text-lg text-gray-600 mb-6">www.dahabiyatilecruise.com</div>
+              
+              <Button
+                variant="contained"
+                size="large"
+                className="w-full bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-8 py-4 text-xl font-bold rounded-xl hover:from-blue-600 hover:to-ocean-blue transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105"
+                onClick={() => {
+                  const bookingSection = document.getElementById('booking-section');
+                  if (bookingSection) {
+                    bookingSection.scrollIntoView({ behavior: 'smooth' });
+                  }
                 }}
               >
-                {/* Shimmer effect */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full animate-shimmer"></div>
-                <Crown
-                  size={20}
-                  className="force-white-text"
-                  style={{
-                    color: '#ffffff'
-                  }}
-                />
-                <span
-                  className="relative z-10 force-white-text"
-                  style={{
-                    fontSize: '20px',
-                    letterSpacing: '0.1em',
-                    fontWeight: '900',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    textShadow: 'none'
-                  }}
-                >
-                  {categoryInfo.label.toUpperCase()} CATEGORY
-                </span>
-                {dahabiya.isFeatured && (
-                  <div className="flex items-center gap-1 force-white-text">
-                    <Star
-                      size={20}
-                      className="force-white-text"
-                      style={{
-                        color: '#ffffff',
-                        fill: '#ffffff'
-                      }}
-                    />
-                    <span
-                      className="force-white-text"
-                      style={{
-                        fontSize: '14px',
-                        fontWeight: '700',
-                        color: '#ffffff'
-                      }}
-                    >
-                      FEATURED
-                    </span>
-                  </div>
-                )}
-              </div>
-
-              {/* REDESIGNED - Main Title */}
-              <div className="mb-8 force-white-text">
-                <h1
-                  className="leading-tight mb-4 force-white-text"
-                  style={{
-                    fontSize: 'clamp(2.5rem, 8vw, 5rem)',
-                    fontFamily: 'serif',
-                    fontWeight: '700',
-                    letterSpacing: '0.02em',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    textShadow: 'none'
-                  }}
-                >
-                  {dahabiya.name}
-                </h1>
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <div
-                    className="w-12 h-0.5"
-                    style={{
-                      background: 'linear-gradient(to right, transparent, #fbbf24)',
-                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
-                    }}
-                  ></div>
-                  <span
-                    className="text-2xl animate-pulse force-white-text"
-                    style={{
-                      color: '#ffffff'
-                    }}
-                  >
-                    𓇳
-                  </span>
-                  <div
-                    className="w-12 h-0.5"
-                    style={{
-                      background: 'linear-gradient(to left, transparent, #fbbf24)',
-                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.8))'
-                    }}
-                  ></div>
-                </div>
-              </div>
-
-              {/* REDESIGNED - Subtitle Section */}
-              <div className="mb-10 force-white-text">
-                <h4
-                  className="mb-2 force-white-text"
-                  style={{
-                    fontSize: 'clamp(1.2rem, 4vw, 2rem)',
-                    fontWeight: '600',
-                    letterSpacing: '0.05em',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    textShadow: 'none'
-                  }}
-                >
-                  LUXURY DAHABIYA EXPERIENCE
-                </h4>
-                <h6
-                  className="force-white-text"
-                  style={{
-                    fontSize: 'clamp(0.9rem, 2.5vw, 1.2rem)',
-                    fontWeight: '500',
-                    letterSpacing: '0.1em',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    textShadow: 'none'
-                  }}
-                >
-                  SAIL THE NILE LIKE ANCIENT PHARAOHS
-                </h6>
-              </div>
-              
-              {/* Key Stats */}
-              <div className="flex flex-wrap justify-center gap-4 mb-8">
-                <Chip
-                  icon={<Users size={18} className="text-white force-white-text" />}
-                  label={`${dahabiya.capacity} Guests`}
-                  className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 force-white-text"
-                  variant="outlined"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
-                    backdropFilter: 'blur(15px)',
-                    border: '2px solid rgba(255, 255, 255, 0.8)',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    textShadow: 'none',
-                    boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-                  }}
-                />
-                {dahabiya.cabins && (
-                  <Chip
-                    icon={<Ship size={18} className="text-white force-white-text" />}
-                    label={`${dahabiya.cabins} Cabins`}
-                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 force-white-text"
-                    variant="outlined"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
-                      backdropFilter: 'blur(15px)',
-                      border: '2px solid rgba(255, 255, 255, 0.8)',
-                      color: 'white',
-                      WebkitTextFillColor: 'white',
-                      textShadow: 'none',
-                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-                    }}
-                  />
-                )}
-                {dahabiya.length && (
-                  <Chip
-                    icon={<Ruler size={18} className="text-white force-white-text" />}
-                    label={`${dahabiya.length}m Length`}
-                    className="font-semibold px-6 py-3 shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 force-white-text"
-                    variant="outlined"
-                    style={{
-                      background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.9) 0%, rgba(0, 102, 204, 0.8) 50%, rgba(0, 68, 153, 0.9) 100%)',
-                      backdropFilter: 'blur(15px)',
-                      border: '2px solid rgba(255, 255, 255, 0.8)',
-                      color: 'white',
-                      WebkitTextFillColor: 'white',
-                      textShadow: 'none',
-                      boxShadow: '0 8px 25px rgba(0, 128, 255, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3)'
-                    }}
-                  />
-                )}
-                <Chip
-                  icon={<DollarSign size={18} className="text-white force-white-text" />}
-                  label={`From ${formatPrice(dahabiya.pricePerDay)}/night per person`}
-                  className="font-bold px-8 py-4 shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 force-white-text"
-                  style={{
-                    background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 30%, #3399ff 70%, #0080ff 100%)',
-                    color: 'white',
-                    WebkitTextFillColor: 'white',
-                    border: '3px solid rgba(255, 255, 255, 0.9)',
-                    textShadow: 'none',
-                    boxShadow: '0 12px 35px rgba(0, 128, 255, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.4), 0 0 30px rgba(0, 128, 255, 0.3)',
-                    fontSize: '1.1rem',
-                    fontWeight: 'bold'
-                  }}
-                />
-              </div>
-              
-              {/* REDESIGNED - Rating Section */}
-              {dahabiya.rating && dahabiya.rating > 0 && (
-                <div
-                  className="flex justify-center items-center gap-4 mb-8 rounded-full px-6 py-3 border-2 shadow-2xl force-white-text"
-                  style={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    borderColor: '#ffffff',
-                    backdropFilter: 'blur(20px)'
-                  }}
-                >
-                  <Rating
-                    value={dahabiya.rating}
-                    readOnly
-                    precision={0.1}
-                    size="large"
-                    sx={{
-                      '& .MuiRating-iconFilled': {
-                        color: '#0080ff',
-                        filter: 'drop-shadow(0 3px 6px rgba(0,0,0,0.6))'
-                      },
-                      '& .MuiRating-iconEmpty': {
-                        color: 'rgba(255,255,255,0.4)'
-                      }
-                    }}
-                  />
-                  <span
-                    className="force-white-text"
-                    style={{
-                      fontSize: '24px',
-                      fontWeight: '700',
-                      color: 'white',
-                      WebkitTextFillColor: 'white',
-                      textShadow: 'none'
-                    }}
-                  >
-                    {dahabiya.rating.toFixed(1)}
-                  </span>
-                  <span
-                    className="force-white-text"
-                    style={{
-                      fontSize: '16px',
-                      fontWeight: '500',
-                      color: 'white',
-                      WebkitTextFillColor: 'white',
-                      textShadow: 'none'
-                    }}
-                  >
-                    ({dahabiya.reviewCount} reviews)
-                  </span>
-                </div>
-              )}
-              
-              {/* Enhanced Action Buttons with Better Clarity - FIXED POSITIONING */}
-              <div className="flex flex-col items-center gap-6 mt-8 mb-20">
-                {/* Primary Booking Button */}
-                <Button
-                  variant="contained"
-                  size="large"
-                  className="enhanced-booking-btn font-bold px-16 py-6 rounded-2xl transform hover:scale-110 transition-all duration-300 text-xl relative overflow-hidden"
-                  startIcon={<Crown size={24} />}
-                  onClick={() => {
-                    const bookingSection = document.getElementById('booking-section');
-                    if (bookingSection) {
-                      bookingSection.scrollIntoView({ behavior: 'smooth' });
-                    }
-                  }}
-                  sx={{
-                    background: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 25%, #FFD700 50%, #F7931E 75%, #FF6B35 100%)',
-                    color: '#FFFFFF',
-                    border: '3px solid rgba(255, 255, 255, 0.95)',
-                    textShadow: '3px 3px 6px rgba(0,0,0,0.9)',
-                    boxShadow: '0 20px 50px rgba(255, 107, 53, 0.6), inset 0 4px 0 rgba(255, 255, 255, 0.4), 0 0 50px rgba(255, 215, 0, 0.4)',
-                    fontSize: '1.3rem',
-                    fontWeight: '900',
-                    letterSpacing: '0.05em',
-                    minWidth: '280px',
-                    minHeight: '70px',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #FF8C42 0%, #FFB347 25%, #FFE135 50%, #FFB347 75%, #FF8C42 100%)',
-                      boxShadow: '0 25px 60px rgba(255, 107, 53, 0.8), inset 0 4px 0 rgba(255, 255, 255, 0.5), 0 0 60px rgba(255, 215, 0, 0.6)',
-                      transform: 'scale(1.1) translateY(-3px)',
-                      border: '3px solid rgba(255, 255, 255, 1)'
-                    },
-                    '& .MuiButton-startIcon': {
-                      color: '#FFFFFF',
-                      filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))'
-                    }
-                  }}
-                >
-                  <span style={{
-                    color: '#FFFFFF',
-                    textShadow: '3px 3px 6px rgba(0,0,0,0.9)',
-                    fontWeight: '900'
-                  }}>
-                    BOOK NOW
-                  </span>
-                </Button>
-
-                {/* Secondary Action Buttons - BETTER SPACING */}
-                <div className="flex flex-wrap justify-center gap-4 pb-8">
-
-                  {dahabiya.videoUrl && (
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      onClick={() => setShowVideo(true)}
-                      className="enhanced-secondary-btn font-bold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
-                      startIcon={<Play size={20} />}
-                      sx={{
-                        background: 'rgba(255, 255, 255, 0.15)',
-                        backdropFilter: 'blur(25px)',
-                        border: '2px solid rgba(255, 255, 255, 0.9)',
-                        color: '#FFFFFF',
-                        textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3)',
-                        fontSize: '1.1rem',
-                        fontWeight: 'bold',
-                        minWidth: '160px',
-                        minHeight: '50px',
-                        '&:hover': {
-                          background: 'rgba(255, 255, 255, 0.25)',
-                          border: '2px solid rgba(255, 255, 255, 1)',
-                          boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), inset 0 3px 0 rgba(255, 255, 255, 0.4)',
-                          transform: 'scale(1.05) translateY(-2px)'
-                        },
-                        '& .MuiButton-startIcon': {
-                          color: '#FFFFFF',
-                          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))'
-                        }
-                      }}
-                    >
-                      <span style={{
-                        color: '#FFFFFF',
-                        textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                        fontWeight: 'bold'
-                      }}>
-                        Watch Video
-                      </span>
-                    </Button>
-                  )}
-
-                  {dahabiya.virtualTourUrl && (
-                    <Button
-                      variant="outlined"
-                      size="large"
-                      component="a"
-                      href={dahabiya.virtualTourUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="enhanced-secondary-btn font-bold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
-                      startIcon={<Eye size={20} />}
-                      sx={{
-                        background: 'rgba(255, 255, 255, 0.15)',
-                        backdropFilter: 'blur(25px)',
-                        border: '2px solid rgba(255, 255, 255, 0.9)',
-                        color: '#FFFFFF',
-                        textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                        boxShadow: '0 12px 30px rgba(0, 0, 0, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3)',
-                        fontSize: '1.1rem',
-                        fontWeight: 'bold',
-                        minWidth: '160px',
-                        minHeight: '50px',
-                        '&:hover': {
-                          background: 'rgba(255, 255, 255, 0.25)',
-                          border: '2px solid rgba(255, 255, 255, 1)',
-                          boxShadow: '0 15px 40px rgba(0, 0, 0, 0.4), inset 0 3px 0 rgba(255, 255, 255, 0.4)',
-                          transform: 'scale(1.05) translateY(-2px)'
-                        },
-                        '& .MuiButton-startIcon': {
-                          color: '#FFFFFF',
-                          filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))'
-                        }
-                      }}
-                    >
-                      <span style={{
-                        color: '#FFFFFF',
-                        textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                        fontWeight: 'bold'
-                      }}>
-                        Virtual Tour
-                      </span>
-                    </Button>
-                  )}
-
-                  {/* Download Fact Sheet Button */}
-                  <Button
-                    variant="outlined"
-                    size="large"
-                    onClick={downloadFactSheet}
-                    className="enhanced-secondary-btn font-bold px-8 py-4 rounded-xl transform hover:scale-105 transition-all duration-300"
-                    startIcon={<Download size={20} />}
-                    sx={{
-                      background: 'rgba(34, 197, 94, 0.15)',
-                      backdropFilter: 'blur(25px)',
-                      border: '2px solid rgba(34, 197, 94, 0.9)',
-                      color: '#FFFFFF',
-                      textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                      boxShadow: '0 12px 30px rgba(34, 197, 94, 0.3), inset 0 2px 0 rgba(255, 255, 255, 0.3)',
-                      fontSize: '1.1rem',
-                      fontWeight: 'bold',
-                      minWidth: '160px',
-                      minHeight: '50px',
-                      '&:hover': {
-                        background: 'rgba(34, 197, 94, 0.25)',
-                        border: '2px solid rgba(34, 197, 94, 1)',
-                        boxShadow: '0 15px 40px rgba(34, 197, 94, 0.4), inset 0 3px 0 rgba(255, 255, 255, 0.4)',
-                        transform: 'scale(1.05) translateY(-2px)'
-                      },
-                      '& .MuiButton-startIcon': {
-                        color: '#FFFFFF',
-                        filter: 'drop-shadow(2px 2px 4px rgba(0,0,0,0.8))'
-                      }
-                    }}
-                  >
-                    <span style={{
-                      color: '#FFFFFF',
-                      textShadow: '2px 2px 6px rgba(0,0,0,0.9)',
-                      fontWeight: 'bold'
-                    }}>
-                      Download Info
-                    </span>
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Container>
-        </div>
-
-        {/* Gallery Navigation */}
-        {allImages.length > 1 && (
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-20">
-            <div className="flex gap-2 bg-black/50 backdrop-blur-md rounded-full p-2 shadow-lg border border-white/20">
-              {allImages.slice(0, 8).map((image, index) => (
-                <button
-                  key={index}
-                  onClick={() => setSelectedImage(image)}
-                  className={`w-4 h-4 rounded-full transition-all duration-300 border-2 ${
-                    selectedImage === image
-                      ? 'bg-gradient-to-r from-ocean-blue to-blue-400 border-white scale-125 shadow-lg shadow-ocean-blue/60'
-                      : 'bg-white/80 border-white/70 hover:bg-gradient-to-r hover:from-ocean-blue/70 hover:to-blue-400/70 hover:border-ocean-blue hover:scale-110 hover:shadow-md hover:shadow-ocean-blue/40'
-                  }`}
-                  style={{
-                    boxShadow: selectedImage === image
-                      ? '0 4px 15px rgba(0, 128, 255, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
-                      : '0 2px 8px rgba(0, 0, 0, 0.2)'
-                  }}
-                />
-              ))}
-              {allImages.length > 8 && (
-                <Button
-                  size="small"
-                  onClick={() => setShowGallery(true)}
-                  className="text-xs ml-2 rounded-full px-3 py-1 font-bold transition-all duration-300 hover:scale-110"
-                  sx={{
-                    background: 'linear-gradient(135deg, rgba(0, 128, 255, 0.8) 0%, rgba(0, 102, 204, 0.7) 100%)',
-                    color: '#FFFFFF',
-                    border: '2px solid rgba(255, 255, 255, 0.8)',
-                    textShadow: '1px 1px 2px rgba(0,0,0,0.7)',
-                    boxShadow: '0 4px 15px rgba(0, 128, 255, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3)',
-                    '&:hover': {
-                      background: 'linear-gradient(135deg, #0080ff 0%, #0066cc 100%)',
-                      boxShadow: '0 6px 20px rgba(0, 128, 255, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.4)'
-                    }
-                  }}
-                >
-                  +{allImages.length - 8}
-                </Button>
-              )}
+                <span className="mr-3">𓇋𓍯𓊪</span>
+                BOOK NOW!
+                <span className="ml-3">𓄿𓂧𓂋</span>
+              </Button>
             </div>
           </div>
-        )}
+        </div>
       </div>
 
       {/* Content Sections */}
@@ -1228,63 +940,105 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
             <Grid size={{ xs: 12 }}>
               <Card elevation={2}>
                 <CardContent className="p-6">
-                  <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-6 flex items-center gap-2">
-                    <Navigation className="text-ocean-blue" />
-                    Available Itineraries
-                  </Typography>
+                  <div className="mb-8">
+                    <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-2 flex items-center gap-3">
+                      <div className="flex items-center gap-2 bg-gradient-to-r from-ocean-blue to-blue-600 text-white px-4 py-2 rounded-full">
+                        <Navigation className="animate-pulse" size={20} />
+                        <span className="text-lg">𓈎𓃭𓇋</span>
+                      </div>
+                      Available Itineraries
+                      <span className="text-lg text-ocean-blue">𓍯𓊪𓄿</span>
+                    </Typography>
+                    <div className="w-24 h-1 bg-gradient-to-r from-ocean-blue to-transparent rounded-full mb-4"></div>
+                  </div>
+                  
                   {loadingItineraries ? (
-                    <div className="flex justify-center py-8">
-                      <CircularProgress size={40} className="text-ocean-blue" />
+                    <div className="flex flex-col items-center justify-center py-12">
+                      <div className="relative">
+                        <CircularProgress size={50} className="text-ocean-blue animate-spin" />
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <span className="text-ocean-blue text-xl animate-pulse">𓊪</span>
+                        </div>
+                      </div>
+                      <Typography variant="body2" className="text-gray-500 mt-4 animate-pulse">
+                        Loading magical journeys...
+                      </Typography>
                     </div>
                   ) : itineraries.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                      {itineraries.slice(0, 6).map((itinerary) => (
-                        <div key={itinerary.id} className="bg-white rounded-lg border border-ocean-blue/20 hover:border-ocean-blue/40 transition-all duration-300 hover:shadow-lg overflow-hidden">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                      {itineraries.slice(0, 6).map((itinerary, index) => (
+                        <div 
+                          key={itinerary.id} 
+                          className="group bg-white rounded-2xl border border-ocean-blue/20 hover:border-ocean-blue/60 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 overflow-hidden transform-gpu"
+                          style={{
+                            animationDelay: `${index * 150}ms`,
+                            animation: 'fadeInUp 0.6s ease-out forwards'
+                          }}
+                        >
                           {itinerary.mainImageUrl && (
                             <div className="aspect-video relative overflow-hidden">
                               <Image
-                                src={itinerary.mainImageUrl}
+                                src={itinerary.mainImageUrl || '/images/placeholder-dahabiya.jpg'}
                                 alt={itinerary.name}
                                 fill
-                                className="object-cover"
+                                className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                               />
+                              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                              <div className="absolute top-4 right-4 bg-ocean-blue/90 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm font-semibold opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-2 group-hover:translate-y-0">
+                                <span className="mr-1">𓈎</span>
+                                {itinerary.durationDays} Days
+                              </div>
                             </div>
                           )}
-                          <div className="p-4">
-                            <Typography variant="h6" className="text-hieroglyph-brown font-bold mb-2 line-clamp-1">
-                              {itinerary.name}
-                            </Typography>
-                            <Typography variant="body2" className="text-gray-600 mb-3 line-clamp-2">
+                          <div className="p-6">
+                            <div className="flex items-start justify-between mb-3">
+                              <Typography variant="h6" className="text-hieroglyph-brown font-bold line-clamp-2 group-hover:text-ocean-blue transition-colors duration-300">
+                                {itinerary.name}
+                              </Typography>
+                              <div className="text-ocean-blue text-lg opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-x-2 group-hover:translate-x-0">
+                                𓃭
+                              </div>
+                            </div>
+                            
+                            <Typography variant="body2" className="text-gray-600 mb-4 line-clamp-3 leading-relaxed">
                               {itinerary.shortDescription || itinerary.description}
                             </Typography>
-                            <div className="flex items-center justify-between mb-3">
+                            
+                            <div className="flex items-center justify-between mb-4 p-3 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg">
                               <div className="flex items-center gap-2">
-                                <Calendar className="text-ocean-blue" size={16} />
-                                <Typography variant="body2">{itinerary.durationDays} days</Typography>
+                                <Calendar className="text-ocean-blue animate-pulse" size={18} />
+                                <Typography variant="body2" className="font-semibold">{itinerary.durationDays} days</Typography>
                               </div>
                               {itinerary.maxGuests && (
                                 <div className="flex items-center gap-2">
-                                  <Users className="text-ocean-blue" size={16} />
-                                  <Typography variant="body2">Max {itinerary.maxGuests}</Typography>
+                                  <Users className="text-ocean-blue" size={18} />
+                                  <Typography variant="body2" className="font-semibold">Max {itinerary.maxGuests}</Typography>
                                 </div>
                               )}
                             </div>
+                            
                             {itinerary.price && (
-                              <div className="flex items-center justify-between mb-3">
-                                <Typography variant="body2" color="textSecondary">Starting from</Typography>
-                                <Typography variant="h6" className="text-ocean-blue font-bold">
-                                  ${itinerary.price.toLocaleString()}
-                                </Typography>
+                              <div className="flex items-center justify-between mb-4 p-3 bg-gradient-to-r from-emerald-50 to-green-50 rounded-lg">
+                                <Typography variant="body2" className="text-gray-600 font-medium">Starting from</Typography>
+                                <div className="flex items-center gap-2">
+                                  <span className="text-emerald-600 text-sm">𓊪</span>
+                                  <Typography variant="h6" className="text-emerald-600 font-bold">
+                                    ${itinerary.price.toLocaleString()}
+                                  </Typography>
+                                </div>
                               </div>
                             )}
+                            
                             <Link href={`/itineraries/${itinerary.slug}`}>
                               <Button
                                 variant="outlined"
                                 fullWidth
-                                className="border-ocean-blue text-ocean-blue hover:bg-ocean-blue hover:text-white"
-                                endIcon={<ChevronRight size={16} />}
+                                className="border-2 border-ocean-blue text-ocean-blue hover:bg-ocean-blue hover:text-white hover:border-ocean-blue group-hover:shadow-lg transition-all duration-300 py-3 rounded-xl font-semibold"
+                                endIcon={<ChevronRight size={18} className="group-hover:translate-x-1 transition-transform duration-300" />}
                               >
+                                <span className="mr-2">𓇋𓍯</span>
                                 View Itinerary
+                                <span className="ml-2">𓄿</span>
                               </Button>
                             </Link>
                           </div>
@@ -1447,7 +1201,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                           }}
                         >
                           <Image
-                            src={image}
+                            src={image || '/images/placeholder-dahabiya.jpg'}
                             alt={`${dahabiya.name} gallery ${index + 1}`}
                             fill
                             className="object-cover group-hover:scale-110 transition-transform duration-300"
@@ -1592,7 +1346,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
             <div className="relative">
               <div className="aspect-video relative">
                 <Image
-                  src={dahabiya.gallery[galleryIndex]}
+                  src={dahabiya.gallery[galleryIndex] || '/images/placeholder-dahabiya.jpg'}
                   alt={`${dahabiya.name} gallery ${galleryIndex + 1}`}
                   fill
                   className="object-contain"

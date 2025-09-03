@@ -128,7 +128,7 @@ export default function LoyaltySystemPage() {
     }
   };
 
-  const handleButtonChange = (index: number, field: keyof LoyaltyButton, value: any) => {
+  const handleRuleChange = (index: number, field: string, value: string | number | boolean) => {
     const updatedButtons = [...buttons];
     updatedButtons[index] = { ...updatedButtons[index], [field]: value } as LoyaltyButton;
     setButtons(updatedButtons);
@@ -288,7 +288,7 @@ export default function LoyaltySystemPage() {
                         </div>
                         <Switch
                           checked={button.enabled}
-                          onCheckedChange={(checked) => handleButtonChange(index, 'enabled', checked)}
+                          onCheckedChange={(checked) => handleRuleChange(index, 'enabled', checked)}
                         />
                       </div>
                       
@@ -298,7 +298,7 @@ export default function LoyaltySystemPage() {
                           <Input
                             type="number"
                             value={button.points}
-                            onChange={(e) => handleButtonChange(index, 'points', parseInt(e.target.value) || 0)}
+                            onChange={(e) => handleRuleChange(index, 'points', parseInt(e.target.value) || 0)}
                             className="h-8"
                           />
                         </div>
@@ -306,7 +306,7 @@ export default function LoyaltySystemPage() {
                           <Label className="text-xs">Action</Label>
                           <select
                             value={button.action}
-                            onChange={(e) => handleButtonChange(index, 'action', e.target.value)}
+                            onChange={(e) => handleRuleChange(index, 'action', e.target.value)}
                             className="w-full h-8 px-2 border border-gray-300 rounded text-sm"
                           >
                             <option value="redirect">Redirect</option>
@@ -321,7 +321,7 @@ export default function LoyaltySystemPage() {
                           <Label className="text-xs">URL</Label>
                           <Input
                             value={button.url || ''}
-                            onChange={(e) => handleButtonChange(index, 'url', e.target.value)}
+                            onChange={(e) => handleRuleChange(index, 'url', e.target.value)}
                             placeholder="https://example.com"
                             className="h-8"
                           />
@@ -332,7 +332,7 @@ export default function LoyaltySystemPage() {
                         <Label className="text-xs">Description</Label>
                         <Input
                           value={button.description}
-                          onChange={(e) => handleButtonChange(index, 'description', e.target.value)}
+                          onChange={(e) => handleRuleChange(index, 'description', e.target.value)}
                           className="h-8"
                         />
                       </div>

@@ -223,7 +223,7 @@ export default function TailorMadePage() {
                 3
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">Refinement</h3>
-              <p className="text-gray-600">Fine-tune every detail until it's perfect for you</p>
+              <p className="text-gray-600">Fine-tune every detail until it&apos;s perfect for you</p>
             </div>
 
             <div className="text-center">
@@ -286,7 +286,7 @@ export default function TailorMadePage() {
                 {getContent('tailor_made_form_title', 'Start Planning Your Journey')}
               </h2>
               <p className="text-xl text-gray-600 mb-8">
-                {getContent('tailor_made_form_subtitle', 'Tell us about your dream Egyptian adventure and we\'ll create the perfect itinerary just for you.')}
+                {getContent('tailor_made_form_subtitle', 'Tell us about your dream Egyptian adventure and we&apos;ll create the perfect itinerary just for you.')}
               </p>
 
               <div className="space-y-6">

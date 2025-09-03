@@ -1,5 +1,20 @@
 import { prisma } from '@/lib/prisma';
 
+// Interfaces for booking conflicts and alternatives
+interface ConflictingBooking {
+  id: string;
+  startDate: Date;
+  endDate: Date;
+  status: string;
+  bookingReference: string;
+}
+
+interface Alternative {
+  startDate: Date;
+  endDate: Date;
+  totalPrice: number;
+}
+
 export interface AvailabilityCheck {
   type: 'DAHABIYA' | 'PACKAGE';
   itemId: string;
@@ -14,8 +29,8 @@ export interface AvailabilityResult {
   message: string;
   totalPrice: number;
   availableDates?: Date[];
-  conflictingBookings?: any[];
-  alternatives?: any[];
+  conflictingBookings?: ConflictingBooking[];
+  alternatives?: Alternative[];
 }
 
 export class CleanAvailabilityService {
@@ -129,7 +144,15 @@ export class CleanAvailabilityService {
     }
 
     // Check for conflicting bookings
-    const whereClause: any = {
+    const whereClause: {
+      dahabiyaId: string;
+      status: { in: string[] };
+      OR: Array<{
+        startDate?: { lte?: Date; lt?: Date; gte?: Date };
+        endDate?: { gt?: Date; gte?: Date; lte?: Date };
+      }>;
+      id?: { not: string };
+    } = {
       dahabiyaId,
       status: { in: ['PENDING', 'CONFIRMED'] },
       OR: [
@@ -305,7 +328,15 @@ export class CleanAvailabilityService {
     }
 
     // Check for conflicting package bookings
-    const whereClause: any = {
+    const whereClause: {
+      packageId: string;
+      status: { in: string[] };
+      OR: Array<{
+        startDate?: { lte?: Date; lt?: Date; gte?: Date };
+        endDate?: { gt?: Date; gte?: Date; lte?: Date };
+      }>;
+      id?: { not: string };
+    } = {
       packageId,
       status: { in: ['PENDING', 'CONFIRMED'] },
       OR: [

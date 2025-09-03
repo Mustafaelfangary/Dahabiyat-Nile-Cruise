@@ -6,7 +6,7 @@ import { writeFile, mkdir } from 'fs/promises';
 import path from 'path';
 
 // GET /api/admin/pdf-documents - Get all PDF documents
-export async function GET(request: NextRequest) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
     
@@ -68,7 +68,7 @@ export async function POST(request: NextRequest) {
     const uploadDir = path.join(process.cwd(), 'public', 'pdfs');
     try {
       await mkdir(uploadDir, { recursive: true });
-    } catch (error) {
+    } catch {
       // Directory might already exist
     }
 
@@ -87,7 +87,7 @@ export async function POST(request: NextRequest) {
     const document = await prisma.pDFDocument.create({
       data: {
         name,
-        type: type as any,
+        type: type as 'BROCHURE' | 'ITINERARY' | 'FACT_SHEET' | 'MENU' | 'OTHER',
         category: category || null,
         url: `/pdfs/${filename}`,
         size: file.size,

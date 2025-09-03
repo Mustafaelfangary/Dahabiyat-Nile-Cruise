@@ -269,7 +269,7 @@ export async function processLoyaltyAction(
   userId: string,
   action: string,
   basePoints: number,
-  metadata?: any
+  metadata?: Record<string, unknown>
 ): Promise<{
   success: boolean;
   message: string;

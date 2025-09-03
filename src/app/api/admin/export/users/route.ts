@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const format = searchParams.get('format') || 'excel';
 
     // Build where clause
-    const where: any = {};
+    const where: { role?: string } = {};
 
     if (role) {
       where.role = role;
@@ -132,7 +132,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Add borders
-    worksheet.eachRow((row, rowNumber) => {
+    worksheet.eachRow((row) => {
       row.eachCell((cell) => {
         cell.border = {
           top: { style: 'thin' },

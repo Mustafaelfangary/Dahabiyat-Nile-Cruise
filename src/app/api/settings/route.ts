@@ -5,6 +5,8 @@ import { prisma } from "@/lib/prisma";
 import { z } from "zod";
 import { revalidatePath } from 'next/cache';
 
+// Unused schema - keeping for potential future use
+/*
 const contentBlockSchema = z.object({
   key: z.string().min(1),
   title: z.string().min(1),
@@ -27,6 +29,7 @@ const contentBlockSchema = z.object({
   order: z.number().default(0),
   isActive: z.boolean().default(true),
 });
+*/
 
 export async function GET(request: NextRequest) {
   try {
@@ -50,7 +53,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch content from settings table for now
-    let whereClause: any = {};
+    const whereClause: Record<string, unknown> = {};
 
     if (group) {
       whereClause.group = group;

@@ -21,7 +21,19 @@ export async function GET(request: NextRequest) {
       })
     ]);
 
-    const galleryImages: any[] = [];
+    const galleryImages: Array<{
+      id: string;
+      url: string;
+      alt: string;
+      caption: string;
+      category: string;
+      itemName?: string;
+      itemSlug?: string;
+      location: string;
+      photographer?: string;
+      likes: number;
+      views: number;
+    }> = [];
 
     // Process dahabiya images
     dahabiyat.forEach(dahabiya => {

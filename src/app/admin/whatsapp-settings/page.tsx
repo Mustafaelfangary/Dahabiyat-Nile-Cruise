@@ -12,6 +12,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { toast } from 'sonner';
 import { MessageCircle, Save, RefreshCw, Phone, MessageSquare, Settings, Eye } from 'lucide-react';
 
+interface WhatsAppFieldData {
+  key: string;
+  value: string;
+}
+
+interface WhatsAppApiResponse {
+  fields: WhatsAppFieldData[];
+}
+
 interface WhatsAppSettings {
   enabled: boolean;
   phone: string;
@@ -49,14 +58,15 @@ export default function WhatsAppSettingsPage() {
       if (response.ok) {
         const data = await response.json();
         
+        const apiResponse = data as WhatsAppApiResponse;
         const apiSettings: WhatsAppSettings = {
-          enabled: data.fields?.find((f: any) => f.key === 'whatsapp_enabled')?.value === 'true',
-          phone: data.fields?.find((f: any) => f.key === 'whatsapp_phone')?.value || settings.phone,
-          message: data.fields?.find((f: any) => f.key === 'whatsapp_message')?.value || settings.message,
-          position: data.fields?.find((f: any) => f.key === 'whatsapp_position')?.value || settings.position,
-          delay: parseInt(data.fields?.find((f: any) => f.key === 'whatsapp_delay')?.value || '1'),
-          businessHours: data.fields?.find((f: any) => f.key === 'whatsapp_business_hours')?.value || settings.businessHours,
-          offlineMessage: data.fields?.find((f: any) => f.key === 'whatsapp_offline_message')?.value || settings.offlineMessage
+          enabled: apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_enabled')?.value === 'true',
+          phone: apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_phone')?.value || settings.phone,
+          message: apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_message')?.value || settings.message,
+          position: (apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_position')?.value as 'bottom-right' | 'bottom-left') || settings.position,
+          delay: parseInt(apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_delay')?.value || '1'),
+          businessHours: apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_business_hours')?.value || settings.businessHours,
+          offlineMessage: apiResponse.fields?.find((f: WhatsAppFieldData) => f.key === 'whatsapp_offline_message')?.value || settings.offlineMessage
         };
         
         setSettings(apiSettings);

@@ -15,7 +15,11 @@ import {
 } from '@/components/ui/pharaonic-elements';
 
 export default function PrivacyPage() {
-  const [privacyContent, setPrivacyContent] = useState<any>(null);
+  const [privacyContent, setPrivacyContent] = useState<{
+    title: string;
+    content: string;
+    lastUpdated: string;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 

@@ -10,12 +10,7 @@ export async function GET(
 
     // Fetch the package
     const packageData = await prisma.package.findUnique({
-      where: {
-        OR: [
-          { id: id },
-          { slug: id }
-        ]
-      }
+      where: { id: id }
     });
 
     if (!packageData) {
@@ -41,7 +36,24 @@ export async function GET(
   }
 }
 
-function generatePackageHTML(packageData: any): string {
+interface PackageData {
+  id: string;
+  name: string;
+  description: string;
+  shortDescription?: string | null;
+  price?: { toNumber(): number } | null;
+  durationDays: number;
+  category?: string | null;
+  maxGuests?: number | null;
+  highlights?: string[] | null;
+  included?: string[] | null;
+  notIncluded?: string[] | null;
+  childrenPolicy?: string | null;
+  cancellationPolicy?: string | null;
+  observations?: string | null;
+}
+
+function generatePackageHTML(packageData: PackageData): string {
   return `
 <!DOCTYPE html>
 <html lang="en">
@@ -217,7 +229,7 @@ function generatePackageHTML(packageData: any): string {
         ${packageData.category ? `<div class="category-badge">${packageData.category}</div>` : ''}
         <div class="duration-price">
             <div class="duration">${packageData.durationDays} Days Journey</div>
-            ${packageData.price ? `<div class="price">$${packageData.price.toLocaleString()}</div>` : ''}
+            ${packageData.price ? `<div class="price">$${packageData.price.toNumber().toLocaleString()}</div>` : ''}
         </div>
     </div>
 
@@ -243,7 +255,7 @@ function generatePackageHTML(packageData: any): string {
             ${packageData.price ? `
             <div class="spec-item">
                 <div class="spec-label">Price</div>
-                <div class="spec-value">$${packageData.price.toLocaleString()}</div>
+                <div class="spec-value">$${packageData.price.toNumber().toLocaleString()}</div>
             </div>
             ` : ''}
             ${packageData.maxGuests ? `

@@ -25,6 +25,25 @@ import {
 } from "@/components/ui/dropdown-menu";
 import MobileNavigation from '@/components/mobile/MobileNavigation';
 
+// Interfaces for API responses
+interface DahabiyaData {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
+interface ItineraryData {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
+interface PackageData {
+  id: string;
+  name: string;
+  slug?: string;
+}
+
 interface LanguageContextType {
   language: string;
   setLanguage: (lang: string) => void;
@@ -84,17 +103,9 @@ export default function Navbar() {
   const { getContent } = useContent({ page: 'global_media' });
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
 
-  // Get dynamic logo from database with fallback - prevent flash of old logo
-  const [logoSrc, setLogoSrc] = useState(''); // Start empty to prevent flash
-  const [logoLoaded, setLogoLoaded] = useState(false);
-
+  // Get dynamic logo from database with fallback
   const getNavbarLogo = () => {
-    const dynamicLogo = getContent('navbar_logo', '/images/logo.png');
-    if (dynamicLogo && !logoLoaded) {
-      setLogoSrc(dynamicLogo);
-      setLogoLoaded(true);
-    }
-    return logoSrc || '/images/logo.png'; // Fallback if empty
+    return getContent('navbar_logo') || '/images/logo.png';
   };
 
   // Check if we're on the homepage
@@ -191,7 +202,7 @@ export default function Navbar() {
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.dahabiyas)) {
-          const items = data.dahabiyas.map((boat: any, index: number) => ({
+          const items = data.dahabiyas.map((boat: DahabiyaData, index: number) => ({
             href: `/dahabiyas/${boat.slug || generateSlugFromName(boat.name)}`,
             label: `${['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${boat.name}`,
             hieroglyph: ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
@@ -208,7 +219,7 @@ export default function Navbar() {
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data)) {
-          const items = data.map((itinerary: any, index: number) => ({
+          const items = data.map((itinerary: ItineraryData, index: number) => ({
             href: `/itineraries/${itinerary.slug || itinerary.id}`,
             label: `${['𓋖', '𓇳', '𓊪', '𓂀', '𓏏'][index % 5]} ${itinerary.name}`,
             hieroglyph: ['𓋖', '𓇳', '𓊪', '𓂀', '𓏏'][index % 5] || '𓋖'
@@ -225,7 +236,7 @@ export default function Navbar() {
       .then(res => res.json())
       .then(data => {
         if (data && Array.isArray(data.packages)) {
-          const items = data.packages.map((pkg: any, index: number) => ({
+          const items = data.packages.map((pkg: PackageData, index: number) => ({
             href: `/packages/${pkg.slug || pkg.id}`,
             label: `${['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]} ${pkg.name}`,
             hieroglyph: ['𓇳', '𓊪', '𓈖', '𓂀', '𓏏'][index % 5]
@@ -353,11 +364,9 @@ export default function Navbar() {
               height={56}
               className="h-14 w-auto"
               priority={true}
-              onError={() => setLogoSrc('/images/logo.png')}
               style={{
                 filter: isHomepage && !scrolled ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' : 'none',
-                transition: 'opacity 0.3s ease-in-out',
-                opacity: logoSrc ? 1 : 0
+                transition: 'opacity 0.3s ease-in-out'
               }}
             />
             <span style={{

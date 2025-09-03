@@ -23,6 +23,13 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+  name?: string;
+  address?: string;
+}
+
 interface ItineraryDay {
   id: string;
   dayNumber: number;
@@ -31,7 +38,7 @@ interface ItineraryDay {
   location?: string;
   activities: string[];
   meals: string[];
-  coordinates?: any;
+  coordinates?: Coordinates;
 }
 
 interface Itinerary {

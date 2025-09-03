@@ -3,7 +3,13 @@
 import { useState, useEffect } from 'react';
 
 export default function TestAPIPage() {
-  const [homepageData, setHomepageData] = useState<any[]>([]);
+  const [homepageData, setHomepageData] = useState<Array<{
+    key: string;
+    title: string;
+    content: string;
+    contentType: string;
+    section: string;
+  }>>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -57,7 +63,13 @@ export default function TestAPIPage() {
   }
 
   // Group by section
-  const sections: Record<string, any[]> = {};
+  const sections: Record<string, Array<{
+    key: string;
+    title: string;
+    content: string;
+    contentType: string;
+    section: string;
+  }>> = {};
   homepageData.forEach(item => {
     if (!sections[item.section]) {
       sections[item.section] = [];

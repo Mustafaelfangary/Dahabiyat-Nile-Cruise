@@ -9,12 +9,13 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Users, UserPlus, Download, Shield, Crown, User, ArrowLeft, Eye, Edit, Trash2, X } from 'lucide-react';
+import { Users, UserPlus, Download, Shield, Crown, User, ArrowLeft, Eye, Edit, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 export default function UsersManagement() {
   const { data: session, status } = useSession();
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<Array<{id: string; name: string; email: string; role: string}>>([]);
   const [loading, setLoading] = useState(true);
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [createLoading, setCreateLoading] = useState(false);
@@ -123,12 +124,12 @@ export default function UsersManagement() {
             <p className="text-red-700 mb-6 admin-text-justify">
               You do not have the royal privileges required to access this chamber. Only those blessed with administrative powers may enter these hallowed halls.
             </p>
-            <a href="/admin">
+            <Link href="/admin">
               <Button className="bg-red-600 hover:bg-red-700 admin-focus flex items-center gap-2">
                 <ArrowLeft className="w-4 h-4" />
                 Return to Dashboard
               </Button>
-            </a>
+            </Link>
           </CardContent>
         </Card>
       </div>
@@ -154,7 +155,7 @@ export default function UsersManagement() {
                 </p>
               </div>
             </div>
-            <a href="/admin">
+            <Link href="/admin">
               <Button
                 variant="outline"
                 size="sm"
@@ -163,7 +164,7 @@ export default function UsersManagement() {
                 <ArrowLeft className="w-3 h-3" />
                 Return to Dashboard
               </Button>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -488,7 +489,7 @@ export default function UsersManagement() {
                 <Users className="w-16 h-16 text-gray-400 mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-gray-900 mb-2">No Users Found</h3>
                 <p className="text-gray-600 admin-text-justify max-w-md mx-auto mb-6">
-                  The royal archives appear to be empty. Begin by adding the first administrator to establish the kingdom's digital presence and unlock the full potential of this powerful system.
+                  The royal archives appear to be empty. Begin by adding the first administrator to establish the kingdom&apos;s digital presence and unlock the full potential of this powerful system.
                 </p>
                 <Button className="admin-btn-primary admin-focus">
                   <UserPlus className="w-5 h-5 mr-2" />

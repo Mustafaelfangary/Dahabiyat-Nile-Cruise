@@ -9,7 +9,10 @@ export async function GET(request: NextRequest) {
     const page = searchParams.get('page');
     const section = searchParams.get('section');
 
-    const where: any = {};
+    const where: {
+      page?: string;
+      section?: string;
+    } = {};
     if (page && page !== 'all') where.page = page;
     if (section && section !== 'all') where.section = section;
 

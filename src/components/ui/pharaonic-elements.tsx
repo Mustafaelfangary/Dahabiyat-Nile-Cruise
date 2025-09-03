@@ -176,12 +176,11 @@ export const RoyalCrown = ({ className = "" }: { className?: string }) => {
 };
 
 // Pharaonic Button Component
-export const PharaohButton = ({ children, onClick, className = "", variant = "primary" }: { 
+export const PharaohButton = ({ children, className = "", variant = "primary", ...props }: { 
   children: React.ReactNode; 
-  onClick?: () => void; 
   className?: string;
   variant?: "primary" | "secondary";
-}) => {
+} & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const baseClasses = "relative px-8 py-4 rounded-xl font-semibold text-lg transition-all duration-300 transform hover:scale-105 active:scale-95 shadow-lg";
   
   const variants = {
@@ -191,8 +190,8 @@ export const PharaohButton = ({ children, onClick, className = "", variant = "pr
   
   return (
     <button 
-      onClick={onClick}
       className={`${baseClasses} ${variants[variant]} ${className}`}
+      {...props}
     >
       {/* Hieroglyphic Decorations - Removed black symbols */}
       
@@ -221,7 +220,7 @@ export const HieroglyphicDivider = ({ className = "" }: { className?: string }) 
 };
 
 // Emerald/Jade themed variants for Packages page
-export const EmeraldCard = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
+export const EmeraldCard = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; } & React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={`bg-white/95 backdrop-blur-sm border-2 border-emerald-200/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:border-emerald-300/70 relative overflow-hidden ${className}`}
     {...props}
@@ -233,7 +232,7 @@ export const EmeraldCard = ({ children, className = "", ...props }: { children: 
   </div>
 );
 
-export const EmeraldButton = ({ children, className = "", variant = "primary", ...props }: { children: React.ReactNode; className?: string; variant?: "primary" | "secondary"; [key: string]: any }) => {
+export const EmeraldButton = ({ children, className = "", variant = "primary", ...props }: { children: React.ReactNode; className?: string; variant?: "primary" | "secondary"; } & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const baseClasses = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg relative overflow-hidden";
   const primaryClasses = "bg-white via-jade-500 to-emerald-600 text-black hover:from-jade-600 hover:via-emerald-500 hover:to-jade-600 shadow-emerald-300/50";
   const secondaryClasses = "bg-gradient-to-r from-white via-emerald-50 to-white text-black border-2 border-emerald-300 hover:border-emerald-400 hover:bg-emerald-50";
@@ -344,7 +343,7 @@ export const EmeraldCrown = ({ className = "" }: { className?: string }) => (
 );
 
 // Pharaonic Components - More Royal
-export const PharaonicCard = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; [key: string]: any }) => (
+export const PharaonicCard = ({ children, className = "", ...props }: { children: React.ReactNode; className?: string; } & React.HTMLAttributes<HTMLDivElement>) => (
   <div
     className={`relative bg-white/95
                  rounded-2xl border-2 border-ocean-blue/40 shadow-2xl shadow-ocean-blue/20
@@ -362,7 +361,7 @@ export const PharaonicCard = ({ children, className = "", ...props }: { children
   </div>
 );
 
-export const PharaonicButton = ({ children, className = "", variant = "primary", ...props }: { children: React.ReactNode; className?: string; variant?: "primary" | "secondary"; [key: string]: any }) => {
+export const PharaonicButton = ({ children, className = "", variant = "primary", ...props }: { children: React.ReactNode; className?: string; variant?: "primary" | "secondary"; } & React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   const baseClasses = "inline-flex items-center gap-3 px-8 py-4 rounded-full font-bold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-2xl relative overflow-hidden";
 
   const variants = {

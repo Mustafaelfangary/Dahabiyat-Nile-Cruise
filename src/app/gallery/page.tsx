@@ -3,17 +3,15 @@ export const dynamic = "force-dynamic";
 
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { Container, Typography, Grid, Card, CardContent, Button, Chip } from '@mui/material';
+import { Container, Typography, Button, Chip } from '@mui/material';
 import { AnimatedSection, StaggeredAnimation } from '@/components/ui/animated-section';
-import { Camera, Eye, Heart, Download, Filter, Ship, Package, MapPin } from 'lucide-react';
+import { Camera, Eye, Heart, Ship, Package, MapPin, Filter } from 'lucide-react';
 import {
   HieroglyphicText,
-  EgyptianBorder,
   PharaohCard,
   FloatingEgyptianElements,
   EgyptianPatternBackground,
   RoyalCrown,
-  PharaohButton,
   HieroglyphicDivider,
 } from '@/components/ui/pharaonic-elements';
 

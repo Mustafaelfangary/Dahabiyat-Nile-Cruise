@@ -2,6 +2,30 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react';
 
+interface WebsiteContentField {
+  id: string;
+  key: string;
+  label: string;
+  value?: string;
+  placeholder?: string;
+  type: string;
+}
+
+interface WebsiteContent {
+  id: string;
+  key: string;
+  title: string;
+  content?: string;
+  mediaUrl?: string;
+  contentType?: string;
+  page?: string;
+  section?: string;
+  order?: number;
+  isActive?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
 interface ContentBlock {
   id: string;
   key: string;
@@ -82,7 +106,7 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
         }
 
         // Convert website content fields to ContentBlock format for compatibility
-        const blocks = fields.map((field: any, index: number) => ({
+        const blocks = fields.map((field: WebsiteContentField, index: number) => ({
           id: field.id,
           key: field.key,
           title: field.label,
@@ -133,7 +157,7 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
         }
 
         // Convert website content to ContentBlock format for compatibility
-        const blocks = contentArray.map((item: any, index: number) => ({
+        const blocks = contentArray.map((item: WebsiteContent, index: number) => ({
           id: item.id,
           key: item.key,
           title: item.title,
@@ -270,17 +294,17 @@ export function useSettings() {
   // Convert content blocks to settings object for backward compatibility
   const settings = useMemo(() => {
     try {
-      return safeContent.reduce((acc, block) => {
+      return content.reduce((acc, block) => {
         if (block && block.key) {
           acc[block.key] = block.content || block.mediaUrl || '';
         }
         return acc;
       }, {} as Record<string, string>);
     } catch (error) {
-      console.error(`🚨 CRITICAL ERROR in settings conversion for page ${page}:`, error);
+      console.error(`🚨 CRITICAL ERROR in settings conversion:`, error);
       return {};
     }
-  }, [safeContent, page]);
+  }, [content]);
 
   return {
     settings,

@@ -1,14 +1,9 @@
 "use client";
 import { Container, Typography, Box, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useEffect, useState } from 'react';
 import { useTranslation } from '@/lib/i18n';
 import { useContent } from '@/hooks/useContent';
 
-interface Setting {
-  settingKey: string;
-  settingValue: string;
-}
 
 export default function FAQPage() {
   const { getContent, loading, error } = useContent({ page: 'faq' });

@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Calendar, Users, MapPin, Star, Clock, ChevronRight, Play, Download, Check, X } from 'lucide-react';
+import { Calendar, Users, MapPin, Star, Play, Download, Check, X } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 interface ItineraryDay {
@@ -50,7 +50,11 @@ interface Itinerary {
   pricingTiers: ItineraryPricing[];
 }
 
-const PharaohButton = ({ children, className = '', ...props }: any) => (
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+
+type PharaohButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { className?: string; children: ReactNode };
+
+const PharaohButton = ({ children, className = '', ...props }: PharaohButtonProps) => (
   <Button
     className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue-500 to-navy-blue-600 hover:from-ocean-blue-600 hover:to-navy-blue-700 text-black font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
@@ -60,7 +64,9 @@ const PharaohButton = ({ children, className = '', ...props }: any) => (
   </Button>
 );
 
-const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) => (
+type AnimatedSectionProps = { children: ReactNode; animation?: 'fade-up' | 'fade-left' | 'fade-right'; delay?: number };
+
+const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: AnimatedSectionProps) => (
   <motion.div
     initial={{ 
       opacity: 0, 
@@ -85,9 +91,9 @@ export default function ItineraryDetailPage() {
     if (params.slug) {
       fetchItinerary();
     }
-  }, [params.slug]);
+  }, [fetchItinerary, params.slug]);
 
-  const fetchItinerary = async () => {
+  const fetchItinerary = useCallback(async () => {
     try {
       const response = await fetch(`/api/itineraries/${params.slug}`);
       if (response.ok) {
@@ -99,7 +105,7 @@ export default function ItineraryDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [params.slug]);
 
   if (loading) {
     return (
@@ -385,8 +391,8 @@ export default function ItineraryDetailPage() {
               <Card className="h-full border-2 border-green-200 bg-green-50/50">
                 <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6">
                   <h3 className="text-2xl font-bold flex items-center">
-                    <Check className="w-6 h-6 mr-2" />
-                    What's Included
+                  <Check className="w-6 h-6 mr-2" />
+                  What&apos;s Included
                   </h3>
                 </div>
                 <CardContent className="p-6">
@@ -407,8 +413,8 @@ export default function ItineraryDetailPage() {
               <Card className="h-full border-2 border-red-200 bg-red-50/50">
                 <div className="bg-gradient-to-r from-red-500 to-pink-600 text-white p-6">
                   <h3 className="text-2xl font-bold flex items-center">
-                    <X className="w-6 h-6 mr-2" />
-                    What's Not Included
+                  <X className="w-6 h-6 mr-2" />
+                  What&apos;s Not Included
                   </h3>
                 </div>
                 <CardContent className="p-6">

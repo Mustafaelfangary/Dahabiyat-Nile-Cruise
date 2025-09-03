@@ -88,6 +88,7 @@ interface Dahabiya {
   yearBuilt?: number;
   mainImage?: string;
   gallery?: string[];
+  specificationsImage?: string;
   videoUrl?: string;
   virtualTourUrl?: string;
   features: string[];
@@ -156,6 +157,7 @@ const DahabiyaManager = () => {
     yearBuilt: 0,
     mainImage: '',
     gallery: [] as string[],
+    specificationsImage: '',
     videoUrl: '',
     virtualTourUrl: '',
     features: '',
@@ -232,6 +234,7 @@ const DahabiyaManager = () => {
         yearBuilt: dahabiya.yearBuilt || 0,
         mainImage: dahabiya.mainImage || '',
         gallery: dahabiya.gallery || [],
+        specificationsImage: dahabiya.specificationsImage || '',
         videoUrl: dahabiya.videoUrl || '',
         virtualTourUrl: dahabiya.virtualTourUrl || '',
         features: dahabiya.features.join(', '),
@@ -264,6 +267,7 @@ const DahabiyaManager = () => {
         yearBuilt: 0,
         mainImage: '',
         gallery: [],
+        specificationsImage: '',
         videoUrl: '',
         virtualTourUrl: '',
         features: '',
@@ -618,7 +622,7 @@ const DahabiyaManager = () => {
                     <InputLabel>Category</InputLabel>
                     <Select
                       value={formData.category}
-                      onChange={(e) => setFormData({ ...formData, category: e.target.value as any })}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value as 'LUXURY' | 'DELUXE' | 'PREMIUM' | 'BOUTIQUE' })}
                       label="Category"
                     >
                       <MenuItem value="LUXURY">Luxury</MenuItem>
@@ -749,6 +753,26 @@ const DahabiyaManager = () => {
                   accept="image/*"
                   helperText="Click to add more images to the gallery"
                   maxItems={15}
+                />
+
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1, color: '#0080ff' }}>
+                    Specifications & Dimensions Chart
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Upload a detailed specifications chart or floor plan image with pharaonic styling 𓈎𓃭𓇋𓍯𓊪𓄿𓂧𓂋𓄿
+                  </Typography>
+                </Box>
+                <DahabiyaMediaPicker
+                  label="Specifications Chart Image"
+                  value={formData.specificationsImage}
+                  onChange={(value) => {
+                    console.log('📊 Specifications image changed:', value);
+                    setFormData({ ...formData, specificationsImage: value });
+                  }}
+                  type="single"
+                  accept="image/*"
+                  helperText="Upload vessel specifications, floor plan, or dimensions chart"
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -910,7 +934,7 @@ const DahabiyaManager = () => {
                 <TextField
                   label="Amenities (comma-separated)"
                   value={formData.amenities}
-                  onChange={(e) => setFormData({ ...formData, amenities: e.target.value })}
+                  onChange={(e) => setFormData({ ...formData, amenities: e.target.value.split(',').map((item: string) => item.trim()) })}
                   fullWidth
                   multiline
                   rows={2}

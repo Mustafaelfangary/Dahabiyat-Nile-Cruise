@@ -23,6 +23,20 @@ import {
 } from 'lucide-react';
 import { toast } from 'sonner';
 
+interface Dahabiya {
+  id: string;
+  name: string;
+  slug: string;
+  maxCapacity: number;
+}
+
+interface Itinerary {
+  id: string;
+  name: string;
+  slug: string;
+  durationDays: number;
+}
+
 interface PDFDocument {
   id: string;
   name: string;
@@ -51,8 +65,8 @@ export default function PDFManagerPage() {
     file: null as File | null
   });
 
-  const [dahabiyas, setDahabiyas] = useState<any[]>([]);
-  const [itineraries, setItineraries] = useState<any[]>([]);
+  const [dahabiyas, setDahabiyas] = useState<Dahabiya[]>([]);
+  const [itineraries, setItineraries] = useState<Itinerary[]>([]);
 
   useEffect(() => {
     if (session?.user?.role === 'ADMIN') {
@@ -260,7 +274,7 @@ export default function PDFManagerPage() {
                       </div>
                       <div>
                         <Label htmlFor="type" className="text-amber-800 font-semibold">Document Type *</Label>
-                        <Select value={uploadForm.type} onValueChange={(value: any) => setUploadForm(prev => ({ ...prev, type: value }))}>
+                        <Select value={uploadForm.type} onValueChange={(value: 'FACTSHEET' | 'ITINERARY' | 'BROCHURE') => setUploadForm(prev => ({ ...prev, type: value }))}>
                           <SelectTrigger className="border-2 border-amber-200 focus:border-blue-500 bg-white/80">
                             <SelectValue placeholder="Select document type" />
                           </SelectTrigger>

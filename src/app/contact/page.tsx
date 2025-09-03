@@ -1,21 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { toast } from 'sonner';
-import { Typography, Grid, Box, TextField, Paper } from '@mui/material';
-import { ContactForm } from '@/components/contact/contact-form';
 import { useContent } from '@/hooks/useContent';
 import { Container } from '@/components/ui/container';
 import { AnimatedSection } from '@/components/ui/animated-section';
 import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 import { useSession } from 'next-auth/react';
 import '@/styles/admin.css';
-import { Phone, Mail, MapPin, Clock, Heart, MessageCircle, Send, Play, Star, Edit3, Save, Facebook, Instagram, Twitter, Hash, Users, Bookmark, Globe } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Send, Play, Star, Edit3, Save, Facebook, Instagram, Twitter, Hash, Users, Bookmark } from 'lucide-react';
 import {
   RoyalCrown,
   FloatingEgyptianElements,
@@ -23,11 +19,8 @@ import {
   HieroglyphicDivider,
   PharaohCard,
   PharaohButton,
-  EgyptianBorder,
-  ObeliskContainer,
   EgyptHieroglyphic
 } from '@/components/ui/pharaonic-elements';
-import Image from 'next/image';
 
 export default function ContactPage() {
   const { data: session } = useSession();
@@ -509,7 +502,7 @@ export default function ContactPage() {
                           </h3>
 
                           <p className="pharaonic-social-text mb-6 admin-text-justify max-w-md mx-auto text-lg leading-relaxed">
-                            Discover breathtaking photos and stories from our luxury dahabiya cruises. Experience the beauty of the Nile through our guests' eyes.
+                            Discover breathtaking photos and stories from our luxury dahabiya cruises. Experience the beauty of the Nile through our guests&apos; eyes.
                           </p>
 
                           {isEditing && session?.user?.role === 'ADMIN' ? (

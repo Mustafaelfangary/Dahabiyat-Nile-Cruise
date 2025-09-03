@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const page = searchParams.get('page');
     const section = searchParams.get('section');
 
-    let whereClause: any = {
+    const whereClause: Record<string, unknown> = {
       isActive: true
     };
 

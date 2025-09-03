@@ -19,6 +19,7 @@ const updateDahabiyaSchema = z.object({
   yearBuilt: z.number().optional(),
   mainImage: z.string().optional(),
   gallery: z.array(z.string()).optional(),
+  specificationsImage: z.string().optional(),
   videoUrl: z.string().optional(),
   virtualTourUrl: z.string().optional(),
   features: z.array(z.string()).optional(),

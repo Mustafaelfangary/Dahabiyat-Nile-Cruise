@@ -1,9 +1,43 @@
 "use client";
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
+interface NavigatorWithStandalone extends Navigator {
+  standalone?: boolean;
+}
+
+interface ConnectionInfo {
+  effectiveType?: '2g' | '3g' | '4g' | 'slow-2g';
+}
+
+interface NavigatorWithConnection extends Navigator {
+  connection?: ConnectionInfo;
+  mozConnection?: ConnectionInfo;
+  webkitConnection?: ConnectionInfo;
+}
+
+interface NavigatorWithWakeLock extends Navigator {
+  wakeLock?: {
+    request(type: 'screen'): Promise<WakeLockSentinel>;
+  };
+}
+
+interface WakeLockSentinel {
+  release(): Promise<void>;
+}
+
+interface NavigatorWithBadge extends Navigator {
+  setAppBadge?(count?: number): Promise<void>;
+  clearAppBadge?(): Promise<void>;
+}
+
 // PWA installation and management utilities
 export class PWAManager {
   private static instance: PWAManager;
-  private deferredPrompt: any = null;
+  private deferredPrompt: BeforeInstallPromptEvent | null = null;
   private isInstalled = false;
   private isStandalone = false;
 
@@ -23,7 +57,7 @@ export class PWAManager {
   private init() {
     // Check if app is running in standalone mode
     this.isStandalone = window.matchMedia('(display-mode: standalone)').matches ||
-                       (window.navigator as any).standalone ||
+                       (window.navigator as NavigatorWithStandalone).standalone ||
                        document.referrer.includes('android-app://');
 
     // Check if app is already installed
@@ -32,7 +66,7 @@ export class PWAManager {
     // Listen for beforeinstallprompt event
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
-      this.deferredPrompt = e;
+      this.deferredPrompt = e as BeforeInstallPromptEvent;
       this.showInstallBanner();
     });
 
@@ -272,10 +306,10 @@ export class PWAManager {
     }
   }
 
-  private trackEvent(eventName: string, data?: any) {
+  private trackEvent(eventName: string, data?: Record<string, unknown>) {
     // Track PWA events for analytics
-    if (typeof window !== 'undefined' && (window as any).gtag) {
-      (window as any).gtag('event', eventName, {
+    if (typeof window !== 'undefined' && 'gtag' in window && typeof (window as WindowWithGtag).gtag === 'function') {
+      (window as WindowWithGtag).gtag('event', eventName, {
         event_category: 'PWA',
         ...data
       });
@@ -284,7 +318,8 @@ export class PWAManager {
 
   // Offline detection
   getNetworkStatus(): { online: boolean; effectiveType?: string } {
-    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+    const nav = navigator as NavigatorWithConnection;
+    const connection = nav.connection || nav.mozConnection || nav.webkitConnection;
     
     return {
       online: navigator.onLine,
@@ -327,22 +362,25 @@ export class PWAManager {
 
   // Badge API (for notifications)
   setBadge(count: number) {
-    if ('setAppBadge' in navigator) {
-      (navigator as any).setAppBadge(count);
+    const nav = navigator as NavigatorWithBadge;
+    if (nav.setAppBadge) {
+      nav.setAppBadge(count);
     }
   }
 
   clearBadge() {
-    if ('clearAppBadge' in navigator) {
-      (navigator as any).clearAppBadge();
+    const nav = navigator as NavigatorWithBadge;
+    if (nav.clearAppBadge) {
+      nav.clearAppBadge();
     }
   }
 
   // Wake Lock API (prevent screen from sleeping)
-  async requestWakeLock(): Promise<any> {
-    if ('wakeLock' in navigator) {
+  async requestWakeLock(): Promise<WakeLockSentinel | null> {
+    const nav = navigator as NavigatorWithWakeLock;
+    if (nav.wakeLock) {
       try {
-        const wakeLock = await (navigator as any).wakeLock.request('screen');
+        const wakeLock = await nav.wakeLock.request('screen');
         return wakeLock;
       } catch (error) {
         console.error('Wake lock request failed:', error);
@@ -388,7 +426,7 @@ export class OfflineStorage {
     });
   }
 
-  async store(storeName: string, data: any): Promise<void> {
+  async store(storeName: string, data: Record<string, unknown>): Promise<void> {
     if (!this.db) await this.init();
     
     return new Promise((resolve, reject) => {
@@ -401,7 +439,7 @@ export class OfflineStorage {
     });
   }
 
-  async get(storeName: string, key: string): Promise<any> {
+  async get(storeName: string, key: string): Promise<Record<string, unknown> | undefined> {
     if (!this.db) await this.init();
     
     return new Promise((resolve, reject) => {
@@ -414,7 +452,7 @@ export class OfflineStorage {
     });
   }
 
-  async getAll(storeName: string): Promise<any[]> {
+  async getAll(storeName: string): Promise<Record<string, unknown>[]> {
     if (!this.db) await this.init();
     
     return new Promise((resolve, reject) => {

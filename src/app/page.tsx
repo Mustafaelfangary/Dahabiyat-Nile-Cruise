@@ -5,27 +5,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import { useContent } from '@/hooks/useContent';
-import { ChevronRight, Star, Users, Calendar, MapPin, RefreshCw, User, Clock, DollarSign, Crown } from 'lucide-react';
+import { ChevronRight, Star, RefreshCw, User, Clock } from 'lucide-react';
 import {
-  EgyptHieroglyphic,
   HieroglyphicDivider,
   FloatingEgyptianElements,
   EgyptianBorder,
   EGYPTIAN_CROWN_SYMBOLS,
-  PharaohButton,
   PharaonicCard
 } from '@/components/ui/pharaonic-elements';
 import ShareYourMemories from '@/components/homepage/ShareYourMemories';
 import FeaturedReviews from '@/components/homepage/FeaturedReviews';
 import OptimizedHeroVideo from '@/components/OptimizedHeroVideo';
 import { DahabiyaCard } from '@/components/dahabiyas';
-import ScheduleDemo from '@/components/homepage/ScheduleDemo';
 
 export default function HomePage() {
-  const { getContent, loading, error } = useContent({ page: 'homepage' });
+  const { getContent, loading } = useContent({ page: 'homepage' });
   const [dahabiyat, setDahabiyat] = useState([]);
   const [packages, setPackages] = useState([]);
-  const [blogs, setBlogs] = useState([]);
+  const [, setBlogs] = useState([]);
   const [featuredDahabiyat, setFeaturedDahabiyat] = useState([]);
   const [featuredPackages, setFeaturedPackages] = useState([]);
   const [featuredBlogs, setFeaturedBlogs] = useState([]);
@@ -101,43 +98,38 @@ export default function HomePage() {
 
       console.log('🔄 Fetching homepage data...', bustCache ? '(cache busted)' : '(cached)');
 
-      // Fetch featured dahabiyas first - increased limit to show all featured items
-      const featuredDahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=20${timestamp}`, cacheControl);
-      if (featuredDahabiyatResponse.ok) {
-        const featuredDahabiyatData = await featuredDahabiyatResponse.json();
-        console.log('✅ Featured dahabiyas:', featuredDahabiyatData.dahabiyas?.length || 0);
-        setFeaturedDahabiyat(featuredDahabiyatData.dahabiyas || []);
-      }
-
-      // Fetch featured packages - increased limit to show all featured items
-      const featuredPackagesResponse = await fetch(`/api/packages?featured=true&limit=20${timestamp}`, cacheControl);
-      if (featuredPackagesResponse.ok) {
-        const featuredPackagesData = await featuredPackagesResponse.json();
-        console.log('✅ Featured packages:', featuredPackagesData.packages?.length || 0);
-        setFeaturedPackages(featuredPackagesData.packages || []);
-      }
-
-      // Fetch regular content as fallback - increased limit
+      // Fetch dahabiyat first
       const dahabiyatResponse = await fetch(`/api/dahabiyas?active=true&limit=20${timestamp}`, cacheControl);
       if (dahabiyatResponse.ok) {
         const dahabiyatData = await dahabiyatResponse.json();
-        console.log('✅ Regular dahabiyas:', dahabiyatData.dahabiyas?.length || 0);
+        console.log('✅ Dahabiyat:', dahabiyatData.dahabiyas?.length || 0);
         setDahabiyat(dahabiyatData.dahabiyas || []);
+
+        // Filter featured dahabiyat
+        const featuredDahabiyatData = dahabiyatData.dahabiyas.filter((dahabiya: { featured: boolean }) => dahabiya.featured);
+        console.log('✅ Featured dahabiyat:', featuredDahabiyatData.length);
+        setFeaturedDahabiyat(featuredDahabiyatData);
       }
 
+      // Fetch packages
       const packagesResponse = await fetch(`/api/packages?limit=4${timestamp}`, cacheControl);
       if (packagesResponse.ok) {
         const packagesData = await packagesResponse.json();
-        console.log('✅ Regular packages:', packagesData.packages?.length || 0);
+        console.log('✅ Packages:', packagesData.packages?.length || 0);
         setPackages(packagesData.packages || []);
+
+        // Filter featured packages
+        const featuredPackagesData = packagesData.packages.filter((pkg: { isFeaturedOnHomepage: boolean }) => pkg.isFeaturedOnHomepage);
+        console.log('✅ Featured packages:', featuredPackagesData.length);
+        setFeaturedPackages(featuredPackagesData);
       }
 
       // Fetch featured blogs
       const blogsResponse = await fetch(`/api/blogs${timestamp}`, cacheControl);
       if (blogsResponse.ok) {
         const blogsData = await blogsResponse.json();
-        const publishedBlogs = blogsData.filter((blog: any) => blog.isPublished);
-        const featuredBlogsData = publishedBlogs.filter((blog: any) => blog.featured);
+        const publishedBlogs = blogsData.filter((blog: { isPublished: boolean }) => blog.isPublished);
+        const featuredBlogsData = publishedBlogs.filter((blog: { featured: boolean }) => blog.featured);
         console.log('✅ Featured blogs:', featuredBlogsData.length);
         console.log('✅ Total blogs:', publishedBlogs.length);
         setBlogs(publishedBlogs);
@@ -310,8 +302,15 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 2. Dahabiyat Cards Section */}
-      <section className="py-20 bg-gradient-to-b from-blue-50 to-blue-100 relative">
+      {/* 2. Enhanced Dahabiyat Cards Section */}
+      <section className="py-20 bg-gradient-to-b from-blue-50 via-blue-75 to-blue-100 relative overflow-hidden">
+        {/* Floating Background Elements */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute top-20 left-10 text-6xl text-blue-600 rotate-12">𓇳</div>
+          <div className="absolute top-40 right-20 text-5xl text-blue-500 -rotate-12">𓊪</div>
+          <div className="absolute bottom-20 left-1/4 text-4xl text-blue-400 rotate-45">𓈖</div>
+          <div className="absolute bottom-40 right-1/3 text-7xl text-blue-300 -rotate-45">𓇯</div>
+        </div>
         <Container maxWidth="lg">
           <div className="text-center mb-16">
             {/* Hieroglyphic Section Divider */}
@@ -365,20 +364,140 @@ export default function HomePage() {
             </span>
           </div>
 
-          {/* FEATURED DAHABIYA CARDS WITH SCHEDULE DEMOS */}
-          <div className="grid grid-cols-1 gap-6 sm:gap-8 lg:grid-cols-2 xl:grid-cols-3 lg:gap-12">
-            {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: any, index: number) => (
-              <div key={dahabiya.id} className="space-y-6">
-                {/* Dahabiya Card */}
-                <DahabiyaCard dahabiya={dahabiya} />
-                
-                {/* Schedule Demo for this specific Dahabiya */}
-                <ScheduleDemo 
-                  dahabiyaName={dahabiya.name} 
-                  className="transform hover:scale-[1.02] transition-all duration-300"
-                />
+          {/* PREMIUM CATEGORY */}
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-8 py-3 rounded-full shadow-lg mb-4">
+                <span className="text-2xl">𓋹</span>
+                <h3 className="text-2xl font-bold">PREMIUM CATEGORY</h3>
+                <span className="text-2xl">𓋹</span>
               </div>
-            ))}
+              <div className="w-32 h-1 bg-gradient-to-r from-amber-500 to-transparent rounded-full mx-auto"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
+                <div 
+                  key={String(dahabiya.id)} 
+                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-amber-200 hover:border-amber-400"
+                  style={{
+                    animationDelay: `${index * 200}ms`,
+                    animation: 'fadeInUp 0.8s ease-out forwards'
+                  }}
+                >
+                  {/* Premium Badge */}
+                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                    <span className="mr-1">𓋹</span>
+                    PREMIUM
+                  </div>
+                  
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={String(dahabiya.mainImage || '/images/placeholder-dahabiya.jpg')}
+                      alt={String(dahabiya.name || 'Dahabiya')}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-amber-600 transition-colors duration-300">
+                      {String(dahabiya.name || 'Dahabiya')}
+                    </h3>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      <Link href={`/booking?dahabiya=${dahabiya.slug || dahabiya.id}`}>
+                        <Button className="w-full bg-gradient-to-r from-amber-500 to-yellow-600 text-white px-6 py-3 text-sm font-semibold hover:from-amber-600 hover:to-yellow-700 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                          <span className="mr-2">𓈎𓃭𓇋</span>
+                          Book Now
+                          <span className="ml-2">𓍯𓊪</span>
+                        </Button>
+                      </Link>
+                      
+                      <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
+                        <Button variant="outlined" className="w-full border-2 border-amber-500 text-amber-600 px-6 py-3 text-sm font-semibold hover:bg-amber-50 rounded-xl transition-all duration-300 transform hover:scale-105">
+                          <span className="mr-2">𓄿𓂧𓂋</span>
+                          View Details
+                          <span className="ml-2">𓄿</span>
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* LUXURY CATEGORY */}
+          <div className="mb-12">
+            <div className="text-center mb-8">
+              <div className="inline-flex items-center gap-3 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-8 py-3 rounded-full shadow-lg mb-4">
+                <span className="text-2xl">𓋴</span>
+                <h3 className="text-2xl font-bold">LUXURY CATEGORY</h3>
+                <span className="text-2xl">𓋴</span>
+              </div>
+              <div className="w-32 h-1 bg-gradient-to-r from-purple-600 to-transparent rounded-full mx-auto"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {(Array.isArray(dahabiyat) ? dahabiyat.slice(3, 6) : []).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
+                <div 
+                  key={String(dahabiya.id)} 
+                  className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-purple-200 hover:border-purple-400"
+                  style={{
+                    animationDelay: `${(index + 3) * 200}ms`,
+                    animation: 'fadeInUp 0.8s ease-out forwards'
+                  }}
+                >
+                  {/* Luxury Badge */}
+                  <div className="absolute top-4 left-4 z-10 bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                    <span className="mr-1">𓋴</span>
+                    LUXURY
+                  </div>
+                  
+                  {/* Image */}
+                  <div className="relative h-56 overflow-hidden">
+                    <Image
+                      src={String(dahabiya.mainImage || '/images/placeholder-dahabiya.jpg')}
+                      alt={String(dahabiya.name || 'Dahabiya')}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="p-6 text-center">
+                    <h3 className="text-xl font-bold text-gray-800 mb-4 group-hover:text-purple-600 transition-colors duration-300">
+                      {String(dahabiya.name || 'Dahabiya')}
+                    </h3>
+                    
+                    {/* Action Buttons */}
+                    <div className="flex flex-col gap-3">
+                      <Link href={`/booking?dahabiya=${dahabiya.slug || dahabiya.id}`}>
+                        <Button className="w-full bg-gradient-to-r from-purple-600 to-indigo-700 text-white px-6 py-3 text-sm font-semibold hover:from-purple-700 hover:to-indigo-800 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg transform hover:scale-105">
+                          <span className="mr-2">𓈎𓃭𓇋</span>
+                          Book Now
+                          <span className="ml-2">𓍯𓊪</span>
+                        </Button>
+                      </Link>
+                      
+                      <Link href={`/dahabiyas/${dahabiya.slug || dahabiya.id}`}>
+                        <Button variant="outlined" className="w-full border-2 border-purple-600 text-purple-600 px-6 py-3 text-sm font-semibold hover:bg-purple-50 rounded-xl transition-all duration-300 transform hover:scale-105">
+                          <span className="mr-2">𓄿𓂧𓂋</span>
+                          View Details
+                          <span className="ml-2">𓄿</span>
+                        </Button>
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="text-center mt-12">
@@ -422,7 +541,7 @@ export default function HomePage() {
                       Unlike modern cruise ships, Dahabiyas offer an intimate and authentic experience, typically accommodating only 8-12 guests. This allows for personalized service and the flexibility to dock at smaller, less crowded sites that larger vessels cannot access.
                     </p>
                     <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
-                      The word "Dahabiya" comes from the Arabic word "dahab," meaning gold, reflecting the golden appearance of these boats as they glide across the Nile at sunset. Today's luxury Dahabiyas combine traditional design with modern amenities, offering air-conditioned cabins, gourmet dining, and expert guides.
+                      The word &quot;Dahabiya&quot; comes from the Arabic word &quot;dahab,&quot; meaning gold, reflecting the golden appearance of these boats as they glide across the Nile at sunset. Today&apos;s luxury Dahabiyas combine traditional design with modern amenities, offering air-conditioned cabins, gourmet dining, and expert guides.
                     </p>
                   </>
                 )}
@@ -486,7 +605,7 @@ export default function HomePage() {
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               <span className="text-blue-600 mr-2">𓇳</span>
-              {get('packages_section_subtitle', 'Choose from our carefully crafted packages, each designed to showcase the best of Egypt\'s ancient wonders and natural beauty')}
+              {get('packages_section_subtitle', 'Choose from our carefully crafted packages, each designed to showcase the best of Egypt&apos;s ancient wonders and natural beauty')}
               <span className="text-blue-600 ml-2">𓇳</span>
             </p>
 
@@ -497,7 +616,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10">
-            {(Array.isArray(featuredPackages) && featuredPackages.length > 0 ? featuredPackages : Array.isArray(packages) ? packages.slice(0, 3) : []).map((pkg: any, index: number) => (
+            {(Array.isArray(featuredPackages) && featuredPackages.length > 0 ? featuredPackages : Array.isArray(packages) ? packages.slice(0, 3) : []).map((pkg: { id: string; name: string; slug?: string; mainImageUrl?: string; durationDays: number; price?: number; shortDescription?: string }) => (
               <div key={pkg.id} className="homepage-package-card group bg-white rounded-3xl shadow-2xl overflow-hidden hover:shadow-3xl transition-all duration-500 transform hover:-translate-y-4 border-2 border-blue-200/30 min-h-[480px]">
                 <div className="relative aspect-[4/3] overflow-hidden rounded-t-3xl h-64">
                   <Image
@@ -511,7 +630,7 @@ export default function HomePage() {
 
                   {/* Duration badge with enhanced design - FIXED CONTRAST */}
                   <div className="absolute top-4 left-4 bg-gradient-to-r from-emerald-500/98 via-teal-500/98 to-cyan-500/98 text-white px-4 py-2.5 rounded-full text-sm font-bold shadow-xl backdrop-blur-sm border-2 border-white/60">
-                    <Calendar className="w-4 h-4 inline mr-2 drop-shadow-lg" />
+                    <span className="w-4 h-4 inline mr-2 drop-shadow-lg">📅</span>
                     <span className="drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>{pkg.durationDays} {get('days_label', 'Days')}</span>
                   </div>
 
@@ -523,7 +642,7 @@ export default function HomePage() {
                   {/* Featured badge - FIXED CONTRAST */}
                   {featuredPackages.length > 0 && (
                     <div className="absolute bottom-4 left-4 bg-gradient-to-r from-purple-500/98 to-pink-500/98 text-white px-4 py-2 rounded-full text-sm font-bold shadow-xl border-2 border-white/60">
-                      <Star className="w-4 h-4 inline mr-2 fill-current drop-shadow-lg" />
+                      <span className="w-4 h-4 inline mr-2 drop-shadow-lg">⭐</span>
                       <span className="drop-shadow-lg" style={{ textShadow: '2px 2px 4px rgba(0,0,0,0.8)' }}>Featured</span>
                     </div>
                   )}
@@ -649,10 +768,10 @@ export default function HomePage() {
                 {expandedSections.whyDifferent && (
                   <>
                     <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
-                      Dahabiyas can access smaller docking sites and hidden gems that large cruise ships cannot reach. You'll visit less crowded temples, enjoy private beach picnics, and have the flexibility to adjust your itinerary based on your interests and the weather conditions.
+                      Dahabiyas can access smaller docking sites and hidden gems that large cruise ships cannot reach. You&apos;ll visit less crowded temples, enjoy private beach picnics, and have the flexibility to adjust your itinerary based on your interests and the weather conditions.
                     </p>
                     <p className="mb-4" style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
-                      The pace is more relaxed and authentic. Instead of rushing through scheduled activities with hundreds of other tourists, you'll have time to truly absorb the ancient atmosphere, engage with local communities, and enjoy personalized attention from your dedicated crew and guide.
+                      The pace is more relaxed and authentic. Instead of rushing through scheduled activities with hundreds of other tourists, you&apos;ll have time to truly absorb the ancient atmosphere, engage with local communities, and enjoy personalized attention from your dedicated crew and guide.
                     </p>
                   </>
                 )}
@@ -783,7 +902,7 @@ export default function HomePage() {
 
               <div className="text-gray-600 leading-relaxed text-sm lg:text-base mobile-text-wrap">
                 <p className={`mb-4 ${!expandedSections.ourStory ? 'line-clamp-3' : ''}`} style={{ textAlign: 'justify', textJustify: 'inter-word' }}>
-                  {get('our_story_content', 'Our journey began over 30 years ago when Captain Ahmed Hassan, a third-generation Nile navigator, had a vision to revive the authentic way of exploring Egypt\'s ancient wonders. Growing up along the banks of the Nile, he witnessed the transformation of river travel and felt called to preserve the traditional Dahabiya experience.')}
+                  {get('our_story_content', 'Our journey began over 30 years ago when Captain Ahmed Hassan, a third-generation Nile navigator, had a vision to revive the authentic way of exploring Egypt&apos;s ancient wonders. Growing up along the banks of the Nile, he witnessed the transformation of river travel and felt called to preserve the traditional Dahabiya experience.')}
                 </p>
                 {expandedSections.ourStory && (
                   <>
@@ -927,7 +1046,7 @@ export default function HomePage() {
 
             {/* Featured Blog Posts Grid */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-              {(Array.isArray(featuredBlogs) ? featuredBlogs.slice(0, 3) : []).map((blog: any, index: number) => (
+              {(Array.isArray(featuredBlogs) ? featuredBlogs.slice(0, 3) : []).map((blog: { id: string; slug: string; title: string; mainImageUrl?: string; excerpt: string; author?: string; readTime?: number }) => (
                 <div key={blog.id} className="group">
                   <PharaonicCard className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer">
                     <Link href={`/blog/${blog.slug}`}>
@@ -959,7 +1078,7 @@ export default function HomePage() {
                         <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
                           <div className="flex items-center">
                             <User className="w-4 h-4 mr-1" />
-                            {blog.author}
+                            {blog.author || 'Admin'}
                           </div>
                           {blog.readTime && (
                             <div className="flex items-center">
@@ -1046,7 +1165,7 @@ export default function HomePage() {
                 <span className="text-purple-600 text-2xl">📡</span>
               </div>
               <h3 className="text-xl font-bold text-gray-800 mb-3">24/7 Communication</h3>
-              <p className="text-gray-600">Satellite communication systems ensure we're always connected for emergencies and support.</p>
+              <p className="text-gray-600">Satellite communication systems ensure we&apos;re always connected for emergencies and support.</p>
             </div>
           </div>
         </Container>

@@ -286,7 +286,7 @@ export default function MemoriesManager() {
                     </Typography>
                     <Chip
                       label={memory.status}
-                      color={getStatusColor(memory.status) as any}
+                      color={getStatusColor(memory.status) as 'success' | 'error' | 'warning' | 'info'}
                       size="small"
                     />
                   </Box>

@@ -25,16 +25,17 @@ export async function GET(request: NextRequest) {
       } : null
     });
 
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : String(error);
     console.error('Database schema test error:', error);
     
     // Check if the error is related to missing columns
-    if (error.message && error.message.includes('resetToken')) {
+    if (errorMessage && errorMessage.includes('resetToken')) {
       return NextResponse.json({
         success: false,
         message: 'Reset token fields are missing from database schema',
         hasResetTokenFields: false,
-        error: error.message,
+        error: errorMessage,
         needsMigration: true
       });
     }
@@ -42,7 +43,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       success: false,
       message: 'Database connection or other error',
-      error: error.message
+      error: errorMessage
     }, { status: 500 });
   }
 }

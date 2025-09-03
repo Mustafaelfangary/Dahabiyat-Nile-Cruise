@@ -30,7 +30,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get content by page and/or section
-    const where: any = { isActive: true };
+    const where: Record<string, unknown> = { isActive: true };
     if (page) where.page = page;
     if (section) where.section = section;
 
@@ -48,9 +48,9 @@ export async function GET(request: NextRequest) {
       if (!acc[section]) {
         acc[section] = [];
       }
-      acc[section].push(content);
+      acc[section]!.push(content);
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as Record<string, unknown[]>);
 
     return NextResponse.json({
       contents,

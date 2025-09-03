@@ -316,7 +316,7 @@ export default function ReviewsManager() {
                     <Box display="flex" flexDirection="column" gap={1} alignItems="end">
                       <Chip
                         label={review.status}
-                        color={getStatusColor(review.status) as any}
+                        color={getStatusColor(review.status) as 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'}
                         size="small"
                       />
                       {review.isHomepageFeatured && (

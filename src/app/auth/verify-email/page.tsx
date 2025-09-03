@@ -161,7 +161,7 @@ export default function VerifyEmailPage() {
               Verify Your Royal Email
             </CardTitle>
             <CardDescription className="text-gray-600">
-              We've sent a 6-digit verification code to<br />
+              We&apos;ve sent a 6-digit verification code to<br />
               <strong className="text-ocean-blue">{email}</strong>
             </CardDescription>
           </CardHeader>
@@ -205,7 +205,7 @@ export default function VerifyEmailPage() {
 
             <div className="text-center">
               <p className="text-sm text-gray-600 mb-3">
-                Didn't receive the code?
+                Didn&apos;t receive the code?
               </p>
               <Button
                 type="button"
@@ -235,7 +235,7 @@ export default function VerifyEmailPage() {
                   <p className="font-medium mb-1">Check your email</p>
                   <p>
                     The verification code expires in 15 minutes. 
-                    If you don't see the email, check your spam folder.
+                    If you don&apos;t see the email, check your spam folder.
                   </p>
                 </div>
               </div>

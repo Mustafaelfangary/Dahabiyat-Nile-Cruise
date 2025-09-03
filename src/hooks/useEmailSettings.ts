@@ -2,6 +2,11 @@
 
 import { useState, useEffect } from 'react';
 
+interface EmailSettingsField {
+  key: string;
+  value?: string;
+}
+
 interface EmailSettings {
   enabled: boolean;
   adminEmail: string;
@@ -40,14 +45,14 @@ export function useEmailSettings() {
         
         // Convert API fields to settings object
         const apiSettings: EmailSettings = {
-          enabled: data.fields?.find((f: any) => f.key === 'email_enabled')?.value === 'true',
-          adminEmail: data.fields?.find((f: any) => f.key === 'admin_email')?.value || defaultSettings.adminEmail,
-          customerNotifications: data.fields?.find((f: any) => f.key === 'email_customer_notifications')?.value === 'true',
-          adminNotifications: data.fields?.find((f: any) => f.key === 'email_admin_notifications')?.value === 'true',
-          smtpHost: data.fields?.find((f: any) => f.key === 'smtp_host')?.value || defaultSettings.smtpHost,
-          smtpPort: data.fields?.find((f: any) => f.key === 'smtp_port')?.value || defaultSettings.smtpPort,
-          smtpUser: data.fields?.find((f: any) => f.key === 'smtp_user')?.value || defaultSettings.smtpUser,
-          smtpFrom: data.fields?.find((f: any) => f.key === 'smtp_from')?.value || defaultSettings.smtpFrom
+          enabled: data.fields?.find((f: EmailSettingsField) => f.key === 'email_enabled')?.value === 'true',
+          adminEmail: data.fields?.find((f: EmailSettingsField) => f.key === 'admin_email')?.value || defaultSettings.adminEmail,
+          customerNotifications: data.fields?.find((f: EmailSettingsField) => f.key === 'email_customer_notifications')?.value === 'true',
+          adminNotifications: data.fields?.find((f: EmailSettingsField) => f.key === 'email_admin_notifications')?.value === 'true',
+          smtpHost: data.fields?.find((f: EmailSettingsField) => f.key === 'smtp_host')?.value || defaultSettings.smtpHost,
+          smtpPort: data.fields?.find((f: EmailSettingsField) => f.key === 'smtp_port')?.value || defaultSettings.smtpPort,
+          smtpUser: data.fields?.find((f: EmailSettingsField) => f.key === 'smtp_user')?.value || defaultSettings.smtpUser,
+          smtpFrom: data.fields?.find((f: EmailSettingsField) => f.key === 'smtp_from')?.value || defaultSettings.smtpFrom
         };
         
         setSettings(apiSettings);

@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.role || !["ADMIN", "MANAGER"].includes(session.user.role)) {
@@ -1093,7 +1093,7 @@ export async function POST(request: NextRequest) {
           update: {
             title: content.title,
             content: content.content,
-            contentType: content.contentType as any,
+            contentType: content.contentType as 'TEXT' | 'TEXTAREA' | 'IMAGE' | 'VIDEO' | 'TABLE',
             page: content.page,
             section: content.section,
             order: content.order,
@@ -1103,7 +1103,7 @@ export async function POST(request: NextRequest) {
             key: content.key,
             title: content.title,
             content: content.content,
-            contentType: content.contentType as any,
+            contentType: content.contentType as 'TEXT' | 'TEXTAREA' | 'IMAGE' | 'VIDEO' | 'TABLE',
             page: content.page,
             section: content.section,
             order: content.order,

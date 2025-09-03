@@ -12,7 +12,17 @@ export async function GET(request: NextRequest) {
 
     // Get email templates from database or return defaults
     // Return default templates since EmailTemplate model doesn't exist yet
-    const templates: any[] = [];
+    const templates: Array<{
+      id: string;
+      name: string;
+      subject: string;
+      content: string;
+      type: string;
+      enabled: boolean;
+      variables: string[];
+      createdAt: Date;
+      updatedAt: Date;
+    }> = [];
 
     // If no templates in database, return default templates
     if (templates.length === 0) {

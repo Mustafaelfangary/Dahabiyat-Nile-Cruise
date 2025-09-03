@@ -31,14 +31,20 @@
     "noUncheckedIndexedAccess": true
   },
   "include": [
-    "**/*.ts",
-    "**/*.tsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
     "next-env.d.ts",
     ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules",
     ".next",
-    "scripts"
+    "scripts",
+    "android-app",
+    "final-android-app",
+    "mobile-app",
+    "**/__tests__/**",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ]
 }

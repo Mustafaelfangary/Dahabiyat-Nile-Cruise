@@ -26,7 +26,7 @@ export const APP_CONSTANTS = {
     HERO_TITLE: 'Discover Ancient Egypt',
     HERO_SUBTITLE: 'Journey Through Time on the Eternal Nile',
     EMPTY_STATE_TITLE: 'No Journeys Found',
-    EMPTY_STATE_DESCRIPTION: 'We couldn't find any itineraries matching your criteria. Please adjust your filters or contact us to create a custom journey just for you.'
+    EMPTY_STATE_DESCRIPTION: 'We could not find any itineraries matching your criteria. Please adjust your filters or contact us to create a custom journey just for you.'
   }
 };
 

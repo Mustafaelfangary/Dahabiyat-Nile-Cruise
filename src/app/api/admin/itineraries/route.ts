@@ -88,7 +88,15 @@ export async function POST(request: NextRequest) {
         isActive: data.isActive ?? true,
         featured: data.featured ?? false,
         days: {
-          create: (data.days || []).map((day: any) => ({
+          create: (data.days || []).map((day: {
+            dayNumber: number;
+            title: string;
+            description: string;
+            location?: string;
+            activities?: string[];
+            meals?: string[];
+            coordinates?: unknown;
+          }) => ({
             dayNumber: day.dayNumber,
             title: day.title,
             description: day.description,
@@ -118,7 +126,12 @@ export async function POST(request: NextRequest) {
           }))
         },
         pricingTiers: {
-          create: (data.pricingTiers || []).map((tier: any) => ({
+          create: (data.pricingTiers || []).map((tier: {
+            category: string;
+            paxRange: string;
+            price: string;
+            singleSupplement?: string;
+          }) => ({
             category: tier.category,
             paxRange: tier.paxRange,
             price: parseFloat(tier.price),

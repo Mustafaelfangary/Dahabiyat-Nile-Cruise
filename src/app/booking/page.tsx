@@ -18,6 +18,13 @@ interface Dahabiya {
   rating?: number;
 }
 
+interface TravelPackage {
+  id: string;
+  name: string;
+  durationDays: number;
+  price: number;
+}
+
 export default function BookingPage() {
   const params = useSearchParams();
   const itemId = params?.get('itemId') ?? null;
@@ -26,9 +33,9 @@ export default function BookingPage() {
   const bookingType = params?.get('type') ?? 'dahabiya';
 
   const [selectedDahabiya, setSelectedDahabiya] = useState<Dahabiya | null>(null);
-  const [selectedPackage, setSelectedPackage] = useState<any>(null);
+  const [selectedPackage, setSelectedPackage] = useState<TravelPackage | null>(null);
   const [dahabiyat, setDahabiyat] = useState<Dahabiya[]>([]);
-  const [packages, setPackages] = useState<any[]>([]);
+  const [packages, setPackages] = useState<TravelPackage[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Fetch data for selection
@@ -44,7 +51,7 @@ export default function BookingPage() {
 
             // If packageId is provided, find and select it
             if (packageId && data.packages) {
-              const selected = data.packages.find((p: any) => p.id === packageId);
+              const selected = data.packages.find((p: TravelPackage) => p.id === packageId);
               if (selected) {
                 setSelectedPackage(selected);
               }
@@ -124,7 +131,7 @@ export default function BookingPage() {
                 Booking: {selectedDahabiya.name}
               </Typography>
               <Typography variant="body1" className="text-amber-700">
-                You've selected this vessel for your Nile journey
+                You&apos;ve selected this vessel for your Nile journey
               </Typography>
               <div className="flex items-center gap-4 mt-3">
                 <div className="flex items-center gap-1">

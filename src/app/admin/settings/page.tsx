@@ -39,51 +39,7 @@ export default function AdminSettingsPage() {
   const [saving, setSaving] = useState(false);
   const [activeTab, setActiveTab] = useState('general');
 
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-blue"></div>
-      </div>
-    );
-  }
-
-  if (!session || session.user.role !== 'ADMIN') {
-    redirect('/admin/login');
-  }
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-
-  // Group settings by category
-  const groupedSettings = settings.reduce((acc, setting) => {
-    if (!acc[setting.group]) {
-      acc[setting.group] = [];
-    }
-    acc[setting.group]?.push(setting);
-    return acc;
-  }, {} as Record<string, Setting[]>);
-
-  const groups = Object.keys(groupedSettings).sort();
-
-  // If no settings exist, create default groups
-  if (groups.length === 0) {
-    return (
-      <div className="max-w-6xl mx-auto p-6 space-y-6">
-        <div className="flex items-center gap-3 mb-6">
-          <Settings className="w-8 h-8 text-blue-600" />
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
-            <p className="text-gray-600">No settings found. Please check your database configuration.</p>
-          </div>
-        </div>
-        <Card>
-          <CardContent className="p-8 text-center">
-            <Database className="w-12 h-12 mx-auto mb-4 text-gray-400" />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No Settings Available</h3>
-            <p className="text-gray-600">Settings could not be loaded. Please check your API configuration.</p>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
 
   useEffect(() => {
     fetchSettings();
@@ -120,6 +76,51 @@ export default function AdminSettingsPage() {
       setLoading(false);
     }
   };
+
+  if (status === 'loading') {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-ocean-blue"></div>
+      </div>
+    );
+  }
+
+  if (!session || session.user.role !== 'ADMIN') {
+    redirect('/admin/login');
+  }
+
+  // Group settings by category
+  const groupedSettings = settings.reduce((acc, setting) => {
+    if (!acc[setting.group]) {
+      acc[setting.group] = [];
+    }
+    acc[setting.group]?.push(setting);
+    return acc;
+  }, {} as Record<string, Setting[]>);
+
+  const groups = Object.keys(groupedSettings).sort();
+
+  // If no settings exist, create default groups
+  if (groups.length === 0) {
+    return (
+      <div className="max-w-6xl mx-auto p-6 space-y-6">
+        <div className="flex items-center gap-3 mb-6">
+          <Settings className="w-8 h-8 text-blue-600" />
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">System Settings</h1>
+            <p className="text-gray-600">No settings found. Please check your database configuration.</p>
+          </div>
+        </div>
+        <Card>
+          <CardContent className="p-8 text-center">
+            <Database className="w-12 h-12 mx-auto mb-4 text-gray-400" />
+            <h3 className="text-lg font-medium text-gray-900 mb-2">No Settings Available</h3>
+            <p className="text-gray-600">Settings could not be loaded. Please check your API configuration.</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   const handleSettingChange = (key: string, value: string) => {
     setSettings(prev => 
@@ -303,7 +304,7 @@ export default function AdminSettingsPage() {
         </CardHeader>
         <CardContent>
           <p className="text-gray-600">
-            <strong>Website Configuration:</strong> Use these settings to configure your website's basic information and behavior.
+            <strong>Website Configuration:</strong> Use these settings to configure your website&apos;s basic information and behavior.
           </p>
         </CardContent>
       </Card>

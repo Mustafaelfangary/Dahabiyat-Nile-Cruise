@@ -307,7 +307,7 @@ const TailorMadeManager: React.FC = () => {
                   </Typography>
                   <Chip
                     label={request.status}
-                    color={getStatusColor(request.status) as any}
+                    color={getStatusColor(request.status) as 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'}
                     size="small"
                   />
                 </Box>
@@ -503,7 +503,7 @@ const TailorMadeManager: React.FC = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="subtitle2" color="text.secondary">Status</Typography>
-                  <Chip label={viewingRequest.status} color={getStatusColor(viewingRequest.status) as any} />
+                  <Chip label={viewingRequest.status} color={getStatusColor(viewingRequest.status) as 'default' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning'} />
                 </Grid>
                 {viewingRequest.adminNotes && (
                   <Grid item xs={12}>

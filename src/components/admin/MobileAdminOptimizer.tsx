@@ -96,15 +96,15 @@ export default function MobileAdminOptimizer({
 
 // Mobile-optimized table component
 interface MobileTableProps {
-  data: any[];
+  data: Record<string, unknown>[];
   columns: {
     key: string;
     label: string;
-    render?: (value: any, item: any) => React.ReactNode;
+    render?: (value: unknown, item: Record<string, unknown>) => React.ReactNode;
   }[];
   actions?: {
     label: string;
-    onClick: (item: any) => void;
+    onClick: (item: Record<string, unknown>) => void;
     variant?: 'default' | 'destructive' | 'outline';
     icon?: React.ComponentType<{ className?: string }>;
   }[];

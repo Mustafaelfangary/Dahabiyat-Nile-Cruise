@@ -1,5 +1,49 @@
 "use client";
 
+// Type definitions for analytics metrics and events
+interface WebVitalMetric {
+  name: string;
+  value: number;
+  id: string;
+  delta?: number;
+}
+
+interface SystemMetric {
+  name: string;
+  value: number;
+  tags: Record<string, string>;
+  timestamp: number;
+}
+
+interface AnalyticsEvent {
+  event_name: string;
+  session_id: string;
+  user_id: string | null;
+  timestamp: string;
+  page_url: string;
+  [key: string]: unknown;
+}
+
+// Type definitions for window extensions
+interface WindowWithDataLayer extends Window {
+  dataLayer: unknown[];
+}
+
+interface WindowWithGtag extends Window {
+  gtag: (...args: unknown[]) => void;
+}
+
+interface WindowWithHotjar extends Window {
+  hj: {
+    (...args: unknown[]): void;
+    q?: unknown[];
+  };
+  _hjSettings: {
+    hjid: string;
+    hjsv: string;
+  };
+}
+
 // Analytics and monitoring utilities
 export class Analytics {
   private static instance: Analytics;
@@ -50,13 +94,13 @@ export class Analytics {
     document.head.appendChild(script);
 
     // Initialize gtag
-    (window as any).dataLayer = (window as any).dataLayer || [];
-    (window as any).gtag = function() {
-      (window as any).dataLayer.push(arguments);
+    (window as WindowWithDataLayer).dataLayer = (window as WindowWithDataLayer).dataLayer || [];
+    (window as WindowWithGtag).gtag = function(...args: unknown[]) {
+      (window as WindowWithDataLayer).dataLayer.push(args);
     };
 
-    (window as any).gtag('js', new Date());
-    (window as any).gtag('config', gaId, {
+    (window as WindowWithGtag).gtag('js', new Date());
+    (window as WindowWithGtag).gtag('config', gaId, {
       page_title: document.title,
       page_location: window.location.href,
       custom_map: {
@@ -88,8 +132,8 @@ export class Analytics {
   setUserId(userId: string) {
     this.userId = userId;
     
-    if ((window as any).gtag) {
-      (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+    if ((window as WindowWithGtag).gtag) {
+      (window as WindowWithGtag).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
         user_id: userId
       });
     }
@@ -100,8 +144,8 @@ export class Analytics {
   trackPageView(path?: string) {
     const page = path || window.location.pathname;
     
-    if ((window as any).gtag) {
-      (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+    if ((window as WindowWithGtag).gtag) {
+      (window as WindowWithGtag).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
         page_path: page,
         page_title: document.title
       });
@@ -114,7 +158,7 @@ export class Analytics {
     });
   }
 
-  trackEvent(eventName: string, parameters: Record<string, any> = {}) {
+  trackEvent(eventName: string, parameters: Record<string, unknown> = {}) {
     const eventData = {
       event_name: eventName,
       session_id: this.sessionId,
@@ -125,8 +169,8 @@ export class Analytics {
     };
 
     // Send to Google Analytics
-    if ((window as any).gtag) {
-      (window as any).gtag('event', eventName, parameters);
+    if ((window as WindowWithGtag).gtag) {
+      (window as WindowWithGtag).gtag('event', eventName, parameters);
     }
 
     // Send to custom analytics endpoint
@@ -138,7 +182,7 @@ export class Analytics {
     }
   }
 
-  private async sendToCustomAnalytics(eventData: any) {
+  private async sendToCustomAnalytics(eventData: Record<string, unknown>) {
     try {
       await fetch('/api/analytics/events', {
         method: 'POST',
@@ -277,7 +321,7 @@ export class Analytics {
     }
   }
 
-  private trackWebVital(metric: any) {
+  private trackWebVital(metric: WebVitalMetric) {
     this.trackEvent('web_vital', {
       metric_name: metric.name,
       metric_value: metric.value,
@@ -303,8 +347,8 @@ export class Analytics {
     });
 
     // Track as conversion in Google Analytics
-    if ((window as any).gtag) {
-      (window as any).gtag('event', 'purchase', {
+    if ((window as WindowWithGtag).gtag) {
+      (window as WindowWithGtag).gtag('event', 'purchase', {
         transaction_id: bookingId,
         value: amount,
         currency: 'USD',
@@ -333,7 +377,7 @@ export class Analytics {
     });
   }
 
-  trackUserAction(action: string, target: string, value?: any) {
+  trackUserAction(action: string, target: string, value?: unknown) {
     this.trackEvent('user_action', {
       action: action,
       target: target,
@@ -356,8 +400,8 @@ export class Analytics {
       variant: variant
     });
 
-    if ((window as any).gtag) {
-      (window as any).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
+    if ((window as WindowWithGtag).gtag) {
+      (window as WindowWithGtag).gtag('config', process.env.NEXT_PUBLIC_GA_ID, {
         custom_map: {
           [`experiment_${experimentId}`]: variant
         }
@@ -377,10 +421,10 @@ export class Analytics {
     const hjid = process.env.NEXT_PUBLIC_HOTJAR_ID;
     const hjsv = process.env.NEXT_PUBLIC_HOTJAR_VERSION || '6';
 
-    (window as any).hj = (window as any).hj || function(...args: any[]) {
-      ((window as any).hj.q = (window as any).hj.q || []).push(args);
+    (window as WindowWithHotjar).hj = (window as WindowWithHotjar).hj || function(...args: unknown[]) {
+      ((window as WindowWithHotjar).hj.q = (window as WindowWithHotjar).hj.q || []).push(args);
     };
-    (window as any)._hjSettings = { hjid, hjsv };
+    (window as WindowWithHotjar)._hjSettings = { hjid, hjsv };
 
     const script = document.createElement('script');
     script.async = true;
@@ -392,7 +436,7 @@ export class Analytics {
 // System monitoring utilities
 export class SystemMonitor {
   private static instance: SystemMonitor;
-  private metrics: Map<string, any[]> = new Map();
+  private metrics: Map<string, SystemMetric[]> = new Map();
 
   static getInstance(): SystemMonitor {
     if (!SystemMonitor.instance) {
@@ -425,7 +469,7 @@ export class SystemMonitor {
     this.sendMetric(metric);
   }
 
-  private async sendMetric(metric: any) {
+  private async sendMetric(metric: SystemMetric) {
     try {
       await fetch('/api/monitoring/metrics', {
         method: 'POST',
@@ -439,12 +483,12 @@ export class SystemMonitor {
     }
   }
 
-  getMetrics(name: string): any[] {
+  getMetrics(name: string): SystemMetric[] {
     return this.metrics.get(name) || [];
   }
 
-  getAllMetrics(): Record<string, any[]> {
-    const result: Record<string, any[]> = {};
+  getAllMetrics(): Record<string, SystemMetric[]> {
+    const result: Record<string, SystemMetric[]> = {};
     for (const [name, metrics] of this.metrics) {
       result[name] = metrics;
     }

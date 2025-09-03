@@ -270,7 +270,7 @@ export default function UnifiedReviewComponent({
           <Card>
             <CardContent className="text-center py-8">
               <p className="text-text-secondary">
-                {mode === 'user' ? 'You haven\'t written any reviews yet.' : 'No reviews yet. Be the first to review!'}
+                {mode === 'user' ? "You haven't written any reviews yet." : "No reviews yet. Be the first to review!"}
               </p>
             </CardContent>
           </Card>

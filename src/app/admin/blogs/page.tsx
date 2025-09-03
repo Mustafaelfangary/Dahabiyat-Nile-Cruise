@@ -1,13 +1,14 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { useSession } from 'next-auth/react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { FileText, Plus, Edit, Trash2, Eye, Calendar, User, Tag, Clock, Star, Search, Filter } from 'lucide-react';
+import { FileText, Plus, Edit, Trash2, Eye, Calendar, User, Clock, Star, Search } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface Blog {
@@ -29,7 +30,7 @@ interface Blog {
 }
 
 export default function BlogsManagementPage() {
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [filteredBlogs, setFilteredBlogs] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,7 +65,7 @@ export default function BlogsManagementPage() {
     }
   };
 
-  const filterBlogs = () => {
+  const filterBlogs = useCallback(() => {
     let filtered = blogs;
 
     // Search filter
@@ -91,7 +92,7 @@ export default function BlogsManagementPage() {
     }
 
     setFilteredBlogs(filtered);
-  };
+  }, [blogs, searchTerm, statusFilter, featuredFilter]);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this blog?')) return;
@@ -232,10 +233,12 @@ export default function BlogsManagementPage() {
           {filteredBlogs.map((blog) => (
             <Card key={blog.id} className="hover:shadow-lg transition-shadow border-2 border-amber-200 hover:border-blue-400">
               <div className="relative h-48 overflow-hidden rounded-t-lg">
-                <img
+                <Image
                   src={blog.mainImageUrl || '/images/default-blog.jpg'}
                   alt={blog.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 

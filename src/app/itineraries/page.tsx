@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import type { ButtonHTMLAttributes, ReactNode } from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -30,7 +32,9 @@ interface Itinerary {
   updatedAt: string;
 }
 
-const PharaohButton = ({ children, className = '', ...props }: any) => (
+type PharaohButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & { className?: string; children: ReactNode };
+
+const PharaohButton = ({ children, className = '', ...props }: PharaohButtonProps) => (
   <Button
     className={`relative overflow-hidden bg-gradient-to-r from-ocean-blue to-deep-blue hover:from-ocean-blue-dark hover:to-navy-blue text-white font-bold py-3 px-6 rounded-lg transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl ${className}`}
     {...props}
@@ -40,7 +44,9 @@ const PharaohButton = ({ children, className = '', ...props }: any) => (
   </Button>
 );
 
-const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: any) => (
+type AnimatedSectionProps = { children: ReactNode; animation?: 'fade-up' | 'fade-left' | 'fade-right'; delay?: number };
+
+const AnimatedSection = ({ children, animation = 'fade-up', delay = 0 }: AnimatedSectionProps) => (
   <motion.div
     initial={{ 
       opacity: 0, 
@@ -228,10 +234,12 @@ export default function ItinerariesPage() {
                   <Card className="group hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-3 bg-white/95 backdrop-blur-sm border-2 border-ocean-blue/20 hover:border-ocean-blue/60 overflow-hidden rounded-2xl">
                     {/* Enhanced Image Section */}
                     <div className="relative h-72 overflow-hidden">
-                      <img
+                      <Image
                         src={itinerary.mainImageUrl || '/images/default-itinerary.jpg'}
                         alt={itinerary.name}
+                        fill
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                       />
                       {/* Enhanced Gradient Overlays */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
