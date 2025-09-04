@@ -3,13 +3,13 @@ import { prisma } from '@/lib/prisma';
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } }
 ) {
   try {
-    const { id } = await params;
+    const { id } = params;
 
-    // Fetch the dahabiya
-    const dahabiya = await prisma.dahabiya.findUnique({
+    // Fetch the dahabiya by id or slug
+    const dahabiya = await prisma.dahabiya.findFirst({
       where: {
         OR: [
           { id: id },

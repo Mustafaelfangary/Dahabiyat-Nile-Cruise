@@ -157,11 +157,13 @@ function ContactDeveloperModal() {
 export default function Footer({ settings = {}, footerSettings = {} }: FooterProps) {
   const { getContent, loading: contentLoading } = useContent({ page: 'footer' });
   const { getContent: getGlobalContent } = useContent({ page: 'global_media' });
+  const { getContent: getBrandingContent } = useContent({ page: 'branding_settings' });
   const { data: session } = useSession();
 
   // Get dynamic footer logo
   const getFooterLogo = () => {
-    return getGlobalContent('footer_logo', '/images/logo.png');
+    // Prefer branding settings, fallback to global media
+    return getBrandingContent('footer_logo', '') || getGlobalContent('footer_logo', '/images/logo.png');
   };
 
   // Helper to get a setting value with priority: footerSettings > content > settings > fallback

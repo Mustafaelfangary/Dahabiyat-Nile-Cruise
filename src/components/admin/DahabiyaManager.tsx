@@ -196,6 +196,28 @@ const DahabiyaManager = () => {
     }
   };
 
+  const fetchDocumentsForDahabiya = async (dahabiyaId: string) => {
+    try {
+      const res = await fetch('/api/admin/pdf-documents', { cache: 'no-store' });
+      if (!res.ok) return;
+      const docs = (await res.json()) as Array<{ id: string; name: string; type: string; url: string; size: number; dahabiyaId: string | null }>;
+      const filtered = (docs || []).filter((d) => d.dahabiyaId === dahabiyaId);
+
+      setFormData(prev => ({
+        ...prev,
+        documents: filtered.map((d) => ({
+          id: d.id,
+          name: d.name,
+          type: (d.type === 'FACT_SHEET' ? 'FACTSHEET' : (d.type === 'BROCHURE' ? 'BROCHURE' : 'SPECIFICATION')) as 'FACTSHEET' | 'BROCHURE' | 'SPECIFICATION',
+          url: d.url,
+          size: d.size || 0,
+        }))
+      }));
+    } catch (e) {
+      console.error('Error loading documents for dahabiya:', e);
+    }
+  };
+
   const fetchDahabiyas = async () => {
     try {
       setLoading(true);
@@ -252,6 +274,7 @@ const DahabiyaManager = () => {
         tags: dahabiya.tags?.join(', ') || '',
         selectedItineraries: [],
       });
+      void fetchDocumentsForDahabiya(dahabiya.id);
     } else {
       setEditingDahabiya(null);
       setFormData({
@@ -299,6 +322,11 @@ const DahabiyaManager = () => {
     const file = event.target.files?.[0];
     if (!file) return;
 
+    if (!editingDahabiya) {
+      setError('Please create/save the dahabiya first before uploading documents.');
+      return;
+    }
+
     if (file.type !== 'application/pdf') {
       setError('Only PDF files are allowed');
       return;
@@ -313,6 +341,7 @@ const DahabiyaManager = () => {
       const formData = new FormData();
       formData.append('file', file);
       formData.append('type', type);
+      formData.append('dahabiyaId', editingDahabiya.id);
 
       const response = await fetch('/api/admin/documents/upload', {
         method: 'POST',
@@ -902,6 +931,13 @@ const DahabiyaManager = () => {
                             <Typography variant="caption" color="text.secondary">
                               {doc.type} • {(doc.size / 1024 / 1024).toFixed(2)} MB
                             </Typography>
+                            {doc.url && (
+                              <div>
+                                <a href={doc.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: '0.75rem', color: '#0080ff' }}>
+                                  View / Download
+                                </a>
+                              </div>
+                            )}
                           </div>
                           <IconButton
                             size="small"

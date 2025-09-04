@@ -99,8 +99,18 @@ export async function POST(request: NextRequest) {
       revalidatePath('/about');
       revalidatePath('/contact');
       revalidatePath('/packages');
+      revalidatePath('/dahabiyas');
       revalidatePath('/dahabiyat');
       revalidatePath('/tailor-made');
+      revalidatePath('/itineraries');
+      revalidatePath('/schedule-and-rates');
+      revalidatePath('/blog');
+      revalidatePath('/blogs');
+      
+      // Force revalidation of the specific page being updated
+      if (page && page !== 'general') {
+        revalidatePath(`/${page}`);
+      }
     } catch (error) {
       console.log('Cache revalidation failed:', error);
     }
@@ -152,8 +162,18 @@ export async function PUT(request: NextRequest) {
       revalidatePath('/about');
       revalidatePath('/contact');
       revalidatePath('/packages');
+      revalidatePath('/dahabiyas');
       revalidatePath('/dahabiyat');
       revalidatePath('/tailor-made');
+      revalidatePath('/itineraries');
+      revalidatePath('/schedule-and-rates');
+      revalidatePath('/blog');
+      revalidatePath('/blogs');
+      
+      // Force revalidation of the specific page being updated
+      if (page && page !== 'general') {
+        revalidatePath(`/${page}`);
+      }
     } catch (error) {
       console.log('Cache revalidation failed:', error);
     }

@@ -193,7 +193,7 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
   // Listen for content updates from admin panel
   useEffect(() => {
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'content-updated') {
+      if (e.key === 'content-updated' || e.key === 'logo-updated') {
         fetchContent();
       }
     };
@@ -211,8 +211,12 @@ export function useContent(options: UseContentOptions = {}): UseContentReturn {
     // Listen for broadcast messages from admin panel
     const bc = new BroadcastChannel('content-updates');
     const handleBroadcast = (event: MessageEvent) => {
-      if (event.data.type === 'homepage-updated') {
-        console.log('Received homepage update broadcast, refreshing content...');
+      const type = event?.data?.type;
+      if (type) {
+        console.log(`Received broadcast (${type}), refreshing content...`);
+        fetchContent();
+      } else {
+        // Fallback: refresh on any message
         fetchContent();
       }
     };

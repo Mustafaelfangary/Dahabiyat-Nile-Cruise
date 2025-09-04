@@ -60,7 +60,8 @@ export default function WebsiteContentManager() {
     { id: 'itineraries', label: 'Itineraries', icon: MapPin },
     { id: 'schedule-and-rates', label: 'Schedule & Rates', icon: Calendar },
     { id: 'blog', label: 'Blog', icon: FileText },
-    { id: 'branding_settings', label: 'Branding & Settings', icon: Settings }
+    { id: 'branding_settings', label: 'Branding & Settings', icon: Settings },
+    { id: 'logo_management', label: 'Logo Management', icon: Image }
   ];
 
   useEffect(() => {
@@ -628,7 +629,32 @@ export default function WebsiteContentManager() {
       if (response.ok) {
         toast.success('Content saved successfully!');
         setEditingField(null);
+        
+        // Broadcast content update to all tabs/windows
+        const bc = new BroadcastChannel('content-updates');
+        bc.postMessage({ 
+          type: 'homepage-updated', 
+          page: field.page, 
+          key: field.key,
+          timestamp: Date.now()
+        });
+        bc.close();
+        
+        // Trigger storage event for same-tab updates
+        localStorage.setItem('content-updated', Date.now().toString());
+        localStorage.removeItem('content-updated');
+        
+        // Force reload content with cache busting
         await loadContent();
+        
+        // If this is homepage content, also trigger a page refresh after a short delay
+        if (field.page === 'homepage') {
+          setTimeout(() => {
+            if (window.location.pathname === '/') {
+              window.location.reload();
+            }
+          }, 1000);
+        }
       } else {
         throw new Error('Failed to save content');
       }
@@ -1024,6 +1050,15 @@ export default function WebsiteContentManager() {
                   Add Branding & Settings Content
                 </Button>
               )}
+              {pageId === 'logo_management' && (
+                <Button
+                  onClick={() => window.location.href = '/admin/logo-manager'}
+                  className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white"
+                >
+                  <Image className="w-4 h-4 mr-2" />
+                  Manage Logos
+                </Button>
+              )}
             </div>
           </CardContent>
         </Card>
@@ -1104,6 +1139,33 @@ export default function WebsiteContentManager() {
               </div>
               <Button variant="outline" className="w-full" onClick={() => window.location.href = `/admin/${pageId}`}>
                 Manage {pageLabel} →
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+        
+        {/* Logo Management Special Case */}
+        {pageId === 'logo_management' && (
+          <Card className="border-l-4 border-l-blue-500">
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Image className="w-5 h-5 text-blue-600" />
+                Logo Management System
+                <Badge variant="secondary" className="text-xs">
+                  Dedicated Interface
+                </Badge>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-sm text-gray-600 mb-4">
+                Manage all website logos including site logo, navbar logo, footer logo, and favicon through a dedicated interface.
+              </div>
+              <Button 
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white" 
+                onClick={() => window.location.href = '/admin/logo-manager'}
+              >
+                <Image className="w-4 h-4 mr-2" />
+                Open Logo Manager →
               </Button>
             </CardContent>
           </Card>

@@ -44,6 +44,11 @@ interface PackageData {
   slug?: string;
 }
 
+interface AdminLogo {
+  key: string;
+  content?: string;
+}
+
 interface LanguageContextType {
   language: string;
   setLanguage: (lang: string) => void;
@@ -93,6 +98,36 @@ export function useLanguage() {
 
 export default function Navbar() {
   const { data: session } = useSession();
+  const { getContent } = useContent({ page: 'branding_settings' });
+  const [logoUrl, setLogoUrl] = useState('/images/logo.png');
+
+  // Fetch logo from admin settings
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const response = await fetch('/api/admin/logo');
+        if (response.ok) {
+          const logos: AdminLogo[] = await response.json();
+          const navbarLogo = logos.find((logo: AdminLogo) => logo.key === 'navbar_logo');
+          const siteLogo = logos.find((logo: AdminLogo) => logo.key === 'site_logo');
+          
+          // Use navbar logo first, fallback to site logo
+          const logoToUse = navbarLogo?.content || siteLogo?.content || '/images/logo.png';
+          setLogoUrl(logoToUse);
+        }
+      } catch (error) {
+        console.error('Failed to fetch logo:', error);
+        // Fallback to content management system
+        const contentLogo = getContent('navbar_logo') || getContent('site_logo');
+        if (contentLogo) {
+          setLogoUrl(contentLogo);
+        }
+      }
+    };
+
+    fetchLogo();
+  }, [getContent]);
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
@@ -100,13 +135,12 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguage();
   const t = useTranslation();
   const pathname = usePathname();
-  const { getContent } = useContent({ page: 'global_media' });
   const { getContent: getHomepageContent } = useContent({ page: 'homepage' });
 
   // Get dynamic logo from database with fallback
-  const getNavbarLogo = () => {
-    return getContent('navbar_logo') || '/images/logo.png';
-  };
+  // const getNavbarLogo = () => {
+  //   return getContent('navbar_logo') || '/images/logo.png';
+  // };
 
   // Check if we're on the homepage
   const isHomepage = pathname === '/';
@@ -358,16 +392,13 @@ export default function Navbar() {
             flexShrink: 0
           }}>
             <Image
-              src={getNavbarLogo()}
-              alt="Site Logo"
-              width={56}
-              height={56}
-              className="h-14 w-auto"
-              priority={true}
-              style={{
-                filter: isHomepage && !scrolled ? 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))' : 'none',
-                transition: 'opacity 0.3s ease-in-out'
-              }}
+              src={logoUrl}
+              alt={getContent('site_name', 'Cleopatra Dahabiyat')}
+              width={120}
+              height={40}
+              className="h-10 w-auto"
+              priority
+              onError={() => setLogoUrl('/images/logo.png')}
             />
             <span style={{
               color: 'hsl(0, 0%, 0%)',

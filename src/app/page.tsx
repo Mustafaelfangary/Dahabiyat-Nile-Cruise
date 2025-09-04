@@ -94,7 +94,7 @@ export default function HomePage() {
       if (showLoading) setRefreshing(true);
 
       const timestamp = bustCache ? `&_t=${Date.now()}` : '';
-      const cacheControl = bustCache ? { cache: 'no-store' as RequestCache } : {};
+      const cacheControl = { cache: 'no-store' as RequestCache };
 
       console.log('🔄 Fetching homepage data...', bustCache ? '(cache busted)' : '(cached)');
 
@@ -106,7 +106,7 @@ export default function HomePage() {
         setDahabiyat(dahabiyatData.dahabiyas || []);
 
         // Filter featured dahabiyat
-        const featuredDahabiyatData = dahabiyatData.dahabiyas.filter((dahabiya: { featured: boolean }) => dahabiya.featured);
+        const featuredDahabiyatData = dahabiyatData.dahabiyas.filter((dahabiya: { isFeatured: boolean }) => dahabiya.isFeatured);
         console.log('✅ Featured dahabiyat:', featuredDahabiyatData.length);
         setFeaturedDahabiyat(featuredDahabiyatData);
       }
@@ -376,7 +376,12 @@ export default function HomePage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0 ? featuredDahabiyat : Array.isArray(dahabiyat) ? dahabiyat.slice(0, 3) : []).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
+              {(Array.isArray(featuredDahabiyat) && featuredDahabiyat.length > 0
+                ? featuredDahabiyat.filter((dahabiya: { category?: string }) => dahabiya.category === 'PREMIUM')
+                : Array.isArray(dahabiyat)
+                  ? dahabiyat.filter((dahabiya: { category?: string }) => dahabiya.category === 'PREMIUM').slice(0, 3)
+                  : []
+              ).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
                 <div 
                   key={String(dahabiya.id)} 
                   className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-amber-200 hover:border-amber-400"
@@ -444,7 +449,7 @@ export default function HomePage() {
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {(Array.isArray(dahabiyat) ? dahabiyat.slice(3, 6) : []).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
+              {(Array.isArray(dahabiyat) ? dahabiyat.filter((dahabiya: { category?: string }) => dahabiya.category === 'LUXURY').slice(0, 3) : []).map((dahabiya: { id: string; name: string; slug?: string; mainImage?: string; category?: string }, index: number) => (
                 <div 
                   key={String(dahabiya.id)} 
                   className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 overflow-hidden border border-purple-200 hover:border-purple-400"

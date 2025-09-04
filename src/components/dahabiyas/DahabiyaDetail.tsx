@@ -64,7 +64,9 @@ import {
   DollarSign,
   Sparkles,
   Gem,
-  X
+  X,
+  Download,
+  FileText
 } from 'lucide-react';
 import DahabiyaItineraries from './DahabiyaItineraries';
 import UnifiedBookingForm from '@/components/UnifiedBookingForm';
@@ -155,6 +157,8 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
   const [galleryIndex, setGalleryIndex] = useState(0);
   const [itineraries, setItineraries] = useState<Itinerary[]>([]);
   const [loadingItineraries, setLoadingItineraries] = useState(false);
+  const [documents, setDocuments] = useState<Array<{ id: string; name: string; type: string; url: string; size: number }>>([]);
+  const [loadingDocuments, setLoadingDocuments] = useState(false);
 
   useEffect(() => {
     const fetchDahabiya = async () => {
@@ -200,6 +204,26 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
     fetchItineraries();
   }, [slug]);
 
+  // Load dahabiya documents
+  useEffect(() => {
+    const loadDocs = async () => {
+      if (!dahabiya?.id) return;
+      try {
+        setLoadingDocuments(true);
+        const res = await fetch(`/api/dahabiyas/${dahabiya.id}/documents`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          setDocuments(Array.isArray(data) ? data : []);
+        }
+      } catch (e) {
+        console.error('Error loading dahabiya documents:', e);
+      } finally {
+        setLoadingDocuments(false);
+      }
+    };
+    loadDocs();
+  }, [dahabiya?.id]);
+
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
@@ -234,6 +258,14 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
   const downloadFactSheet = async () => {
     if (!dahabiya) return;
 
+    // Prefer uploaded PDF factsheet if available
+    const pdf = documents.find(d => d.type === 'FACTSHEET' || d.type === 'FACT_SHEET');
+    if (pdf && pdf.url) {
+      window.open(pdf.url, '_blank');
+      return;
+    }
+
+    // Fallback to generated HTML factsheet
     try {
       const response = await fetch(`/api/dahabiyas/${dahabiya.id}/fact-sheet`);
       if (response.ok) {
@@ -241,7 +273,7 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `${dahabiya.name || 'dahabiya'}-fact-sheet.pdf`;
+        a.download = `${dahabiya.name || 'dahabiya'}-fact-sheet.html`;
         document.body.appendChild(a);
         a.click();
         window.URL.revokeObjectURL(url);
@@ -252,6 +284,16 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
     } catch (error) {
       console.error('Error downloading fact sheet:', error);
     }
+  };
+
+  const downloadBrochure = () => {
+    const doc = documents.find(d => d.type === 'BROCHURE');
+    if (doc && doc.url) window.open(doc.url, '_blank');
+  };
+
+  const downloadSpecification = () => {
+    const doc = documents.find(d => d.type === 'SPECIFICATION');
+    if (doc && doc.url) window.open(doc.url, '_blank');
   };
 
   if (loading) {
@@ -696,6 +738,47 @@ export default function DahabiyaDetail({ slug }: DahabiyaDetailProps) {
                   >
                     Book Now
                   </Button>
+
+                  <Divider className="my-4" />
+
+                  {/* Pharaonic Download Buttons */
+                  }
+                  <div className="space-y-3">
+                    <Button
+                      onClick={downloadFactSheet}
+                      fullWidth
+                      className="w-full text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-600 hover:to-yellow-700 border-2 border-white/40"
+                      startIcon={<FileText className="text-white" />}
+                    >
+                      <span className="mr-2">𓇳</span>
+                      Download Factsheet
+                      <span className="ml-2">𓇳</span>
+                    </Button>
+
+                    <Button
+                      onClick={downloadBrochure}
+                      disabled={!documents.find(d => d.type === 'BROCHURE')}
+                      fullWidth
+                      className="w-full text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-blue-600 to-ocean-blue hover:from-blue-700 hover:to-ocean-blue-dark border-2 border-white/40 disabled:opacity-60"
+                      startIcon={<Download className="text-white" />}
+                    >
+                      <span className="mr-2">𓊪</span>
+                      Download Brochure
+                      <span className="ml-2">𓊪</span>
+                    </Button>
+
+                    <Button
+                      onClick={downloadSpecification}
+                      disabled={!documents.find(d => d.type === 'SPECIFICATION')}
+                      fullWidth
+                      className="w-full text-white font-bold py-3 rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 border-2 border-white/40 disabled:opacity-60"
+                      startIcon={<Download className="text-white" />}
+                    >
+                      <span className="mr-2">𓈖</span>
+                      Download Specifications
+                      <span className="ml-2">𓈖</span>
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </Grid>
